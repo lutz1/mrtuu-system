@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MRTUU System</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // Redirect from 404 to index.html with path preserved
+      // When GitHub Pages can't find a file, it serves this 404.html
+      // This script saves the current path and redirects to index.html
+      // The index.html script then restores the path for React Router
+      
+      var pathSegments = location.pathname.split('/').filter(function(el) { return el.length > 0; });
+      sessionStorage.redirect = location.protocol + '//' + location.host + '/' + pathSegments.join('/');
+      location.replace('/mrtuu-system/index.html');
+    </script>
+  </head>
+  <body>
+    <!-- Redirecting to MRTUU System... -->
+  </body>
+</html>
+
