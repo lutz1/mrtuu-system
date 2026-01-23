@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/mrtuu-system/static/css/main.92049417.css",
-    "main.js": "/mrtuu-system/static/js/main.e3fd5e3c.js",
+    "main.js": "/mrtuu-system/static/js/main.08318504.js",
     "static/js/977.4291d275.chunk.js": "/mrtuu-system/static/js/977.4291d275.chunk.js",
     "static/js/455.d05adb9f.chunk.js": "/mrtuu-system/static/js/455.d05adb9f.chunk.js",
     "static/js/453.fcab3cdd.chunk.js": "/mrtuu-system/static/js/453.fcab3cdd.chunk.js",
     "index.html": "/mrtuu-system/index.html",
     "main.92049417.css.map": "/mrtuu-system/static/css/main.92049417.css.map",
-    "main.e3fd5e3c.js.map": "/mrtuu-system/static/js/main.e3fd5e3c.js.map",
+    "main.08318504.js.map": "/mrtuu-system/static/js/main.08318504.js.map",
     "977.4291d275.chunk.js.map": "/mrtuu-system/static/js/977.4291d275.chunk.js.map",
     "455.d05adb9f.chunk.js.map": "/mrtuu-system/static/js/455.d05adb9f.chunk.js.map",
     "453.fcab3cdd.chunk.js.map": "/mrtuu-system/static/js/453.fcab3cdd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.92049417.css",
-    "static/js/main.e3fd5e3c.js"
+    "static/js/main.08318504.js"
   ]
 }
