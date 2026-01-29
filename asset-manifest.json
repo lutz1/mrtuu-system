@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/mrtuu-system/static/css/main.319ba94a.css",
-    "main.js": "/mrtuu-system/static/js/main.d260971c.js",
+    "main.js": "/mrtuu-system/static/js/main.6f407aff.js",
     "static/js/977.4291d275.chunk.js": "/mrtuu-system/static/js/977.4291d275.chunk.js",
     "static/js/455.d05adb9f.chunk.js": "/mrtuu-system/static/js/455.d05adb9f.chunk.js",
     "static/js/453.fcab3cdd.chunk.js": "/mrtuu-system/static/js/453.fcab3cdd.chunk.js",
     "static/media/Medicine 1-01.png": "/mrtuu-system/static/media/Medicine 1-01.19ac0219176fb7f17607.png",
     "index.html": "/mrtuu-system/index.html",
     "main.319ba94a.css.map": "/mrtuu-system/static/css/main.319ba94a.css.map",
-    "main.d260971c.js.map": "/mrtuu-system/static/js/main.d260971c.js.map",
+    "main.6f407aff.js.map": "/mrtuu-system/static/js/main.6f407aff.js.map",
     "977.4291d275.chunk.js.map": "/mrtuu-system/static/js/977.4291d275.chunk.js.map",
     "455.d05adb9f.chunk.js.map": "/mrtuu-system/static/js/455.d05adb9f.chunk.js.map",
     "453.fcab3cdd.chunk.js.map": "/mrtuu-system/static/js/453.fcab3cdd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.319ba94a.css",
-    "static/js/main.d260971c.js"
+    "static/js/main.6f407aff.js"
   ]
 }
