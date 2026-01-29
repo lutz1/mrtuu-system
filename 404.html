@@ -4,15 +4,25 @@
     <meta charset="utf-8" />
     <title>MRTUU System</title>
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // Redirect from 404 to index.html with path preserved
+      // Single Page Apps for GitHub Pages with HashRouter
       // When GitHub Pages can't find a file, it serves this 404.html
-      // This script saves the current path and redirects to index.html
-      // The index.html script then restores the path for React Router
+      // Extract the path and convert to hash route for React Router
       
-      var pathSegments = location.pathname.split('/').filter(function(el) { return el.length > 0; });
-      sessionStorage.redirect = location.protocol + '//' + location.host + '/' + pathSegments.join('/');
-      location.replace('/mrtuu-system/index.html');
+      // Get the current pathname (e.g., /mrtuu-system/dashboard/transactions)
+      var pathname = location.pathname;
+      var basePathname = '/mrtuu-system'; // Must match the repository name in package.json homepage
+      
+      // Extract the route part after the base pathname
+      // e.g., /dashboard/transactions
+      var route = pathname.substring(basePathname.length);
+      
+      // Store the route to be converted to hash later
+      if (route && route !== '/' && route !== '') {
+        sessionStorage.redirect = route;
+      }
+      
+      // Redirect to index.html
+      location.replace(basePathname + '/index.html');
     </script>
   </head>
   <body>
