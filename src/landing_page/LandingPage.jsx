@@ -1,4 +1,6 @@
 import React from "react";
+// Line 2 — add this import
+import { Link } from "react-router-dom";
 import styles from "./LandingPage.module.css";
 import logo from "../assets/logo.png"
 
@@ -178,7 +180,9 @@ function Navbar() {
           <a href="#requirements">Requirements</a>
           <a href="#contact">Contact</a>
         </nav>
-        <button className={styles.loginBtn}>Login</button>
+       <Link to="/login" className={styles.loginBtn}>
+          Login
+       </Link>
       </div>
     </header>
   );
