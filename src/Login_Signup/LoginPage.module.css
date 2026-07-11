@@ -10,6 +10,8 @@
 
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   width: 100%;
   display: grid;
   grid-template-columns: 55% 45%;
@@ -27,7 +29,7 @@
 .leftPanel {
   position: relative;
   overflow: hidden;
-  background: url("https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80")
+  background: url("https://imgs.search.brave.com/kwGixss8aABPNsdmCmTzHyG8DPUrbZ6vdQWnDZ1UUOQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTg1/NDY0MTQzMS9waG90/by9mYW1pbHktdGFs/a2luZy13aGlsZS10/cmF2ZWxpbmctb24t/Y2FyLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1vWWJYMURr/MmNNc0FDQUJqcjBl/TkhZT0gzdkhlMGx2/Q28wN1NnMVp5TFBV/PQ")
     center / cover no-repeat;
   display: flex;
   flex-direction: column;
@@ -76,14 +78,21 @@
 }
 
 .logoCircle {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: var(--cream);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 .logoInitials {
@@ -107,26 +116,29 @@
   color: var(--cream);
   font-size: 40px;
   font-weight: 600;
+  text-indent: 100px;
   line-height: 1.1;
 }
 
 .headlineHighlight {
+  display: inline-block;
   background: var(--gold);
   color: var(--text-dark);
   font-size: 40px;
   font-weight: 600;
+  text-indent: 100px;
   line-height: 1.1;
-  padding: 2px 16px 2px 0;
-  margin-top: 4px;
+  padding: 2px 24px 2px 48px;
+  margin-left: -48px;
   clip-path: polygon(0 0, 95% 0, 100% 100%, 0 100%);
 }
 
 .yellowBarBottom {
   position: absolute;
   bottom: 0;
-  right: 0;           
-  width: 70%;         
-  height: 12%;       
+  right: 0;
+  width: 70%;
+  height: 12%;
   background: var(--gold);
   clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
   z-index: 1;
@@ -286,23 +298,106 @@
   text-decoration: underline;
 }
 
-/* ===== Responsive ===== */
+/* ===== Responsive: tablets / stacked layout ===== */
 @media (max-width: 900px) {
   .page {
     grid-template-columns: 1fr;
+    height: auto;
+    overflow: auto;
   }
 
   .leftPanel {
-    min-height: 340px;
+    min-height: 420px;
+    padding: 24px;
+  }
+
+  .creamCorner {
+    height: 16%;
+  }
+
+  .logoWrapper {
+    margin: 70px 0 auto;
+  }
+
+  .logoCircle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .headline {
+    margin-bottom: 70px;
   }
 
   .headlineLine,
   .headlineHighlight {
-    font-size: 32px;
+    font-size: 28px;
+  }
+
+  .headlineHighlight {
+    padding: 2px 20px 2px 32px;
+    margin-left: -32px;
+  }
+
+  .yellowBarBottom {
+    height: 16%;
+  }
+
+  .rightPanel {
+    padding: 32px 24px;
+  }
+
+  .formCard {
+    gap: 16px;
+    max-width: 480px;
+  }
+}
+
+/* ===== Responsive: phones ===== */
+@media (max-width: 480px) {
+  .leftPanel {
+    min-height: 280px;
+    padding: 16px;
+  }
+
+  .eyebrow {
+    font-size: 16px;
   }
 
   .logoCircle {
-    width: 100px;
-    height: 100px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .headlineLine,
+  .headlineHighlight {
+    font-size: 22px;
+  }
+
+  .headlineHighlight {
+    padding: 2px 16px 2px 24px;
+    margin-left: -24px;
+  }
+
+  .rightPanel {
+    padding: 24px 16px;
+  }
+
+  .formTitle {
+    font-size: 20px;
+  }
+
+  .inputWrapper {
+    padding: 10px 16px;
+  }
+
+  .loginBtn,
+  .googleBtn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .terms {
+    font-size: 11px;
+    line-height: 1.6;
   }
 }

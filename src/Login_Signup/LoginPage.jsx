@@ -74,7 +74,7 @@ export default function LoginPage() {
 
         <div className={styles.logoWrapper}>
           <div className={styles.logoCircle}>
-            <span className={styles.logoInitials}>LC</span>
+            <img src={logo} alt="Lyca's Car Rental" className={styles.logoImage}/>
           </div>
         </div>
 

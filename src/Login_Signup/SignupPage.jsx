@@ -92,7 +92,7 @@ export default function SignupPage() {
         
         <div className={styles.logoWrapper}>
           <div className={styles.logoCircle}>
-            <span className={styles.logoInitials}>LC</span>
+            <img src={logo} alt="Lyka's Car Rental" className={styles.logoImage}/>
           </div>
         </div>
 
