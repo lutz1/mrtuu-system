@@ -190,6 +190,26 @@
   flex-shrink: 0;
 }
 
+.toggleBtn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.toggleIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+}
+
+.toggleBtn:hover .toggleIcon {
+  color: var(--text-dark);
+}
+
 .input {
   border: none;
   outline: none;
@@ -218,6 +238,40 @@
 
 .signupBtn:hover {
   background: var(--gold-dark);
+}
+
+.signupBtn:disabled,
+.googleBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.inputWrapper:has(.input:disabled) {
+  background: #f4f4f4;
+  opacity: 0.7;
+}
+
+.signupBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  border-top-color: var(--text-dark);
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .divider {
@@ -319,6 +373,11 @@
     margin: 70px 0 auto;
   }
 
+   .logoCircle {
+    width: 90px;
+    height: 90px;
+  }
+
   .headline {
     margin-bottom: 70px;
   }
@@ -326,7 +385,6 @@
   .headlineLine,
   .headlineHighlight {
     font-size: 28px;
-    text-indent: 40px;
   }
 
   .headlineHighlight {

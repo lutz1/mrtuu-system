@@ -1,7 +1,9 @@
-import React, { useState } from "react";// Line 2 — add this import
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import logo from "../assets/logo.png";
 import styles from "./LoginPage.module.css";
-import logo from "../assets/logo.png"
+
 // ---------- Icons ----------
 
 const IconMail = () => (
@@ -27,6 +29,33 @@ const IconLock = () => (
   >
     <rect x="3" y="11" width="18" height="11" rx="2" />
     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+  </svg>
+);
+
+const IconEye = () => (
+  <svg
+    className={styles.toggleIcon}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const IconEyeOff = () => (
+  <svg
+    className={styles.toggleIcon}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-3.27 2.9A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 4.22-5.94" />
+    <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24" />
+    <path d="M1 1l22 22" />
   </svg>
 );
 
@@ -56,11 +85,24 @@ const IconGoogle = () => (
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Wire this up to your auth logic
-    console.log({ email, password });
+    setIsSubmitting(true);
+
+    // Hardcoded/fake login for now — accepts any email/password.
+    // The setTimeout simulates network latency so the loading state
+    // is visible; swap this whole block for a real API call once
+    // the backend exists (login()/navigate() would move into the
+    // .then() of that request instead).
+    setTimeout(() => {
+      login(email, password);
+      navigate("/home");
+    }, 1000);
   };
 
   return (
@@ -70,11 +112,10 @@ export default function LoginPage() {
         <div className={styles.creamCorner} />
         <div className={styles.leftOverlay} />
 
-        
 
         <div className={styles.logoWrapper}>
           <div className={styles.logoCircle}>
-            <img src={logo} alt="Lyca's Car Rental" className={styles.logoImage}/>
+            <img src={logo} alt="Lyka's Car Rental" className={styles.logoImage} />
           </div>
         </div>
 
@@ -101,6 +142,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={styles.input}
+              disabled={isSubmitting}
               required
             />
           </label>
@@ -108,17 +150,38 @@ export default function LoginPage() {
           <label className={styles.inputWrapper}>
             <IconLock />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={styles.input}
+              disabled={isSubmitting}
               required
             />
+            <button
+              type="button"
+              className={styles.toggleBtn}
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              tabIndex={-1}
+            >
+              {showPassword ? <IconEyeOff /> : <IconEye />}
+            </button>
           </label>
 
-          <button type="submit" className={styles.loginBtn}>
-            Login
+          <button
+            type="submit"
+            className={styles.loginBtn}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <span className={styles.spinner} />
+                Logging in...
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
 
           <div className={styles.divider}>
@@ -127,7 +190,11 @@ export default function LoginPage() {
             <span className={styles.dividerLine} />
           </div>
 
-          <button type="button" className={styles.googleBtn}>
+          <button
+            type="button"
+            className={styles.googleBtn}
+            disabled={isSubmitting}
+          >
             <IconGoogle />
             Sign in with Google
           </button>
