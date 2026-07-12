@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { IconTransmission, IconSeats, IconLocation } from "./icons";
 import styles from "./CarCard.module.css";
 
@@ -22,7 +23,9 @@ export default function CarCard({ car }) {
             {car.mileage}
           </span>
         </div>
-        <button className={styles.viewCarBtn}>View Car</button>
+        <Link to={`/vehicle/${car.id}`} className={styles.viewCarBtn}>
+          View Car
+        </Link>
       </div>
     </article>
   );

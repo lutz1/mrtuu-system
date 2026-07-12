@@ -54,6 +54,10 @@
 }
 
 .viewCarBtn {
+  display: inline-block;      /* or flex, if it needs centered text/icon */
+  text-align: center;
+  text-decoration: none;      /* links are underlined by default */
+  cursor: pointer;
   background: var(--gold);
   color: var(--text-dark);
   border: none;
