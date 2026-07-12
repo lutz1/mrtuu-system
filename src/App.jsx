@@ -1,12 +1,12 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 import LandingPage from "./landing_page/LandingPage";
-import LandingPageLoggedIn from "./main_page/LandingPageLoggedIn";
 import ShowroomPage from "./main_page/ShowroomPage";
 import VehicleOverviewPage from "./main_page/VehicleOverviewPage";
 import LoginPage from "./Login_Signup/LoginPage";
+import AccountPage from "./main_page/AccountPage"
 import SignupPage from "./Login_Signup/SignupPage";
 
 function App() {
@@ -16,16 +16,10 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            {/* Old /home links/bookmarks still work, redirected to the merged page */}
+            <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route
-              path="/home"
-              element={
-                <ProtectedRoute>
-                  <LandingPageLoggedIn />
-                </ProtectedRoute>
-              }
-            />
             <Route
               path="/showroom"
               element={
@@ -39,6 +33,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <VehicleOverviewPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <ProtectedRoute>
+                  <AccountPage />
                 </ProtectedRoute>
               }
             />

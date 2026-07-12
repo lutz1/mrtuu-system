@@ -1,0 +1,14 @@
+.bookingPanel {
+  background: #ffffff;
+  border-radius: 12px;
+  min-height: 560px;
+  position: sticky;
+  top: 24px;
+}
+
+@media (max-width: 960px) {
+  .bookingPanel {
+    position: static;
+    min-height: 240px;
+  }
+}

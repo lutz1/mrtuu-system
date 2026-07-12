@@ -1,0 +1,46 @@
+.trustedPartner {
+  --cream: #fdf8ec;
+  --text-muted: #6b6b6b;
+
+  background: var(--cream);
+  padding: 0 32px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+.trustedTitle {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 20px;
+}
+
+.trustedDescription {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.trustedImageWrapper {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.trustedImage {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .trustedPartner {
+    grid-template-columns: 1fr;
+  }
+}

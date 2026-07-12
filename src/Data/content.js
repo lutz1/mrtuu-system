@@ -1,0 +1,17 @@
+export const WHY_US = [
+  { id: 1, icon: "🚗", title: "Variety of Cars", description: "Find the perfect vehicle for any trip." },
+  { id: 2, icon: "💳", title: "Best Value", description: "Transparent pricing with no hidden charges." },
+  { id: 3, icon: "🔖", title: "Quick Booking", description: "Book your car in minutes, anytime, anywhere." },
+];
+
+export const HOW_IT_WORKS = [
+  { step: 1, title: "Choose Your Car", description: "Browse our available vehicles and select the one that fits your needs." },
+  { step: 2, title: "Select Your Dates", description: "Choose your pickup and return schedule." },
+  { step: 3, title: "Confirm Your Booking", description: "Complete your reservation and get ready to drive." },
+];
+
+export const FOOTER_COLUMNS = [
+  { title: "Header Text", links: ["Button", "Button", "Button", "Button"] },
+  { title: "Header Text", links: ["Button", "Button", "Button", "Button"] },
+  { title: "Header Text", links: ["Button", "Button", "Button", "Button"] },
+];

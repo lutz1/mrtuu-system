@@ -1,0 +1,53 @@
+.policiesSection {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+.sectionHeading {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: #1a1a1a;
+}
+
+.accordionList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.accordionItem {
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.accordionTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  text-align: left;
+}
+
+.accordionIcon {
+  width: 18px;
+  height: 18px;
+  color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.accordionContent {
+  padding: 0 20px 18px;
+  margin: 0;
+  color: #6b6b6b;
+  font-size: 14px;
+  line-height: 1.7;
+}

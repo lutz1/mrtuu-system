@@ -1,0 +1,66 @@
+.ctaBanner {
+  --gold: #f0a93a;
+  --gold-dark: #d9922a;
+  --text-dark: #1a1a1a;
+  --white: #ffffff;
+
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80")
+    center / cover no-repeat;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+.ctaOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 10, 0.55);
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+  padding: 24px;
+  color: var(--white);
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+}
+
+.ctaTitle {
+  font-size: 38px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  line-height: 1.25;
+}
+
+.ctaSubtitle {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 32px;
+}
+
+.primaryBtn {
+  background: var(--gold);
+  color: var(--text-dark);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  background: var(--gold-dark);
+}

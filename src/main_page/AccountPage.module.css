@@ -1,0 +1,96 @@
+.page {
+  --cream: #fdf8ec;
+  --gold: #f0a93a;
+  --gold-dark: #d9922a;
+  --text-dark: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --white: #ffffff;
+  --border: #e2e2e2;
+
+  min-height: 100vh;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #fff;
+  font-weight: 700;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.name {
+  margin: 20px 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.infoList {
+  width: 100%;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.infoLabel {
+  color: var(--text-muted);
+}
+
+.infoValue {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.logoutBtn {
+  margin-top: 32px;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--text-dark);
+  color: var(--text-dark);
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background: var(--text-dark);
+  color: #fff;
+}
