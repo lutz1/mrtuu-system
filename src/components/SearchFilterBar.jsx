@@ -3,9 +3,6 @@ import { IconSearch } from "./icons";
 import styles from "./SearchFilterBar.module.css";
 
 export default function SearchFilterBar({ filters: filtersProp, onFilterChange: onFilterChangeProp }) {
-  // If no filters/onFilterChange are passed in, the bar manages its own
-  // local state — useful for pages like VehicleOverviewPage where it's
-  // shown for visual consistency but isn't wired to real filtering yet.
   const [localFilters, setLocalFilters] = useState({
     query: "",
     transmission: "All",
@@ -21,18 +18,13 @@ export default function SearchFilterBar({ filters: filtersProp, onFilterChange: 
 
   return (
     <form className={styles.searchBar} onSubmit={(e) => e.preventDefault()}>
-      <div className={styles.searchInputWrapper}>
-        <input
-          type="text"
-          placeholder="Search by car model"
-          value={filters.query}
-          onChange={(e) => onFilterChange("query", e.target.value)}
-          className={styles.searchInput}
-        />
-        <button type="submit" className={styles.searchBtn} aria-label="Search">
-          <IconSearch className={styles.searchBtnIcon} />
-        </button>
-      </div>
+      <input
+        type="text"
+        placeholder="Toyota Corolla"
+        value={filters.query}
+        onChange={(e) => onFilterChange("query", e.target.value)}
+        className={styles.searchInput}
+      />
 
       <div className={styles.filters}>
         <label className={styles.filterItem}>
@@ -95,6 +87,10 @@ export default function SearchFilterBar({ filters: filtersProp, onFilterChange: 
           </select>
         </label>
       </div>
+
+      <button type="submit" className={styles.searchBtn} aria-label="Search">
+        <IconSearch className={styles.searchBtnIcon} />
+      </button>
     </form>
   );
 }

@@ -9,9 +9,10 @@
 html,
 body {
   width: 100%;
-  overflow-x: hidden;
+  max-width: 100%;
+  overscroll-behavior-y: none;
 }
-
+  
 body {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;

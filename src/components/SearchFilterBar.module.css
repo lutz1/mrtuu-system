@@ -1,6 +1,6 @@
 .searchBar {
   --dark: #1c1b19;
-  --dark-soft: #232220;
+  --dark-soft: #2c2a27;
   --gold: #f0a93a;
   --gold-dark: #d9922a;
   --text-dark: #1a1a1a;
@@ -8,46 +8,98 @@
   --text-on-dark-muted: #b9b6b0;
 
   background: var(--dark);
-  padding: 18px 32px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 20px;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-}
 
-.searchInputWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--dark-soft);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 10px 10px 10px 16px;
-  flex: 1 1 260px;
-  min-width: 200px;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+
+  /* Full-bleed base, inset 32px each side — matches the media query pattern */
+  width: calc(100vw - 64px);
+  margin-left: calc(-50vw + 50% + 32px);
+  margin-right: calc(-50vw + 50% + 32px);
+  margin-top: 0;
+  margin-bottom: 0;
 }
+/* Search Input */
 
 .searchInput {
-  flex: 1;
+  background: var(--dark-soft);
   border: none;
-  outline: none;
-  background: transparent;
+  border-radius: 999px;
+  padding: 12px 20px;
   color: var(--white);
   font-size: 14px;
   font-family: inherit;
+  outline: none;
+  flex: 1 1 220px;
+  min-width: 180px;
 }
 
 .searchInput::placeholder {
   color: var(--text-on-dark-muted);
 }
 
+/* Filters */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterLabel {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.filterSelect {
+  background: var(--dark-soft);
+  color: var(--white);
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1L5 5L9 1' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 30px;
+}
+
+.filterSelect:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+/* Search Button */
+
 .searchBtn {
   background: var(--gold);
   border: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 6px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,48 +112,19 @@
 }
 
 .searchBtnIcon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   color: var(--text-dark);
 }
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.filterItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.filterLabel {
-  color: var(--text-on-dark-muted);
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.filterSelect {
-  background: var(--dark-soft);
-  color: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
-  padding: 8px 10px;
-  font-size: 13px;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.filterSelect:focus {
-  outline: none;
-  border-color: var(--gold);
-}
+/* Responsive */
 
 @media (max-width: 960px) {
   .searchBar {
-    padding: 16px 24px;
+    width: calc(100vw - 40px);
+    margin-left: calc(-50vw + 50% + 20px);
+    margin-right: calc(-50vw + 50% + 20px);
+    padding: 16px;
   }
   .filters {
     width: 100%;
@@ -117,19 +140,26 @@
 
 @media (max-width: 640px) {
   .searchBar {
+    width: calc(100vw - 24px);
+    margin-left: calc(-50vw + 50% + 12px);
+    margin-right: calc(-50vw + 50% + 12px);
     flex-direction: column;
     align-items: stretch;
   }
-  .searchInputWrapper {
+  .searchInput {
     flex: 1 1 auto;
   }
   .filters {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
   .filterItem {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
+  }
+  .searchBtn {
+    width: 100%;
+    border-radius: 10px;
   }
 }

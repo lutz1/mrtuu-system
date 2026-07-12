@@ -39,17 +39,22 @@ export default function LandingPage() {
 
   return (
     <div className={styles.page}>
-      <Navbar />
-      {isLoggedIn && (
-        <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
-      )}
-      <Hero />
-      <FeaturedCars cars={isLoggedIn ? filteredCars : CARS} />
-      <WhyRentWithUs />
-      <HowItWorks />
-      <TrustedPartner />
-      <CTABanner />
-      <Footer />
+      <div className={styles.stickyHeader}>
+        <Navbar />
+        {isLoggedIn && (
+          <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
+        )}
+      </div>
+
+      <div className={styles.pageContent}>
+        <Hero />
+        <FeaturedCars cars={isLoggedIn ? filteredCars : CARS} />
+        <WhyRentWithUs />
+        <HowItWorks />
+        <TrustedPartner />
+        <CTABanner />
+        <Footer />
+      </div>
     </div>
   );
 }

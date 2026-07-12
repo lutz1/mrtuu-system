@@ -32,11 +32,16 @@ export default function ShowroomPage() {
 
   return (
     <div className={styles.page}>
-      <Navbar />
-      <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
-      <Breadcrumb items={[{ label: "Home", to: "/home" }, { label: "Showroom" }]} />
-      <CarGrid cars={filteredCars} />
-      <Footer />
-    </div>
+  <div className={styles.stickyHeader}>
+    <Navbar />
+    <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
+  </div>
+
+  <div className={styles.pageContent}>
+    <Breadcrumb items={[{ label: "Home", to: "/home" }, { label: "Showroom" }]} />
+    <CarGrid cars={filteredCars} />
+    <Footer />
+  </div>
+</div>
   );
 }

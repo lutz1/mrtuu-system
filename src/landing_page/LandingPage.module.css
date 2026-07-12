@@ -1,9 +1,29 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   color: #1a1a1a;
-  overflow-x: hidden;
+  background: #00000000;   /* match Showroom/VehicleOverview for consistency */
 }
 
 .page * {
   box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pageContent {
+  overflow-x: hidden;
+}
+
+@media (max-width: 960px) {
+  .stickyHeader {
+    position: static;
+  }
 }
