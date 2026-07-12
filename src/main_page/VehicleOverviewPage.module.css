@@ -1,0 +1,684 @@
+.page {
+  --cream: #fdf8ec;
+  --dark: #1c1b19;
+  --dark-soft: #232220;
+  --gold: #f0a93a;
+  --gold-dark: #d9922a;
+  --text-dark: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --text-on-dark-muted: #b9b6b0;
+  --white: #ffffff;
+  --page-bg: #f5f5f5;
+  --border: #e2e2e2;
+
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: var(--text-dark);
+  background: var(--page-bg);
+  overflow-x: hidden;
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  background: var(--white);
+  padding: 18px 0;
+}
+
+.navInner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logoImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-dark);
+}
+
+.logoTextLight {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white);
+}
+
+.navLinks {
+  display: flex;
+  gap: 40px;
+}
+
+.navLinks a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+}
+
+.userAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.userName {
+  color: var(--gold-dark);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: 1px solid var(--text-muted);
+  color: var(--text-dark);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background: var(--dark);
+  color: var(--white);
+  border-color: var(--dark);
+}
+
+/* ===== Search / Filter bar ===== */
+.searchBar {
+  background: var(--dark);
+  padding: 18px 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.searchInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--dark-soft);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 10px 10px 10px 16px;
+  flex: 1 1 260px;
+  min-width: 200px;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--white);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.searchInput::placeholder {
+  color: var(--text-on-dark-muted);
+}
+
+.searchBtn {
+  background: var(--gold);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.searchBtn:hover {
+  background: var(--gold-dark);
+}
+
+.searchBtnIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-dark);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterLabel {
+  color: var(--text-on-dark-muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.filterSelect {
+  background: var(--dark-soft);
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 28px 32px 0;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.breadcrumbLink {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbSeparator {
+  margin: 0 6px;
+}
+
+.breadcrumbCurrent {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* ===== Content wrapper ===== */
+.contentWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+}
+
+/* ===== Gallery ===== */
+.gallery {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 32px;
+}
+
+.galleryMain {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ececec;
+}
+
+.galleryMainImage {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.galleryThumbs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.galleryThumbBtn {
+  border: none;
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #ececec;
+}
+
+.galleryThumbImage {
+  width: 100%;
+  height: 100%;
+  min-height: 165px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.galleryThumbBtn:hover .galleryThumbImage {
+  transform: scale(1.04);
+}
+
+/* ===== Main grid (details + booking panel) ===== */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.carName {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.carPrice {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.priceAmount {
+  display: block;
+  color: var(--gold-dark);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.priceUnit {
+  display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.specsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.specItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+.specIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ===== About ===== */
+.sectionHeading {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.aboutText {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 640px;
+}
+
+/* ===== Features ===== */
+.featuresList {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+.featureIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.showMoreBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ===== Rental Policies (accordion) ===== */
+.accordionList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.accordionItem {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.accordionTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+  cursor: pointer;
+  text-align: left;
+}
+
+.accordionIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--text-dark);
+  flex-shrink: 0;
+}
+
+.accordionContent {
+  padding: 0 20px 18px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ===== Booking panel (placeholder) ===== */
+.bookingPanel {
+  background: var(--white);
+  border-radius: 12px;
+  min-height: 560px;
+  position: sticky;
+  top: 24px;
+}
+
+/* ===== Not found state ===== */
+.notFound {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.notFoundLink {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--gold-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.notFoundLink:hover {
+  text-decoration: underline;
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--dark);
+  padding: 64px 32px 24px;
+}
+
+.footerInner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 48px;
+  padding-bottom: 40px;
+}
+
+.footerBrand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footerTagline {
+  color: var(--text-on-dark-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
+}
+
+.footerColumns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.footerColumnTitle {
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.footerColumn ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footerColumn a {
+  color: var(--text-on-dark-muted);
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footerChevron {
+  color: var(--gold);
+}
+
+.footerCopyright {
+  text-align: center;
+  color: var(--text-on-dark-muted);
+  font-size: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 24px;
+  margin: 0;
+}
+
+/* ===== Responsive: tablets ===== */
+@media (max-width: 960px) {
+  .navLinks {
+    gap: 24px;
+  }
+
+  .searchBar {
+    padding: 16px 24px;
+  }
+
+  .filters {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filterItem {
+    flex: 1 1 auto;
+  }
+
+  .filterSelect {
+    width: 100%;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryMainImage {
+    min-height: 280px;
+  }
+
+  .galleryThumbImage {
+    min-height: 130px;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bookingPanel {
+    position: static;
+    min-height: 240px;
+  }
+
+  .footerInner {
+    grid-template-columns: 1fr;
+  }
+
+  .footerColumns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===== Responsive: phones ===== */
+@media (max-width: 640px) {
+  .navLinks {
+    display: none;
+  }
+
+  .searchBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchInputWrapper {
+    flex: 1 1 auto;
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filterItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .breadcrumb {
+    padding: 20px 20px 0;
+  }
+
+  .contentWrapper {
+    padding: 20px 20px 60px;
+  }
+
+  .galleryThumbs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .titleRow {
+    flex-direction: column;
+  }
+
+  .carPrice {
+    text-align: left;
+  }
+
+  .carName {
+    font-size: 26px;
+  }
+
+  .specsRow {
+    gap: 16px;
+  }
+
+  .footerColumns {
+    grid-template-columns: 1fr;
+  }
+}

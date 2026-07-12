@@ -2,112 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/logo.png";
-import styles from "./LandingPageLoggedIn.module.css";
+import { CARS } from "../data/cars";
+import styles from "./ShowroomPage.module.css";
 
-// ---------- Static content (same as LandingPage — swap with real data / CMS later) ----------
-
-const CARS = [
-  {
-    id: 1,
-    name: "Toyota Fortuner",
-    image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=600&q=80",
-    transmission: "Automatic",
-    fuelType: "Diesel",
-    carType: "SUV",
-    brand: "Toyota",
-    seats: 7,
-    location: "Unlimited",
-  },
-  {
-    id: 2,
-    name: "Suzuki Swift",
-    image: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=600&q=80",
-    transmission: "Manual",
-    fuelType: "Gasoline",
-    carType: "Hatchback",
-    brand: "Suzuki",
-    seats: 5,
-    location: "Unlimited",
-  },
-  {
-    id: 3,
-    name: "Toyota Corolla",
-    image: "https://images.unsplash.com/photo-1623869675184-1ca29c15f6a5?auto=format&fit=crop&w=600&q=80",
-    transmission: "Automatic",
-    fuelType: "Gasoline",
-    carType: "Sedan",
-    brand: "Toyota",
-    seats: 5,
-    location: "Unlimited",
-  },
-  {
-    id: 4,
-    name: "Ford Mustang",
-    image: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=600&q=80",
-    transmission: "Automatic",
-    fuelType: "Gasoline",
-    carType: "Sedan",
-    brand: "Ford",
-    seats: 4,
-    location: "Unlimited",
-  },
-  {
-    id: 5,
-    name: "Honda CR-V",
-    image: "https://images.unsplash.com/photo-1568844293986-8d0400bd4745?auto=format&fit=crop&w=600&q=80",
-    transmission: "Automatic",
-    fuelType: "Gasoline",
-    carType: "SUV",
-    brand: "Honda",
-    seats: 5,
-    location: "Unlimited",
-  },
-  {
-    id: 6,
-    name: "Mitsubishi Mirage",
-    image: "https://images.unsplash.com/photo-1617469767053-8f35aaa39702?auto=format&fit=crop&w=600&q=80",
-    transmission: "Manual",
-    fuelType: "Gasoline",
-    carType: "Hatchback",
-    brand: "Mitsubishi",
-    seats: 5,
-    location: "Unlimited",
-  },
-  {
-    id: 7,
-    name: "Nissan Navara",
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80",
-    transmission: "Automatic",
-    fuelType: "Diesel",
-    carType: "Pickup",
-    brand: "Nissan",
-    seats: 5,
-    location: "Unlimited",
-  },
-  {
-    id: 8,
-    name: "Hyundai Accent",
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=80",
-    transmission: "Automatic",
-    fuelType: "Gasoline",
-    carType: "Sedan",
-    brand: "Hyundai",
-    seats: 5,
-    location: "Unlimited",
-  },
-];
-
-const WHY_US = [
-  { id: 1, icon: "🚗", title: "Variety of Cars", description: "Find the perfect vehicle for any trip." },
-  { id: 2, icon: "💳", title: "Best Value", description: "Transparent pricing with no hidden charges." },
-  { id: 3, icon: "🔖", title: "Quick Booking", description: "Book your car in minutes, anytime, anywhere." },
-];
-
-const HOW_IT_WORKS = [
-  { step: 1, title: "Choose Your Car", description: "Browse our available vehicles and select the one that fits your needs." },
-  { step: 2, title: "Select Your Dates", description: "Choose your pickup and return schedule." },
-  { step: 3, title: "Confirm Your Booking", description: "Complete your reservation and get ready to drive." },
-];
+// Car catalog now lives in src/data/cars.js so this page and the
+// Vehicle Overview page both read from the same source.
 
 const FOOTER_COLUMNS = [
   { title: "Header Text", links: ["Button", "Button", "Button", "Button"] },
@@ -131,6 +30,14 @@ const IconTransmission = () => (
   </svg>
 );
 
+const IconFuel = () => (
+  <svg className={styles.specIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M3 22V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v14" />
+    <path d="M3 12h10" />
+    <path d="M15 8h2l3 3v7a1.5 1.5 0 0 1-3 0v-2a1 1 0 0 0-1-1h-1" />
+  </svg>
+);
+
 const IconSeats = () => (
   <svg className={styles.specIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M17 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
@@ -140,10 +47,9 @@ const IconSeats = () => (
   </svg>
 );
 
-const IconLocation = () => (
+const IconMileage = () => (
   <svg className={styles.specIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z" />
-    <circle cx="12" cy="10" r="3" />
+    <path d="M20 6 9 17l-5-5" />
   </svg>
 );
 
@@ -162,7 +68,7 @@ function NavbarLoggedIn({ userName = "Juan Dela Cruz" }) {
   return (
     <header className={styles.navbar}>
       <div className={styles.navInner}>
-        <Link to="/" className={styles.logo}>
+        <Link to="/home" className={styles.logo}>
           <img src={logo} alt="Lyka's Car Rental" className={styles.logoImage} />
           <span className={styles.logoText}>Lyka's</span>
         </Link>
@@ -191,8 +97,6 @@ function NavbarLoggedIn({ userName = "Juan Dela Cruz" }) {
 function SearchFilterBar({ filters, onFilterChange }) {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // The filtering already happens live as the user types (see onFilterChange),
-    // so this just prevents a page reload on Enter/click.
   };
 
   return (
@@ -233,7 +137,7 @@ function SearchFilterBar({ filters, onFilterChange }) {
           >
             <option>All</option>
             <option>Diesel</option>
-            <option>Gasoline</option>
+            <option>Petrol</option>
             <option>Electric</option>
           </select>
         </label>
@@ -275,65 +179,65 @@ function SearchFilterBar({ filters, onFilterChange }) {
   );
 }
 
-function Hero() {
+function Breadcrumb() {
   return (
-    <section className={styles.hero}>
-      <div className={styles.heroOverlay} />
-      <div className={styles.heroContent}>
-        <p className={styles.eyebrow}>Lyka's Car Rental</p>
-        <h1 className={styles.heroTitle}>
-          Drive Your Journey
-          <br />
-          with <span className={styles.gold}>Confidence</span>
-        </h1>
-        <p className={styles.heroSubtitle}>
-          Choose from a wide selection of reliable vehicles at affordable
-          prices. Whether it's for business, travel, or everyday driving,
-          we've got the perfect car for you.
-        </p>
-        <div className={styles.heroActions}>
-          <button className={styles.primaryBtn}>
-            Book a Car <span className={styles.btnArrow}>→</span>
-          </button>
-          <Link to="/showroom" className={styles.secondaryBtn}>
-            Browse Fleet
-          </Link>
-        </div>
-      </div>
-    </section>
+    <div className={styles.breadcrumb}>
+      <Link to="/home" className={styles.breadcrumbLink}>
+        Home
+      </Link>
+      <span className={styles.breadcrumbSeparator}>/</span>
+      <span className={styles.breadcrumbCurrent}>Showroom</span>
+    </div>
   );
 }
 
 function CarCard({ car }) {
   return (
     <article className={styles.carCard}>
-      <img className={styles.carImage} src={car.image} alt={car.name} />
+      <div className={styles.carImageWrapper}>
+        <img className={styles.carImage} src={car.images[0]} alt={car.name} />
+      </div>
       <div className={styles.carBody}>
-        <h3 className={styles.carName}>{car.name}</h3>
+        <div className={styles.carTitleRow}>
+          <h3 className={styles.carName}>{car.name}</h3>
+          <div className={styles.carPrice}>
+            <span className={styles.priceAmount}>
+              ₱{car.price.toLocaleString()}
+            </span>
+            <span className={styles.priceUnit}>per day</span>
+          </div>
+        </div>
+
         <div className={styles.carSpecs}>
           <span className={styles.specItem}>
             <IconTransmission />
             {car.transmission}
           </span>
           <span className={styles.specItem}>
+            <IconFuel />
+            {car.fuelType}
+          </span>
+          <span className={styles.specItem}>
             <IconSeats />
             {car.seats}
           </span>
           <span className={styles.specItem}>
-            <IconLocation />
-            {car.location}
+            <IconMileage />
+            {car.mileage}
           </span>
         </div>
-        <button className={styles.viewCarBtn}>View Car</button>
+
+        <Link to={`/vehicle/${car.id}`} className={styles.viewDetailsBtn}>
+          View Details
+        </Link>
       </div>
     </article>
   );
 }
 
-function FeaturedCars({ cars }) {
+function CarGrid({ cars }) {
   return (
-    <section className={styles.featuredCars}>
-      <h2 className={styles.sectionTitleLight}>Featured Cars</h2>
+    <section className={styles.carGridSection}>
       {cars.length > 0 ? (
         <div className={styles.carsGrid}>
           {cars.map((car) => (
@@ -345,89 +249,6 @@ function FeaturedCars({ cars }) {
           No cars match your search. Try adjusting your filters.
         </p>
       )}
-    </section>
-  );
-}
-
-function WhyRentWithUs() {
-  return (
-    <section className={styles.whyUs}>
-      <h2 className={styles.sectionTitleDark}>Why Rent With Us?</h2>
-      <p className={styles.sectionSubtitle}>
-        We make renting a car simple, affordable, and hassle-free.
-      </p>
-      <div className={styles.whyUsGrid}>
-        {WHY_US.map((item) => (
-          <div className={styles.whyUsItem} key={item.id}>
-            <div className={styles.whyUsIconCircle}>
-              <span className={styles.whyUsIcon}>{item.icon}</span>
-            </div>
-            <h3 className={styles.whyUsTitle}>{item.title}</h3>
-            <p className={styles.whyUsDescription}>{item.description}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function HowItWorks() {
-  return (
-    <section className={styles.howItWorksWrapper}>
-      <div className={styles.howItWorks}>
-        <h2 className={styles.sectionTitleLight}>How It Works</h2>
-        <div className={styles.stepsGrid}>
-          {HOW_IT_WORKS.map((item) => (
-            <div className={styles.stepItem} key={item.step}>
-              <div className={styles.stepNumber}>{item.step}</div>
-              <div>
-                <h3 className={styles.stepTitle}>{item.title}</h3>
-                <p className={styles.stepDescription}>{item.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TrustedPartner() {
-  return (
-    <section className={styles.trustedPartner}>
-      <div className={styles.trustedText}>
-        <h2 className={styles.trustedTitle}>Your Trusted Car Rental Partner</h2>
-        <p className={styles.trustedDescription}>
-          We are committed to providing reliable vehicles, affordable rates,
-          and excellent customer service. Whether you're traveling for
-          business or leisure, our goal is to make every journey smooth,
-          safe, and convenient.
-        </p>
-      </div>
-      <div className={styles.trustedImageWrapper}>
-        <img
-          className={styles.trustedImage}
-          src="https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=800&q=80"
-          alt="Happy family with their rental car"
-        />
-      </div>
-    </section>
-  );
-}
-
-function CTABanner() {
-  return (
-    <section className={styles.ctaBanner}>
-      <div className={styles.ctaOverlay} />
-      <div className={styles.ctaContent}>
-        <p className={styles.eyebrow}>Lyka's Car Rental</p>
-        <h2 className={styles.ctaTitle}>Ready for Your Next Adventure?</h2>
-        <p className={styles.ctaSubtitle}>
-          Book your ideal vehicle today and experience safe, convenient, and
-          affordable travel.
-        </p>
-        <button className={styles.primaryBtn}>Book Now</button>
-      </div>
     </section>
   );
 }
@@ -472,7 +293,7 @@ function Footer() {
 
 // ---------- Page ----------
 
-export default function LandingPageLoggedIn() {
+export default function ShowroomPage() {
   const [filters, setFilters] = useState({
     query: "",
     transmission: "All",
@@ -510,12 +331,8 @@ export default function LandingPageLoggedIn() {
     <div className={styles.page}>
       <NavbarLoggedIn userName="Juan Dela Cruz" />
       <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
-      <Hero />
-      <FeaturedCars cars={filteredCars} />
-      <WhyRentWithUs />
-      <HowItWorks />
-      <TrustedPartner />
-      <CTABanner />
+      <Breadcrumb />
+      <CarGrid cars={filteredCars} />
       <Footer />
     </div>
   );
