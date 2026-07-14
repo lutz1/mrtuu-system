@@ -1,15 +1,15 @@
   import React from "react";
   import { Link, useParams } from "react-router-dom";
-  import Navbar from "../components/Navbar";
-  import SearchFilterBar from "../components/SearchFilterBar";
-  import Breadcrumb from "../components/Breadcrumb";
-  import Gallery from "../components/Gallery";
-  import Features from "../components/Features";
-  import RentalPolicies from "../components/RentalPolicies";
-  import BookingPanel from "../components/BookingPanel";
-  import Footer from "../components/Footer";
-  import { IconTransmission, IconFuel, IconSeats, IconMileage } from "../components/icons";
-  import { CARS, RENTAL_POLICIES } from "../data/cars";
+  import Navbar from "../../components/Navbar";
+  import SearchFilterBar from "../../components/SearchFilterBar";
+  import Breadcrumb from "../../components/Breadcrumb";
+  import Gallery from "../../components/Gallery";
+  import Features from "../../components/Features";
+  import RentalPolicies from "../../components/RentalPolicies";
+  import BookingPanel from "../../components/BookingPanel";
+  import Footer from "../../components/Footer";
+  import { IconTransmission, IconFuel, IconSeats, IconMileage } from "../../components/icons";
+  import { CARS, RENTAL_POLICIES } from "../../data/cars";
   import styles from "./VehicleOverviewPage.module.css";
 
   export default function VehicleOverviewPage() {

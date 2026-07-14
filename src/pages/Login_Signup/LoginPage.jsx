@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import logo from "../assets/logo.png";
+import { useAuth } from "../../context/AuthContext";
+import logo from "../../assets/logo.png";
 import styles from "./LoginPage.module.css";
 
 // ---------- Icons ----------
