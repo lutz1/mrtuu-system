@@ -93,7 +93,7 @@
                 <RentalPolicies policies={RENTAL_POLICIES} />
               </div>
 
-              <BookingPanel />
+              <BookingPanel car={car}/>
             </div>
           </div>
 

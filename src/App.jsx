@@ -8,6 +8,8 @@ import VehicleOverviewPage from "./main_page/VehicleOverviewPage";
 import LoginPage from "./Login_Signup/LoginPage";
 import AccountPage from "./main_page/AccountPage"
 import SignupPage from "./Login_Signup/SignupPage";
+import BookingDetailsPage from "./main_page/BookingDetailsPage";
+import PaymentPage from "./main_page/PaymentPage";
 
 function App() {
   return (
@@ -41,6 +43,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AccountPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/booking/:id"
+              element={
+                <ProtectedRoute>
+                  <BookingDetailsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment/:id"
+              element={
+                <ProtectedRoute>
+                  <PaymentPage />
                 </ProtectedRoute>
               }
             />

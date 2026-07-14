@@ -1,0 +1,409 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #f5f6f8;
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.pageContent {
+  overflow-x: hidden;
+}
+
+.contentWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+.pageHeading {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Cards */
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.headingIcon {
+  width: 24px;
+  height: 24px;
+  color: #f0a93a;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Driver Information form */
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.formInput {
+  background: #f2f2f2;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a1a;
+  outline: none;
+}
+
+.formInput::placeholder {
+  color: #9ca3af;
+}
+
+.formInput:focus {
+  border-color: #f0a93a;
+  background: #ffffff;
+}
+
+/* Add-ons */
+
+.addonsList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.addonRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f7f7f7;
+  border-radius: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+
+.addonIconBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.addonIconBox svg {
+  width: 20px;
+  height: 20px;
+  color: #f0a93a;
+}
+
+.addonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.addonName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.addonDescription {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.addonPrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+.addonCheckbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  accent-color: #f0a93a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Sidebar */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+.summaryCard {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.summaryImage {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.summaryBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.summaryCarName {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.summaryLocation {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: -8px;
+}
+
+.summaryLocation svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.summaryDates {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.summaryDates > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summaryDateRight {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.summaryDateLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.summaryDateValue {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.summaryBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.summaryTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.summaryTotalLabel {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summaryTotalAmount {
+  font-size: 22px;
+  font-weight: 700;
+  color: #d9922a;
+}
+
+.proceedBtn {
+  background: #f0a93a;
+  color: #ffffff;
+  border: none;
+  padding: 15px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.proceedBtn:hover {
+  background: #d9922a;
+}
+
+.termsNote {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  margin: -8px 0 0;
+  line-height: 1.5;
+}
+
+.helpBox {
+  display: flex;
+  gap: 14px;
+  background: #eef0f3;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.helpIcon {
+  width: 26px;
+  height: 26px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.helpTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.helpText {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Not found state */
+
+.notFound {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.notFoundLink {
+  display: inline-block;
+  margin-top: 16px;
+  color: #d9922a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Responsive */
+
+@media (max-width: 960px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .contentWrapper {
+    padding: 24px 20px 60px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .addonRow {
+    flex-wrap: wrap;
+  }
+  .addonPrice {
+    margin-left: 58px;
+  }
+}
