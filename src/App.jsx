@@ -2,15 +2,15 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
-import LandingPage from "./landing_page/LandingPage";
-import ShowroomPage from "./main_page/ShowroomPage";
-import VehicleOverviewPage from "./main_page/VehicleOverviewPage";
-import LoginPage from "./Login_Signup/LoginPage";
-import AccountPage from "./main_page/AccountPage"
-import SignupPage from "./Login_Signup/SignupPage";
-import BookingDetailsPage from "./main_page/BookingDetailsPage";
-import PaymentPage from "./main_page/PaymentPage";
-import PaymentSuccessPage from "./main_page/PaymentSuccessPage";
+import LandingPage from "./pages/landing_page/LandingPage";
+import ShowroomPage from "./pages/main_page/ShowroomPage";
+import VehicleOverviewPage from "./pages/main_page/VehicleOverviewPage";
+import LoginPage from "./pages/Login_Signup/LoginPage";
+import AccountPage from "./pages/main_page/AccountPage"
+import SignupPage from "./pages/Login_Signup/SignupPage";
+import BookingDetailsPage from "./pages/main_page/BookingDetailsPage";
+import PaymentPage from "./pages/main_page/PaymentPage";
+import PaymentSuccessPage from "./pages/main_page/PaymentSuccessPage";
 
 function App() {
   return (

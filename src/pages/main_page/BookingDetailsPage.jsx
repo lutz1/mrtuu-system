@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { CARS } from "../data/cars";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import { CARS } from "../../data/cars";
 import styles from "./BookingDetailsPage.module.css";
 
 const ADDONS = [

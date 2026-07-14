@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import SearchFilterBar from "../components/SearchFilterBar";
-import Breadcrumb from "../components/Breadcrumb";
-import CarGrid from "../components/CarGrid";
-import Footer from "../components/Footer";
-import { CARS } from "../data/cars";
+import Navbar from "../../components/Navbar";
+import SearchFilterBar from "../../components/SearchFilterBar";
+import Breadcrumb from "../../components/Breadcrumb";
+import CarGrid from "../../components/CarGrid";
+import Footer from "../../components/Footer";
+import { CARS } from "../../data/cars";
 import styles from "./ShowroomPage.module.css";
 
 export default function ShowroomPage() {

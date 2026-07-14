@@ -1,23 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import logo from "../assets/logo.png";
-import styles from "./SignupPage.module.css";
+import { useAuth } from "../../context/AuthContext";
+import logo from "../../assets/logo.png";
+import styles from "./LoginPage.module.css";
 
 // ---------- Icons ----------
-
-const IconUser = () => (
-  <svg
-    className={styles.inputIcon}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-  >
-    <circle cx="12" cy="8" r="4" />
-    <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-  </svg>
-);
 
 const IconMail = () => (
   <svg
@@ -96,14 +83,18 @@ const IconGoogle = () => (
 // Map Firebase auth error codes to friendlier copy
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
-    case "auth/email-already-in-use":
-      return "An account already exists with that email.";
     case "auth/invalid-email":
       return "That email address doesn't look right.";
-    case "auth/weak-password":
-      return "Password should be at least 6 characters.";
+    case "auth/user-disabled":
+      return "This account has been disabled.";
+    case "auth/user-not-found":
+    case "auth/wrong-password":
+    case "auth/invalid-credential":
+      return "Incorrect email or password.";
+    case "auth/too-many-requests":
+      return "Too many attempts. Please wait a moment and try again.";
     case "auth/popup-closed-by-user":
-      return "Google sign-up was cancelled.";
+      return "Google sign-in was cancelled.";
     default:
       return "Something went wrong. Please try again.";
   }
@@ -111,31 +102,22 @@ function getFirebaseErrorMessage(error) {
 
 // ---------- Page ----------
 
-export default function SignupPage() {
-  const [name, setName] = useState("");
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { signup, loginWithGoogle } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-
     setIsSubmitting(true);
     try {
-      await signup(name, email, password);
+      await login(email, password);
       navigate("/");
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
@@ -144,7 +126,7 @@ export default function SignupPage() {
     }
   };
 
-  const handleGoogleSignup = async () => {
+  const handleGoogleLogin = async () => {
     setError("");
     setIsGoogleSubmitting(true);
     try {
@@ -161,7 +143,7 @@ export default function SignupPage() {
 
   return (
     <div className={styles.page}>
-      {/* Left visual panel — same design as LoginPage */}
+      {/* Left visual panel */}
       <div className={styles.leftPanel}>
         <div className={styles.creamCorner} />
         <div className={styles.leftOverlay} />
@@ -188,23 +170,10 @@ export default function SignupPage() {
       <div className={styles.rightPanel}>
         <form className={styles.formCard} onSubmit={handleSubmit}>
           <h1 className={styles.formTitle}>
-            Sign Up for <span className={styles.gold}>Lyka's Car Rental</span>
+            Login to <span className={styles.gold}>Lyka's Car Rental</span>
           </h1>
 
           {error && <p className={styles.errorText}>{error}</p>}
-
-          <label className={styles.inputWrapper}>
-            <IconUser />
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={styles.input}
-              disabled={disabled}
-              required
-            />
-          </label>
 
           <label className={styles.inputWrapper}>
             <IconMail />
@@ -241,42 +210,14 @@ export default function SignupPage() {
             </button>
           </label>
 
-          <label className={styles.inputWrapper}>
-            <IconLock />
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className={styles.input}
-              disabled={disabled}
-              required
-            />
-            <button
-              type="button"
-              className={styles.toggleBtn}
-              onClick={() => setShowConfirmPassword((prev) => !prev)}
-              aria-label={
-                showConfirmPassword ? "Hide password" : "Show password"
-              }
-              tabIndex={-1}
-            >
-              {showConfirmPassword ? <IconEyeOff /> : <IconEye />}
-            </button>
-          </label>
-
-          <button
-            type="submit"
-            className={styles.signupBtn}
-            disabled={disabled}
-          >
+          <button type="submit" className={styles.loginBtn} disabled={disabled}>
             {isSubmitting ? (
               <>
                 <span className={styles.spinner} />
-                Signing up...
+                Logging in...
               </>
             ) : (
-              "Sign Up"
+              "Login"
             )}
           </button>
 
@@ -289,7 +230,7 @@ export default function SignupPage() {
           <button
             type="button"
             className={styles.googleBtn}
-            onClick={handleGoogleSignup}
+            onClick={handleGoogleLogin}
             disabled={disabled}
           >
             {isGoogleSubmitting ? (
@@ -297,18 +238,18 @@ export default function SignupPage() {
             ) : (
               <IconGoogle />
             )}
-            Sign up with Google
+            Sign in with Google
           </button>
 
           <p className={styles.terms}>
-            By signing up, you agree to Lyka's Car Rental
+            By logging in, you agree to Lyka's Car Rental
             <br />
             <a href="#terms">TERMS OF SERVICE</a> &{" "}
             <a href="#privacy">PRIVACY POLICY</a>
           </p>
 
-          <p className={styles.loginPrompt}>
-            Already have an account? <Link to="/login">Login</Link>
+          <p className={styles.signupPrompt}>
+            No Account? <Link to="/signup">Sign Up</Link>
           </p>
         </form>
       </div>
