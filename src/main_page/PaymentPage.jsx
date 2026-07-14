@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
 import { CARS } from "../data/cars";
 import styles from "./PaymentPage.module.css";
+
+
 
 const PAYMENT_METHODS = [
   { id: "card", label: "Credit/Debit", type: "card" },
@@ -32,7 +35,8 @@ export default function PaymentPage() {
     expiry: "",
     cvc: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
+  
   if (!car) {
     return (
       <div className={styles.page}>
@@ -66,12 +70,35 @@ export default function PaymentPage() {
   };
 
   const handlePay = () => {
-    // No backend / real payment gateway yet — placeholder for PayMongo integration
-    console.log("Processing payment", { car, selectedMethod, card, saveCard, total });
-  };
+  setIsLoading(true);
+  // Simulated delay — swap for the real PayMongo API call once the backend exists
+  setTimeout(() => {
+    const bookingRef = `LYKA-${Math.floor(1000 + Math.random() * 9000)}-${String.fromCharCode(
+      65 + Math.floor(Math.random() * 26)
+    )}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`;
+
+    navigate(`/payment-success/${car.id}`, {
+      state: {
+        bookingRef,
+        pickupDate,
+        returnDate,
+        days,
+        location,
+        dailyRate: car.price,
+        subtotal,
+        feesAndTaxes,
+        addonsTotal,
+        total,
+        paymentMethod: selectedMethod,
+        cardLast4: selectedMethod === "card" ? card.number.slice(-4) || "6769" : null,
+      },
+    });
+  }, 1400);
+};
 
   return (
     <div className={styles.page}>
+        {isLoading && <Loading message="Processing your payment..." />}
       <div className={styles.stickyHeader}>
         <Navbar />
       </div>

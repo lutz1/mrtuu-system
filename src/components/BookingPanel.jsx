@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 import styles from "./BookingPanel.module.css";
 
 const INSURANCE_FEE = 450;
@@ -26,6 +27,7 @@ function addDays(dateStr, days) {
 
 export default function BookingPanel({ car }) {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const today = new Date();
   const todayISO = toISODate(today);
   const defaultReturn = addDays(todayISO, 3);
@@ -75,6 +77,9 @@ export default function BookingPanel({ car }) {
   };
 
   const handleBookNow = () => {
+  setIsLoading(true);
+  // Simulated delay — swap for a real API call once the backend exists
+  setTimeout(() => {
     navigate(`/booking/${car.id}`, {
       state: {
         location,
@@ -88,10 +93,12 @@ export default function BookingPanel({ car }) {
         total,
       },
     });
-  };
+  }, 900);
+};
 
   return (
     <aside className={styles.bookingPanel}>
+       {isLoading && <Loading message="Preparing your booking..." />}
       <h2 className={styles.heading}>Book This Car</h2>
 
       <div className={styles.field}>

@@ -10,6 +10,7 @@ import AccountPage from "./main_page/AccountPage"
 import SignupPage from "./Login_Signup/SignupPage";
 import BookingDetailsPage from "./main_page/BookingDetailsPage";
 import PaymentPage from "./main_page/PaymentPage";
+import PaymentSuccessPage from "./main_page/PaymentSuccessPage";
 
 function App() {
   return (
@@ -59,6 +60,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <PaymentPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment-success/:id"
+              element={
+                <ProtectedRoute>
+                  <PaymentSuccessPage />
                 </ProtectedRoute>
               }
             />
