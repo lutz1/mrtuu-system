@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/logo.png";
@@ -80,6 +80,26 @@ const IconGoogle = () => (
   </svg>
 );
 
+// Map Firebase auth error codes to friendlier copy
+function getFirebaseErrorMessage(error) {
+  switch (error?.code) {
+    case "auth/invalid-email":
+      return "That email address doesn't look right.";
+    case "auth/user-disabled":
+      return "This account has been disabled.";
+    case "auth/user-not-found":
+    case "auth/wrong-password":
+    case "auth/invalid-credential":
+      return "Incorrect email or password.";
+    case "auth/too-many-requests":
+      return "Too many attempts. Please wait a moment and try again.";
+    case "auth/popup-closed-by-user":
+      return "Google sign-in was cancelled.";
+    default:
+      return "Something went wrong. Please try again.";
+  }
+}
+
 // ---------- Page ----------
 
 export default function LoginPage() {
@@ -87,23 +107,39 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuth();
+  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     setIsSubmitting(true);
-
-    // Hardcoded/fake login for now — accepts any email/password.
-    // The setTimeout simulates network latency so the loading state
-    // is visible; swap this whole block for a real API call once
-    // the backend exists (login()/navigate() would move into the
-    // .then() of that request instead).
-    setTimeout(() => {
-      login(email, password);
-      navigate("/home");
-    }, 1000);
+    try {
+      await login(email, password);
+      navigate("/");
+    } catch (err) {
+      setError(getFirebaseErrorMessage(err));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const handleGoogleLogin = async () => {
+    setError("");
+    setIsGoogleSubmitting(true);
+    try {
+      await loginWithGoogle();
+      navigate("/");
+    } catch (err) {
+      setError(getFirebaseErrorMessage(err));
+    } finally {
+      setIsGoogleSubmitting(false);
+    }
+  };
+
+  const disabled = isSubmitting || isGoogleSubmitting;
 
   return (
     <div className={styles.page}>
@@ -112,10 +148,13 @@ export default function LoginPage() {
         <div className={styles.creamCorner} />
         <div className={styles.leftOverlay} />
 
-
         <div className={styles.logoWrapper}>
           <div className={styles.logoCircle}>
-            <img src={logo} alt="Lyka's Car Rental" className={styles.logoImage} />
+            <img
+              src={logo}
+              alt="Lyka's Car Rental"
+              className={styles.logoImage}
+            />
           </div>
         </div>
 
@@ -134,6 +173,8 @@ export default function LoginPage() {
             Login to <span className={styles.gold}>Lyka's Car Rental</span>
           </h1>
 
+          {error && <p className={styles.errorText}>{error}</p>}
+
           <label className={styles.inputWrapper}>
             <IconMail />
             <input
@@ -142,7 +183,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={styles.input}
-              disabled={isSubmitting}
+              disabled={disabled}
               required
             />
           </label>
@@ -155,7 +196,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={styles.input}
-              disabled={isSubmitting}
+              disabled={disabled}
               required
             />
             <button
@@ -169,11 +210,7 @@ export default function LoginPage() {
             </button>
           </label>
 
-          <button
-            type="submit"
-            className={styles.loginBtn}
-            disabled={isSubmitting}
-          >
+          <button type="submit" className={styles.loginBtn} disabled={disabled}>
             {isSubmitting ? (
               <>
                 <span className={styles.spinner} />
@@ -193,9 +230,14 @@ export default function LoginPage() {
           <button
             type="button"
             className={styles.googleBtn}
-            disabled={isSubmitting}
+            onClick={handleGoogleLogin}
+            disabled={disabled}
           >
-            <IconGoogle />
+            {isGoogleSubmitting ? (
+              <span className={styles.spinner} />
+            ) : (
+              <IconGoogle />
+            )}
             Sign in with Google
           </button>
 

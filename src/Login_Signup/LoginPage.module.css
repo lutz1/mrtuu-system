@@ -352,6 +352,17 @@
   text-decoration: underline;
 }
 
+.errorText {
+  background: #fdecea;
+  color: #b3261e;
+  border: 1px solid #f5c2bd;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  text-align: center;
+  margin: 0;
+}
+
 /* ===== Responsive: tablets / stacked layout ===== */
 @media (max-width: 900px) {
   .page {
