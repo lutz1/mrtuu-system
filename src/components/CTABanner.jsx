@@ -1,10 +1,19 @@
 import React from "react";
 import styles from "./CTABanner.module.css";
+import ctaBanner from "../assets/ctabanner.png";
 
 export default function CTABanner() {
   return (
     <section className={styles.ctaBanner}>
-      <div className={styles.ctaOverlay} />
+      <div
+        className={styles.ctaImageWrap}
+        style={{ backgroundImage: `url(${ctaBanner})` }}
+      >
+        <div className={styles.ctaOverlay} />
+      </div>
+
+      <div className={styles.ctaFade} />
+
       <div className={styles.ctaContent}>
         <p className={styles.eyebrow}>Lyka's Car Rental</p>
         <h2 className={styles.ctaTitle}>Ready for Your Next Adventure?</h2>

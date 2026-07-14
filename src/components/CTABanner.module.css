@@ -9,20 +9,70 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80")
-    center / cover no-repeat;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+
+  margin: 0 0px;
+  background: #ffffff;
+  /* No overflow:hidden or border-radius here anymore —
+     those live on .ctaImageWrap instead, so .ctaFade can paint
+     over the corners without being clipped along with the image. */
+  
+}
+
+/* Image + dark tint, clipped to the rounded shape */
+.ctaImageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 50px;
+  overflow: hidden;
+  overflow-y: hidden;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+
+  
 }
 
 .ctaOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 15, 10, 0.55);
+  background: rgba(10, 15, 10, 0.363);
+}
+
+/* Fade layer — sibling of the clipped image, so it can freely
+   cover the rounded corners without being cut off itself */
+.ctaFade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at bottom left,
+      #1c1b19 0%,
+      #1c1b19 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      #1c1b19 0%,
+      #1c1b19 0%,
+      transparent 40%
+    ),
+    linear-gradient(
+      to top,
+      #1c1b19 0%,
+      #1c1b19 0%,
+      transparent 40%
+    );
 }
 
 .ctaContent {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
   max-width: 640px;
   padding: 24px;
@@ -63,4 +113,23 @@
 
 .primaryBtn:hover {
   background: var(--gold-dark);
+}
+
+@media (max-width: 640px) {
+  .ctaBanner {
+    min-height: 420px;
+    margin: 0 12px;
+  }
+
+  .ctaImageWrap {
+    border-radius: 24px;
+  }
+
+  .ctaTitle {
+    font-size: 28px;
+  }
+
+  .ctaSubtitle {
+    font-size: 14px;
+  }
 }

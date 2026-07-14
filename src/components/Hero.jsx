@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Hero.module.css";
+import heroImage from "../assets/header.png"
 
 export default function Hero() {
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero}
+      style={{ backgroundImage: `url(${heroImage})` }}
+    >
       <div className={styles.heroOverlay} />
       <div className={styles.heroContent}>
         <p className={styles.eyebrow}>Lyka's Car Rental</p>
