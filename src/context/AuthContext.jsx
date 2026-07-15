@@ -1,36 +1,66 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+  signOut,
+} from "firebase/auth";
+import { auth, googleProvider } from "../lib/firebase";
 
 const AuthContext = createContext(null);
 
-const STORAGE_KEY = "lykas_isLoggedIn";
-
 export function AuthProvider({ children }) {
-  // Read initial state from localStorage so a refresh keeps the user logged in
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    () => localStorage.getItem(STORAGE_KEY) === "true"
-  );
+  const [user, setUser] = useState(null);
+  // authLoading is true only while Firebase restores the session on first
+  // load, so we don't flash a "logged out" state / bounce ProtectedRoute
+  // before Firebase has had a chance to report the real auth state.
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, isLoggedIn ? "true" : "false");
-  }, [isLoggedIn]);
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      setAuthLoading(false);
+    });
+    return unsubscribe;
+  }, []);
 
-  // Hardcoded/fake login — accepts any email/password for now.
-  // Swap this for a real API call once the backend exists; nothing
-  // else in the app needs to change since everything just reads
-  // isLoggedIn from this context.
-  const login = (_email, _password) => {
-    setIsLoggedIn(true);
+  const login = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const signup = async (name, email, password) => {
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    if (name) {
+      await updateProfile(credential.user, { displayName: name });
+    }
+    return credential;
+  };
+
+  const loginWithGoogle = () => {
+    return signInWithPopup(auth, googleProvider);
   };
 
   const logout = () => {
-    setIsLoggedIn(false);
+    return signOut(auth);
   };
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    isLoggedIn: !!user,
+    authLoading,
+    login,
+    signup,
+    loginWithGoogle,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
