@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import Navbar from "../components/Navbar";
-import Breadcrumb from "../components/Breadcrumb";
-import Footer from "../components/Footer";
+import Navbar from "../../components/Navbar";
+import Breadcrumb from "../../components/Breadcrumb";
+import Footer from "../../components/Footer";
 import styles from "./AccountPage.module.css";
 
 const NAV_ITEMS = [
@@ -82,6 +82,7 @@ export default function AccountPage() {
   const [firstName, ...restName] = fullName.split(" ");
   const derivedLastName = restName.join(" ");
 
+  // Committed (saved) values — these are what render when not editing
   const [personal, setPersonal] = useState({
     firstName: firstName || "",
     lastName: derivedLastName || "",
@@ -96,6 +97,10 @@ export default function AccountPage() {
     province: "",
   });
 
+  // Draft values — only these change while typing in edit mode
+  const [personalDraft, setPersonalDraft] = useState(personal);
+  const [addressDraft, setAddressDraft] = useState(address);
+
   const [editingPersonal, setEditingPersonal] = useState(false);
   const [editingAddress, setEditingAddress] = useState(false);
 
@@ -104,21 +109,41 @@ export default function AccountPage() {
     (user?.email ? user.email.split("@")[0] : "Account");
   const initial = displayName.trim().charAt(0).toUpperCase();
 
-  const handlePersonalChange = (field, value) => {
-    setPersonal((prev) => ({ ...prev, [field]: value }));
+  const startEditingPersonal = () => {
+    setPersonalDraft(personal); // seed the draft with current saved values
+    setEditingPersonal(true);
   };
 
-  const handleAddressChange = (field, value) => {
-    setAddress((prev) => ({ ...prev, [field]: value }));
+  const startEditingAddress = () => {
+    setAddressDraft(address);
+    setEditingAddress(true);
+  };
+
+  const handlePersonalDraftChange = (field, value) => {
+    setPersonalDraft((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleAddressDraftChange = (field, value) => {
+    setAddressDraft((prev) => ({ ...prev, [field]: value }));
   };
 
   const savePersonal = () => {
     // No backend yet — this only persists in local state for now
+    setPersonal(personalDraft);
     setEditingPersonal(false);
+  };
+
+  const cancelPersonal = () => {
+    setEditingPersonal(false); // draft is simply discarded, personal stays untouched
   };
 
   const saveAddress = () => {
     // No backend yet — this only persists in local state for now
+    setAddress(addressDraft);
+    setEditingAddress(false);
+  };
+
+  const cancelAddress = () => {
     setEditingAddress(false);
   };
 
@@ -196,11 +221,7 @@ export default function AccountPage() {
                     </p>
                   </div>
 
-                  <button
-                    type="button"
-                    className={styles.editBtn}
-                    onClick={() => setEditingPersonal(true)}
-                  >
+                  <button type="button" className={styles.editBtn} onClick={startEditingPersonal}>
                     Edit
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -219,11 +240,7 @@ export default function AccountPage() {
                 <div className={styles.cardHeaderRow}>
                   <h3 className={styles.cardTitle}>Personal Information</h3>
                   {!editingPersonal && (
-                    <button
-                      type="button"
-                      className={styles.editBtn}
-                      onClick={() => setEditingPersonal(true)}
-                    >
+                    <button type="button" className={styles.editBtn} onClick={startEditingPersonal}>
                       Edit
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -244,8 +261,8 @@ export default function AccountPage() {
                       <input
                         type="text"
                         className={styles.fieldInput}
-                        value={personal.firstName}
-                        onChange={(e) => handlePersonalChange("firstName", e.target.value)}
+                        value={personalDraft.firstName}
+                        onChange={(e) => handlePersonalDraftChange("firstName", e.target.value)}
                       />
                     ) : (
                       <span className={styles.fieldValue}>{personal.firstName || "—"}</span>
@@ -258,8 +275,8 @@ export default function AccountPage() {
                       <input
                         type="text"
                         className={styles.fieldInput}
-                        value={personal.lastName}
-                        onChange={(e) => handlePersonalChange("lastName", e.target.value)}
+                        value={personalDraft.lastName}
+                        onChange={(e) => handlePersonalDraftChange("lastName", e.target.value)}
                       />
                     ) : (
                       <span className={styles.fieldValue}>{personal.lastName || "—"}</span>
@@ -278,8 +295,8 @@ export default function AccountPage() {
                         type="tel"
                         className={styles.fieldInput}
                         placeholder="e.g. 0967676767"
-                        value={personal.phone}
-                        onChange={(e) => handlePersonalChange("phone", e.target.value)}
+                        value={personalDraft.phone}
+                        onChange={(e) => handlePersonalDraftChange("phone", e.target.value)}
                       />
                     ) : (
                       <span className={styles.fieldValue}>{personal.phone || "Not set"}</span>
@@ -289,11 +306,7 @@ export default function AccountPage() {
 
                 {editingPersonal && (
                   <div className={styles.editActions}>
-                    <button
-                      type="button"
-                      className={styles.cancelBtn}
-                      onClick={() => setEditingPersonal(false)}
-                    >
+                    <button type="button" className={styles.cancelBtn} onClick={cancelPersonal}>
                       Cancel
                     </button>
                     <button type="button" className={styles.saveBtn} onClick={savePersonal}>
@@ -308,11 +321,7 @@ export default function AccountPage() {
                 <div className={styles.cardHeaderRow}>
                   <h3 className={styles.cardTitle}>Address</h3>
                   {!editingAddress && (
-                    <button
-                      type="button"
-                      className={styles.editBtn}
-                      onClick={() => setEditingAddress(true)}
-                    >
+                    <button type="button" className={styles.editBtn} onClick={startEditingAddress}>
                       Edit
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -333,8 +342,8 @@ export default function AccountPage() {
                       <input
                         type="text"
                         className={styles.fieldInput}
-                        value={address.country}
-                        onChange={(e) => handleAddressChange("country", e.target.value)}
+                        value={addressDraft.country}
+                        onChange={(e) => handleAddressDraftChange("country", e.target.value)}
                       />
                     ) : (
                       <span className={styles.fieldValue}>{address.country || "Not set"}</span>
@@ -347,8 +356,8 @@ export default function AccountPage() {
                       <input
                         type="text"
                         className={styles.fieldInput}
-                        value={address.city}
-                        onChange={(e) => handleAddressChange("city", e.target.value)}
+                        value={addressDraft.city}
+                        onChange={(e) => handleAddressDraftChange("city", e.target.value)}
                       />
                     ) : (
                       <span className={styles.fieldValue}>{address.city || "Not set"}</span>
@@ -361,8 +370,8 @@ export default function AccountPage() {
                       <input
                         type="text"
                         className={styles.fieldInput}
-                        value={address.postalCode}
-                        onChange={(e) => handleAddressChange("postalCode", e.target.value)}
+                        value={addressDraft.postalCode}
+                        onChange={(e) => handleAddressDraftChange("postalCode", e.target.value)}
                       />
                     ) : (
                       <span className={styles.fieldValue}>{address.postalCode || "Not set"}</span>
@@ -375,8 +384,8 @@ export default function AccountPage() {
                       <input
                         type="text"
                         className={styles.fieldInput}
-                        value={address.province}
-                        onChange={(e) => handleAddressChange("province", e.target.value)}
+                        value={addressDraft.province}
+                        onChange={(e) => handleAddressDraftChange("province", e.target.value)}
                       />
                     ) : (
                       <span className={styles.fieldValue}>{address.province || "Not set"}</span>
@@ -386,11 +395,7 @@ export default function AccountPage() {
 
                 {editingAddress && (
                   <div className={styles.editActions}>
-                    <button
-                      type="button"
-                      className={styles.cancelBtn}
-                      onClick={() => setEditingAddress(false)}
-                    >
+                    <button type="button" className={styles.cancelBtn} onClick={cancelAddress}>
                       Cancel
                     </button>
                     <button type="button" className={styles.saveBtn} onClick={saveAddress}>
