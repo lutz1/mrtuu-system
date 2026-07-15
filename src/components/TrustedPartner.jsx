@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./TrustedPartner.module.css";
+import familyImage from "../assets/family.png"
 
 export default function TrustedPartner() {
   return (
@@ -16,7 +17,7 @@ export default function TrustedPartner() {
       <div className={styles.trustedImageWrapper}>
         <img
           className={styles.trustedImage}
-          src="https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=800&q=80"
+          src={familyImage}
           alt="Happy family with their rental car"
         />
       </div>

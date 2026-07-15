@@ -17,6 +17,15 @@
   box-sizing: border-box;
 }
 
+
+.avatarImage {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .card {
   background: var(--white);
   border-radius: 16px;

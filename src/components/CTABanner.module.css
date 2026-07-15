@@ -109,6 +109,7 @@
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .primaryBtn:hover {

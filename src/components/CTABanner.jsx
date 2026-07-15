@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CTABanner.module.css";
 import ctaBanner from "../assets/ctabanner.png";
+import { Link } from "react-router-dom";
 
 export default function CTABanner() {
   return (
@@ -21,7 +22,9 @@ export default function CTABanner() {
           Book your ideal vehicle today and experience safe, convenient, and
           affordable travel.
         </p>
-        <button className={styles.primaryBtn}>Book Now</button>
+        <Link to="/showroom" className={styles.primaryBtn}>
+          Book Now
+          </Link>
       </div>
     </section>
   );

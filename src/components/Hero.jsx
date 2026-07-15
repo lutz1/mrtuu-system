@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import heroImage from "../assets/header.png"; // your actual import
 import styles from "./Hero.module.css";
-import heroImage from "../assets/header.png"
 
 export default function Hero() {
   return (
-    <section className={styles.hero}
-      style={{ backgroundImage: `url(${heroImage})` }}
-    >
+    <section className={styles.hero}>
+      <div
+        className={styles.heroImage}
+        style={{ backgroundImage: `url(${heroImage})` }}
+      />
       <div className={styles.heroOverlay} />
       <div className={styles.heroContent}>
         <p className={styles.eyebrow}>Lyka's Car Rental</p>
@@ -22,9 +24,9 @@ export default function Hero() {
           we've got the perfect car for you.
         </p>
         <div className={styles.heroActions}>
-          <Link to="/showroom" className={styles.primaryBtn}>
+          <button className={styles.primaryBtn}>
             Book a Car <span className={styles.btnArrow}>→</span>
-          </Link>
+          </button>
           <Link to="/showroom" className={styles.secondaryBtn}>
             Browse Fleet
           </Link>

@@ -5,10 +5,13 @@ import styles from "./Navbar.module.css";
 import logo from "../assets/logo.png";
 
 export default function Navbar() {
-  const { isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
 
-  // Placeholder until real user data is stored
-  const userName = "Selsite";
+  // Prefer the real display name (set on signup, or provided by Google).
+  // Fall back to the part before @ in their email if no name is set yet,
+  // then to a generic label as a last resort.
+  const userName =
+    user?.displayName || (user?.email ? user.email.split("@")[0] : "Account");
   const initial = userName.trim().charAt(0).toUpperCase();
 
   return (
@@ -33,7 +36,15 @@ export default function Navbar() {
 
           {isLoggedIn ? (
             <Link to="/account" className={styles.userMenu}>
-              <span className={styles.userAvatar}>{initial}</span>
+              {user?.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt={userName}
+                  className={styles.userAvatarImage}
+                />
+              ) : (
+                <span className={styles.userAvatar}>{initial}</span>
+              )}
               <span className={styles.userName}>{userName}</span>
             </Link>
           ) : (

@@ -9,9 +9,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1600&q=80")
-    center / cover no-repeat;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  overflow: hidden; /* keeps the oversized image layer from spilling outside the hero */
+}
+
+/* Separate background layer, intentionally larger than the container
+   so scaling it down reveals more of the original photo — a "zoom out" */
+.heroImage {
+  position: absolute;
+  inset: -8%; /* makes this layer 8% bigger than the hero on every side */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(0.92); /* scales it back down, revealing more of the photo */
+  transform-origin: center;
 }
 
 .heroOverlay {
