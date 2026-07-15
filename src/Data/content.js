@@ -1,7 +1,24 @@
+import { faCarSide, faCreditCard, faBookBookmark } from "@fortawesome/free-solid-svg-icons";
+
 export const WHY_US = [
-  { id: 1, icon: "🚗", title: "Variety of Cars", description: "Find the perfect vehicle for any trip." },
-  { id: 2, icon: "💳", title: "Best Value", description: "Transparent pricing with no hidden charges." },
-  { id: 3, icon: "🔖", title: "Quick Booking", description: "Book your car in minutes, anytime, anywhere." },
+  {
+    id: 1,
+    icon: faCarSide,
+    title: "Variety of Cars",
+    description: "Find the perfect vehicle for any trip.",
+  },
+  {
+    id: 2,
+    icon: faCreditCard,
+    title: "Best Value",
+    description: "Transparent pricing with no hidden charges.",
+  },
+  {
+    id: 3,
+    icon: faBookBookmark,
+    title: "Quick Booking",
+    description: "Book your car in minutes, anytime, anywhere.",
+  },
 ];
 
 export const HOW_IT_WORKS = [
