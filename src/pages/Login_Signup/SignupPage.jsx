@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.png";
@@ -6,6 +6,9 @@ import headerImage from "../../assets/header.png";
 import styles from "./SignupPage.module.css";
 import { IconUser, IconMail, IconLock, IconEye, IconEyeOff, IconGoogle } from "../../components/icons/AuthIcons";
 import "../../components/icons/authShared.css";
+import OTPModal from "../../components/OTPModal";
+import EmailVerificationModal from "../../components/EmailVerificationModal";
+import { detectContactType, normalizePhone } from "../../Data/phone"
 
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
@@ -17,14 +20,21 @@ function getFirebaseErrorMessage(error) {
       return "Password should be at least 6 characters.";
     case "auth/popup-closed-by-user":
       return "Google sign-up was cancelled.";
+    case "auth/invalid-phone-number":
+      return "That phone number doesn't look right — include your country code, e.g. +63.";
+    case "auth/invalid-verification-code":
+      return "That code didn't match. Please try again.";
+    case "auth/code-expired":
+      return "That code expired. Please request a new one.";
     default:
       return "Something went wrong. Please try again.";
   }
 }
 
+
 export default function SignupPage() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); // holds email OR phone
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -32,28 +42,61 @@ export default function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { signup, loginWithGoogle } = useAuth();
+  const [showOTPModal, setShowOTPModal] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const confirmationResultRef = useRef(null);
+
+  const { signup, loginWithGoogle, sendPhoneOTP, confirmPhoneOTP, resendVerificationEmail, checkEmailVerified, logout } = useAuth();
   const navigate = useNavigate();
+
+  const contactType = detectContactType(email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      await signup(name, email, password);
-      navigate("/");
-    } catch (err) {
-      setError(getFirebaseErrorMessage(err));
-    } finally {
-      setIsSubmitting(false);
+    if (contactType === "email") {
+      if (password !== confirmPassword) {
+        setError("Passwords do not match.");
+        return;
+      }
+      setIsSubmitting(true);
+      try {
+        await signup(name, email, password);
+        setShowEmailModal(true);
+      } catch (err) {
+        setError(getFirebaseErrorMessage(err));
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      setIsSubmitting(true);
+      try {
+        const phone = normalizePhone(email);
+        const confirmationResult = await sendPhoneOTP(phone, "signup-recaptcha-container");
+        confirmationResultRef.current = confirmationResult;
+        setShowOTPModal(true);
+      } catch (err) {
+        setError(getFirebaseErrorMessage(err));
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
+
+  const handleVerifyOTP = async (code) => {
+    await confirmPhoneOTP(confirmationResultRef.current, code);
+    setShowOTPModal(false);
+    navigate("/");
+  };
+
+  const handleResendOTP = async () => {
+    const phone = normalizePhone(email);
+    const confirmationResult = await sendPhoneOTP(phone, "signup-recaptcha-container");
+    confirmationResultRef.current = confirmationResult;
+  };
+
+  const handleResendEmail = () => resendVerificationEmail();
 
   const handleGoogleSignup = async () => {
     setError("");
@@ -72,23 +115,17 @@ export default function SignupPage() {
 
   return (
     <div className={styles.page}>
-      {/* Left visual panel — same design as LoginPage */}
+      {/* Left visual panel */}
       <div className={styles.leftPanel}>
-        <div
-          className={styles.leftImage}
-          style={{ backgroundImage: `url(${headerImage})` }}
-        />
+        <div className={styles.leftImage} style={{ backgroundImage: `url(${headerImage})` }} />
         <div className={styles.leftOverlay} />
-
         <img src={logo} alt="Lyka's Car Rental" className={styles.logoTop} />
-
         <div className={styles.leftBottom}>
           <p className={styles.brandLabel}>Lyka's Car Rental</p>
           <h2 className={styles.headline}>
             <span className={styles.headlineGold}>Your Journey</span>
             <span className={styles.headlineCream}>Starts with Us.</span>
           </h2>
-
           <p className={styles.legalText}>
             © 2026 Lyka's Car Rental. All Rights Reserved.
             <br />
@@ -124,8 +161,8 @@ export default function SignupPage() {
           <label className={styles.inputWrapper}>
             <IconMail className="authInputIcon" />
             <input
-              type="email"
-              placeholder="Email"
+              type="text"
+              placeholder="Email/Phone"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={styles.input}
@@ -134,64 +171,67 @@ export default function SignupPage() {
             />
           </label>
 
-          <label className={styles.inputWrapper}>
-            <IconLock className="authInputIcon" />
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={styles.input}
-              disabled={disabled}
-              required
-            />
-            <button
-              type="button"
-              className={styles.toggleBtn}
-              onClick={() => setShowPassword((prev) => !prev)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              tabIndex={-1}
-            >
-              {showPassword ? (
-                <IconEyeOff className="authToggleIcon" />
-              ) : (
-                <IconEye className="authToggleIcon" />
-              )}
-            </button>
-          </label>
+          {contactType === "email" && (
+            <>
+              <label className={styles.inputWrapper}>
+                <IconLock className="authInputIcon" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={styles.input}
+                  disabled={disabled}
+                  required
+                />
+                <button
+                  type="button"
+                  className={styles.toggleBtn}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  tabIndex={-1}
+                >
+                  {showPassword ? <IconEyeOff className="authToggleIcon" /> : <IconEye className="authToggleIcon" />}
+                </button>
+              </label>
 
-          <label className={styles.inputWrapper}>
-            <IconLock className="authInputIcon" />
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className={styles.input}
-              disabled={disabled}
-              required
-            />
-            <button
-              type="button"
-              className={styles.toggleBtn}
-              onClick={() => setShowConfirmPassword((prev) => !prev)}
-              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-              tabIndex={-1}
-            >
-              {showConfirmPassword ? (
-                <IconEyeOff className="authToggleIcon" />
-              ) : (
-                <IconEye className="authToggleIcon" />
-              )}
-            </button>
-          </label>
+              <label className={styles.inputWrapper}>
+                <IconLock className="authInputIcon" />
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className={styles.input}
+                  disabled={disabled}
+                  required
+                />
+                <button
+                  type="button"
+                  className={styles.toggleBtn}
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                  tabIndex={-1}
+                >
+                  {showConfirmPassword ? <IconEyeOff className="authToggleIcon" /> : <IconEye className="authToggleIcon" />}
+                </button>
+              </label>
+            </>
+          )}
 
+         {contactType === "phone" && (
+            <p className={styles.phoneHint}>
+              We'll text a 6-digit code to verify this number.
+            </p>
+          )}
           <button type="submit" className={styles.signupBtn} disabled={disabled}>
             {isSubmitting ? (
               <>
                 <span className={styles.spinner} />
-                Signing up...
+                {contactType === "phone" ? "Sending code..." : "Signing up..."}
               </>
+            ) : contactType === "phone" ? (
+              "Send Code"
             ) : (
               "Sign Up"
             )}
@@ -203,17 +243,8 @@ export default function SignupPage() {
             <span className={styles.dividerLine} />
           </div>
 
-          <button
-            type="button"
-            className={styles.googleBtn}
-            onClick={handleGoogleSignup}
-            disabled={disabled}
-          >
-            {isGoogleSubmitting ? (
-              <span className={styles.spinner} />
-            ) : (
-              <IconGoogle className="authGoogleIcon" />
-            )}
+          <button type="button" className={styles.googleBtn} onClick={handleGoogleSignup} disabled={disabled}>
+            {isGoogleSubmitting ? <span className={styles.spinner} /> : <IconGoogle className="authGoogleIcon" />}
             Sign up with Google
           </button>
 
@@ -228,6 +259,38 @@ export default function SignupPage() {
           </p>
         </form>
       </div>
+
+      {/* Invisible reCAPTCHA anchor — required by Firebase phone auth */}
+      <div id="signup-recaptcha-container" />
+
+      <OTPModal
+        isOpen={showOTPModal}
+        contact={email}
+        contactType="phone"
+        onClose={() => setShowOTPModal(false)}
+        onVerify={handleVerifyOTP}
+        onResend={handleResendOTP}
+      />
+
+     <EmailVerificationModal
+        isOpen={showEmailModal}
+        email={email}
+        onCheckVerified={checkEmailVerified}
+        onResend={handleResendEmail}
+        onVerified={() => {
+          setShowEmailModal(false);
+          navigate("/");
+        }}
+        onClose={async () => {
+          setShowEmailModal(false);
+          const verified = await checkEmailVerified();
+          if (!verified) {
+            await logout();
+          }
+          navigate(verified ? "/" : "/login");
+        }}
+      />
+      
     </div>
   );
 }
