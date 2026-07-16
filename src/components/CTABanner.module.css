@@ -119,7 +119,7 @@
 @media (max-width: 640px) {
   .ctaBanner {
     min-height: 420px;
-    margin: 0 12px;
+    margin: 0 0px;
   }
 
   .ctaImageWrap {

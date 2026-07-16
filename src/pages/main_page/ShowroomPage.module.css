@@ -20,6 +20,6 @@
 
 @media (max-width: 960px) {
   .stickyHeader {
-    position: static;
+    position: sticky;
   }
 }

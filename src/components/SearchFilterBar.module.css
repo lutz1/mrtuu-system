@@ -22,13 +22,13 @@
   z-index: 10;
   box-sizing: border-box;
 
-  /* Full-bleed base, inset 32px each side — matches the media query pattern */
   width: calc(100vw - 64px);
   margin-left: calc(-50vw + 50% + 32px);
   margin-right: calc(-50vw + 50% + 32px);
   margin-top: 0;
   margin-bottom: 0;
 }
+
 /* Search Input */
 
 .searchInput {
@@ -48,13 +48,17 @@
   color: var(--text-on-dark-muted);
 }
 
-/* Filters */
+/* Filters (shared field styling — used both inline and inside the mobile panel) */
 
 .filters {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 20px;
+}
+
+.filtersDesktop {
+  display: contents; /* on desktop, behaves as if .filters' children were direct children of .searchBar */
 }
 
 .filterItem {
@@ -64,7 +68,7 @@
 }
 
 .filterLabel {
-  color: var(--white);
+  color: #ffffff;
   font-weight: 600;
   font-size: 14px;
   white-space: nowrap;
@@ -72,7 +76,7 @@
 
 .filterSelect {
   background: var(--dark-soft);
-  color: var(--white);
+  color: #ffffff;
   border: none;
   border-radius: 999px;
   padding: 10px 16px;
@@ -117,8 +121,122 @@
   color: var(--text-dark);
 }
 
+/* Mobile filter toggle button — hidden by default, shown only on mobile */
+
+.filterToggleBtn {
+  display: none;
+  background: var(--dark-soft);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: var(--white);
+}
+
+.filterSelect option {
+  color: #ffffff;
+  background: #1a1a1a;
+}
+
+
+.filterToggleBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.filterToggleBtn:hover {
+  background: #3a3733;
+}
+
+/* Mobile filter overlay + panel */
+
+.filterOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.6); /* the backdrop outside the panel — fine to keep semi-transparent */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.filterPanel {
+  background: #1c1b19;  /* solid, no transparency — was likely changed to an rgba with low opacity */
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: slideUp 0.25s ease;
+  position: relative;
+  z-index: 1; /* sits above the overlay backdrop, ensuring nothing behind bleeds through */
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.filterPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filterPanelTitle {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.filterCloseBtn {
+  background: var(--dark-soft);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+}
+
+.filterCloseBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.applyFiltersBtn {
+  width: 100%;
+  background: var(--gold);
+  color: var(--text-dark);
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 24px;
+}
+
+.applyFiltersBtn:hover {
+  background: var(--gold-dark);
+}
+
 /* Responsive */
 
+/* Tablet view */
 @media (max-width: 960px) {
   .searchBar {
     width: calc(100vw - 40px);
@@ -138,28 +256,40 @@
   }
 }
 
+/* Mobile view */
 @media (max-width: 640px) {
   .searchBar {
     width: calc(100vw - 24px);
     margin-left: calc(-50vw + 50% + 12px);
     margin-right: calc(-50vw + 50% + 12px);
-    flex-direction: column;
-    align-items: stretch;
+    margin-top: 16px;
   }
+
   .searchInput {
     flex: 1 1 auto;
   }
-  .filters {
-    flex-direction: column;
-    gap: 12px;
+
+  /* Hide inline filters on mobile — replaced by the toggle button */
+  .filtersDesktop {
+    display: none;
   }
-  .filterItem {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+
+  .filterToggleBtn {
+    display: flex;
   }
-  .searchBtn {
+
+  /* Inside the mobile panel, filters stack vertically full-width */
+  .filterPanel .filters {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .filterPanel .filterItem {
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
-    border-radius: 10px;
+    gap: 6px;
+  }
+  .filterPanel .filterSelect {
+    width: 100%;
   }
 }

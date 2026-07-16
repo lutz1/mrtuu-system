@@ -16,12 +16,32 @@
   margin: 0 0 40px;
 }
 
+/* Desktop / tablet grid — default visible, hidden on mobile */
+
 .carsGrid {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+}
+
+/* Mobile carousel — hidden by default, shown only ≤640px */
+
+.carsCarousel {
+  display: none;
+}
+
+.carSlide {
+  transform: scale(0.85);
+  opacity: 0.6;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.carSlideActive {
+  transform: scale(1);
+  opacity: 1;
+  z-index: 2;
 }
 
 .noResults {
@@ -38,7 +58,37 @@
 }
 
 @media (max-width: 640px) {
+  .featuredCars {
+    padding: 56px 0;
+  }
+
+  .sectionTitleLight {
+    padding: 0 20px;
+  }
+
   .carsGrid {
-    grid-template-columns: 1fr;
+    display: none;
+  }
+
+  .carsCarousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 8px 15vw;
+    margin: 0;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .carsCarousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carSlide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
   }
 }
