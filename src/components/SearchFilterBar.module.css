@@ -242,19 +242,50 @@
     width: calc(100vw - 40px);
     margin-left: calc(-50vw + 50% + 20px);
     margin-right: calc(-50vw + 50% + 20px);
-    padding: 16px;
+    padding: 10px 12px;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .searchInput {
+    flex: 1 1 90px;
+    min-width: 70px;
+    padding: 8px 12px;
+    font-size: 12px;
   }
   .filters {
-    width: 100%;
-    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 6px;
+    flex-shrink: 0;
+    align-items: center;
   }
   .filterItem {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
+    min-width: 0;
+    gap: 4px;
+  }
+  .filterLabel {
+    font-size: 11px;
   }
   .filterSelect {
-    width: 100%;
+    width: auto;
+    padding: 8px 20px 8px 10px;
+    font-size: 11px;
+    background-position: right 7px center;
+    background-size: 8px 5px;
+  }
+  .searchBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .searchBtnIcon {
+    width: 15px;
+    height: 15px;
   }
 }
+
 
 /* Mobile view */
 @media (max-width: 640px) {

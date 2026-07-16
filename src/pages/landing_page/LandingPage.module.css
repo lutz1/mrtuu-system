@@ -27,12 +27,13 @@
   .stickyHeader {
     position: static;
     background: transparent;
+    margin-bottom: -90px; /* cancel the desktop-only Hero overlap pull */
   }
 }
 
 @media (max-width: 640px) {
   .stickyHeader {
     position: sticky;
-    
+    margin-bottom: -120px;
   }
 }
