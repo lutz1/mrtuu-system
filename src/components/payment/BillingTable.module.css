@@ -1,0 +1,111 @@
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table thead tr {
+  background: #eef0f2;
+}
+
+.table th {
+  text-align: left;
+  font-weight: 700;
+  color: #374151;
+  padding: 16px 20px;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 18px 20px;
+  border-top: 1px solid #eef0f2;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+.statusPill {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.successful {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.failed {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.empty {
+  color: #6b7280;
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+.cardList {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .tableWrap {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .billingCard {
+    background: #ffffff;
+    border: 1px solid #eef0f2;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .billingCardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .billingDate {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b5563;
+  }
+
+  .billingDescription {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 10px;
+  }
+
+  .billingCardBottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .billingAmount {
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+}

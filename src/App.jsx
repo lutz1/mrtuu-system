@@ -6,7 +6,10 @@ import LandingPage from "./pages/landing_page/LandingPage";
 import ShowroomPage from "./pages/main_page/ShowroomPage";
 import VehicleOverviewPage from "./pages/main_page/VehicleOverviewPage";
 import LoginPage from "./pages/Login_Signup/LoginPage";
-import AccountPage from "./pages/main_page/AccountPage"
+import AccountPage from "./pages/account/AccountPage";
+import MyBookingsPage from "./pages/main_page/MyBookingsPage";
+import PaymentMethodsPage from "./pages/account/PaymentMethodsPage";
+import NotificationsPage from "./pages/account/NotificationsPage";
 import SignupPage from "./pages/Login_Signup/SignupPage";
 import BookingDetailsPage from "./pages/main_page/BookingDetailsPage";
 import PaymentPage from "./pages/main_page/PaymentPage";
@@ -19,7 +22,6 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            {/* Old /home links/bookmarks still work, redirected to the merged page */}
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
@@ -44,6 +46,30 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AccountPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account/bookings"
+              element={
+                <ProtectedRoute>
+                  <MyBookingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account/payment"
+              element={
+                <ProtectedRoute>
+                  <PaymentMethodsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account/notifications"
+              element={
+                <ProtectedRoute>
+                  <NotificationsPage />
                 </ProtectedRoute>
               }
             />

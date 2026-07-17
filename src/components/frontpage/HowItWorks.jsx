@@ -1,5 +1,5 @@
 import React from "react";
-import { HOW_IT_WORKS } from "../data/content";
+import { HOW_IT_WORKS } from "../../data/content";
 import styles from "./HowItWorks.module.css";
 
 export default function HowItWorks() {

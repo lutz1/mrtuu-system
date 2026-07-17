@@ -5,7 +5,7 @@ import SearchFilterBar from "../../components/SearchFilterBar";
 import Hero from "../../components/frontpage/Hero";
 import FeaturedCars from "../../components/frontpage/FeaturedCars";
 import WhyRentWithUs from "../../components/frontpage/WhyRentWithUs";
-import HowItWorks from "../../components/HowItWorks";
+import HowItWorks from "../../components/frontpage/HowItWorks";
 import TrustedPartner from "../../components/frontpage/TrustedPartner";
 import CTABanner from "../../components/frontpage/CTABanner";
 import Footer from "../../components/frontpage/Footer";

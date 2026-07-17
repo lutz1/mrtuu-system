@@ -3,7 +3,7 @@
   import Navbar from "../../components/frontpage/Navbar";
   import SearchFilterBar from "../../components/SearchFilterBar";
   import Breadcrumb from "../../components/Breadcrumb";
-  import Gallery from "../../components/Gallery";
+  import Gallery from "../../components/account/Gallery";
   import Features from "../../components/Features";
   import RentalPolicies from "../../components/RentalPolicies";
   import BookingPanel from "../../components/booking/BookingPanel";

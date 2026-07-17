@@ -2,8 +2,8 @@ import React from "react";
 import Navbar from "../../components/frontpage/Navbar";
 import Breadcrumb from "../../components/Breadcrumb";
 import Footer from "../../components/frontpage/Footer";
-import AccountSidebar from "../../components/AccountNav/AccountSidebar";
-import BookingCard from "../../components/BookingCard/BookingCard";
+import AccountSidebar from "../../components/account/AccountSidebar";
+import BookingCard from "../../components/booking/BookingCard";
 import { BOOKINGS } from "../../data/bookings";
 import styles from "./MyBookingsPage.module.css";
 

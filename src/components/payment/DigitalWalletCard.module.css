@@ -1,0 +1,104 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e6c88a;
+  border-radius: 14px;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  min-height: 190px;
+  justify-content: center;
+}
+
+.provider {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.accountNumber {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0;
+}
+
+.notConnected {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.linkBtn {
+  background: none;
+  border: none;
+  color: #d9922a;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 6px;
+}
+
+.linkBtn:hover {
+  text-decoration: underline;
+}
+
+.linkBtnUnderline {
+  background: none;
+  border: none;
+  color: #b8860b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+  margin-top: 6px;
+}
+
+.addCard {
+  background: #f7f7f7;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 14px;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-height: 190px;
+  justify-content: center;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.addCard:hover {
+  background: #f0f0f0;
+  border-color: #b8860b;
+}
+
+.addIcon {
+  width: 30px;
+  height: 30px;
+  color: #6b7280;
+}
+
+.addIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.addLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+@media (max-width: 640px) {
+  .card,
+  .addCard {
+    padding: 24px 16px;
+    min-height: 160px;
+  }
+}

@@ -11,7 +11,6 @@ import styles from "./AccountPage.module.css";
 export default function AccountPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [activeSection, setActiveSection] = useState("personal");
 
   const fullName = user?.displayName || "";
   const [firstName, ...restName] = fullName.split(" ");
@@ -95,11 +94,7 @@ export default function AccountPage() {
           <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "My Profile" }]} />
 
           <div className={styles.layout}>
-            <AccountSidebar
-              activeSection={activeSection}
-              onSectionChange={setActiveSection}
-              onDeleteAccount={handleLogout}
-            />
+            <AccountSidebar onDeleteAccount={handleLogout} />
 
             <main className={styles.main}>
               <h1 className={styles.pageTitle}>My Profile</h1>

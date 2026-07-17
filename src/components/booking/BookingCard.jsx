@@ -2,7 +2,7 @@ import React from "react";
 import { CARS } from "../../data/cars";
 import { BOOKING_STATUS } from "../../data/bookings";
 import { formatDateRange, formatSingleDate } from "../../utils/formatDate";
-import BookingStatusBadge from "../BookingStatusBadge/BookingStatusBadge";
+import BookingStatusBadge from "../../components/booking/BookingStatusBadge";
 import styles from "./BookingCard.module.css";
 
 function TransmissionIcon() {
