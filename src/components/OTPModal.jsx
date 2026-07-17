@@ -79,12 +79,16 @@ export default function OTPModal({
     }
   };
 
-  const handleResend = () => {
+  const handleResend = async () => {
     if (secondsLeft > 0) return;
     setSecondsLeft(RESEND_SECONDS);
     setDigits(Array(CODE_LENGTH).fill(""));
     inputRefs.current[0]?.focus();
-    onResend?.();
+    try {
+      await onResend?.();
+    } catch (err) {
+      setError(err?.message || "Couldn't resend the code. Please try again.");
+    }
   };
 
   return (
