@@ -8,6 +8,8 @@ import { DigitalWalletCard, AddWalletCard } from "../../components/payment/Digit
 import BillingTable from "../../components/payment/BillingTable";
 import { CARDS, DIGITAL_WALLETS, RECENT_BILLING } from "../../data/paymentMethods";
 import styles from "./PaymentMethodsPage.module.css";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 
 

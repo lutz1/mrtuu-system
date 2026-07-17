@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import Navbar from "../../components/frontpage/Navbar";
 import Breadcrumb from "../../components/Breadcrumb";
 import Footer from "../../components/frontpage/Footer";
@@ -8,9 +10,17 @@ import { NOTIFICATION_CATEGORIES } from "../../data/notificationPreferences";
 import styles from "./NotificationsPage.module.css";
 
 export default function NotificationsPage() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
   // Local-only state for now — no backend write yet. Once wired up, each
   // toggle change should debounce/write to Firestore under the user's doc.
   const [categories, setCategories] = useState(NOTIFICATION_CATEGORIES);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   const handleToggleChannel = (categoryId, channelKey, nextValue) => {
     setCategories((prev) =>
