@@ -85,9 +85,17 @@ export default function SignupPage() {
   };
 
   const handleVerifyOTP = async (code) => {
-    await confirmPhoneOTP(confirmationResultRef.current, code);
-    setShowOTPModal(false);
-    navigate("/");
+    try {
+      if (!confirmationResultRef.current) {
+        throw new Error("Please request a new code and try again.");
+      }
+      await confirmPhoneOTP(confirmationResultRef.current, code);
+      setShowOTPModal(false);
+      navigate("/");
+    } catch (err) {
+      const message = err?.code ? getFirebaseErrorMessage(err) : err?.message || "Something went wrong. Please try again.";
+      throw new Error(message);
+    }
   };
 
   const handleResendOTP = async () => {
