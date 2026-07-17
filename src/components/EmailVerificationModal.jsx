@@ -26,9 +26,14 @@ export default function EmailVerificationModal({ isOpen, email, onClose, onResen
 
   const handleResend = async () => {
     if (secondsLeft > 0) return;
-    await onResend?.();
-    setResent(true);
-    setSecondsLeft(RESEND_SECONDS);
+    setError("");
+    try {
+      await onResend?.();
+      setResent(true);
+      setSecondsLeft(RESEND_SECONDS);
+    } catch (err) {
+      setError(err?.message || "Couldn't resend the verification email. Please try again.");
+    }
   };
 
  const handleCheckVerified = async () => {
