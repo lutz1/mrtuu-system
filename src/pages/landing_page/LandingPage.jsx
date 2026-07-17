@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/frontpage/Navbar";
 import SearchFilterBar from "../../components/SearchFilterBar";
-import Hero from "../../components/Hero";
-import FeaturedCars from "../../components/FeaturedCars";
-import WhyRentWithUs from "../../components/WhyRentWithUs";
+import Hero from "../../components/frontpage/Hero";
+import FeaturedCars from "../../components/frontpage/FeaturedCars";
+import WhyRentWithUs from "../../components/frontpage/WhyRentWithUs";
 import HowItWorks from "../../components/HowItWorks";
-import TrustedPartner from "../../components/TrustedPartner";
-import CTABanner from "../../components/CTABanner";
-import Footer from "../../components/Footer";
+import TrustedPartner from "../../components/frontpage/TrustedPartner";
+import CTABanner from "../../components/frontpage/CTABanner";
+import Footer from "../../components/frontpage/Footer";
 import { CARS } from "../../data/cars";
 import styles from "./LandingPage.module.css";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IconTransmission, IconFuel, IconSeats, IconMileage } from "./icons";
+import { IconTransmission, IconFuel, IconSeats, IconMileage } from "../icons";
 import styles from "./CarCardWithPrice.module.css";
 
 export default function CarCardWithPrice({ car }) {

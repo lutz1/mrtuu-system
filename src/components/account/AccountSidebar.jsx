@@ -1,6 +1,6 @@
 import React from "react";
-import NavIcon from "./icons/NavIcon";
-import { NAV_ITEMS } from "../Data/navItems";
+import NavIcon from "../icons/NavIcon";
+import { NAV_ITEMS } from "../../Data/navItems";
 import styles from "./AccountSidebar.module.css";
 
 export default function AccountSidebar({ activeSection, onSectionChange, onDeleteAccount }) {

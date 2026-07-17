@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/frontpage/Navbar";
 import SearchFilterBar from "../../components/SearchFilterBar";
 import Breadcrumb from "../../components/Breadcrumb";
-import CarGrid from "../../components/CarGrid";
-import Footer from "../../components/Footer";
+import CarGrid from "../../components/carcards/CarGrid";
+import Footer from "../../components/frontpage/Footer";
 import { CARS } from "../../data/cars";
 import styles from "./ShowroomPage.module.css";
 

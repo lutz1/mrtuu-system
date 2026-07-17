@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CTABanner.module.css";
-import ctaBanner from "../assets/ctabanner.png";
+import ctaBanner from "../../assets/ctabanner.png";
 import { Link } from "react-router-dom";
 
 export default function CTABanner() {

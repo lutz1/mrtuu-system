@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { WHY_US } from "../data/content";
+import { WHY_US } from "../../data/content";
 import styles from "./WhyRentWithUs.module.css";
 
 export default function WhyRentWithUs() {

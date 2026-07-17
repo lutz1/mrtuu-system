@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import Navbar from "../../components/frontpage/Navbar";
+import Footer from "../../components/frontpage/Footer";
 import Loading from "../../components/Loading";
 import { CARS } from "../../data/cars";
 import styles from "./PaymentPage.module.css";

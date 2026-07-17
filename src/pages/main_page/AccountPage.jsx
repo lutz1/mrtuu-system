@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/frontpage/Navbar";
 import Breadcrumb from "../../components/Breadcrumb";
-import Footer from "../../components/Footer";
-import AccountSidebar from "../../components/AccountSidebar";
-import ProfilePictureUpload from "../../components/ProfilePictureUpload";
+import Footer from "../../components/frontpage/Footer";
+import AccountSidebar from "../../components/account/AccountSidebar";
+import ProfilePictureUpload from "../../components/account/ProfilePictureUpload";
 import styles from "./AccountPage.module.css";
 
 export default function AccountPage() {

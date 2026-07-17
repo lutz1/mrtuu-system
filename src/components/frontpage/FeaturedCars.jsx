@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import CarCard from "./CarCard";
+import CarCard from "../carcards/CarCard";
 import styles from "./FeaturedCars.module.css";
 
 export default function FeaturedCars({ cars }) {

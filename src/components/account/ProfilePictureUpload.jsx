@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { auth, storage } from "../lib/firebase";
-import { useAuth } from "../context/AuthContext";
-import NavIcon from "./icons/NavIcon";
+import { auth, storage } from "../../lib/firebase";
+import { useAuth } from "../../context/AuthContext";
+import NavIcon from "../icons/NavIcon";
 import styles from "./ProfilePictureUpload.module.css";
 
 const MAX_SIZE_MB = 5;
