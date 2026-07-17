@@ -1,8 +1,9 @@
 // src/firebase.js
 //
-// Central Firebase initialization — the app and auth instances created here
-// are imported wherever Firebase is needed (AuthContext, Login/Signup pages,
-// etc.) so we only ever initialize the SDK once.
+// Central Firebase initialization — the app, auth, and storage instances
+// created here are imported wherever Firebase is needed (AuthContext,
+// Login/Signup pages, ProfilePictureUpload, etc.) so we only ever
+// initialize the SDK once.
 //
 // Setup:
 // 1. npm install firebase
@@ -10,9 +11,12 @@
 // 3. In Project Settings > General, register a Web App and copy the config
 //    values below (or better, put them in a .env file — see note below).
 // 4. In Authentication > Sign-in method, enable "Email/Password" and "Google".
+// 5. In Storage, click "Get started" to provision the default bucket
+//    (needed for profile picture uploads).
 
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -27,5 +31,6 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+export const storage = getStorage(app);
 
 export default app;

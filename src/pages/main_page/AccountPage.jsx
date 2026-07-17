@@ -4,74 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 import Navbar from "../../components/Navbar";
 import Breadcrumb from "../../components/Breadcrumb";
 import Footer from "../../components/Footer";
+import AccountSidebar from "../../components/AccountSidebar";
+import ProfilePictureUpload from "../../components/ProfilePictureUpload";
 import styles from "./AccountPage.module.css";
-
-const NAV_ITEMS = [
-  { id: "personal", label: "Personal Info", icon: "user" },
-  { id: "bookings", label: "My Bookings", icon: "bookmark" },
-  { id: "payment", label: "Payment Methods", icon: "card" },
-  { id: "notifications", label: "Notification", icon: "bell" },
-  { id: "settings", label: "Settings", icon: "gear" },
-  { id: "security", label: "Security", icon: "shield" },
-];
-
-function NavIcon({ name }) {
-  switch (name) {
-    case "user":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.7" />
-          <path d="M4.5 20c1-3.8 4.2-6 7.5-6s6.5 2.2 7.5 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-        </svg>
-      );
-    case "bookmark":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4-7 4V4.5a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-        </svg>
-      );
-    case "card":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.7" />
-          <path d="M3 10.5h18" stroke="currentColor" strokeWidth="1.7" />
-        </svg>
-      );
-    case "bell":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 10a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-          <path d="M10 19a2 2 0 0 0 4 0" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-        </svg>
-      );
-    case "gear":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.7" />
-          <path
-            d="M19.4 13a7.9 7.9 0 0 0 0-2l2-1.5-2-3.4-2.3.9a8 8 0 0 0-1.7-1L15 3.6h-4l-.4 2.4a8 8 0 0 0-1.7 1l-2.3-.9-2 3.4L6.6 11a7.9 7.9 0 0 0 0 2l-2 1.5 2 3.4 2.3-.9a8 8 0 0 0 1.7 1l.4 2.4h4l.4-2.4a8 8 0 0 0 1.7-1l2.3.9 2-3.4-2-1.5z"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    case "shield":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-        </svg>
-      );
-    case "trash":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
 
 export default function AccountPage() {
   const { user, logout } = useAuth();
@@ -107,10 +42,9 @@ export default function AccountPage() {
   const displayName =
     `${personal.firstName} ${personal.lastName}`.trim() ||
     (user?.email ? user.email.split("@")[0] : "Account");
-  const initial = displayName.trim().charAt(0).toUpperCase();
 
   const startEditingPersonal = () => {
-    setPersonalDraft(personal); // seed the draft with current saved values
+    setPersonalDraft(personal);
     setEditingPersonal(true);
   };
 
@@ -128,17 +62,15 @@ export default function AccountPage() {
   };
 
   const savePersonal = () => {
-    // No backend yet — this only persists in local state for now
     setPersonal(personalDraft);
     setEditingPersonal(false);
   };
 
   const cancelPersonal = () => {
-    setEditingPersonal(false); // draft is simply discarded, personal stays untouched
+    setEditingPersonal(false);
   };
 
   const saveAddress = () => {
-    // No backend yet — this only persists in local state for now
     setAddress(addressDraft);
     setEditingAddress(false);
   };
@@ -163,52 +95,22 @@ export default function AccountPage() {
           <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "My Profile" }]} />
 
           <div className={styles.layout}>
-            {/* Sidebar */}
-            <aside className={styles.sidebar}>
-              <nav className={styles.sidebarNav}>
-                {NAV_ITEMS.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`${styles.sidebarItem} ${
-                      activeSection === item.id ? styles.sidebarItemActive : ""
-                    }`}
-                    onClick={() => setActiveSection(item.id)}
-                  >
-                    <span className={styles.sidebarIcon}>
-                      <NavIcon name={item.icon} />
-                    </span>
-                    {item.label}
-                  </button>
-                ))}
+            <AccountSidebar
+              activeSection={activeSection}
+              onSectionChange={setActiveSection}
+              onDeleteAccount={handleLogout}
+            />
 
-                <div className={styles.sidebarDivider} />
-
-                <button
-                  type="button"
-                  className={styles.sidebarItemDanger}
-                  onClick={handleLogout}
-                >
-                  <span className={styles.sidebarIcon}>
-                    <NavIcon name="trash" />
-                  </span>
-                  Delete Account
-                </button>
-              </nav>
-            </aside>
-
-            {/* Main content */}
             <main className={styles.main}>
               <h1 className={styles.pageTitle}>My Profile</h1>
 
               {/* Profile header card */}
               <section className={styles.card}>
                 <div className={styles.profileHeader}>
-                  {user?.photoURL ? (
-                    <img src={user.photoURL} alt={displayName} className={styles.avatarImage} />
-                  ) : (
-                    <div className={styles.avatar}>{initial}</div>
-                  )}
+                  <ProfilePictureUpload
+                    photoURL={user?.photoURL}
+                    displayName={displayName}
+                  />
 
                   <div className={styles.profileInfo}>
                     <h2 className={styles.profileName}>{displayName}</h2>
