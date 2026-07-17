@@ -82,14 +82,14 @@ export function AuthProvider({ children }) {
   const confirmPhoneOTP = (confirmationResult, code) => {
     return confirmationResult.confirm(code);
   };
-  // check if user have verify their email
- const checkEmailVerified = async () => {
-  if (!auth.currentUser) {
-    throw new Error("No active session — please log in again to verify.");
-  }
-  await auth.currentUser.reload();
-  return auth.currentUser.emailVerified;
-};
+  // Check whether the current user has verified their email.
+  const checkEmailVerified = async () => {
+    if (!auth.currentUser) {
+      throw new Error("No active session — please log in again to verify.");
+    }
+    await auth.currentUser.reload();
+    return auth.currentUser.emailVerified;
+  };
 
   const value = {
     user,
