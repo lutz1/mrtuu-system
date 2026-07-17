@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./Navbar.module.css";
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 export default function Navbar() {
   const { user, isLoggedIn } = useAuth();

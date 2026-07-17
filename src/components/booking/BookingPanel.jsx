@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "./Loading";
+import Loading from "../Loading";
 import styles from "./BookingPanel.module.css";
 
 const INSURANCE_FEE = 450;

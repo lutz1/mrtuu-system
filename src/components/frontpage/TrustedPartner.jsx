@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./TrustedPartner.module.css";
-import familyImage from "../assets/family.png"
+import familyImage from "../../assets/family.png"
 
 export default function TrustedPartner() {
   return (

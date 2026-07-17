@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -32,7 +39,11 @@ export function AuthProvider({ children }) {
   };
 
   const signup = async (name, email, password) => {
-    const credential = await createUserWithEmailAndPassword(auth, email, password);
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     if (name) {
       await updateProfile(credential.user, { displayName: name });
     }
@@ -67,9 +78,13 @@ export function AuthProvider({ children }) {
   // check your package.json "firebase" version if this throws at runtime.
   const getRecaptchaVerifier = (containerId) => {
     if (!recaptchaVerifiers.current[containerId]) {
-      recaptchaVerifiers.current[containerId] = new RecaptchaVerifier(auth, containerId, {
-        size: "invisible",
-      });
+      recaptchaVerifiers.current[containerId] = new RecaptchaVerifier(
+        auth,
+        containerId,
+        {
+          size: "invisible",
+        }
+      );
     }
     return recaptchaVerifiers.current[containerId];
   };
@@ -82,6 +97,7 @@ export function AuthProvider({ children }) {
   const confirmPhoneOTP = (confirmationResult, code) => {
     return confirmationResult.confirm(code);
   };
+
   // Check whether the current user has verified their email.
   const checkEmailVerified = async () => {
     if (!auth.currentUser) {
@@ -90,6 +106,16 @@ export function AuthProvider({ children }) {
     await auth.currentUser.reload();
     return auth.currentUser.emailVerified;
   };
+
+  // Firebase's updateProfile() mutates auth.currentUser in place rather than
+  // returning a new object, so React won't re-render off that alone. Call
+  // this after any updateProfile() (photoURL, displayName, etc.) to force a
+  // fresh reference and re-render every consumer of `user`.
+  const refreshUser = useCallback(() => {
+    if (auth.currentUser) {
+      setUser({ ...auth.currentUser });
+    }
+  }, []);
 
   const value = {
     user,
@@ -103,6 +129,7 @@ export function AuthProvider({ children }) {
     sendPhoneOTP,
     confirmPhoneOTP,
     checkEmailVerified,
+    refreshUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
