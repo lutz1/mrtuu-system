@@ -14,6 +14,8 @@ import SignupPage from "./pages/Login_Signup/SignupPage";
 import BookingDetailsPage from "./pages/main_page/BookingDetailsPage";
 import PaymentPage from "./pages/main_page/PaymentPage";
 import PaymentSuccessPage from "./pages/main_page/PaymentSuccessPage";
+import PrivacySecurityPage from "./pages/security/PrivacySecurityPage";
+import SettingsPage from "./pages/settings/SettingsPage";
 
 function App() {
   return (
@@ -94,6 +96,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <PaymentSuccessPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account/security"
+              element={
+                <ProtectedRoute>
+                  <PrivacySecurityPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account/settings"
+              element={
+                <ProtectedRoute>
+                  <SettingsPage />
                 </ProtectedRoute>
               }
             />

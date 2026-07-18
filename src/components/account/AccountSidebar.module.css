@@ -80,6 +80,26 @@
   background: #fdeceb;
 }
 
+.sidebarItemLogout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e0483e;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sidebarItemLogout:hover {
+  background: #fdeceb;
+}
+
 @media (max-width: 960px) {
   .sidebar {
     position: static;

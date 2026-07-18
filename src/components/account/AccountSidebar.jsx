@@ -4,8 +4,6 @@ import NavIcon from "../icons/NavIcon";
 import { NAV_ITEMS } from "../../Data/navItems";
 import styles from "./AccountSidebar.module.css";
 
-// Maps each nav item id to its actual route. Update this alongside App.jsx
-// whenever a new Account sub-page gets its own route.
 const ROUTE_MAP = {
   personal: "/account",
   bookings: "/account/bookings",
@@ -15,7 +13,7 @@ const ROUTE_MAP = {
   security: "/account/security",
 };
 
-export default function AccountSidebar({ onDeleteAccount }) {
+export default function AccountSidebar({ onLogout }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -43,11 +41,11 @@ export default function AccountSidebar({ onDeleteAccount }) {
 
         <div className={styles.sidebarDivider} />
 
-        <button type="button" className={styles.sidebarItemDanger} onClick={onDeleteAccount}>
+        <button type="button" className={styles.sidebarItemLogout} onClick={onLogout}>
           <span className={styles.sidebarIcon}>
-            <NavIcon name="trash" />
+            <NavIcon name="logout" />
           </span>
-          Delete Account
+          Logout
         </button>
       </nav>
     </aside>
