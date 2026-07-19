@@ -11,7 +11,12 @@ import styles from "./PaymentMethodsPage.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-
+const handleEditCard = (card) => console.log("Edit card:", card.id);
+const handleDeleteCard = (card) => console.log("Delete card:", card.id);
+const handleSetDefaultCard = (card) => console.log("Set default:", card.id);
+const handleManageWallet = (wallet) => console.log("Manage wallet:", wallet.id);
+const handleConnectWallet = (wallet) => console.log("Connect wallet:", wallet.id);
+const handleAddWallet = () => console.log("Add another wallet");
 
 export default function PaymentMethodsPage() {
   const { logout } = useAuth();
@@ -21,13 +26,6 @@ export default function PaymentMethodsPage() {
     logout();
     navigate("/");
   };
-
-  const handleEditCard = (card) => console.log("Edit card:", card.id);
-  const handleDeleteCard = (card) => console.log("Delete card:", card.id);
-  const handleSetDefaultCard = (card) => console.log("Set default:", card.id);
-  const handleManageWallet = (wallet) => console.log("Manage wallet:", wallet.id);
-  const handleConnectWallet = (wallet) => console.log("Connect wallet:", wallet.id);
-  const handleAddWallet = () => console.log("Add another wallet");
 
   return (
     <div className={styles.page}>

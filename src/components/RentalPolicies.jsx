@@ -3,22 +3,22 @@ import { IconPlus, IconMinus } from "./icons";
 import styles from "./RentalPolicies.module.css";
 
 export default function RentalPolicies({ policies }) {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openTitle, setOpenTitle] = useState(null);
 
-  const toggle = (i) => setOpenIndex((prev) => (prev === i ? null : i));
+  const toggle = (title) => setOpenTitle((prev) => (prev === title ? null : title));
 
   return (
     <div className={styles.policiesSection}>
       <h2 className={styles.sectionHeading}>Rental Policies</h2>
       <div className={styles.accordionList}>
-        {policies.map((policy, i) => {
-          const isOpen = openIndex === i;
+        {policies.map((policy) => {
+          const isOpen = openTitle === policy.title;
           return (
-            <div className={styles.accordionItem} key={i}>
+            <div className={styles.accordionItem} key={policy.title}>
               <button
                 type="button"
                 className={styles.accordionTrigger}
-                onClick={() => toggle(i)}
+                onClick={() => toggle(policy.title)}
                 aria-expanded={isOpen}
               >
                 <span>{policy.title}</span>

@@ -50,9 +50,9 @@ export default function Gallery({ images, carName }) {
       </div>
 
       <div className={styles.galleryThumbs}>
-        {images.slice(1, 5).map((img, i) => (
+        {images.slice(1, 5).map((img) => (
           <button
-            key={i}
+            key={img}
             type="button"
             className={styles.galleryThumbBtn}
             onClick={() => {
@@ -60,7 +60,7 @@ export default function Gallery({ images, carName }) {
               openLightbox(img);
             }}
           >
-            <img src={img} alt={`${carName} view ${i + 2}`} className={styles.galleryThumbImage} />
+            <img src={img} alt={`${carName} view`} className={styles.galleryThumbImage} />
           </button>
         ))}
       </div>

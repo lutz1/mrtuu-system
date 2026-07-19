@@ -12,8 +12,8 @@ export default function Features({ features }) {
     <div className={styles.featuresSection}>
       <h2 className={styles.sectionHeading}>Features</h2>
       <ul className={styles.featuresList}>
-        {visibleFeatures.map((feature, i) => (
-          <li key={i} className={styles.featureItem}>
+        {visibleFeatures.map((feature) => (
+          <li key={feature} className={styles.featureItem}>
             <IconCheck className={styles.featureIcon} />
             {feature}
           </li>

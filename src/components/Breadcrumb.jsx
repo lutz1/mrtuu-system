@@ -2,15 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Breadcrumb.module.css";
 
-// items: [{ label: "Home", to: "/home" }, { label: "Showroom", to: "/showroom" }, { label: "Toyota Fortuner" }]
-// The last item has no `to` — it renders as plain (current) text.
 export default function Breadcrumb({ items }) {
   return (
     <div className={styles.breadcrumb}>
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         return (
-          <React.Fragment key={i}>
+          <React.Fragment key={item.to || item.label}>
             {isLast ? (
               <span className={styles.breadcrumbCurrent}>{item.label}</span>
             ) : (

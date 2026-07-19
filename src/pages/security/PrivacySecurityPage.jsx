@@ -12,6 +12,31 @@ import DangerZoneCard from "../../components/security/DangerZoneCard";
 import { ACTIVE_SESSIONS, SECURITY_LOG } from "../../data/loginHistory";
 import styles from "./PrivacySecurityPage.module.css";
 
+// TODO: open change-email flow (needs a new AuthContext function —
+// Firebase's updateEmail() requires recent re-authentication)
+const handleChangeEmail = () => {
+  console.log("Change email address");
+};
+
+// TODO: open change-phone flow, reuse sendPhoneOTP/confirmPhoneOTP
+// from AuthContext once a dedicated "update phone" UI exists
+const handleChangePhone = () => {
+  console.log("Change phone number");
+};
+
+// TODO: needs a changePassword function in AuthContext.
+// Firebase requires reauthenticateWithCredential(currentPassword)
+// before updatePassword(newPassword) will succeed.
+const handlePasswordSubmit = ({ currentPassword, newPassword }) => {
+  console.log("Change password:", { currentPassword, newPassword });
+};
+
+// TODO: needs a deleteAccount function in AuthContext using
+// Firebase's deleteUser(), which also requires recent re-auth.
+const handleDeleteAccount = () => {
+  console.log("Delete account requested");
+};
+
 export default function PrivacySecurityPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -23,37 +48,12 @@ export default function PrivacySecurityPage() {
     navigate("/");
   };
 
-  const handleChangeEmail = () => {
-    // TODO: open change-email flow (needs a new AuthContext function —
-    // Firebase's updateEmail() requires recent re-authentication)
-    console.log("Change email address");
-  };
-
-  const handleChangePhone = () => {
-    // TODO: open change-phone flow, reuse sendPhoneOTP/confirmPhoneOTP
-    // from AuthContext once a dedicated "update phone" UI exists
-    console.log("Change phone number");
-  };
-
-  const handlePasswordSubmit = ({ currentPassword, newPassword }) => {
-    // TODO: needs a changePassword function in AuthContext.
-    // Firebase requires reauthenticateWithCredential(currentPassword)
-    // before updatePassword(newPassword) will succeed.
-    console.log("Change password:", { currentPassword, newPassword });
-  };
-
   const handleLogoutSession = (session) => {
     // TODO: no backend session tracking yet — Firebase Auth doesn't expose
     // remote session revocation client-side; this would need a Cloud
     // Function calling admin.auth().revokeRefreshTokens(uid) per device,
     // which requires actual per-device session records server-side.
     setSessions((prev) => prev.filter((s) => s.id !== session.id));
-  };
-
-  const handleDeleteAccount = () => {
-    // TODO: needs a deleteAccount function in AuthContext using
-    // Firebase's deleteUser(), which also requires recent re-auth.
-    console.log("Delete account requested");
   };
 
   return (

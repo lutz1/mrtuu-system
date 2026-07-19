@@ -24,7 +24,7 @@ export default function Hero() {
           we've got the perfect car for you.
         </p>
         <div className={styles.heroActions}>
-          <button className={styles.primaryBtn}>
+          <button type="button" className={styles.primaryBtn}>
             Book a Car <span className={styles.btnArrow}>→</span>
           </button>
           <Link to="/showroom" className={styles.secondaryBtn}>

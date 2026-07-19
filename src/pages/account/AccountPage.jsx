@@ -5,7 +5,9 @@ import Navbar from "../../components/frontpage/Navbar";
 import Breadcrumb from "../../components/Breadcrumb";
 import Footer from "../../components/frontpage/Footer";
 import AccountSidebar from "../../components/account/AccountSidebar";
-import ProfilePictureUpload from "../../components/account/ProfilePictureUpload";
+import ProfileHeaderCard from "../../components/account/ProfileHeaderCard";
+import PersonalInfoCard from "../../components/account/PersonalInfoCard";
+import AddressCard from "../../components/account/AddressCard";
 import styles from "./AccountPage.module.css";
 
 export default function AccountPage() {
@@ -16,7 +18,6 @@ export default function AccountPage() {
   const [firstName, ...restName] = fullName.split(" ");
   const derivedLastName = restName.join(" ");
 
-  // Committed (saved) values — these are what render when not editing
   const [personal, setPersonal] = useState({
     firstName: firstName || "",
     lastName: derivedLastName || "",
@@ -31,7 +32,6 @@ export default function AccountPage() {
     province: "",
   });
 
-  // Draft values — only these change while typing in edit mode
   const [personalDraft, setPersonalDraft] = useState(personal);
   const [addressDraft, setAddressDraft] = useState(address);
 
@@ -65,18 +65,14 @@ export default function AccountPage() {
     setEditingPersonal(false);
   };
 
-  const cancelPersonal = () => {
-    setEditingPersonal(false);
-  };
+  const cancelPersonal = () => setEditingPersonal(false);
 
   const saveAddress = () => {
     setAddress(addressDraft);
     setEditingAddress(false);
   };
 
-  const cancelAddress = () => {
-    setEditingAddress(false);
-  };
+  const cancelAddress = () => setEditingAddress(false);
 
   const handleLogout = () => {
     logout();
@@ -99,208 +95,33 @@ export default function AccountPage() {
             <main className={styles.main}>
               <h1 className={styles.pageTitle}>My Profile</h1>
 
-              {/* Profile header card */}
-              <section className={styles.card}>
-                <div className={styles.profileHeader}>
-                  <ProfilePictureUpload
-                    photoURL={user?.photoURL}
-                    displayName={displayName}
-                  />
+              <ProfileHeaderCard
+                user={user}
+                displayName={displayName}
+                email={personal.email}
+                phone={personal.phone}
+                onEdit={startEditingPersonal}
+              />
 
-                  <div className={styles.profileInfo}>
-                    <h2 className={styles.profileName}>{displayName}</h2>
-                    <p className={styles.profileLine}>
-                      <span className={styles.profileLabel}>Email</span> {personal.email || "—"}
-                    </p>
-                    <p className={styles.profileLine}>
-                      <span className={styles.profileLabel}>Phone</span>{" "}
-                      {personal.phone || "Not set"}
-                    </p>
-                  </div>
+              <PersonalInfoCard
+                personal={personal}
+                editingPersonal={editingPersonal}
+                personalDraft={personalDraft}
+                onStartEdit={startEditingPersonal}
+                onDraftChange={handlePersonalDraftChange}
+                onSave={savePersonal}
+                onCancel={cancelPersonal}
+              />
 
-                  <button type="button" className={styles.editBtn} onClick={startEditingPersonal}>
-                    Edit
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M4 20h4l10-10-4-4L4 16v4z"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </section>
-
-              {/* Personal Information */}
-              <section className={styles.card}>
-                <div className={styles.cardHeaderRow}>
-                  <h3 className={styles.cardTitle}>Personal Information</h3>
-                  {!editingPersonal && (
-                    <button type="button" className={styles.editBtn} onClick={startEditingPersonal}>
-                      Edit
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M4 20h4l10-10-4-4L4 16v4z"
-                          stroke="currentColor"
-                          strokeWidth="1.6"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-
-                <div className={styles.fieldGrid}>
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>Name</span>
-                    {editingPersonal ? (
-                      <input
-                        type="text"
-                        className={styles.fieldInput}
-                        value={personalDraft.firstName}
-                        onChange={(e) => handlePersonalDraftChange("firstName", e.target.value)}
-                      />
-                    ) : (
-                      <span className={styles.fieldValue}>{personal.firstName || "—"}</span>
-                    )}
-                  </div>
-
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>Last Name</span>
-                    {editingPersonal ? (
-                      <input
-                        type="text"
-                        className={styles.fieldInput}
-                        value={personalDraft.lastName}
-                        onChange={(e) => handlePersonalDraftChange("lastName", e.target.value)}
-                      />
-                    ) : (
-                      <span className={styles.fieldValue}>{personal.lastName || "—"}</span>
-                    )}
-                  </div>
-
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>Email Address</span>
-                    <span className={styles.fieldValue}>{personal.email || "—"}</span>
-                  </div>
-
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>Phone</span>
-                    {editingPersonal ? (
-                      <input
-                        type="tel"
-                        className={styles.fieldInput}
-                        placeholder="e.g. 0967676767"
-                        value={personalDraft.phone}
-                        onChange={(e) => handlePersonalDraftChange("phone", e.target.value)}
-                      />
-                    ) : (
-                      <span className={styles.fieldValue}>{personal.phone || "Not set"}</span>
-                    )}
-                  </div>
-                </div>
-
-                {editingPersonal && (
-                  <div className={styles.editActions}>
-                    <button type="button" className={styles.cancelBtn} onClick={cancelPersonal}>
-                      Cancel
-                    </button>
-                    <button type="button" className={styles.saveBtn} onClick={savePersonal}>
-                      Save Changes
-                    </button>
-                  </div>
-                )}
-              </section>
-
-              {/* Address */}
-              <section className={styles.card}>
-                <div className={styles.cardHeaderRow}>
-                  <h3 className={styles.cardTitle}>Address</h3>
-                  {!editingAddress && (
-                    <button type="button" className={styles.editBtn} onClick={startEditingAddress}>
-                      Edit
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M4 20h4l10-10-4-4L4 16v4z"
-                          stroke="currentColor"
-                          strokeWidth="1.6"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-
-                <div className={styles.fieldGrid}>
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>Country</span>
-                    {editingAddress ? (
-                      <input
-                        type="text"
-                        className={styles.fieldInput}
-                        value={addressDraft.country}
-                        onChange={(e) => handleAddressDraftChange("country", e.target.value)}
-                      />
-                    ) : (
-                      <span className={styles.fieldValue}>{address.country || "Not set"}</span>
-                    )}
-                  </div>
-
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>City</span>
-                    {editingAddress ? (
-                      <input
-                        type="text"
-                        className={styles.fieldInput}
-                        value={addressDraft.city}
-                        onChange={(e) => handleAddressDraftChange("city", e.target.value)}
-                      />
-                    ) : (
-                      <span className={styles.fieldValue}>{address.city || "Not set"}</span>
-                    )}
-                  </div>
-
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>Postal Code</span>
-                    {editingAddress ? (
-                      <input
-                        type="text"
-                        className={styles.fieldInput}
-                        value={addressDraft.postalCode}
-                        onChange={(e) => handleAddressDraftChange("postalCode", e.target.value)}
-                      />
-                    ) : (
-                      <span className={styles.fieldValue}>{address.postalCode || "Not set"}</span>
-                    )}
-                  </div>
-
-                  <div className={styles.field}>
-                    <span className={styles.fieldLabel}>Province</span>
-                    {editingAddress ? (
-                      <input
-                        type="text"
-                        className={styles.fieldInput}
-                        value={addressDraft.province}
-                        onChange={(e) => handleAddressDraftChange("province", e.target.value)}
-                      />
-                    ) : (
-                      <span className={styles.fieldValue}>{address.province || "Not set"}</span>
-                    )}
-                  </div>
-                </div>
-
-                {editingAddress && (
-                  <div className={styles.editActions}>
-                    <button type="button" className={styles.cancelBtn} onClick={cancelAddress}>
-                      Cancel
-                    </button>
-                    <button type="button" className={styles.saveBtn} onClick={saveAddress}>
-                      Save Changes
-                    </button>
-                  </div>
-                )}
-              </section>
+              <AddressCard
+                address={address}
+                editingAddress={editingAddress}
+                addressDraft={addressDraft}
+                onStartEdit={startEditingAddress}
+                onDraftChange={handleAddressDraftChange}
+                onSave={saveAddress}
+                onCancel={cancelAddress}
+              />
             </main>
           </div>
         </div>

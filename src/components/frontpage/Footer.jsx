@@ -18,12 +18,12 @@ export default function Footer() {
           </p>
         </div>
         <div className={styles.footerColumns}>
-          {FOOTER_COLUMNS.map((col, i) => (
-            <div className={styles.footerColumn} key={i}>
+          {FOOTER_COLUMNS.map((col) => (
+            <div className={styles.footerColumn} key={col.title}>
               <h4 className={styles.footerColumnTitle}>{col.title}</h4>
               <ul>
-                {col.links.map((link, j) => (
-                  <li key={j}>
+                {col.links.map((link) => (
+                  <li key={link}>
                     <a href="#top">
                       <span className={styles.footerChevron}>›</span> {link}
                     </a>

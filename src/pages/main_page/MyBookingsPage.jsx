@@ -7,32 +7,32 @@ import BookingCard from "../../components/booking/BookingCard";
 import { BOOKINGS } from "../../data/bookings";
 import styles from "./MyBookingsPage.module.css";
 
+// TODO: wire up extend-trip flow
+const handleExtendTrip = (booking) => {
+  console.log("Extend trip:", booking.id);
+};
+
+// TODO: open support/contact flow
+const handleSupport = (booking) => {
+  console.log("Support:", booking.id);
+};
+
+// TODO: generate/download invoice PDF
+const handleDownloadInvoice = (booking) => {
+  console.log("Download invoice:", booking.id);
+};
+
+// TODO: navigate to booking flow pre-filled with this car
+const handleRentAgain = (booking) => {
+  console.log("Rent again:", booking.id);
+};
+
+// TODO: open booking details modal/page
+const handleViewDetails = (booking) => {
+  console.log("View details:", booking.id);
+};
+
 export default function MyBookingsPage() {
-  const handleExtendTrip = (booking) => {
-    // TODO: wire up extend-trip flow
-    console.log("Extend trip:", booking.id);
-  };
-
-  const handleSupport = (booking) => {
-    // TODO: open support/contact flow
-    console.log("Support:", booking.id);
-  };
-
-  const handleDownloadInvoice = (booking) => {
-    // TODO: generate/download invoice PDF
-    console.log("Download invoice:", booking.id);
-  };
-
-  const handleRentAgain = (booking) => {
-    // TODO: navigate to booking flow pre-filled with this car
-    console.log("Rent again:", booking.id);
-  };
-
-  const handleViewDetails = (booking) => {
-    // TODO: open booking details modal/page
-    console.log("View details:", booking.id);
-  };
-
   return (
     <div className={styles.page}>
       <div className={styles.stickyHeader}>

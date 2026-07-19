@@ -51,7 +51,7 @@ export default function ProfilePictureUpload({ photoURL, displayName }) {
       const downloadURL = await getDownloadURL(fileRef);
 
       await updateProfile(currentUser, { photoURL: downloadURL });
-      refreshUser(); // forces context + every consumer to re-render with the new photoURL
+      refreshUser();
     } catch (err) {
       console.error("Profile picture upload failed:", err);
       setError("Upload failed. Please try again.");
@@ -88,6 +88,7 @@ export default function ProfilePictureUpload({ photoURL, displayName }) {
         ref={fileInputRef}
         type="file"
         accept="image/*"
+        aria-label="Upload profile picture"
         className={styles.hiddenInput}
         onChange={handleFileChange}
       />

@@ -25,6 +25,17 @@ function addDays(dateStr, days) {
   return toISODate(date);
 }
 
+function openPicker(ref) {
+  const el = ref.current;
+  if (!el) return;
+  if (typeof el.showPicker === "function") {
+    el.showPicker();
+  } else {
+    el.focus();
+    el.click();
+  }
+}
+
 export default function BookingPanel({ car }) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -65,36 +76,25 @@ export default function BookingPanel({ car }) {
     setReturnDate(safeDate);
   };
 
-  const openPicker = (ref) => {
-    const el = ref.current;
-    if (!el) return;
-    if (typeof el.showPicker === "function") {
-      el.showPicker();
-    } else {
-      el.focus();
-      el.click();
-    }
-  };
-
   const handleBookNow = () => {
-  setIsLoading(true);
-  // Simulated delay — swap for a real API call once the backend exists
-  setTimeout(() => {
-    navigate(`/booking/${car.id}`, {
-      state: {
-        location,
-        pickupDate,
-        returnDate,
-        days,
-        dailyRate,
-        subtotal,
-        insuranceFee: INSURANCE_FEE,
-        serviceFee: SERVICE_FEE,
-        total,
-      },
-    });
-  }, 900);
-};
+    setIsLoading(true);
+    // Simulated delay — swap for a real API call once the backend exists
+    setTimeout(() => {
+      navigate(`/booking/${car.id}`, {
+        state: {
+          location,
+          pickupDate,
+          returnDate,
+          days,
+          dailyRate,
+          subtotal,
+          insuranceFee: INSURANCE_FEE,
+          serviceFee: SERVICE_FEE,
+          total,
+        },
+      });
+    }, 900);
+  };
 
   return (
     <aside className={styles.bookingPanel}>
