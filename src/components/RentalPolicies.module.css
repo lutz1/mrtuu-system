@@ -6,7 +6,7 @@
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 16px;
-  color: #1a1a1a;
+  color: var(--color-text-primary)
 }
 
 .accordionList {
@@ -32,22 +32,23 @@
   padding: 16px 20px;
   font-size: 15px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
   text-align: left;
+  background: var(--color-bg-surface);
 }
 
 .accordionIcon {
   width: 18px;
   height: 18px;
-  color: #1a1a1a;
+  color: #1a1a1a;color: var(--color-text-primary);
   flex-shrink: 0;
 }
 
 .accordionContent {
   padding: 0 20px 18px;
   margin: 0;
-  color: #6b6b6b;
+  background: var(--color-bg-surface);
   font-size: 14px;
   line-height: 1.7;
 }

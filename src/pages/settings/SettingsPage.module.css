@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   color: #1a1a1a;
-  background: #f5f6f8;
+  background: var(--color-bg-page);
 }
 
 .page * {
@@ -44,6 +44,7 @@
   font-size: 26px;
   font-weight: 700;
   margin: 0;
+  color: var(--color-text-primary)
 }
 
 .topGrid {
@@ -54,7 +55,7 @@
 }
 
 .card {
-  background: #f7f8f9;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 28px;
 }
@@ -63,6 +64,7 @@
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 22px;
+  color: var(--color-text-primary)
 }
 
 .fieldStack {
@@ -96,7 +98,7 @@
 
 .toggleLabel {
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--color-text-primary)
 }
 
 /* =========================

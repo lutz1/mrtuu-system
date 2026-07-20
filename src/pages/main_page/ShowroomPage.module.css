@@ -11,7 +11,7 @@
   background: transparent;
   display: flex;
   flex-direction: column;
-  gap: 0; /* change to 8px/10px if desired */
+  gap: 15px; /* change to 8px/10px if desired */
 }
 
 .pageContent {
