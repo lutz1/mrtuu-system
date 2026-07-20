@@ -4,7 +4,6 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.png";
 
-
 export default function Navbar() {
   const { user, isLoggedIn } = useAuth();
 
@@ -16,7 +15,7 @@ export default function Navbar() {
   const initial = userName.trim().charAt(0).toUpperCase();
 
   return (
-    <header className={styles.navbar}>
+    <header className={`${styles.navbar} ${isLoggedIn ? styles.navbarThemed : ""}`}>
       <div className={styles.navInner}>
         {/* Logo */}
         <Link to="/" className={styles.logo}>

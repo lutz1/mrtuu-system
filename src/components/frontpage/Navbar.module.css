@@ -1,5 +1,5 @@
 .navbar {
-  background: var(--color-brand-cream);
+  background: #fdf8ec;
   padding: 18px 0;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
 }
@@ -117,6 +117,30 @@
   font-size: 13px;
   font-weight: 500;
   color: #f0a93a;
+}
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in
+   (isLoggedIn from AuthContext). Logged-out visitors always see
+   the fixed cream navbar above, regardless of stored theme
+   preference. Only properties that actually differ between
+   light/dark tokens are overridden here.
+   ============================================================ */
+
+.navbarThemed {
+  background: var(--color-bg-surface);
+}
+
+.navbarThemed .logoText {
+  color: var(--color-text-primary);
+}
+
+.navbarThemed .navLinks a {
+  color: var(--color-text-muted);
+}
+
+.navbarThemed .navLinks a:hover {
+  color: var(--color-accent-dark);
 }
 
 /* Responsive */
