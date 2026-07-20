@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.png";
 
+
 export default function Navbar() {
   const { user, isLoggedIn } = useAuth();
 
@@ -30,8 +31,8 @@ export default function Navbar() {
         {/* Right Side */}
         <div className={styles.rightSection}>
           <nav className={styles.navLinks}>
-            <a href="#requirements">Requirements</a>
-            <a href="#contact">Contact</a>
+            <Link to="/requirements">Requirements</Link>
+            <Link to="/contact">Contact</Link>
           </nav>
 
           {isLoggedIn ? (

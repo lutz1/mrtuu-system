@@ -1,0 +1,49 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #f5f6f8;
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.searchBarWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px 32px 0;
+}
+
+.contentWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .searchBarWrapper {
+    padding: 16px 20px 0;
+  }
+  .contentWrapper {
+    padding: 40px 20px 60px;
+  }
+}
+
+@media (max-width: 640px) {
+  .searchBarWrapper {
+    padding: 16px 12px 0;
+  }
+  .contentWrapper {
+    padding: 32px 12px 60px;
+  }
+}

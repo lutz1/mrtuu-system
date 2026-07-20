@@ -16,17 +16,21 @@ import PaymentPage from "./pages/main_page/PaymentPage";
 import PaymentSuccessPage from "./pages/main_page/PaymentSuccessPage";
 import PrivacySecurityPage from "./pages/security/PrivacySecurityPage";
 import SettingsPage from "./pages/settings/SettingsPage";
+import RequirementsPage from "./pages/requirements/RequirementsPage";
+import ContactPage from "./pages/contact/ContactPage";
 
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
+              <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/requirements" element={<RequirementsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route
               path="/showroom"
               element={

@@ -1,0 +1,125 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+}
+
+.ageCard {
+  background: #eef0f3;
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.ageText {
+  flex: 1;
+}
+
+.ageImage {
+  width: 220px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+.internationalCard {
+  background: #eef0f3;
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: #1a1a1a;
+}
+
+.cardSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.checkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.checkList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.checkIcon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.requirementLabel {
+  color: #d9922a;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.requirementText {
+  font-size: 14px;
+  color: #1a1a1a;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dcdfe4;
+}
+
+.eligibleLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #d9922a;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  margin-top: auto;
+}
+
+.eligibleLink svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .ageCard {
+    flex-direction: column;
+  }
+  .ageImage {
+    width: 100%;
+    height: 200px;
+  }
+}
