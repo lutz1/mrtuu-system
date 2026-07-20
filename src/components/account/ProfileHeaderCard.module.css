@@ -1,8 +1,8 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 28px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
 }
 
 .profileHeader {
@@ -15,7 +15,7 @@
   width: 84px;
   height: 84px;
   border-radius: 50%;
-  background: #f0a93a;
+  background: var(--color-accent);
   color: #fff;
   font-weight: 700;
   font-size: 30px;
@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 3px solid #f0a93a;
+  border: 3px solid var(--color-accent);
 }
 
 .avatarImage {
@@ -32,7 +32,7 @@
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 3px solid #f0a93a;
+  border: 3px solid var(--color-accent);
 }
 
 .profileInfo {
@@ -48,12 +48,12 @@
 
 .profileLine {
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 2px;
 }
 
 .profileLabel {
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-weight: 600;
   margin-right: 4px;
 }
@@ -62,9 +62,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  color: #6b7280;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   padding: 10px 18px;
   border-radius: 8px;
   font-size: 13px;
@@ -80,8 +80,8 @@
 }
 
 .editBtn:hover {
-  border-color: #f0a93a;
-  color: #d9922a;
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
 }
 
 @media (max-width: 640px) {

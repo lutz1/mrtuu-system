@@ -7,7 +7,7 @@
 .label {
   font-size: 14px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .selectWrap {
@@ -17,19 +17,20 @@
 .select {
   width: 100%;
   appearance: none;
-  background: #e5e7eb;
-  border: none;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 14px 44px 14px 16px;
   font-size: 14px;
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
   outline: none;
 }
 
 .select:focus {
-  box-shadow: 0 0 0 2px #d9922a;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-soft-bg);
 }
 
 .chevron {
@@ -39,7 +40,7 @@
   transform: translateY(-50%);
   width: 18px;
   height: 18px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   pointer-events: none;
 }
 

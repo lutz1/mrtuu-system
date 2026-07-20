@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
-  background: #f5f6f8;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
 }
 
 .page * {
@@ -44,12 +44,14 @@
   font-size: 26px;
   font-weight: 700;
   margin: 0;
+  color: var(--color-text-primary);
 }
 
 .sectionTitle {
   font-size: 19px;
   font-weight: 700;
   margin: 0 0 16px;
+  color: var(--color-text-primary);
 }
 
 .cardsGrid {
@@ -65,9 +67,9 @@
 }
 
 .billingCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
   padding: 8px;
   overflow: hidden;
 }
@@ -77,6 +79,7 @@
   .layout {
     grid-template-columns: 1fr;
   }
+
   .walletsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -87,15 +90,19 @@
   .contentWrapper {
     padding: 20px 20px 60px;
   }
+
   .pageTitle {
     font-size: 22px;
   }
+
   .cardsGrid {
     grid-template-columns: 1fr;
   }
+
   .walletsGrid {
     grid-template-columns: 1fr;
   }
+
   .billingCard {
     padding: 12px;
   }

@@ -18,110 +18,113 @@ import PrivacySecurityPage from "./pages/security/PrivacySecurityPage";
 import SettingsPage from "./pages/settings/SettingsPage";
 import RequirementsPage from "./pages/requirements/RequirementsPage";
 import ContactPage from "./pages/contact/ContactPage";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   return (
     <div className="app">
-      <BrowserRouter>
-        <AuthProvider>
-              <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/home" element={<Navigate to="/" replace />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/requirements" element={<RequirementsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route
-              path="/showroom"
-              element={
-                <ProtectedRoute>
-                  <ShowroomPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/vehicle/:id"
-              element={
-                <ProtectedRoute>
-                  <VehicleOverviewPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/account"
-              element={
-                <ProtectedRoute>
-                  <AccountPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/account/bookings"
-              element={
-                <ProtectedRoute>
-                  <MyBookingsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/account/payment"
-              element={
-                <ProtectedRoute>
-                  <PaymentMethodsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/account/notifications"
-              element={
-                <ProtectedRoute>
-                  <NotificationsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/booking/:id"
-              element={
-                <ProtectedRoute>
-                  <BookingDetailsPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/payment/:id"
-              element={
-                <ProtectedRoute>
-                  <PaymentPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/payment-success/:id"
-              element={
-                <ProtectedRoute>
-                  <PaymentSuccessPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/account/security"
-              element={
-                <ProtectedRoute>
-                  <PrivacySecurityPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/account/settings"
-              element={
-                <ProtectedRoute>
-                  <SettingsPage />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
+          <AuthProvider>
+                <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/home" element={<Navigate to="/" replace />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/requirements" element={<RequirementsPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route
+                path="/showroom"
+                element={
+                  <ProtectedRoute>
+                    <ShowroomPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/vehicle/:id"
+                element={
+                  <ProtectedRoute>
+                    <VehicleOverviewPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <AccountPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account/bookings"
+                element={
+                  <ProtectedRoute>
+                    <MyBookingsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account/payment"
+                element={
+                  <ProtectedRoute>
+                    <PaymentMethodsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account/notifications"
+                element={
+                  <ProtectedRoute>
+                    <NotificationsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/booking/:id"
+                element={
+                  <ProtectedRoute>
+                    <BookingDetailsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/payment/:id"
+                element={
+                  <ProtectedRoute>
+                    <PaymentPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/payment-success/:id"
+                element={
+                  <ProtectedRoute>
+                    <PaymentSuccessPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account/security"
+                element={
+                  <ProtectedRoute>
+                    <PrivacySecurityPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account/settings"
+                element={
+                  <ProtectedRoute>
+                    <SettingsPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 }

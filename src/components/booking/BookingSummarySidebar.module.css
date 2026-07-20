@@ -1,8 +1,8 @@
 .summaryCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-card);
 }
 
 .summaryImage {
@@ -23,6 +23,7 @@
   font-size: 24px;
   font-weight: 700;
   margin: 0;
+  color: var(--color-text-primary);
 }
 
 .summaryLocation {
@@ -30,7 +31,7 @@
   align-items: center;
   gap: 6px;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin-top: -8px;
 }
 
@@ -44,7 +45,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 12px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
 }
 
 .summaryDates > div {
@@ -62,13 +63,13 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .summaryDateValue {
   font-size: 15px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .summaryBreakdown {
@@ -76,14 +77,14 @@
   flex-direction: column;
   gap: 10px;
   padding-top: 12px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
 }
 
 .summaryRow {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .summaryTotalRow {
@@ -91,22 +92,23 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 14px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
 }
 
 .summaryTotalLabel {
   font-size: 16px;
   font-weight: 700;
+  color: var(--color-text-primary);
 }
 
 .summaryTotalAmount {
   font-size: 22px;
   font-weight: 700;
-  color: #d9922a;
+  color: var(--color-accent-dark);
 }
 
 .proceedBtn {
-  background: #f0a93a;
+  background: var(--color-accent);
   color: #ffffff;
   border: none;
   padding: 15px;
@@ -117,13 +119,13 @@
 }
 
 .proceedBtn:hover {
-  background: #d9922a;
+  background: var(--color-accent-dark);
 }
 
 .termsNote {
   text-align: center;
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: -8px 0 0;
   line-height: 1.5;
 }

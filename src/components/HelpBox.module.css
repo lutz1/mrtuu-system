@@ -1,7 +1,7 @@
 .helpBox {
   display: flex;
   gap: 14px;
-  background: #eef0f3;
+  background: var(--color-bg-muted);
   border-radius: 14px;
   padding: 20px;
 }
@@ -9,7 +9,7 @@
 .helpIcon {
   width: 26px;
   height: 26px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
@@ -17,11 +17,12 @@
   font-size: 15px;
   font-weight: 700;
   margin: 0 0 4px;
+  color: var(--color-text-primary);
 }
 
 .helpText {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0;
   line-height: 1.6;
 }

@@ -48,29 +48,47 @@
 
 .verificationGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
 
-/* Tablet */
+/* =========================
+   Tablet
+========================= */
+
 @media (max-width: 960px) {
+  .stickyHeader {
+    position: static;
+  }
+
   .layout {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
-}
 
-@media (max-width: 800px) {
   .verificationGrid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Mobile */
+/* =========================
+   Mobile
+========================= */
+
 @media (max-width: 640px) {
   .contentWrapper {
     padding: 20px 20px 60px;
   }
+
   .pageTitle {
     font-size: 22px;
+  }
+
+  .main {
+    gap: 20px;
+  }
+
+  .verificationGrid {
+    gap: 20px;
   }
 }

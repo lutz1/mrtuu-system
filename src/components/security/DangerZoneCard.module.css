@@ -1,6 +1,6 @@
 .card {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: var(--color-danger-soft-bg);
+  border: 1px solid var(--color-danger);
   border-radius: 16px;
   padding: 24px 26px;
   display: flex;
@@ -21,7 +21,7 @@
 .icon {
   width: 24px;
   height: 24px;
-  color: #dc2626;
+  color: var(--color-danger);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -35,18 +35,18 @@
   font-size: 16px;
   font-weight: 700;
   margin: 0 0 4px;
-  color: #b91c1c;
+  color: var(--color-danger);
 }
 
 .description {
   font-size: 13.5px;
-  color: #7f1d1d;
+  color: var(--color-text-secondary);
   margin: 0;
   line-height: 1.5;
 }
 
 .deleteBtn {
-  background: #dc2626;
+  background: var(--color-danger);
   border: none;
   color: #ffffff;
   padding: 14px 26px;
@@ -60,7 +60,7 @@
 }
 
 .deleteBtn:hover {
-  background: #b91c1c;
+  filter: brightness(0.9);
 }
 
 @media (max-width: 640px) {
@@ -69,6 +69,7 @@
     flex-direction: column;
     align-items: stretch;
   }
+
   .deleteBtn {
     width: 100%;
   }

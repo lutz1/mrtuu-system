@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
-  background: #f5f6f8;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
 }
 
 .page * {
@@ -44,6 +44,7 @@
   font-size: 26px;
   font-weight: 700;
   margin: 0;
+  color: var(--color-text-primary);
 }
 
 .categoryList {
@@ -64,6 +65,7 @@
   .contentWrapper {
     padding: 20px 20px 60px;
   }
+
   .pageTitle {
     font-size: 22px;
   }

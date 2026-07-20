@@ -21,7 +21,7 @@ body {
   font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fdf8ec;
+   background: var(--page-bg);
 }
 
 #root {

@@ -1,7 +1,7 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
   padding: 26px;
   display: flex;
   flex-direction: column;
@@ -18,8 +18,8 @@
   width: 42px;
   height: 42px;
   border-radius: 10px;
-  background: #fef1d9;
-  color: #d9922a;
+  background: var(--color-accent-soft-bg);
+  color: var(--color-accent-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,7 +47,7 @@
   font-size: 15px;
   font-weight: 700;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .badge {
@@ -71,22 +71,22 @@
 .value {
   margin: 4px 0 0;
   font-size: 14px;
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-weight: 500;
   word-break: break-all;
 }
 
 .description {
   font-size: 13.5px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0;
   line-height: 1.5;
 }
 
 .actionBtn {
-  background: #ffffff;
-  border: 1.5px solid #d9922a;
-  color: #d9922a;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-accent-dark);
+  color: var(--color-accent-dark);
   padding: 12px 20px;
   border-radius: 10px;
   font-weight: 600;
@@ -96,7 +96,7 @@
 }
 
 .actionBtn:hover {
-  background: #fef1d9;
+  background: var(--color-accent-soft-bg);
 }
 
 @media (max-width: 640px) {

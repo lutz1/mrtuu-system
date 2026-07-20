@@ -3,13 +3,13 @@
   margin: 0 auto;
   padding: 28px 32px 0;
   font-size: 15px;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
   display: flex;
   align-items: center;
 }
 
 .breadcrumbLink {
-  color: #6b6b6b;
+  color: var(--color-text-muted);
   text-decoration: none;
 }
 
@@ -19,10 +19,11 @@
 
 .breadcrumbSeparator {
   margin: 0 6px;
+  color: var(--color-text-muted);
 }
 
 .breadcrumbCurrent {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   font-weight: 500;
 }
 

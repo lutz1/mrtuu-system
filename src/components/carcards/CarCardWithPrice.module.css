@@ -1,11 +1,5 @@
 .carCard {
-  --gold: #f0a93a;
-  --gold-dark: #d9922a;
-  --text-dark: #1a1a1a;
-  --text-muted: #6b6b6b;
-  --white: #ffffff;
-
-  background: var(--white);
+  background: var(--color-bg-surface);
   border-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -15,7 +9,7 @@
 }
 
 .carImageWrapper {
-  background: #ececec;
+  background: var(--color-bg-muted);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +40,7 @@
   font-size: 20px;
   font-weight: 700;
   margin: 0;
-  color: var(--text-dark);
+  color: var(--color-text-primary);
 }
 
 .carPrice {
@@ -56,14 +50,14 @@
 
 .priceAmount {
   display: block;
-  color: var(--gold-dark);
+  color: var(--color-accent-dark);
   font-size: 20px;
   font-weight: 700;
 }
 
 .priceUnit {
   display: block;
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   font-size: 12px;
 }
 
@@ -78,7 +72,7 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--color-text-muted);
 }
 
 .specIcon {
@@ -88,8 +82,8 @@
 }
 
 .viewDetailsBtn {
-  background: var(--gold);
-  color: var(--text-dark);
+  background: var(--color-accent);
+  color: var(--color-text-primary);
   border: none;
   padding: 12px;
   border-radius: 6px;
@@ -103,7 +97,7 @@
 }
 
 .viewDetailsBtn:hover {
-  background: var(--gold-dark);
+  background: var(--color-accent-dark);
 }
 
 @media (max-width: 640px) {

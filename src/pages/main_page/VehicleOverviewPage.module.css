@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
-  background: transparent;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
 }
 
 .page * {
@@ -15,10 +15,9 @@
   background: transparent;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* was 10px — adjust to taste */
-  }
+  gap: 20px;
+}
 
-  
 .pageContent {
   overflow-x: hidden;
 }
@@ -53,6 +52,7 @@
   font-size: 34px;
   font-weight: 700;
   margin: 0;
+  color: var(--color-text-primary);
 }
 
 .carPrice {
@@ -62,14 +62,14 @@
 
 .priceAmount {
   display: block;
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-size: 28px;
   font-weight: 700;
 }
 
 .priceUnit {
   display: block;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
@@ -84,13 +84,13 @@
   align-items: center;
   gap: 8px;
   font-size: 15px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .specIcon {
   width: 20px;
   height: 20px;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
@@ -98,10 +98,11 @@
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 16px;
+  color: var(--color-text-primary);
 }
 
 .aboutText {
-  color: #6b6b6b;
+  color: var(--color-text-muted);
   font-size: 15px;
   line-height: 1.7;
   margin: 0;
@@ -113,18 +114,19 @@
   margin: 0 auto;
   padding: 80px 32px;
   text-align: center;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
 }
 
 .notFoundLink {
   display: inline-block;
   margin-top: 16px;
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-weight: 600;
   text-decoration: none;
 }
 
 .notFoundLink:hover {
+  color: var(--color-accent-pressed);
   text-decoration: underline;
 }
 
@@ -132,28 +134,30 @@
   .mainGrid {
     grid-template-columns: 1fr;
   }
+
+  .stickyHeader {
+    position: static;
+  }
 }
 
 @media (max-width: 640px) {
   .contentWrapper {
     padding: 20px 20px 60px;
   }
+
   .titleRow {
     flex-direction: column;
   }
+
   .carPrice {
     text-align: left;
   }
+
   .carName {
     font-size: 26px;
   }
+
   .specsRow {
     gap: 16px;
-  }
-}
-
-@media (max-width: 960px) {
-  .stickyHeader {
-    position: static;
   }
 }

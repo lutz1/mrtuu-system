@@ -24,12 +24,12 @@
 }
 
 .selected.lightCard {
-  border-color: #d9922a;
+  border-color: var(--color-accent-dark);
 }
 
 .selected.darkCard {
-  border-color: #d9922a;
-  box-shadow: 0 0 0 1px #d9922a;
+  border-color: var(--color-accent-dark);
+  box-shadow: 0 0 0 1px var(--color-accent-dark);
 }
 
 .icon {
@@ -38,11 +38,11 @@
 }
 
 .lightCard .icon {
-  color: #d9922a;
+  color: var(--color-accent-dark);
 }
 
 .darkCard .icon {
-  color: #e0a634;
+  color: var(--color-accent);
 }
 
 .icon svg {
@@ -59,10 +59,12 @@
   .card {
     aspect-ratio: 1 / 0.7;
   }
+
   .icon {
     width: 24px;
     height: 24px;
   }
+
   .label {
     font-size: 14px;
   }

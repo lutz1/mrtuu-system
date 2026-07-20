@@ -48,7 +48,7 @@
 
 .topGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   align-items: stretch;
 }
@@ -73,12 +73,12 @@
 
 .themeGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
 .pickupField {
-  max-width: 100%;
+  width: 100%;
 }
 
 .pickupLabel {
@@ -99,31 +99,59 @@
   color: #1a1a1a;
 }
 
-/* Tablet */
+/* =========================
+   Tablet
+========================= */
+
 @media (max-width: 960px) {
+  .stickyHeader {
+    position: static;
+  }
+
   .layout {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
-}
 
-@media (max-width: 800px) {
   .topGrid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Mobile */
+/* =========================
+   Mobile
+========================= */
+
 @media (max-width: 640px) {
   .contentWrapper {
     padding: 20px 20px 60px;
   }
+
   .pageTitle {
     font-size: 22px;
   }
+
   .card {
     padding: 20px;
+    border-radius: 14px;
   }
+
+  .sectionTitle {
+    font-size: 17px;
+    margin-bottom: 18px;
+  }
+
+  .fieldStack {
+    gap: 18px;
+  }
+
   .themeGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .toggleRow {
     gap: 12px;
+    flex-wrap: wrap;
   }
 }

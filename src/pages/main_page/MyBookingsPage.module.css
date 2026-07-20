@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
-  background: #f5f6f8;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
 }
 
 .page * {
@@ -44,6 +44,7 @@
   font-size: 26px;
   font-weight: 700;
   margin: 0;
+  color: var(--color-text-primary);
 }
 
 .bookingsList {
@@ -53,12 +54,12 @@
 }
 
 .emptyState {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 48px 24px;
   text-align: center;
-  color: #6b7280;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  color: var(--color-text-muted);
+  box-shadow: var(--shadow-card);
 }
 
 /* Tablet */
@@ -73,6 +74,7 @@
   .contentWrapper {
     padding: 20px 20px 60px;
   }
+
   .pageTitle {
     font-size: 22px;
   }

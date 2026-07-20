@@ -1,11 +1,5 @@
 .carCard {
-  --gold: #f0a93a;
-  --gold-dark: #d9922a;
-  --text-dark: #1a1a1a;
-  --text-muted: #6b6b6b;
-  --white: #ffffff;
-
-  background: var(--white);
+  background: var(--color-bg-surface);
   border-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -30,7 +24,7 @@
   font-size: 16px;
   font-weight: 700;
   margin: 0;
-  color: var(--text-dark);
+  color: var(--color-text-primary);
 }
 
 .carSpecs {
@@ -44,7 +38,7 @@
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--color-text-muted);
 }
 
 .specIcon {
@@ -58,17 +52,16 @@
   text-align: center;
   text-decoration: none;      /* links are underlined by default */
   cursor: pointer;
-  background: var(--gold);
-  color: var(--text-dark);
+  background: var(--color-accent);
+  color: var(--color-text-primary);
   border: none;
   padding: 10px;
   border-radius: 6px;
   font-weight: 600;
   font-size: 13px;
-  cursor: pointer;
   width: 100%;
 }
 
 .viewCarBtn:hover {
-  background: var(--gold-dark);
+  background: var(--color-accent-dark);
 }

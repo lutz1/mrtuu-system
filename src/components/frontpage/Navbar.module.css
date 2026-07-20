@@ -1,15 +1,7 @@
 .navbar {
-  --cream: #fdf8ec;
-  --text-dark: #1a1a1a;
-  --text-grey: #6B7280;
-  --gold: #f0a93a;
-  --gold-dark: #d9922a;
-
-  background: var(--cream);
+  background: var(--color-brand-cream);
   padding: 18px 0;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-
-
 }
 
 .userAvatarImage {
@@ -50,7 +42,7 @@
 .logoText {
   font-weight: 700;
   font-size: 18px;
-  color: var(--text-dark);
+  color: #1a1a1a;
 }
 
 /* Right Section */
@@ -58,18 +50,18 @@
 .rightSection {
   display: flex;
   align-items: center;
-  gap: 40px; /* Space between nav links and profile/login */
+  gap: 40px;
 }
 
 /* Navigation */
 
 .navLinks {
   display: flex;
-  gap: 40px; /* Space between Requirements and Contact */
+  gap: 40px;
 }
 
 .navLinks a {
-  color: var(--text-grey);
+  color: #6b7280;
   text-decoration: none;
   font-weight: 500;
   font-size: 15px;
@@ -77,14 +69,14 @@
 }
 
 .navLinks a:hover {
-  color: var(--gold-dark);
+  color: #d9922a;
 }
 
 /* Login Button */
 
 .loginBtn {
-  background: var(--gold);
-  color: var(--text-dark);
+  background: #f0a93a;
+  color: #1a1a1a;
   padding: 10px 28px;
   border-radius: 6px;
   font-weight: 600;
@@ -94,7 +86,7 @@
 }
 
 .loginBtn:hover {
-  background: var(--gold-dark);
+  background: #d9922a;
 }
 
 /* User */
@@ -111,7 +103,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--gold);
+  background: #f0a93a;
   color: white;
   font-weight: 700;
   font-size: 18px;
@@ -124,7 +116,7 @@
 .userName {
   font-size: 13px;
   font-weight: 500;
-  color: var(--gold);
+  color: #f0a93a;
 }
 
 /* Responsive */

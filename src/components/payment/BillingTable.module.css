@@ -9,21 +9,21 @@
 }
 
 .table thead tr {
-  background: #eef0f2;
+  background: var(--color-bg-muted);
 }
 
 .table th {
   text-align: left;
   font-weight: 700;
-  color: #374151;
+  color: var(--color-text-secondary);
   padding: 16px 20px;
   white-space: nowrap;
 }
 
 .table td {
   padding: 18px 20px;
-  border-top: 1px solid #eef0f2;
-  color: #1a1a1a;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-primary);
   white-space: nowrap;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .empty {
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-size: 14px;
   padding: 20px 0;
 }
@@ -72,10 +72,11 @@
   }
 
   .billingCard {
-    background: #ffffff;
-    border: 1px solid #eef0f2;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     padding: 16px;
+    box-shadow: var(--shadow-card);
   }
 
   .billingCardTop {
@@ -88,24 +89,25 @@
   .billingDate {
     font-size: 13px;
     font-weight: 600;
-    color: #4b5563;
+    color: var(--color-text-secondary);
   }
 
   .billingDescription {
     font-size: 14px;
     font-weight: 500;
     margin: 0 0 10px;
+    color: var(--color-text-primary);
   }
 
   .billingCardBottom {
     display: flex;
     justify-content: space-between;
     font-size: 13px;
-    color: #6b7280;
+    color: var(--color-text-muted);
   }
 
   .billingAmount {
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--color-text-primary);
   }
 }

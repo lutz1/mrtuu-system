@@ -1,8 +1,8 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 28px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
 }
 
 .cardHeaderRow {
@@ -22,9 +22,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  color: #6b7280;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   padding: 10px 18px;
   border-radius: 8px;
   font-size: 13px;
@@ -40,8 +40,8 @@
 }
 
 .editBtn:hover {
-  border-color: #f0a93a;
-  color: #d9922a;
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
 }
 
 .fieldGrid {
@@ -58,29 +58,29 @@
 
 .fieldLabel {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 
 .fieldValue {
   font-size: 15px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .fieldInput {
-  background: #f7f7f7;
-  border: 1px solid #e5e7eb;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 14px;
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
 }
 
 .fieldInput:focus {
-  border-color: #f0a93a;
-  background: #ffffff;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
 }
 
 .editActions {
@@ -89,13 +89,13 @@
   gap: 12px;
   margin-top: 24px;
   padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
 }
 
 .cancelBtn {
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  color: #6b7280;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: 600;
@@ -105,11 +105,11 @@
 }
 
 .cancelBtn:hover {
-  background: #f7f7f7;
+  background: var(--color-bg-muted);
 }
 
 .saveBtn {
-  background: #f0a93a;
+  background: var(--color-accent);
   border: none;
   color: #ffffff;
   padding: 10px 20px;
@@ -121,7 +121,7 @@
 }
 
 .saveBtn:hover {
-  background: #d9922a;
+  background: var(--color-accent-dark);
 }
 
 @media (max-width: 960px) {

@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
-  background: #f5f6f8;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
 }
 
 .page * {
@@ -39,7 +39,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: #f0a93a;
+  background: var(--color-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,7 +56,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  color: #d1d5db;
+  color: var(--color-border);
 }
 
 .starLeft {
@@ -72,37 +72,37 @@
 .title {
   font-size: 32px;
   font-weight: 700;
-  color: #f0a93a;
+  color: var(--color-accent);
   margin: 0 0 8px;
 }
 
 .subtitle {
   font-size: 15px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0 0 20px;
 }
 
 .refPill {
   display: inline-block;
-  background: #eef0f3;
+  background: var(--color-bg-muted);
   border-radius: 30px;
   padding: 8px 20px;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin-bottom: 32px;
 }
 
 .refPill strong {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 /* Summary card */
 
 .summaryCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 0 0 24px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-card);
   text-align: left;
   overflow: hidden;
 }
@@ -111,7 +111,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #f2f2f2;
+  background: var(--color-input-bg);
   padding: 20px 24px;
 }
 
@@ -127,11 +127,12 @@
   font-size: 19px;
   font-weight: 700;
   margin: 0 0 4px;
+  color: var(--color-text-primary);
 }
 
 .carSpecsLine {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -157,13 +158,13 @@
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 
 .detailValue {
   font-size: 14px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .breakdown {
@@ -177,11 +178,12 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .divider {
-  border-top: 2px dashed #f0d9a8;
+  border-top: 2px dashed var(--color-accent);
+  opacity: 0.35;
   margin: 18px 24px;
 }
 
@@ -195,19 +197,20 @@
 .totalLabel {
   font-size: 18px;
   font-weight: 700;
+  color: var(--color-text-primary);
 }
 
 .totalAmount {
   font-size: 24px;
   font-weight: 700;
-  color: #f0a93a;
+  color: var(--color-accent);
 }
 
 .paymentMethodRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f2f2f2;
+  background: var(--color-input-bg);
   border-radius: 10px;
   padding: 14px 18px;
   margin: 0 24px;
@@ -218,13 +221,13 @@
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .paymentMethodInfo svg {
   width: 20px;
   height: 20px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
@@ -255,6 +258,7 @@
   font-size: 14px;
   cursor: pointer;
   font-family: inherit;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .downloadBtn svg,
@@ -264,38 +268,39 @@
 }
 
 .downloadBtn {
-  background: #f0a93a;
+  background: var(--color-accent);
   color: #ffffff;
   border: none;
 }
 
 .downloadBtn:hover {
-  background: #d9922a;
+  background: var(--color-accent-pressed);
 }
 
 .homeBtn {
-  background: #ffffff;
-  color: #1a1a1a;
-  border: 1.5px solid #f0a93a;
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-accent);
 }
 
 .homeBtn:hover {
-  background: #fef6e7;
+  background: var(--color-accent-soft-bg);
 }
 
 .helpText {
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   line-height: 1.8;
 }
 
 .helpLink {
-  color: #f0a93a;
+  color: var(--color-accent);
   font-weight: 700;
   text-decoration: none;
 }
 
 .helpLink:hover {
+  color: var(--color-accent-pressed);
   text-decoration: underline;
 }
 
@@ -306,27 +311,34 @@
   margin: 0 auto;
   padding: 80px 32px;
   text-align: center;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .notFoundLink {
   display: inline-block;
   margin-top: 16px;
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-weight: 600;
   text-decoration: none;
+}
+
+.notFoundLink:hover {
+  color: var(--color-accent-pressed);
 }
 
 @media (max-width: 640px) {
   .contentWrapper {
     padding: 40px 20px 60px;
   }
+
   .title {
     font-size: 26px;
   }
+
   .actionsRow {
     flex-direction: column;
   }
+
   .downloadBtn,
   .homeBtn {
     justify-content: center;

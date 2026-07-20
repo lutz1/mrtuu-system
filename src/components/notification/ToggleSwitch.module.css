@@ -2,7 +2,7 @@
   width: 44px;
   height: 24px;
   border-radius: 999px;
-  background: #d1d5db;
+  background: var(--color-toggle-off);
   border: none;
   padding: 3px;
   display: flex;
@@ -13,7 +13,7 @@
 }
 
 .track.on {
-  background: #d9922a;
+  background: var(--color-accent-dark);
   justify-content: flex-end;
 }
 

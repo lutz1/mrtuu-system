@@ -1,7 +1,7 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 28px;
@@ -12,7 +12,7 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  background: #f5f6f8;
+  background: var(--color-bg-page);
 }
 
 .image {
@@ -40,13 +40,13 @@
   font-size: 22px;
   font-weight: 700;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .price {
   font-size: 22px;
   font-weight: 700;
-  color: #d9922a;
+  color: var(--color-accent-dark);
   white-space: nowrap;
 }
 
@@ -61,13 +61,13 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: #4b5563;
+  color: var(--color-text-secondary);
 }
 
 .metaItem svg {
   width: 17px;
   height: 17px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
@@ -81,8 +81,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f3f4f6;
-  color: #374151;
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
   font-size: 13px;
   font-weight: 500;
   padding: 8px 14px;
@@ -97,7 +97,7 @@
 .refundNote {
   font-size: 14px;
   font-weight: 600;
-  color: #e0483e;
+  color: var(--color-danger);
   margin: 0;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .primaryBtn {
-  background: #d9922a;
+  background: var(--color-accent-dark);
   border: none;
   color: #ffffff;
   padding: 13px 28px;
@@ -121,13 +121,13 @@
 }
 
 .primaryBtn:hover {
-  background: #c17f1f;
+  background: var(--color-accent-pressed);
 }
 
 .outlineBtn {
-  background: #ffffff;
-  border: 1.5px solid #d9922a;
-  color: #d9922a;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-accent-dark);
+  color: var(--color-accent-dark);
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;
@@ -137,13 +137,13 @@
 }
 
 .outlineBtn:hover {
-  background: #fef1d9;
+  background: var(--color-accent-soft-bg);
 }
 
 .grayBtn {
-  background: #eef0f2;
+  background: var(--color-bg-muted);
   border: none;
-  color: #374151;
+  color: var(--color-text-secondary);
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;
@@ -153,14 +153,14 @@
 }
 
 .grayBtn:hover {
-  background: #e2e5e9;
+  background: var(--color-bg-muted-hover);
 }
 
 .grayBtnFull {
   flex: 1;
-  background: #eef0f2;
+  background: var(--color-bg-muted);
   border: none;
-  color: #374151;
+  color: var(--color-text-secondary);
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;
@@ -170,7 +170,7 @@
 }
 
 .grayBtnFull:hover {
-  background: #e2e5e9;
+  background: var(--color-bg-muted-hover);
 }
 
 /* Tablet */

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 import Navbar from "../../components/frontpage/Navbar";
 import Breadcrumb from "../../components/Breadcrumb";
 import Footer from "../../components/frontpage/Footer";
@@ -19,6 +20,7 @@ import styles from "./SettingsPage.module.css";
 export default function SettingsPage() {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
   // Local-only state for now — no backend write yet. Once wired up, each
   // change should write to Firestore under the user's settings doc.
@@ -73,16 +75,8 @@ export default function SettingsPage() {
                 <section className={styles.card}>
                   <h2 className={styles.sectionTitle}>Appearance</h2>
                   <div className={styles.themeGrid}>
-                    <ThemeOptionCard
-                      mode="light"
-                      selected={settings.theme === "light"}
-                      onSelect={(mode) => updateSetting("theme", mode)}
-                    />
-                    <ThemeOptionCard
-                      mode="dark"
-                      selected={settings.theme === "dark"}
-                      onSelect={(mode) => updateSetting("theme", mode)}
-                    />
+                    <ThemeOptionCard mode="light" selected={theme === "light"} onSelect={setTheme} />
+                    <ThemeOptionCard mode="dark" selected={theme === "dark"} onSelect={setTheme} />
                   </div>
                 </section>
               </div>

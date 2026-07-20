@@ -20,13 +20,13 @@
 }
 
 .ongoing {
-  background: #e0a634;
+  background: var(--status-ongoing);
 }
 
 .completed {
-  background: #9ca3af;
+  background: var(--status-neutral);
 }
 
 .cancelled {
-  background: #9ca3af;
+  background: var(--status-neutral);
 }

@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
-  background: #f5f6f8;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
 }
 
 .page * {
@@ -33,13 +33,11 @@
   margin-top: 12px;
 }
 
-/* Sidebar */
-
 .sidebar {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
   position: sticky;
   top: 100px;
 }
@@ -61,19 +59,19 @@
   border-radius: 10px;
   font-size: 14px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--color-text-muted);
   cursor: pointer;
   font-family: inherit;
 }
 
 .sidebarItem:hover {
-  background: #f7f7f7;
-  color: #1a1a1a;
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
 }
 
 .sidebarItemActive {
   background: #fef1d9;
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-weight: 600;
 }
 
@@ -93,7 +91,7 @@
 
 .sidebarDivider {
   height: 1px;
-  background: #e5e7eb;
+  background: var(--color-border);
   margin: 8px 6px;
 }
 
@@ -117,8 +115,6 @@
   background: #fdeceb;
 }
 
-/* Main content */
-
 .main {
   display: flex;
   flex-direction: column;
@@ -130,8 +126,6 @@
   font-weight: 700;
   margin: 0;
 }
-
-/* Responsive */
 
 @media (max-width: 960px) {
   .layout {

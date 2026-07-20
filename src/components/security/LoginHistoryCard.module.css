@@ -1,7 +1,7 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
   padding: 28px;
 }
 
@@ -9,11 +9,12 @@
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 4px;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
   font-size: 13.5px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0 0 20px;
 }
 
@@ -27,7 +28,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #f7f7f7;
+  background: var(--color-bg-muted);
   border-radius: 12px;
   padding: 16px 20px;
 }
@@ -35,7 +36,7 @@
 .sessionIcon {
   width: 22px;
   height: 22px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
@@ -53,24 +54,24 @@
   font-size: 14.5px;
   font-weight: 600;
   margin: 0 0 2px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .sessionMeta {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .activeNow {
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-weight: 600;
 }
 
 .logoutBtn {
   background: none;
   border: none;
-  color: #d9922a;
+  color: var(--color-accent-dark);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -84,7 +85,7 @@
 
 .logDivider {
   height: 1px;
-  background: #eef0f2;
+  background: var(--color-border);
   margin: 22px 0 18px;
 }
 
@@ -93,7 +94,7 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0 0 12px;
 }
 
@@ -107,11 +108,11 @@
   display: flex;
   justify-content: space-between;
   font-size: 13.5px;
-  color: #374151;
+  color: var(--color-text-secondary);
 }
 
 .logTimestamp {
-  color: #9ca3af;
+  color: var(--color-text-muted);
   flex-shrink: 0;
   margin-left: 16px;
 }
@@ -120,13 +121,16 @@
   .card {
     padding: 20px;
   }
+
   .sessionRow {
     padding: 14px;
   }
+
   .logRow {
     flex-direction: column;
     gap: 2px;
   }
+
   .logTimestamp {
     margin-left: 0;
   }

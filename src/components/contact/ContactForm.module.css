@@ -1,8 +1,8 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 20px;
   padding: 32px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -12,7 +12,7 @@
   font-size: 22px;
   font-weight: 700;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .row {
@@ -30,53 +30,53 @@
 .label {
   font-size: 13px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .input {
-  background: #f2f2f2;
+  background: var(--color-input-bg);
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
   font-size: 14px;
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
 }
 
 .input::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 
 .input:focus {
-  border-color: #f0a93a;
-  background: #ffffff;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
 }
 
 .textarea {
-  background: #f2f2f2;
+  background: var(--color-input-bg);
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
   font-size: 14px;
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
   min-height: 140px;
   resize: vertical;
 }
 
 .textarea::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 
 .textarea:focus {
-  border-color: #f0a93a;
-  background: #ffffff;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
 }
 
 .submitBtn {
-  background: #d9922a;
+  background: var(--color-accent-dark);
   color: #ffffff;
   border: none;
   padding: 15px;
@@ -88,7 +88,7 @@
 }
 
 .submitBtn:hover {
-  background: #c17f1f;
+  background: var(--color-accent-pressed);
 }
 
 @media (max-width: 640px) {

@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
-  background: transparent;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
 }
 
 .stickyHeader {
@@ -11,7 +11,7 @@
   background: transparent;
   display: flex;
   flex-direction: column;
-  gap: px; /* was 10px — adjust to taste */
+  gap: 0; /* change to 8px/10px if desired */
 }
 
 .pageContent {
