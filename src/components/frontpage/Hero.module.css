@@ -123,7 +123,49 @@
 }
 
 @media (max-width: 640px) {
+  .hero {
+    min-height: 420px;
+    padding-top: 110px;
+  }
+
+  .heroImage {
+    inset: -4%;
+    transform: scale(0.96);
+  }
+
+  .heroContent {
+    padding: 32px 20px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
   .heroTitle {
     font-size: 30px;
+    margin: 0 0 14px;
+  }
+
+  .heroSubtitle {
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 auto 24px;
+  }
+
+  .heroActions {
+    gap: 12px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    padding: 12px 22px;
+    font-size: 13px;
+  }
+
+  .btnArrow {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
   }
 }

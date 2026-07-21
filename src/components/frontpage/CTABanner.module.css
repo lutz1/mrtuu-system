@@ -31,9 +31,6 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
-
-  
 }
 
 .ctaOverlay {
@@ -77,6 +74,10 @@
   max-width: 640px;
   padding: 24px;
   color: var(--white);
+}
+
+.gold {
+  color: var(--gold);
 }
 
 .eyebrow {
@@ -126,11 +127,28 @@
     border-radius: 24px;
   }
 
+  .ctaContent {
+    padding: 16px 20px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
   .ctaTitle {
     font-size: 28px;
+    margin: 0 0 12px;
   }
 
   .ctaSubtitle {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 24px;
+  }
+
+  .primaryBtn {
+    padding: 12px 26px;
+    font-size: 13px;
   }
 }

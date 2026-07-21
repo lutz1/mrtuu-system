@@ -55,11 +55,28 @@
 }
 
 @media (max-width: 640px) {
-  .title {
-    font-size: 32px;
-  }
   .hero {
-    min-height: 360px;
+    min-height: 340px;
+  }
+
+  .heroContent {
+    padding: 0 20px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    font-size: 30px;
+    margin: 0 0 12px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.55;
+    max-width: none;
   }
 }
 

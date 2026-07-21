@@ -103,8 +103,55 @@
 @media (max-width: 640px) {
   .carTitleRow {
     flex-direction: column;
+    gap: 4px;
   }
+
   .carPrice {
     text-align: left;
+  }
+
+  .carImageWrapper {
+    padding: 10px;
+  }
+
+  .carImage {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .carBody {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .carName {
+    font-size: 14px;
+  }
+
+  .priceAmount {
+    font-size: 15px;
+  }
+
+  .priceUnit {
+    font-size: 10px;
+  }
+
+  .carSpecs {
+    gap: 8px;
+  }
+
+  .specItem {
+    font-size: 10px;
+    gap: 3px;
+  }
+
+  .specIcon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .viewDetailsBtn {
+    padding: 9px;
+    font-size: 12px;
   }
 }

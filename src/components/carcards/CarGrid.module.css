@@ -26,9 +26,9 @@
 
 @media (max-width: 640px) {
   .carGridSection {
-    padding: 20px 20px 60px;
+    padding: 20px 12px 60px;
   }
   .carsGrid {
-    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
