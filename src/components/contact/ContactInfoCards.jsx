@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./ContactInfoCards.module.css";
 
 function PhoneIcon() {
@@ -75,16 +76,19 @@ function TiktokIcon() {
 }
 
 export default function ContactInfoCards() {
+  const { isLoggedIn } = useAuth();
+  const themedClass = isLoggedIn ? styles.themed : "";
+
   return (
     <div className={styles.column}>
       <div className={styles.quickRow}>
-        <div className={styles.quickCard}>
+        <div className={`${styles.quickCard} ${themedClass}`}>
           <span className={styles.quickIcon}><PhoneIcon /></span>
           <span className={styles.quickTitle}>Call Us</span>
           <span className={styles.quickValue}>+639 67676767</span>
         </div>
 
-        <div className={styles.quickCard}>
+        <div className={`${styles.quickCard} ${themedClass}`}>
           <span className={styles.quickIcon}><MailIcon /></span>
           <span className={styles.quickTitle}>Email Us</span>
           <a href="mailto:lykacarrental@gmail.com" className={styles.quickLink}>
@@ -93,20 +97,20 @@ export default function ContactInfoCards() {
         </div>
       </div>
 
-      <div className={styles.officeCard}>
+      <div className={`${styles.officeCard} ${themedClass}`}>
         <span className={styles.officeIcon}><PinIcon /></span>
         <div>
           <h3 className={styles.officeTitle}>Our Office</h3>
           <p className={styles.officeAddress}>
             Pioneer Ave., Prk. Santa Cruz, Estrella St., Mankilam, Tagum City, Davao del Norte.
           </p>
-          
-           <a 
+
+            <a
             href="https://www.google.com/maps/search/?api=1&query=Pioneer+Ave+Prk+Santa+Cruz+Estrella+St+Mankilam+Tagum+City"
             target="_blank"
             rel="noreferrer"
             className={styles.directionsLink}
-            >
+          >
             Get Directions
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -115,6 +119,9 @@ export default function ContactInfoCards() {
         </div>
       </div>
 
+      {/* .connectCard is a fixed-dark design chip, like .securityCard and
+          the CTA banners — it stays dark regardless of login state, so
+          no themed variant applies to it. */}
       <div className={styles.connectCard}>
         <h3 className={styles.connectTitle}>Connect With Us</h3>
         <div className={styles.connectLinks}>

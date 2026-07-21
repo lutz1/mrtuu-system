@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./ContactForm.module.css";
 
 export default function ContactForm() {
+  const { isLoggedIn } = useAuth();
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -20,7 +22,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form className={styles.card} onSubmit={handleSubmit}>
+    <form className={`${styles.card} ${isLoggedIn ? styles.cardThemed : ""}`} onSubmit={handleSubmit}>
       <h2 className={styles.title}>Send us a Message</h2>
 
       <div className={styles.row}>

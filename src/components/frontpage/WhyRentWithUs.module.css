@@ -64,3 +64,29 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   Logged-out visitors always see the fixed cream section above.
+   ============================================================ */
+
+.whyUsThemed {
+  background: var(--color-bg-page);
+}
+
+.whyUsThemed .sectionTitleDark {
+  color: var(--color-text-primary);
+}
+
+.whyUsThemed .sectionSubtitle,
+.whyUsThemed .whyUsDescription {
+  color: var(--color-text-muted);
+}
+
+.whyUsThemed .whyUsIconCircle {
+  background: var(--color-bg-surface);
+}
+
+.whyUsThemed .whyUsTitle {
+  color: var(--color-text-primary);
+}

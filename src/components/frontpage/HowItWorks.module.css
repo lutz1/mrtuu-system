@@ -76,3 +76,14 @@
     padding: 40px 24px;
   }
 }
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   Only the outer page-level cream changes; the inner .howItWorks
+   panel is already a fixed-dark design chip (like the CTA banner
+   and Payment & Security card) and stays exactly as-is either way.
+   ============================================================ */
+
+.howItWorksWrapperThemed {
+  background: var(--color-bg-page);
+}

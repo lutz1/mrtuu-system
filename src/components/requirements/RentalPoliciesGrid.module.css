@@ -123,3 +123,32 @@
     height: 200px;
   }
 }
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   Shared by both .ageCard and .internationalCard via the
+   .themed modifier class appended in the component.
+   ============================================================ */
+
+.themed {
+  background: var(--color-bg-muted);
+}
+
+.themed .cardTitle,
+.themed .checkList li,
+.themed .requirementText {
+  color: var(--color-text-primary);
+}
+
+.themed .cardSubtitle {
+  color: var(--color-text-muted);
+}
+
+.themed .requirementLabel,
+.themed .eligibleLink {
+  color: var(--color-accent-dark);
+}
+
+.themed .requirementText {
+  border-bottom-color: var(--color-border);
+}

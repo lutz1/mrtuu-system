@@ -130,3 +130,34 @@
     grid-column: auto;
   }
 }
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   Only .docCard (and its children) theme; .securityCard is
+   fixed-dark chrome and is intentionally left untouched above.
+   ============================================================ */
+
+.docCardThemed {
+  background: var(--color-bg-muted);
+}
+
+.docCardThemed .docTitle {
+  color: var(--color-text-primary);
+}
+
+.docCardThemed .docTile {
+  background: var(--color-bg-surface);
+}
+
+.docCardThemed .docIcon {
+  background: var(--color-accent-soft-bg);
+  color: var(--color-accent-dark);
+}
+
+.docCardThemed .docTileTitle {
+  color: var(--color-text-primary);
+}
+
+.docCardThemed .docTileText {
+  color: var(--color-text-muted);
+}

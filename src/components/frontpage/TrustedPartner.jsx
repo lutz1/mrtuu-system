@@ -1,10 +1,13 @@
 import React from "react";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./TrustedPartner.module.css";
-import familyImage from "../../assets/family.png"
+import familyImage from "../../assets/family.png";
 
 export default function TrustedPartner() {
+  const { isLoggedIn } = useAuth();
+
   return (
-    <section className={styles.trustedPartner}>
+    <section className={`${styles.trustedPartner} ${isLoggedIn ? styles.trustedPartnerThemed : ""}`}>
       <div className={styles.trustedText}>
         <h2 className={styles.trustedTitle}>Your Trusted Car Rental Partner</h2>
         <p className={styles.trustedDescription}>

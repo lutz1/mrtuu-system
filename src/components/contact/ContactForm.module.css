@@ -1,8 +1,8 @@
 .card {
-  background: var(--color-bg-surface);
+  background: #ffffff;
   border-radius: 20px;
   padding: 32px;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -12,7 +12,7 @@
   font-size: 22px;
   font-weight: 700;
   margin: 0;
-  color: var(--color-text-primary);
+  color: #1a1a1a;
 }
 
 .row {
@@ -30,53 +30,53 @@
 .label {
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-text-primary);
+  color: #1a1a1a;
 }
 
 .input {
-  background: var(--color-input-bg);
+  background: #f2f2f2;
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
   font-size: 14px;
   font-family: inherit;
-  color: var(--color-text-primary);
+  color: #1a1a1a;
   outline: none;
 }
 
 .input::placeholder {
-  color: var(--color-text-muted);
+  color: #9ca3af;
 }
 
 .input:focus {
-  border-color: var(--color-accent);
-  background: var(--color-bg-surface);
+  border-color: #f0a93a;
+  background: #ffffff;
 }
 
 .textarea {
-  background: var(--color-input-bg);
+  background: #f2f2f2;
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
   font-size: 14px;
   font-family: inherit;
-  color: var(--color-text-primary);
+  color: #1a1a1a;
   outline: none;
   min-height: 140px;
   resize: vertical;
 }
 
 .textarea::placeholder {
-  color: var(--color-text-muted);
+  color: #9ca3af;
 }
 
 .textarea:focus {
-  border-color: var(--color-accent);
-  background: var(--color-bg-surface);
+  border-color: #f0a93a;
+  background: #ffffff;
 }
 
 .submitBtn {
-  background: var(--color-accent-dark);
+  background: #d9922a;
   color: #ffffff;
   border: none;
   padding: 15px;
@@ -88,11 +88,50 @@
 }
 
 .submitBtn:hover {
-  background: var(--color-accent-pressed);
+  background: #c17f1f;
 }
 
 @media (max-width: 640px) {
   .row {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   ============================================================ */
+
+.cardThemed {
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.cardThemed .title,
+.cardThemed .label {
+  color: var(--color-text-primary);
+}
+
+.cardThemed .input,
+.cardThemed .textarea {
+  background: var(--color-input-bg);
+  color: var(--color-text-primary);
+}
+
+.cardThemed .input::placeholder,
+.cardThemed .textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.cardThemed .input:focus,
+.cardThemed .textarea:focus {
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
+}
+
+.cardThemed .submitBtn {
+  background: var(--color-accent-dark);
+}
+
+.cardThemed .submitBtn:hover {
+  background: var(--color-accent-pressed);
 }

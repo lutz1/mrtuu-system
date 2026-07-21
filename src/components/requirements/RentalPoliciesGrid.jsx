@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "../../context/AuthContext";
 import ageRequirementsImage from "../../assets/age-requirements.png";
 import styles from "./RentalPoliciesGrid.module.css";
 
@@ -12,9 +13,12 @@ function CheckIcon() {
 }
 
 export default function RentalPoliciesGrid() {
+  const { isLoggedIn } = useAuth();
+  const themedClass = isLoggedIn ? styles.themed : "";
+
   return (
     <div className={styles.grid}>
-      <section className={styles.ageCard}>
+      <section className={`${styles.ageCard} ${themedClass}`}>
         <div className={styles.ageText}>
           <h2 className={styles.cardTitle}>Age Requirements</h2>
           <p className={styles.cardSubtitle}>
@@ -41,7 +45,7 @@ export default function RentalPoliciesGrid() {
         <img src={ageRequirementsImage} alt="Handing over car keys" className={styles.ageImage} />
       </section>
 
-      <section className={styles.internationalCard}>
+      <section className={`${styles.internationalCard} ${themedClass}`}>
         <h2 className={styles.cardTitle}>International Drivers</h2>
         <p className={styles.cardSubtitle}>
           Visiting from abroad? We welcome global travelers with valid documentation.

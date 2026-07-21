@@ -1,10 +1,13 @@
 import React from "react";
+import { useAuth } from "../../context/AuthContext";
 import { HOW_IT_WORKS } from "../../data/content";
 import styles from "./HowItWorks.module.css";
 
 export default function HowItWorks() {
+  const { isLoggedIn } = useAuth();
+
   return (
-    <section className={styles.howItWorksWrapper}>
+    <section className={`${styles.howItWorksWrapper} ${isLoggedIn ? styles.howItWorksWrapperThemed : ""}`}>
       <div className={styles.howItWorks}>
         <h2 className={styles.sectionTitleLight}>How It Works</h2>
         <div className={styles.stepsGrid}>

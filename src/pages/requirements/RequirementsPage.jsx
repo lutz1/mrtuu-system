@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "../../context/AuthContext";
 import Navbar from "../../components/frontpage/Navbar";
 import Footer from "../../components/frontpage/Footer";
 import SearchFilterBar from "../../components/SearchFilterBar";
@@ -9,14 +10,15 @@ import ReadyToRideBanner from "../../components/requirements/ReadyToRideBanner";
 import styles from "./RequirementsPage.module.css";
 
 export default function RequirementsPage() {
+  const { isLoggedIn } = useAuth();
+
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${isLoggedIn ? styles.pageThemed : ""}`}>
       <div className={styles.stickyHeader}>
         <Navbar />
-      </div>
-
-      <div className={styles.searchBarWrapper}>
-        <SearchFilterBar />
+        <div className={styles.searchBarWrapper}>
+          <SearchFilterBar />
+        </div>
       </div>
 
       <RequirementsHero />

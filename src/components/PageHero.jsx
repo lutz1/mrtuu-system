@@ -1,9 +1,15 @@
 import React from "react";
+import { useAuth } from "../context/AuthContext";
 import styles from "./PageHero.module.css";
 
 export default function PageHero({ eyebrow, title, subtitle, image }) {
+  const { isLoggedIn } = useAuth();
+
   return (
-    <section className={styles.hero} style={{ backgroundImage: `url(${image})` }}>
+    <section
+      className={`${styles.hero} ${isLoggedIn ? styles.heroThemed : ""}`}
+      style={{ backgroundImage: `url(${image})` }}
+    >
       <div className={styles.overlay} />
       <div className={styles.heroContent}>
         <span className={styles.eyebrow}>{eyebrow}</span>

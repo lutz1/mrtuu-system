@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./DocumentationSecurityGrid.module.css";
 
 const DOCUMENTS = [
@@ -65,9 +66,11 @@ function SecurityIcon({ id }) {
 }
 
 export default function DocumentationSecurityGrid() {
+  const { isLoggedIn } = useAuth();
+
   return (
     <div className={styles.grid}>
-      <section className={styles.docCard}>
+      <section className={`${styles.docCard} ${isLoggedIn ? styles.docCardThemed : ""}`}>
         <h2 className={styles.docTitle}>Mandatory Documentation</h2>
 
         <div className={styles.docList}>
@@ -81,6 +84,9 @@ export default function DocumentationSecurityGrid() {
         </div>
       </section>
 
+      {/* .securityCard is a fixed-dark design chip, like the CTA banners
+          and Payment & Security card elsewhere — it stays dark regardless
+          of login state, so no themed variant here. */}
       <section className={styles.securityCard}>
         <h2 className={styles.securityTitle}>Payment &amp; Security</h2>
 

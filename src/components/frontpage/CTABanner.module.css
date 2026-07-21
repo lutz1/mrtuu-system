@@ -12,7 +12,7 @@
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
 
   margin: 0 0px;
-  background: #ffffff;
+  --color-bg-surface: #ffffff;
   /* No overflow:hidden or border-radius here anymore —
      those live on .ctaImageWrap instead, so .ctaFade can paint
      over the corners without being clipped along with the image. */

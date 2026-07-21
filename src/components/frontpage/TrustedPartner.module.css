@@ -45,3 +45,19 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   ============================================================ */
+
+.trustedPartnerThemed {
+  background: var(--color-bg-page);
+}
+
+.trustedPartnerThemed .trustedTitle {
+  color: var(--color-text-primary);
+}
+
+.trustedPartnerThemed .trustedDescription {
+  color: var(--color-text-muted);
+}

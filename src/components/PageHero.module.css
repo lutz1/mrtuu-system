@@ -61,3 +61,32 @@
     min-height: 360px;
   }
 }
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   The overlay gradient shifts from --color-bg-page's light value
+   to its dark value, so the hero still reads as "page background
+   fading into photo" rather than a fixed brand chip.
+   ============================================================ */
+
+.heroThemed .overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(18, 18, 20, 0.95) 0%,
+    rgba(18, 18, 20, 0.75) 35%,
+    rgba(18, 18, 20, 0.15) 65%,
+    rgba(18, 18, 20, 0) 100%
+  );
+}
+
+.heroThemed .title {
+  color: var(--color-text-primary);
+}
+
+.heroThemed .subtitle {
+  color: var(--color-text-muted);
+}
+
+.heroThemed .eyebrow {
+  color: var(--color-accent-dark);
+}
