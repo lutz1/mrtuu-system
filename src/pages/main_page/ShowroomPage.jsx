@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../../components/frontpage/Navbar";
 import SearchFilterBar from "../../components/SearchFilterBar";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -8,12 +9,14 @@ import { CARS } from "../../data/cars";
 import styles from "./ShowroomPage.module.css";
 
 export default function ShowroomPage() {
+  const [searchParams] = useSearchParams();
+
   const [filters, setFilters] = useState({
-    query: "",
-    transmission: "All",
-    fuelType: "All",
-    carType: "All",
-    brand: "All",
+    query: searchParams.get("q") ?? "",
+    transmission: searchParams.get("transmission") ?? "All",
+    fuelType: searchParams.get("fuelType") ?? "All",
+    carType: searchParams.get("carType") ?? "All",
+    brand: searchParams.get("brand") ?? "All",
   });
 
   const handleFilterChange = (field, value) => {
@@ -32,16 +35,16 @@ export default function ShowroomPage() {
 
   return (
     <div className={styles.page}>
-  <div className={styles.stickyHeader}>
-    <Navbar />
-    <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
-  </div>
+      <div className={styles.stickyHeader}>
+        <Navbar />
+        <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
+      </div>
 
-  <div className={styles.pageContent}>
-    <Breadcrumb items={[{ label: "Home", to: "/home" }, { label: "Showroom" }]} />
-    <CarGrid cars={filteredCars} />
-    <Footer />
-  </div>
-</div>
+      <div className={styles.pageContent}>
+        <Breadcrumb items={[{ label: "Home", to: "/home" }, { label: "Showroom" }]} />
+        <CarGrid cars={filteredCars} />
+        <Footer />
+      </div>
+    </div>
   );
 }

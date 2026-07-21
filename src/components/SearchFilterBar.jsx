@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IconSearch } from "./icons";
 import styles from "./SearchFilterBar.module.css";
 
 export default function SearchFilterBar({ filters: filtersProp, onFilterChange: onFilterChangeProp }) {
+  const navigate = useNavigate();
+
   const [localFilters, setLocalFilters] = useState({
     query: "",
     transmission: "All",
@@ -17,6 +20,18 @@ export default function SearchFilterBar({ filters: filtersProp, onFilterChange: 
   const onFilterChange =
     onFilterChangeProp ??
     ((field, value) => setLocalFilters((prev) => ({ ...prev, [field]: value })));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams({
+      q: filters.query,
+      transmission: filters.transmission,
+      fuelType: filters.fuelType,
+      carType: filters.carType,
+      brand: filters.brand,
+    });
+    navigate(`/showroom?${params.toString()}`);
+  };
 
   const filterFields = (
     <div className={styles.filters}>
@@ -84,7 +99,7 @@ export default function SearchFilterBar({ filters: filtersProp, onFilterChange: 
 
   return (
     <>
-      <form className={styles.searchBar} onSubmit={(e) => e.preventDefault()}>
+      <form className={styles.searchBar} onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Toyota Corolla"

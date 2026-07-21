@@ -29,6 +29,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .logoImage {
@@ -43,6 +44,7 @@
   font-weight: 700;
   font-size: 18px;
   color: #1a1a1a;
+  white-space: nowrap;
 }
 
 /* Right Section */
@@ -66,6 +68,7 @@
   font-weight: 500;
   font-size: 15px;
   transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
 .navLinks a:hover {
@@ -83,6 +86,7 @@
   font-size: 14px;
   text-decoration: none;
   transition: background 0.2s ease;
+  white-space: nowrap;
 }
 
 .loginBtn:hover {
@@ -97,6 +101,7 @@
   align-items: center;
   gap: 4px;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .userAvatar {
@@ -117,6 +122,7 @@
   font-size: 13px;
   font-weight: 500;
   color: #f0a93a;
+  white-space: nowrap;
 }
 
 /* ============================================================
@@ -145,12 +151,65 @@
 
 /* Responsive */
 
+/* Tablet / larger phones — shrink logo, keep everything visible */
 @media (max-width: 640px) {
+  .navInner {
+    padding: 0 16px;
+    gap: 10px;
+  }
+
+  .logoImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logoText {
+    font-size: 15px;
+  }
+
+  .rightSection {
+    gap: 16px;
+  }
+
   .navLinks {
+    gap: 16px;
+  }
+
+  .navLinks a {
+    font-size: 13px;
+  }
+
+  .loginBtn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .userAvatar,
+  .userAvatarImage {
+    width: 36px;
+    height: 36px;
+  }
+
+  .userAvatar {
+    font-size: 15px;
+  }
+
+  .userName {
+    font-size: 11px;
+  }
+}
+
+/* Small phones — logo mark only, drop the username to keep one row */
+@media (max-width: 480px) {
+  .logoText {
     display: none;
   }
 
-  .navInner {
-    padding: 0 20px;
+  .userMenu {
+    flex-direction: row;
+  }
+
+  .userName {
+    display: none;
   }
 }
