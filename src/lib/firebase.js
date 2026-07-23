@@ -1,4 +1,4 @@
-// src/firebase.js
+// src/lib/firebase.js
 //
 // Central Firebase initialization — the app, auth, and storage instances
 // created here are imported wherever Firebase is needed (AuthContext,
