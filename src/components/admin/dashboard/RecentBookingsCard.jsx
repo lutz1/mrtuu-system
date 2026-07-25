@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./RecentBookingsCard.module.css";
+import { Link } from "react-router-dom";
 
 // TODO: mock data — swap for real recent bookings once available.
 const BOOKINGS = [
@@ -41,12 +42,12 @@ export default function RecentBookingsCard() {
       </ul>
 
       {/* TODO: link to a real bookings list page once it exists */}
-      <a href="#" className={styles.viewAllLink}>
+      <Link to="/admin/bookings" href="#" className={styles.viewAllLink}>
         View all bookings
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-      </a>
+      </Link>
     </section>
   );
 }

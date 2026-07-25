@@ -1,0 +1,58 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.summary {
+  font-size: 13.5px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navBtn,
+.pageBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+
+.navBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.navBtn:hover:not(:disabled),
+.pageBtn:hover {
+  border-color: #e8a020;
+}
+
+.navBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pageBtnActive {
+  background: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #1a1a1a;
+}
