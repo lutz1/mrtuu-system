@@ -25,6 +25,7 @@ import AdminRoute from "./context/AdminRoute";
 import AdminLoginPage from "./pages/admin/dashboard/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
 import AdminBookingsPage from "./pages/admin/booking/AdminBookingsPage";
+import AdminChecklistPage from "./pages/admin/checklist/AdminChecklistPage";
 
 function App() {
   return (
@@ -146,6 +147,14 @@ function App() {
                     </AdminRoute>
                   }
                 />
+                <Route
+                path="/admin/checklist"
+                element={
+                  <AdminRoute>
+                    <AdminChecklistPage />
+                  </AdminRoute>
+                }
+              />
               </Routes>
             </AuthProvider>
           </BrowserRouter>
