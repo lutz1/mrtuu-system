@@ -10,8 +10,7 @@ import {
   IconEye,
   IconEyeOff,
   IconGoogle,
-} from "../../components/icons/AuthIcons";
-import "../../components/icons/authShared.css";
+} from "../../components/user/icons/AuthIcons";
 import OTPModal from "../../components/OTPModal";
 import { detectContactType, normalizePhone } from "../../Data/phone";
 

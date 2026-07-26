@@ -11,8 +11,7 @@ import {
   IconEye,
   IconEyeOff,
   IconGoogle,
-} from "../../components/icons/AuthIcons";
-import "../../components/icons/authShared.css";
+} from "../../components/user/icons/AuthIcons";
 import OTPModal from "../../components/OTPModal";
 import EmailVerificationModal from "../../components/EmailVerificationModal";
 import { detectContactType, normalizePhone } from "../../Data/phone";
