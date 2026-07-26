@@ -1,4 +1,8 @@
-import { faCarSide, faCreditCard, faBookBookmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCarSide,
+  faCreditCard,
+  faBookBookmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const WHY_US = [
   {
@@ -22,9 +26,22 @@ export const WHY_US = [
 ];
 
 export const HOW_IT_WORKS = [
-  { step: 1, title: "Choose Your Car", description: "Browse our available vehicles and select the one that fits your needs." },
-  { step: 2, title: "Select Your Dates", description: "Choose your pickup and return schedule." },
-  { step: 3, title: "Confirm Your Booking", description: "Complete your reservation and get ready to drive." },
+  {
+    step: 1,
+    title: "Choose Your Car",
+    description:
+      "Browse our available vehicles and select the one that fits your needs.",
+  },
+  {
+    step: 2,
+    title: "Select Your Dates",
+    description: "Choose your pickup and return schedule.",
+  },
+  {
+    step: 3,
+    title: "Confirm Your Booking",
+    description: "Complete your reservation and get ready to drive.",
+  },
 ];
 
 export const FOOTER_COLUMNS = [
