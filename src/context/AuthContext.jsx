@@ -16,6 +16,8 @@ import {
   sendEmailVerification,
   RecaptchaVerifier,
   signInWithPhoneNumber,
+  PhoneAuthProvider,
+  updatePhoneNumber,
   EmailAuthProvider,
   reauthenticateWithCredential,
   updatePassword,
@@ -78,6 +80,9 @@ function logout() {
   return signOut(auth);
 }
 
+// Used only for the SIGN-IN-with-phone flow (a brand-new/returning session).
+// Do NOT use this to change the phone number on an already-signed-in user —
+// see sendPhoneUpdateOTP/confirmPhoneUpdateOTP below for that.
 function confirmPhoneOTP(confirmationResult, code) {
   return confirmationResult.confirm(code);
 }
@@ -92,9 +97,9 @@ async function checkEmailVerified() {
 }
 
 // Firebase requires a "recent" login before sensitive operations
-// (updatePassword, verifyBeforeUpdateEmail, deleteUser) will succeed.
-// Google-only accounts have no password on file, so we re-run the Google
-// popup instead of asking for a password that doesn't exist.
+// (updatePassword, verifyBeforeUpdateEmail, updatePhoneNumber, deleteUser)
+// will succeed. Google-only accounts have no password on file, so we re-run
+// the Google popup instead of asking for a password that doesn't exist.
 async function reauthenticate(currentPassword) {
   const currentUser = auth.currentUser;
   if (!currentUser) {
@@ -154,6 +159,10 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const recaptchaVerifiers = useRef({});
+  // Holds the in-flight PhoneAuthProvider verificationId between
+  // sendPhoneUpdateOTP() and confirmPhoneUpdateOTP() calls, keyed by
+  // containerId so multiple phone-update UIs on different screens don't clash.
+  const phoneUpdateVerificationIds = useRef({});
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -161,6 +170,16 @@ export function AuthProvider({ children }) {
       setAuthLoading(false);
     });
     return unsubscribe;
+  }, []);
+
+  // Firebase's updateProfile() mutates auth.currentUser in place rather than
+  // returning a new object, so React won't re-render off that alone. Call
+  // this after any updateProfile() (photoURL, displayName, etc.) to force a
+  // fresh reference and re-render every consumer of `user`.
+  const refreshUser = useCallback(() => {
+    if (auth.currentUser) {
+      setUser({ ...auth.currentUser });
+    }
   }, []);
 
   // Phone auth requires an invisible reCAPTCHA bound to a real DOM node
@@ -189,15 +208,59 @@ export function AuthProvider({ children }) {
     return signInWithPhoneNumber(auth, phoneNumber, verifier);
   };
 
-  // Firebase's updateProfile() mutates auth.currentUser in place rather than
-  // returning a new object, so React won't re-render off that alone. Call
-  // this after any updateProfile() (photoURL, displayName, etc.) to force a
-  // fresh reference and re-render every consumer of `user`.
-  const refreshUser = useCallback(() => {
-    if (auth.currentUser) {
-      setUser({ ...auth.currentUser });
+  // --- Change phone number for the CURRENTLY signed-in user ---
+  //
+  // This is intentionally separate from sendPhoneOTP/confirmPhoneOTP above:
+  // signInWithPhoneNumber() starts a brand-new sign-in session (it would
+  // effectively log the user in as whatever account owns that phone number,
+  // or create one). To attach/change a phone number on the *existing*
+  // signed-in user we need PhoneAuthProvider.verifyPhoneNumber() +
+  // updatePhoneNumber(), which requires the same recent-login guarantee as
+  // changePassword/changeEmail/deleteAccount.
+
+  // Step 1: send an OTP to the new phone number. containerId must match a
+  // rendered <div id={containerId} /> for the invisible reCAPTCHA, e.g.
+  // "change-phone-recaptcha-container".
+  const sendPhoneUpdateOTP = async (newPhoneNumber, containerId) => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      throw new Error("No active session — please log in again to continue.");
     }
-  }, []);
+
+    const verifier = getRecaptchaVerifier(containerId);
+    const provider = new PhoneAuthProvider(auth);
+    const verificationId = await provider.verifyPhoneNumber(
+      newPhoneNumber,
+      verifier
+    );
+
+    phoneUpdateVerificationIds.current[containerId] = verificationId;
+    return verificationId;
+  };
+
+  // Step 2: confirm the 6-digit code and commit the new phone number onto
+  // auth.currentUser. Also keeps the shared users/{uid} doc's phoneNumber
+  // field in sync since it's read across both Lyka's and Ajex.
+  const confirmPhoneUpdateOTP = async (code, containerId) => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      throw new Error("No active session — please log in again to continue.");
+    }
+
+    const verificationId = phoneUpdateVerificationIds.current[containerId];
+    if (!verificationId) {
+      throw new Error(
+        "No phone verification in progress. Please request a new code."
+      );
+    }
+
+    const credential = PhoneAuthProvider.credential(verificationId, code);
+    await updatePhoneNumber(currentUser, credential);
+    delete phoneUpdateVerificationIds.current[containerId];
+
+    await upsertSharedUserDoc(currentUser);
+    refreshUser();
+  };
 
   const value = {
     user,
@@ -210,6 +273,8 @@ export function AuthProvider({ children }) {
     resendVerificationEmail,
     sendPhoneOTP,
     confirmPhoneOTP,
+    sendPhoneUpdateOTP,
+    confirmPhoneUpdateOTP,
     checkEmailVerified,
     refreshUser,
     changePassword,

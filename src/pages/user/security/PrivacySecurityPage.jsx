@@ -34,9 +34,17 @@ function getFirebaseErrorMessage(error) {
   }
 }
 
+const PHONE_RECAPTCHA_CONTAINER_ID = "change-phone-recaptcha-container";
 export default function PrivacySecurityPage() {
-  const { user, logout, changePassword, changeEmail, deleteAccount } =
-    useAuth();
+  const {
+    user,
+    logout,
+    changePassword,
+    changeEmail,
+    deleteAccount,
+    sendPhoneUpdateOTP,
+    confirmPhoneUpdateOTP,
+  } = useAuth();
   const navigate = useNavigate();
 
   const [sessions, setSessions] = useState(ACTIVE_SESSIONS);
@@ -45,6 +53,12 @@ export default function PrivacySecurityPage() {
   const [emailNotice, setEmailNotice] = useState("");
   const [passwordNotice, setPasswordNotice] = useState("");
   const [deleteError, setDeleteError] = useState("");
+  // Phone-change flow state: closed -> entering new number -> entering OTP code
+  const [phoneChangeStep, setPhoneChangeStep] = useState("closed"); // "closed" | "number" | "otp"
+  const [newPhoneNumber, setNewPhoneNumber] = useState("");
+  const [phoneOtpCode, setPhoneOtpCode] = useState("");
+  const [phoneChangeError, setPhoneChangeError] = useState("");
+  const [phoneChangeSubmitting, setPhoneChangeSubmitting] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -93,10 +107,70 @@ export default function PrivacySecurityPage() {
     }
   };
 
-  // TODO: open change-phone flow, reuse sendPhoneOTP/confirmPhoneOTP
-  // from AuthContext once a dedicated "update phone" UI exists
   const handleChangePhone = () => {
-    console.log("Change phone number");
+    setPhoneChangeError("");
+    setNewPhoneNumber("");
+    setPhoneOtpCode("");
+    setPhoneChangeStep("number");
+  };
+
+  const handleCancelPhoneChange = () => {
+    setPhoneChangeStep("closed");
+    setPhoneChangeError("");
+    setNewPhoneNumber("");
+    setPhoneOtpCode("");
+  };
+
+  const handleSendPhoneOtp = async (e) => {
+    e.preventDefault();
+    setPhoneChangeError("");
+
+    if (!newPhoneNumber.trim()) {
+      setPhoneChangeError("Please enter a phone number.");
+      return;
+    }
+
+    setPhoneChangeSubmitting(true);
+    try {
+      await sendPhoneUpdateOTP(
+        newPhoneNumber.trim(),
+        PHONE_RECAPTCHA_CONTAINER_ID
+      );
+      setPhoneChangeStep("otp");
+    } catch (err) {
+      console.error("Failed to send phone update OTP:", err);
+      setPhoneChangeError(
+        err?.message || "Couldn't send the verification code. Please try again."
+      );
+    } finally {
+      setPhoneChangeSubmitting(false);
+    }
+  };
+
+  const handleConfirmPhoneOtp = async (e) => {
+    e.preventDefault();
+    setPhoneChangeError("");
+
+    if (!phoneOtpCode.trim()) {
+      setPhoneChangeError("Please enter the verification code.");
+      return;
+    }
+
+    setPhoneChangeSubmitting(true);
+    try {
+      await confirmPhoneUpdateOTP(
+        phoneOtpCode.trim(),
+        PHONE_RECAPTCHA_CONTAINER_ID
+      );
+      handleCancelPhoneChange();
+    } catch (err) {
+      console.error("Failed to confirm phone update OTP:", err);
+      setPhoneChangeError(
+        err?.message || "That code didn't work. Please try again."
+      );
+    } finally {
+      setPhoneChangeSubmitting(false);
+    }
   };
 
   const handlePasswordSubmit = async ({ currentPassword, newPassword }) => {
@@ -174,6 +248,82 @@ export default function PrivacySecurityPage() {
                   onChange={handleChangePhone}
                 />
               </div>
+              {/* Required invisible reCAPTCHA anchor for phone OTP —
+                  must be a real rendered DOM node before sendPhoneUpdateOTP runs. */}
+              <div id={PHONE_RECAPTCHA_CONTAINER_ID} />
+
+              {phoneChangeStep === "number" && (
+                <form
+                  className={styles.verificationGrid}
+                  onSubmit={handleSendPhoneOtp}
+                >
+                  <div>
+                    <label htmlFor="newPhoneNumber">New Phone Number</label>
+                    <input
+                      id="newPhoneNumber"
+                      type="tel"
+                      placeholder="+63 917 123 4567"
+                      value={newPhoneNumber}
+                      onChange={(e) => setNewPhoneNumber(e.target.value)}
+                      disabled={phoneChangeSubmitting}
+                      required
+                    />
+                    {phoneChangeError && <p>{phoneChangeError}</p>}
+                    <div>
+                      <button type="submit" disabled={phoneChangeSubmitting}>
+                        {phoneChangeSubmitting
+                          ? "Sending code..."
+                          : "Send Verification Code"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCancelPhoneChange}
+                        disabled={phoneChangeSubmitting}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              )}
+
+              {phoneChangeStep === "otp" && (
+                <form
+                  className={styles.verificationGrid}
+                  onSubmit={handleConfirmPhoneOtp}
+                >
+                  <div>
+                    <label htmlFor="phoneOtpCode">
+                      Enter Verification Code
+                    </label>
+                    <input
+                      id="phoneOtpCode"
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="123456"
+                      value={phoneOtpCode}
+                      onChange={(e) => setPhoneOtpCode(e.target.value)}
+                      disabled={phoneChangeSubmitting}
+                      required
+                    />
+                    {phoneChangeError && <p>{phoneChangeError}</p>}
+                    <div>
+                      <button type="submit" disabled={phoneChangeSubmitting}>
+                        {phoneChangeSubmitting
+                          ? "Confirming..."
+                          : "Confirm Code"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCancelPhoneChange}
+                        disabled={phoneChangeSubmitting}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              )}
 
               <ChangePasswordForm
                 onSubmit={handlePasswordSubmit}
