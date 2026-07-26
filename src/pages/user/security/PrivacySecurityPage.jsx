@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import Navbar from "../../../components/user/frontpage/Navbar";
@@ -11,46 +10,50 @@ import LoginHistoryCard from "../../../components/user/security/LoginHistoryCard
 import DangerZoneCard from "../../../components/user/security/DangerZoneCard";
 import { ACTIVE_SESSIONS, SECURITY_LOG } from "../../../data/loginHistory";
 import styles from "./PrivacySecurityPage.module.css";
+import { useState } from "react";
 
-// TODO: open change-email flow (needs a new AuthContext function —
-// Firebase's updateEmail() requires recent re-authentication)
-const handleChangeEmail = () => {
-  console.log("Change email address");
-};
-
-// TODO: open change-phone flow, reuse sendPhoneOTP/confirmPhoneOTP
-// from AuthContext once a dedicated "update phone" UI exists
-const handleChangePhone = () => {
-  console.log("Change phone number");
-};
-
-// TODO: needs a changePassword function in AuthContext.
-// Firebase requires reauthenticateWithCredential(currentPassword)
-// before updatePassword(newPassword) will succeed.
-const handlePasswordSubmit = ({ currentPassword, newPassword }) => {
-  console.log("Change password:", { currentPassword, newPassword });
-};
-
-// TODO: needs a deleteAccount function in AuthContext using
-// Firebase's deleteUser(), which also requires recent re-auth.
-const handleDeleteAccount = () => {
-  console.log("Delete account requested");
-};
+function getFirebaseErrorMessage(error) {
+  switch (error?.code) {
+    case "auth/wrong-password":
+    case "auth/invalid-credential":
+      return "Current password is incorrect.";
+    case "auth/too-many-requests":
+      return "Too many attempts. Please wait a moment and try again.";
+    case "auth/requires-recent-login":
+      return "Please log in again and retry — this action needs a recent sign-in.";
+    case "auth/email-already-in-use":
+      return "That email address is already in use by another account.";
+    case "auth/invalid-email":
+      return "That email address doesn't look right.";
+    case "auth/weak-password":
+      return "New password should be at least 6 characters.";
+    case "auth/popup-closed-by-user":
+      return "Google confirmation was cancelled.";
+    default:
+      return error?.message || "Something went wrong. Please try again.";
+  }
+}
 
 export default function PrivacySecurityPage() {
-  const { user, logout } = useAuth();
+  const { user, logout, changePassword, changeEmail, deleteAccount } =
+    useAuth();
   const navigate = useNavigate();
 
   const [sessions, setSessions] = useState(ACTIVE_SESSIONS);
 
+  const [emailPending, setEmailPending] = useState(false);
+  const [emailNotice, setEmailNotice] = useState("");
+  const [passwordNotice, setPasswordNotice] = useState("");
+  const [deleteError, setDeleteError] = useState("");
+
   const handleLogout = async () => {
-  try {
-    await logout();
-    navigate("/");
-  } catch (err) {
-    console.error("Logout failed:", err);
-  }
-};
+    try {
+      await logout();
+      navigate("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
 
   const handleLogoutSession = (session) => {
     // TODO: no backend session tracking yet — Firebase Auth doesn't expose
@@ -58,6 +61,74 @@ export default function PrivacySecurityPage() {
     // Function calling admin.auth().revokeRefreshTokens(uid) per device,
     // which requires actual per-device session records server-side.
     setSessions((prev) => prev.filter((s) => s.id !== session.id));
+  };
+
+  // Prompts for the new email + current password, then kicks off Firebase's
+  // verify-before-update flow (a confirmation link is sent to the NEW
+  // address; the change only takes effect once that link is clicked).
+  const handleChangeEmail = async () => {
+    setEmailNotice("");
+    const newEmail = window.prompt("Enter your new email address:", "");
+    if (!newEmail) return;
+
+    const isPasswordUser = user?.providerData?.some(
+      (p) => p.providerId === "password"
+    );
+    const currentPassword = isPasswordUser
+      ? window.prompt("Confirm your current password:", "")
+      : null;
+
+    if (isPasswordUser && !currentPassword) return;
+
+    setEmailPending(true);
+    try {
+      await changeEmail(currentPassword, newEmail);
+      setEmailNotice(
+        `Verification link sent to ${newEmail}. Click it to finish the change.`
+      );
+    } catch (err) {
+      setEmailNotice(getFirebaseErrorMessage(err));
+    } finally {
+      setEmailPending(false);
+    }
+  };
+
+  // TODO: open change-phone flow, reuse sendPhoneOTP/confirmPhoneOTP
+  // from AuthContext once a dedicated "update phone" UI exists
+  const handleChangePhone = () => {
+    console.log("Change phone number");
+  };
+
+  const handlePasswordSubmit = async ({ currentPassword, newPassword }) => {
+    setPasswordNotice("");
+    try {
+      await changePassword(currentPassword, newPassword);
+      setPasswordNotice("Password updated successfully.");
+    } catch (err) {
+      setPasswordNotice(getFirebaseErrorMessage(err));
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleteError("");
+    const isPasswordUser = user?.providerData?.some(
+      (p) => p.providerId === "password"
+    );
+    const currentPassword = isPasswordUser
+      ? window.prompt(
+          "Confirm your current password to permanently delete your account:",
+          ""
+        )
+      : null;
+
+    if (isPasswordUser && !currentPassword) return;
+
+    try {
+      await deleteAccount(currentPassword);
+      navigate("/");
+    } catch (err) {
+      setDeleteError(getFirebaseErrorMessage(err));
+    }
   };
 
   return (
@@ -69,7 +140,11 @@ export default function PrivacySecurityPage() {
       <div className={styles.pageContent}>
         <div className={styles.contentWrapper}>
           <Breadcrumb
-            items={[{ label: "Home", to: "/" }, { label: "Showroom", to: "/showroom" }, { label: "Profile" }]}
+            items={[
+              { label: "Home", to: "/" },
+              { label: "Showroom", to: "/showroom" },
+              { label: "Profile" },
+            ]}
           />
 
           <div className={styles.layout}>
@@ -83,7 +158,12 @@ export default function PrivacySecurityPage() {
                   type="email"
                   value={user?.email}
                   verified={!!user?.emailVerified}
-                  description="Your email is verified. You're all set to receive booking confirmations and security notifications."
+                  description={
+                    emailNotice ||
+                    (emailPending
+                      ? "Sending verification link..."
+                      : "Your email is verified. You're all set to receive booking confirmations and security notifications.")
+                  }
                   onChange={handleChangeEmail}
                 />
                 <VerificationCard
@@ -95,7 +175,10 @@ export default function PrivacySecurityPage() {
                 />
               </div>
 
-              <ChangePasswordForm onSubmit={handlePasswordSubmit} />
+              <ChangePasswordForm
+                onSubmit={handlePasswordSubmit}
+                statusMessage={passwordNotice}
+              />
 
               <LoginHistoryCard
                 sessions={sessions}
@@ -103,7 +186,10 @@ export default function PrivacySecurityPage() {
                 onLogoutSession={handleLogoutSession}
               />
 
-              <DangerZoneCard onDeleteAccount={handleDeleteAccount} />
+              <DangerZoneCard
+                onDeleteAccount={handleDeleteAccount}
+                errorMessage={deleteError}
+              />
             </main>
           </div>
         </div>
