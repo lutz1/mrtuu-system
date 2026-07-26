@@ -90,7 +90,7 @@ export default function AccountPage() {
           <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "My Profile" }]} />
 
           <div className={styles.layout}>
-            <AccountSidebar onDeleteAccount={handleLogout} />
+            <AccountSidebar onLogout={handleLogout} />
 
             <main className={styles.main}>
               <h1 className={styles.pageTitle}>My Profile</h1>

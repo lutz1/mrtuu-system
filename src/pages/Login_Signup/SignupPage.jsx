@@ -17,6 +17,8 @@ function getFirebaseErrorMessage(error) {
       return "Password should be at least 6 characters.";
     case "auth/popup-closed-by-user":
       return "Google sign-up was cancelled.";
+    case "auth/popup-timeout":
+      return "Sign-in is taking too long. Please try again.";
     default:
       return "Something went wrong. Please try again.";
   }

@@ -37,7 +37,12 @@ function resendVerificationEmail() {
 }
 
 function loginWithGoogle() {
-  return signInWithPopup(auth, googleProvider);
+  return Promise.race([
+    signInWithPopup(auth, googleProvider),
+    new Promise((_, reject) =>
+      setTimeout(() => reject({ code: "auth/popup-timeout" }), 50000)
+    ),
+  ]);
 }
 
 function logout() {
@@ -47,6 +52,8 @@ function logout() {
 function confirmPhoneOTP(confirmationResult, code) {
   return confirmationResult.confirm(code);
 }
+
+
 
 // Check whether the current user has verified their email.
 async function checkEmailVerified() {

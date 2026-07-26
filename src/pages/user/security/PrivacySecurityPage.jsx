@@ -43,10 +43,14 @@ export default function PrivacySecurityPage() {
 
   const [sessions, setSessions] = useState(ACTIVE_SESSIONS);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+  try {
+    await logout();
     navigate("/");
-  };
+  } catch (err) {
+    console.error("Logout failed:", err);
+  }
+};
 
   const handleLogoutSession = (session) => {
     // TODO: no backend session tracking yet — Firebase Auth doesn't expose

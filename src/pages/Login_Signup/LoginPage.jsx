@@ -21,8 +21,11 @@ function getFirebaseErrorMessage(error) {
       return "Too many attempts. Please wait a moment and try again.";
     case "auth/popup-closed-by-user":
       return "Google sign-in was cancelled.";
+    case "auth/popup-timeout":
+      return "Sign-in is taking too long. Please try again.";
     default:
       return "Something went wrong. Please try again.";
+      
   }
 }
 
