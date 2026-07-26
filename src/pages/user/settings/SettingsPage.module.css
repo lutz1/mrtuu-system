@@ -1,0 +1,159 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: #1a1a1a;
+  background: var(--color-bg-page);
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.pageContent {
+  overflow-x: hidden;
+}
+
+.contentWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.pageTitle {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary)
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.card {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 22px;
+  color: var(--color-text-primary)
+}
+
+.fieldStack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.themeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pickupField {
+  width: 100%;
+}
+
+.pickupLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #d9922a;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.toggleLabel {
+  font-size: 14px;
+  color: var(--color-text-primary)
+}
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 960px) {
+  .stickyHeader {
+    position: static;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .topGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 640px) {
+  .contentWrapper {
+    padding: 20px 20px 60px;
+  }
+
+  .pageTitle {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .sectionTitle {
+    font-size: 17px;
+    margin-bottom: 18px;
+  }
+
+  .fieldStack {
+    gap: 18px;
+  }
+
+  .themeGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .toggleRow {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}

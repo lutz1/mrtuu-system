@@ -1,0 +1,109 @@
+.hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 246, 248, 0.95) 0%,
+    rgba(245, 246, 248, 0.75) 35%,
+    rgba(245, 246, 248, 0.15) 65%,
+    rgba(245, 246, 248, 0) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 32px;
+}
+
+.eyebrow {
+  display: block;
+  color: #d9922a;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+  max-width: 600px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #4b5563;
+  max-width: 480px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 340px;
+  }
+
+  .heroContent {
+    padding: 0 20px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    font-size: 30px;
+    margin: 0 0 12px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.55;
+    max-width: none;
+  }
+}
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   The overlay gradient shifts from --color-bg-page's light value
+   to its dark value, so the hero still reads as "page background
+   fading into photo" rather than a fixed brand chip.
+   ============================================================ */
+
+.heroThemed .overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(18, 18, 20, 0.95) 0%,
+    rgba(18, 18, 20, 0.75) 35%,
+    rgba(18, 18, 20, 0.15) 65%,
+    rgba(18, 18, 20, 0) 100%
+  );
+}
+
+.heroThemed .title {
+  color: var(--color-text-primary);
+}
+
+.heroThemed .subtitle {
+  color: var(--color-text-muted);
+}
+
+.heroThemed .eyebrow {
+  color: var(--color-accent-dark);
+}

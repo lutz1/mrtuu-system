@@ -1,0 +1,346 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.pageContent {
+  overflow-x: hidden;
+}
+
+.contentWrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+  text-align: center;
+}
+
+/* Success icon */
+
+.successIconWrap {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 32px;
+}
+
+.checkCircle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px auto 0;
+}
+
+.checkCircle svg {
+  width: 44px;
+  height: 44px;
+}
+
+.starLeft,
+.starRight {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  color: var(--color-border);
+}
+
+.starLeft {
+  top: 30px;
+  left: 0;
+}
+
+.starRight {
+  top: 5px;
+  right: 5px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  margin: 0 0 20px;
+}
+
+.refPill {
+  display: inline-block;
+  background: var(--color-bg-muted);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+}
+
+.refPill strong {
+  color: var(--color-text-primary);
+}
+
+/* Summary card */
+
+.summaryCard {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  padding: 0 0 24px;
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  overflow: hidden;
+}
+
+.carHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-input-bg);
+  padding: 20px 24px;
+}
+
+.carThumb {
+  width: 90px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.carName {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--color-text-primary);
+}
+
+.carSpecsLine {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.detailsRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 24px;
+  gap: 20px;
+}
+
+.detailsRow > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detailRight {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.detailLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.detailValue {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 24px 0;
+}
+
+.breakdownRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.divider {
+  border-top: 2px dashed var(--color-accent);
+  opacity: 0.35;
+  margin: 18px 24px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px 20px;
+}
+
+.totalLabel {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.totalAmount {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.paymentMethodRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-input-bg);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 0 24px;
+}
+
+.paymentMethodInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.paymentMethodInfo svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.verifiedIcon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Action buttons */
+
+.actionsRow {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px 0 24px;
+  flex-wrap: wrap;
+}
+
+.downloadBtn,
+.homeBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.downloadBtn svg,
+.homeBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.downloadBtn {
+  background: var(--color-accent);
+  color: #ffffff;
+  border: none;
+}
+
+.downloadBtn:hover {
+  background: var(--color-accent-pressed);
+}
+
+.homeBtn {
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-accent);
+}
+
+.homeBtn:hover {
+  background: var(--color-accent-soft-bg);
+}
+
+.helpText {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  line-height: 1.8;
+}
+
+.helpLink {
+  color: var(--color-accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.helpLink:hover {
+  color: var(--color-accent-pressed);
+  text-decoration: underline;
+}
+
+/* Not found */
+
+.notFound {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.notFoundLink {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.notFoundLink:hover {
+  color: var(--color-accent-pressed);
+}
+
+@media (max-width: 640px) {
+  .contentWrapper {
+    padding: 40px 20px 60px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+  }
+
+  .downloadBtn,
+  .homeBtn {
+    justify-content: center;
+  }
+}

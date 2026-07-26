@@ -1,0 +1,73 @@
+.card {
+  width: 100%;
+  aspect-ratio: 1 / 0.85;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  border: 2px solid transparent;
+  
+}
+
+.lightCard {
+  background: #ffffff;
+  border-color: #e5e7eb;
+  color: #1a1a1a;
+}
+
+.darkCard {
+  background: #1f2124;
+  color: #ffffff;
+}
+
+.selected.lightCard {
+  border-color: var(--color-accent-dark);
+}
+
+.selected.darkCard {
+  border-color: var(--color-accent-dark);
+  box-shadow: 0 0 0 1px var(--color-accent-dark);
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.lightCard .icon {
+  color: var(--color-accent-dark);
+}
+
+.darkCard .icon {
+  color: var(--color-accent);
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 600;
+  
+}
+
+@media (max-width: 640px) {
+  .card {
+    aspect-ratio: 1 / 0.7;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+}

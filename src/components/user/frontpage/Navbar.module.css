@@ -1,0 +1,215 @@
+.navbar {
+  background: #fdf8ec;
+  padding: 18px 0;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+.userAvatarImage {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.navInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logoImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-weight: 700;
+  font-size: 18px;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+/* Right Section */
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Navigation */
+
+.navLinks {
+  display: flex;
+  gap: 40px;
+}
+
+.navLinks a {
+  color: #6b7280;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navLinks a:hover {
+  color: #d9922a;
+}
+
+/* Login Button */
+
+.loginBtn {
+  background: #f0a93a;
+  color: #1a1a1a;
+  padding: 10px 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.loginBtn:hover {
+  background: #d9922a;
+}
+
+/* User */
+
+.userMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.userAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f0a93a;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #f0a93a;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in
+   (isLoggedIn from AuthContext). Logged-out visitors always see
+   the fixed cream navbar above, regardless of stored theme
+   preference. Only properties that actually differ between
+   light/dark tokens are overridden here.
+   ============================================================ */
+
+.navbarThemed {
+  background: var(--color-bg-surface);
+}
+
+.navbarThemed .logoText {
+  color: var(--color-text-primary);
+}
+
+.navbarThemed .navLinks a {
+  color: var(--color-text-muted);
+}
+
+.navbarThemed .navLinks a:hover {
+  color: var(--color-accent-dark);
+}
+
+/* Responsive */
+
+/* Tablet / larger phones — shrink logo, keep everything visible */
+@media (max-width: 640px) {
+  .navInner {
+    padding: 0 16px;
+    gap: 10px;
+  }
+
+  .logoImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logoText {
+    font-size: 15px;
+  }
+
+  .rightSection {
+    gap: 16px;
+  }
+
+  .navLinks {
+    gap: 16px;
+  }
+
+  .navLinks a {
+    font-size: 13px;
+  }
+
+  .loginBtn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .userAvatar,
+  .userAvatarImage {
+    width: 36px;
+    height: 36px;
+  }
+
+  .userAvatar {
+    font-size: 15px;
+  }
+
+  .userName {
+    font-size: 11px;
+  }
+}
+
+/* Small phones — logo mark only, drop the username to keep one row */
+@media (max-width: 480px) {
+  .logoText {
+    display: none;
+  }
+
+  .userMenu {
+    flex-direction: row;
+  }
+
+  .userName {
+    display: none;
+  }
+}

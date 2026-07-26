@@ -1,0 +1,39 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #f0f1f3;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dotNeutral {
+  background: #9ca3af;
+}
+
+.dotBlue {
+  background: #3b82f6;
+}
+
+.dotGold {
+  background: #e8a020;
+}
+
+.dotGreen {
+  background: #22a35e;
+}
+
+.dotRed {
+  background: #e0483e;
+}

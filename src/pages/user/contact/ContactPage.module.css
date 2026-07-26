@@ -1,0 +1,73 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #f5f6f8;
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: -140px;
+}
+
+.searchBarWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+}
+
+.contentWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .searchBarWrapper {
+    padding: 0 20px;
+  }
+  .contentWrapper {
+    padding: 40px 20px 60px;
+  }
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .searchBarWrapper {
+    padding: 0 12px;
+  }
+  .contentWrapper {
+    padding: 32px 12px 60px;
+  }
+}
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   ============================================================ */
+
+.pageThemed {
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
+}

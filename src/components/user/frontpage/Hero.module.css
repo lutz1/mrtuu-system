@@ -1,0 +1,171 @@
+.hero {
+  --gold: #f0a93a;
+  --gold-dark: #d9922a;
+  --text-dark: #1a1a1a;
+  --white: #ffffff;
+
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  overflow: hidden; /* keeps the oversized image layer from spilling outside the hero */
+  padding-top: 160px;
+}
+
+/* Separate background layer, intentionally larger than the container
+   so scaling it down reveals more of the original photo — a "zoom out" */
+.heroImage {
+  position: absolute;
+  inset: -8%; /* makes this layer 8% bigger than the hero on every side */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(0.92); /* scales it back down, revealing more of the photo */
+  transform-origin: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.35));
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  text-align: center;
+  padding: 56px 24px;
+  color: var(--white);
+}
+
+.gold {
+  color: var(--gold);
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+}
+
+.heroTitle {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 20px;
+}
+
+.heroSubtitle {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+
+.heroActions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  background: var(--gold);
+  color: var(--text-dark);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.primaryBtn:hover {
+  background: var(--gold-dark);
+}
+
+.btnArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  color: var(--gold-dark);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+}
+
+.secondaryBtn {
+  background: var(--white);
+  color: var(--text-dark);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.secondaryBtn:hover {
+  background: #f0f0f0;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 420px;
+    padding-top: 110px;
+  }
+
+  .heroImage {
+    inset: -4%;
+    transform: scale(0.96);
+  }
+
+  .heroContent {
+    padding: 32px 20px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .heroTitle {
+    font-size: 30px;
+    margin: 0 0 14px;
+  }
+
+  .heroSubtitle {
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 auto 24px;
+  }
+
+  .heroActions {
+    gap: 12px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    padding: 12px 22px;
+    font-size: 13px;
+  }
+
+  .btnArrow {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+  }
+}

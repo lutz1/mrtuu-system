@@ -1,0 +1,32 @@
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.ongoing {
+  background: var(--status-ongoing);
+}
+
+.completed {
+  background: var(--status-neutral);
+}
+
+.cancelled {
+  background: var(--status-neutral);
+}

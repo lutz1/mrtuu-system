@@ -1,0 +1,28 @@
+.helpBox {
+  display: flex;
+  gap: 14px;
+  background: var(--color-bg-muted);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.helpIcon {
+  width: 26px;
+  height: 26px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.helpTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--color-text-primary);
+}
+
+.helpText {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.6;
+}

@@ -1,0 +1,49 @@
+.featuresSection {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+.sectionHeading {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: var(--color-text-primary);
+}
+
+.featuresList {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
+
+.featureIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.showMoreBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.showMoreBtn:hover {
+  color: var(--color-accent-dark);
+}

@@ -4,11 +4,18 @@ import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.png";
 import headerImage from "../../assets/header.png";
 import styles from "./SignupPage.module.css";
-import { IconUser, IconMail, IconLock, IconEye, IconEyeOff, IconGoogle } from "../../components/icons/AuthIcons";
+import {
+  IconUser,
+  IconMail,
+  IconLock,
+  IconEye,
+  IconEyeOff,
+  IconGoogle,
+} from "../../components/icons/AuthIcons";
 import "../../components/icons/authShared.css";
 import OTPModal from "../../components/OTPModal";
 import EmailVerificationModal from "../../components/EmailVerificationModal";
-import { detectContactType, normalizePhone } from "../../Data/phone"
+import { detectContactType, normalizePhone } from "../../Data/phone";
 
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
@@ -31,7 +38,6 @@ function getFirebaseErrorMessage(error) {
   }
 }
 
-
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState(""); // holds email OR phone
@@ -46,7 +52,15 @@ export default function SignupPage() {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const confirmationResultRef = useRef(null);
 
-  const { signup, loginWithGoogle, sendPhoneOTP, confirmPhoneOTP, resendVerificationEmail, checkEmailVerified, logout } = useAuth();
+  const {
+    signup,
+    loginWithGoogle,
+    sendPhoneOTP,
+    confirmPhoneOTP,
+    resendVerificationEmail,
+    checkEmailVerified,
+    logout,
+  } = useAuth();
   const navigate = useNavigate();
 
   const contactType = detectContactType(email);
@@ -73,7 +87,10 @@ export default function SignupPage() {
       setIsSubmitting(true);
       try {
         const phone = normalizePhone(email);
-        const confirmationResult = await sendPhoneOTP(phone, "signup-recaptcha-container");
+        const confirmationResult = await sendPhoneOTP(
+          phone,
+          "signup-recaptcha-container"
+        );
         confirmationResultRef.current = confirmationResult;
         setShowOTPModal(true);
       } catch (err) {
@@ -93,14 +110,19 @@ export default function SignupPage() {
       setShowOTPModal(false);
       navigate("/");
     } catch (err) {
-      const message = err?.code ? getFirebaseErrorMessage(err) : err?.message || "Something went wrong. Please try again.";
+      const message = err?.code
+        ? getFirebaseErrorMessage(err)
+        : err?.message || "Something went wrong. Please try again.";
       throw new Error(message);
     }
   };
 
   const handleResendOTP = async () => {
     const phone = normalizePhone(email);
-    const confirmationResult = await sendPhoneOTP(phone, "signup-recaptcha-container");
+    const confirmationResult = await sendPhoneOTP(
+      phone,
+      "signup-recaptcha-container"
+    );
     confirmationResultRef.current = confirmationResult;
   };
 
@@ -125,7 +147,10 @@ export default function SignupPage() {
     <div className={styles.page}>
       {/* Left visual panel */}
       <div className={styles.leftPanel}>
-        <div className={styles.leftImage} style={{ backgroundImage: `url(${headerImage})` }} />
+        <div
+          className={styles.leftImage}
+          style={{ backgroundImage: `url(${headerImage})` }}
+        />
         <div className={styles.leftOverlay} />
         <img src={logo} alt="Lyka's Car Rental" className={styles.logoTop} />
         <div className={styles.leftBottom}>
@@ -138,8 +163,8 @@ export default function SignupPage() {
             © 2026 Lyka's Car Rental. All Rights Reserved.
             <br />
             All content, images, logos, and materials on this website are the
-            property of Lyka's Car Rental and may not be copied, reproduced,
-            or distributed without permission.
+            property of Lyka's Car Rental and may not be copied, reproduced, or
+            distributed without permission.
           </p>
         </div>
       </div>
@@ -199,7 +224,11 @@ export default function SignupPage() {
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   tabIndex={-1}
                 >
-                  {showPassword ? <IconEyeOff className="authToggleIcon" /> : <IconEye className="authToggleIcon" />}
+                  {showPassword ? (
+                    <IconEyeOff className="authToggleIcon" />
+                  ) : (
+                    <IconEye className="authToggleIcon" />
+                  )}
                 </button>
               </label>
 
@@ -218,21 +247,31 @@ export default function SignupPage() {
                   type="button"
                   className={styles.toggleBtn}
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
-                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                  aria-label={
+                    showConfirmPassword ? "Hide password" : "Show password"
+                  }
                   tabIndex={-1}
                 >
-                  {showConfirmPassword ? <IconEyeOff className="authToggleIcon" /> : <IconEye className="authToggleIcon" />}
+                  {showConfirmPassword ? (
+                    <IconEyeOff className="authToggleIcon" />
+                  ) : (
+                    <IconEye className="authToggleIcon" />
+                  )}
                 </button>
               </label>
             </>
           )}
 
-         {contactType === "phone" && (
+          {contactType === "phone" && (
             <p className={styles.phoneHint}>
               We'll text a 6-digit code to verify this number.
             </p>
           )}
-          <button type="submit" className={styles.signupBtn} disabled={disabled}>
+          <button
+            type="submit"
+            className={styles.signupBtn}
+            disabled={disabled}
+          >
             {isSubmitting ? (
               <>
                 <span className={styles.spinner} />
@@ -251,15 +290,25 @@ export default function SignupPage() {
             <span className={styles.dividerLine} />
           </div>
 
-          <button type="button" className={styles.googleBtn} onClick={handleGoogleSignup} disabled={disabled}>
-            {isGoogleSubmitting ? <span className={styles.spinner} /> : <IconGoogle className="authGoogleIcon" />}
+          <button
+            type="button"
+            className={styles.googleBtn}
+            onClick={handleGoogleSignup}
+            disabled={disabled}
+          >
+            {isGoogleSubmitting ? (
+              <span className={styles.spinner} />
+            ) : (
+              <IconGoogle className="authGoogleIcon" />
+            )}
             Sign up with Google
           </button>
 
           <p className={styles.terms}>
             By signing up, you agree to Lyka's Car Rental
             <br />
-            <a href="#terms">TERMS OF SERVICE</a> & <a href="#privacy">PRIVACY POLICY</a>
+            <a href="#terms">TERMS OF SERVICE</a> &{" "}
+            <a href="#privacy">PRIVACY POLICY</a>
           </p>
 
           <p className={styles.loginPrompt}>
@@ -280,7 +329,7 @@ export default function SignupPage() {
         onResend={handleResendOTP}
       />
 
-     <EmailVerificationModal
+      <EmailVerificationModal
         isOpen={showEmailModal}
         email={email}
         onCheckVerified={checkEmailVerified}
@@ -298,7 +347,6 @@ export default function SignupPage() {
           navigate(verified ? "/" : "/login");
         }}
       />
-      
     </div>
   );
 }

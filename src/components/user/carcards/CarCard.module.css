@@ -1,0 +1,67 @@
+.carCard {
+  background: var(--color-bg-surface);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+.carImage {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.carBody {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.carName {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.carSpecs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.specItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.specIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.viewCarBtn {
+  display: inline-block;      /* or flex, if it needs centered text/icon */
+  text-align: center;
+  text-decoration: none;      /* links are underlined by default */
+  cursor: pointer;
+  background: var(--color-accent);
+  color: var(--color-text-primary);
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  width: 100%;
+}
+
+.viewCarBtn:hover {
+  background: var(--color-accent-dark);
+}

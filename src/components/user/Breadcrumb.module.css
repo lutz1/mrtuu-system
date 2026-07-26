@@ -1,0 +1,34 @@
+.breadcrumb {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 28px 32px 0;
+  font-size: 15px;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbLink {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbSeparator {
+  margin: 0 6px;
+  color: var(--color-text-muted);
+}
+
+.breadcrumbCurrent {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .breadcrumb {
+    padding: 20px 20px 0;
+  }
+}

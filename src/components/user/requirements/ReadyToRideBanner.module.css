@@ -1,0 +1,87 @@
+.banner {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  padding: 0 24px;
+}
+
+.title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #f5f0e6;
+  margin: 0 0 16px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #d1d5db;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  background: #f0a93a;
+  color: #1a1a1a;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  background: #d9922a;
+}
+
+.secondaryBtn {
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #4b4b4b;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.secondaryBtn:hover {
+  background: #3a3a3a;
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 30px;
+  }
+  .banner {
+    min-height: 360px;
+  }
+}

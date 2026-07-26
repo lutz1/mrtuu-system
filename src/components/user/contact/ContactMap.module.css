@@ -1,0 +1,19 @@
+.mapWrapper {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  height: 420px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .mapWrapper {
+    height: 300px;
+  }
+}

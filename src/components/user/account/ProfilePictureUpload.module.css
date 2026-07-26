@@ -1,0 +1,104 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.avatarButton {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 3px solid var(--color-accent);
+  padding: 0;
+  background: var(--color-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.avatarButton:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatarFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+/* Desktop: dark overlay + "Edit" text on hover */
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+@media (hover: hover) {
+  .avatarButton:hover .hoverOverlay {
+    opacity: 1;
+  }
+}
+
+/* Mobile/touch: always-visible camera badge as the tap affordance */
+.editBadge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-accent-dark);
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.editBadge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.errorText {
+  font-size: 12px;
+  color: var(--color-danger);
+  margin: 0;
+  max-width: 160px;
+}
+
+@media (max-width: 640px) {
+  .avatarButton {
+    width: 76px;
+    height: 76px;
+  }
+}

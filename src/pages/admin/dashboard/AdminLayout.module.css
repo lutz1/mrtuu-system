@@ -1,0 +1,29 @@
+.page {
+  min-height: 100vh;
+  background: #f0f1f3;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.body {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 960px) {
+  .page {
+    padding: 16px;
+  }
+  .body {
+    flex-direction: column;
+  }
+}

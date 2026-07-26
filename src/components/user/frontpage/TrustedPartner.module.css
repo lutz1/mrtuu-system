@@ -1,0 +1,87 @@
+.trustedPartner {
+  --cream: #fdf8ec;
+  --text-muted: #6b6b6b;
+
+  background: var(--cream);
+  padding: 0 32px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+}
+
+.trustedTitle {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 20px;
+  color: #1a1a1a;
+}
+
+.trustedDescription {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.trustedImageWrapper {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.trustedImage {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .trustedPartner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .trustedPartner {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 16px 40px;
+    align-items: start;
+  }
+
+  .trustedTitle {
+    font-size: 15px;
+    line-height: 1.3;
+    margin: 0 0 6px;
+  }
+
+  .trustedDescription {
+    font-size: 9px;
+    line-height: 1.4;
+  }
+
+  .trustedImage {
+    height: 140px;
+  }
+}
+
+/* ============================================================
+   Themed variant — applied only when the user is logged in.
+   ============================================================ */
+
+.trustedPartnerThemed {
+  background: var(--color-bg-page);
+}
+
+.trustedPartnerThemed .trustedTitle {
+  color: var(--color-text-primary);
+}
+
+.trustedPartnerThemed .trustedDescription {
+  color: var(--color-text-muted);
+}

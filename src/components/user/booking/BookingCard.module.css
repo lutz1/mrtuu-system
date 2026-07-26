@@ -1,0 +1,212 @@
+.card {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  padding: 20px;
+}
+
+.imageWrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg-page);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px 4px 4px 0;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.carName {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  white-space: nowrap;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.metaItem svg {
+  width: 17px;
+  height: 17px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.specPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.pill svg {
+  width: 16px;
+  height: 16px;
+}
+
+.refundNote {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-danger);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.primaryBtn {
+  background: var(--color-accent-dark);
+  border: none;
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.primaryBtn:hover {
+  background: var(--color-accent-pressed);
+}
+
+.outlineBtn {
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-accent-dark);
+  color: var(--color-accent-dark);
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.outlineBtn:hover {
+  background: var(--color-accent-soft-bg);
+}
+
+.grayBtn {
+  background: var(--color-bg-muted);
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.grayBtn:hover {
+  background: var(--color-bg-muted-hover);
+}
+
+.grayBtnFull {
+  flex: 1;
+  background: var(--color-bg-muted);
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.grayBtnFull:hover {
+  background: var(--color-bg-muted-hover);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+  .imageWrap {
+    height: 220px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .card {
+    padding: 14px;
+    gap: 16px;
+  }
+  .imageWrap {
+    height: 180px;
+  }
+  .headerRow {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .carName,
+  .price {
+    font-size: 19px;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .primaryBtn,
+  .outlineBtn,
+  .grayBtn,
+  .grayBtnFull {
+    width: 100%;
+  }
+}

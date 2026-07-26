@@ -1,0 +1,104 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.pageContent {
+  overflow-x: hidden;
+}
+
+.contentWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+.pageHeading {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+.notFound {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.notFoundLink {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.notFoundLink:hover {
+  color: var(--color-accent-pressed);
+}
+
+@media (max-width: 960px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .contentWrapper {
+    padding: 24px 20px 60px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}

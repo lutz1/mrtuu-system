@@ -1,0 +1,409 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.pageContent {
+  overflow-x: hidden;
+}
+
+.contentWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+.backLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+.backLink:hover {
+  color: var(--color-text-primary);
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 0 0 28px;
+  color: var(--color-text-primary);
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.cardTitle {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: var(--color-text-primary);
+}
+
+/* Payment method selector */
+
+.methodGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.methodBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.methodBtnActive {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft-bg);
+}
+
+.methodIcon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.methodIcon svg {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-primary);
+}
+
+.methodLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Card form */
+
+.cardForm {
+  border-top: 1px solid var(--color-border);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.formInput {
+  background: var(--color-input-bg);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.formInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.formInput:focus {
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
+}
+
+.saveCardRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.saveCardRow input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.walletNotice {
+  border-top: 1px solid var(--color-border);
+  padding-top: 20px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* Pay button */
+
+.payBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--color-accent);
+  color: #ffffff;
+  border: none;
+  padding: 17px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease;
+}
+
+.payBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.payBtn:hover {
+  background: var(--color-accent-pressed);
+}
+
+.termsNote {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Sidebar */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+.summaryCard {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.summaryImage {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.summaryBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.summaryCarName {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.summaryDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.summaryBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.summaryLabel {
+  color: var(--color-text-muted);
+}
+
+.summaryValue {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: right;
+}
+
+.summaryTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.summaryTotalLabel {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.summaryTotalAmount {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.helpBox {
+  display: flex;
+  gap: 14px;
+  background: var(--color-bg-muted);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.helpIcon {
+  width: 26px;
+  height: 26px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.helpTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--color-text-primary);
+}
+
+.helpText {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Not found */
+
+.notFound {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.notFoundLink {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.notFoundLink:hover {
+  color: var(--color-accent-pressed);
+}
+
+/* Responsive */
+
+@media (max-width: 960px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .methodGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .contentWrapper {
+    padding: 24px 20px 60px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}

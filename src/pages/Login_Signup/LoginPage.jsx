@@ -4,10 +4,16 @@ import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.png";
 import headerImage from "../../assets/header.png";
 import styles from "./LoginPage.module.css";
-import { IconMail, IconLock, IconEye, IconEyeOff, IconGoogle } from "../../components/icons/AuthIcons";
+import {
+  IconMail,
+  IconLock,
+  IconEye,
+  IconEyeOff,
+  IconGoogle,
+} from "../../components/icons/AuthIcons";
 import "../../components/icons/authShared.css";
 import OTPModal from "../../components/OTPModal";
-import { detectContactType, normalizePhone } from "../../Data/phone"
+import { detectContactType, normalizePhone } from "../../Data/phone";
 
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
@@ -34,7 +40,6 @@ function getFirebaseErrorMessage(error) {
   }
 }
 
-
 export default function LoginPage() {
   const [email, setEmail] = useState(""); // holds email OR phone
   const [password, setPassword] = useState("");
@@ -60,7 +65,10 @@ export default function LoginPage() {
         navigate("/");
       } else {
         const phone = normalizePhone(email);
-        const confirmationResult = await sendPhoneOTP(phone, "login-recaptcha-container");
+        const confirmationResult = await sendPhoneOTP(
+          phone,
+          "login-recaptcha-container"
+        );
         confirmationResultRef.current = confirmationResult;
         setShowOTPModal(true);
       }
@@ -80,14 +88,19 @@ export default function LoginPage() {
       setShowOTPModal(false);
       navigate("/");
     } catch (err) {
-      const message = err?.code ? getFirebaseErrorMessage(err) : err?.message || "Something went wrong. Please try again.";
+      const message = err?.code
+        ? getFirebaseErrorMessage(err)
+        : err?.message || "Something went wrong. Please try again.";
       throw new Error(message);
     }
   };
 
   const handleResendOTP = async () => {
     const phone = normalizePhone(email);
-    const confirmationResult = await sendPhoneOTP(phone, "login-recaptcha-container");
+    const confirmationResult = await sendPhoneOTP(
+      phone,
+      "login-recaptcha-container"
+    );
     confirmationResultRef.current = confirmationResult;
   };
 
@@ -110,7 +123,10 @@ export default function LoginPage() {
     <div className={styles.page}>
       {/* Left visual panel */}
       <div className={styles.leftPanel}>
-        <div className={styles.leftImage} style={{ backgroundImage: `url(${headerImage})` }} />
+        <div
+          className={styles.leftImage}
+          style={{ backgroundImage: `url(${headerImage})` }}
+        />
         <div className={styles.leftOverlay} />
         <img src={logo} alt="Lyka's Car Rental" className={styles.logoTop} />
         <div className={styles.leftBottom}>
@@ -123,8 +139,8 @@ export default function LoginPage() {
             © 2026 Lyka's Car Rental. All Rights Reserved.
             <br />
             All content, images, logos, and materials on this website are the
-            property of Lyka's Car Rental and may not be copied, reproduced,
-            or distributed without permission.
+            property of Lyka's Car Rental and may not be copied, reproduced, or
+            distributed without permission.
           </p>
         </div>
       </div>
@@ -170,13 +186,19 @@ export default function LoginPage() {
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 tabIndex={-1}
               >
-                {showPassword ? <IconEyeOff className="authToggleIcon" /> : <IconEye className="authToggleIcon" />}
+                {showPassword ? (
+                  <IconEyeOff className="authToggleIcon" />
+                ) : (
+                  <IconEye className="authToggleIcon" />
+                )}
               </button>
             </label>
           )}
 
           {contactType === "phone" && (
-            <p className={styles.phoneHint}>We'll text a 6-digit code to this number to sign you in.</p>
+            <p className={styles.phoneHint}>
+              We'll text a 6-digit code to this number to sign you in.
+            </p>
           )}
 
           <button type="submit" className={styles.loginBtn} disabled={disabled}>
@@ -215,7 +237,8 @@ export default function LoginPage() {
           <p className={styles.terms}>
             By logging in, you agree to Lyka's Car Rental
             <br />
-            <a href="#terms">TERMS OF SERVICE</a> & <a href="#privacy">PRIVACY POLICY</a>
+            <a href="#terms">TERMS OF SERVICE</a> &{" "}
+            <a href="#privacy">PRIVACY POLICY</a>
           </p>
 
           <p className={styles.signupPrompt}>

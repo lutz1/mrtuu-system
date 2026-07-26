@@ -1,0 +1,25 @@
+.page {
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* change to 8px/10px if desired */
+}
+
+.pageContent {
+  overflow-x: hidden;
+}
+
+@media (max-width: 960px) {
+  .stickyHeader {
+    position: sticky;
+  }
+}

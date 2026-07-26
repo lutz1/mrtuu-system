@@ -1,0 +1,103 @@
+.card {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.cardHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.headingIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.addonsList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.addonRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-bg-muted);
+  border-radius: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+
+.addonIconBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--color-bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.addonIconBox svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+}
+
+.addonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.addonName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.addonDescription {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.addonPrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.addonCheckbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .addonRow {
+    flex-wrap: wrap;
+  }
+  .addonPrice {
+    margin-left: 58px;
+  }
+}

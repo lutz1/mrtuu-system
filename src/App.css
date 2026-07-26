@@ -1,4 +1,71 @@
+:root {
+  color-scheme: light;
+
+  --color-bg-page: #f5f6f8;
+  --color-bg-surface: #ffffff;
+  --color-bg-muted: #eef0f3;
+  --color-text-primary: #1a1a1a;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-input-bg: #f2f2f2;
+  --color-accent: #f0a93a;
+  --color-accent-dark: #d9922a;
+   --color-accent-soft-bg: #fef1d9;
+  --color-danger: #e0483e;
+  --color-danger-soft-bg: #fdeceb;
+  --color-text-secondary: #4b5563;
+  --color-bg-muted-hover: #e2e5e9;
+  --color-accent-pressed: #c17f1f;
+  --status-ongoing: #e0a634;
+  --status-neutral: #9ca3af;
+    --color-toggle-off: #d1d5db;
+    /* Persistent brand chrome for navbar (and landing sections that share its
+     background, e.g. HowItWorksWrapper) — stays warm cream regardless of
+     theme, same as --color-brand-dark stays dark regardless of theme. */
+  --color-brand-cream: #fdf8ec;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+  /* Intentionally-dark brand panels (CTA banners, search bar, Payment & Security
+     card) stay this color in BOTH themes — they're a design choice, not a
+     light/dark toggle, so this token is defined once and never overridden below. */
+  --color-brand-dark: #1a1a1a;
+  --color-brand-dark-soft: #2c2a27;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg-page: #121214;
+  --color-bg-surface: #1f2124;
+  --color-bg-muted: #26282c;
+  --color-text-primary: #f5f5f5;
+  --color-text-muted: #9ca3af;
+  --color-border: #33363b;
+  --color-input-bg: #2a2c30;
+  --color-accent: #f0a93a;
+  --color-accent-dark: #e0a634;
+  --color-accent-soft-bg: #3a2f1a;
+  --color-danger: #f16b61;
+  --color-danger-soft-bg: #3a1f1d;
+  --color-text-secondary: #cbd0d6;
+  --color-bg-muted-hover: #2f3237;
+  --color-accent-pressed: #c98f2c;
+  --color-toggle-off: #4b4f56;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
 .app {
   min-height: 100vh;
   width: 100%;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+

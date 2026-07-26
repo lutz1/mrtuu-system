@@ -1,0 +1,127 @@
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: #1a1a1a;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.row:first-child {
+  padding-top: 0;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  background-image:
+    linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
+    linear-gradient(-45deg, #e5e7eb 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e5e7eb 75%),
+    linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+  background-color: #f3f4f6;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookingId {
+  font-size: 11.5px;
+  color: #9ca3af;
+  margin: 0 0 2px;
+}
+
+.name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 2px;
+}
+
+.vehicle {
+  font-size: 12.5px;
+  color: #6b7280;
+  margin: 0 0 2px;
+}
+
+.date {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.statusBadge {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.statusNeutral {
+  background: #f0f1f3;
+  color: #4b5563;
+}
+
+.statusGold {
+  background: #f0a93a;
+  color: #1a1a1a;
+}
+
+.statusGreen {
+  background: #22a35e;
+  color: #ffffff;
+}
+
+.viewAllLink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.viewAllLink svg {
+  width: 15px;
+  height: 15px;
+}
