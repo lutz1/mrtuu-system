@@ -21,8 +21,8 @@ export default function AdminChecklistPage() {
   const [entries, setEntries] = useState(INITIAL_CHECKLIST_ENTRIES);
   const [activeTab, setActiveTab] = useState("Pending Documents");
   const [query, setQuery] = useState("");
-  // No entry selected on load — the detail panel only appears once the
-  // admin explicitly clicks a row's eye icon.
+  // No entry selected on load — the popup only appears once the admin
+  // explicitly clicks a row's eye icon.
   const [selectedId, setSelectedId] = useState(null);
 
   const filteredEntries = useMemo(() => {
@@ -72,23 +72,21 @@ export default function AdminChecklistPage() {
         <ChecklistSearchBar value={query} onChange={setQuery} />
       </div>
 
-      <div className={`${styles.mainGrid} ${selectedEntry ? styles.mainGridWithPanel : ""}`}>
-        <ChecklistTable
-          title={TAB_TITLES[activeTab]}
-          entries={filteredEntries}
-          selectedId={selectedId}
-          onSelect={setSelectedId}
-        />
+      <ChecklistTable
+        title={TAB_TITLES[activeTab]}
+        entries={filteredEntries}
+        selectedId={selectedId}
+        onSelect={setSelectedId}
+      />
 
-        {selectedEntry && (
-          <ChecklistDetailPanel
-            entry={selectedEntry}
-            onClose={() => setSelectedId(null)}
-            onReject={handleReject}
-            onSendToDispatcher={handleSendToDispatcher}
-          />
-        )}
-      </div>
+      {selectedEntry && (
+        <ChecklistDetailPanel
+          entry={selectedEntry}
+          onClose={() => setSelectedId(null)}
+          onReject={handleReject}
+          onSendToDispatcher={handleSendToDispatcher}
+        />
+      )}
     </AdminLayout>
   );
 }

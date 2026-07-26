@@ -1,37 +1,53 @@
-.card {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  padding: 24px;
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 19, 0.45);
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 24px;
 }
 
-.emptyState {
-  text-align: center;
-  color: #9ca3af;
-  font-size: 14px;
-  margin: 40px 0;
+.card {
+  width: 380px;
+  max-width: 100%;
+  height: calc(100vh - 48px);
+  max-height: calc(100vh - 48px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
 }
 
 .headerRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
+}
+
+.title {
+  font-size: 16.5px;
+  font-weight: 800;
+  margin: 0;
+  color: #1a1a1a;
 }
 
 .headerActions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .closeBtn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   background: #f0f1f3;
   border: none;
@@ -48,56 +64,49 @@
 }
 
 .closeBtn svg {
-  width: 16px;
-  height: 16px;
-}
-
-.title {
-  font-size: 19px;
-  font-weight: 800;
-  margin: 0;
-  color: #1a1a1a;
+  width: 14px;
+  height: 14px;
 }
 
 .customerRow {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .avatar {
-  width: 56px;
-  height: 56px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: #e8a020;
   color: #ffffff;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 3px solid #f5d896;
+  border: 2px solid #f5d896;
 }
 
 .customerInfo {
   display: flex;
   flex-direction: column;
-  gap: 1px;
 }
 
 .customerName {
-  font-size: 15.5px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
 }
 
 .customerMeta {
-  font-size: 12.5px;
+  font-size: 11px;
   color: #6b7280;
   margin: 0;
+  line-height: 1.4;
 }
 
 .divider {
@@ -109,52 +118,52 @@
 .vehicleInfo {
   display: flex;
   flex-direction: column;
-  gap: 1px;
 }
 
 .vehicleName {
-  font-size: 15.5px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
 }
 
 .vehicleMeta {
-  font-size: 12.5px;
+  font-size: 11px;
   color: #6b7280;
   margin: 0;
+  line-height: 1.4;
 }
 
 .summaryGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 10px;
   background: #f8f9fa;
-  border-radius: 12px;
-  padding: 18px;
+  border-radius: 10px;
+  padding: 12px 14px;
 }
 
 .summaryLabel {
-  font-size: 12px;
+  font-size: 10.5px;
   color: #9ca3af;
-  margin: 0 0 4px;
+  margin: 0 0 2px;
 }
 
 .summaryValue {
-  font-size: 14.5px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
 }
 
 .summarySub {
-  font-size: 12.5px;
+  font-size: 11px;
   color: #6b7280;
-  margin: 2px 0 0;
+  margin: 1px 0 0;
 }
 
 .sectionTitle {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
@@ -163,23 +172,23 @@
 .documentsList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .documentRow {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
+  gap: 8px;
+  padding: 8px 10px;
   border: 1px solid #eceef1;
-  border-radius: 12px;
-  flex-wrap: wrap;
+  border-radius: 10px;
+  flex-wrap: nowrap;
 }
 
 .documentIcon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
   background: #fef1d9;
   color: #d9922a;
   display: flex;
@@ -189,40 +198,38 @@
 }
 
 .documentIcon svg {
-  width: 19px;
-  height: 19px;
+  width: 15px;
+  height: 15px;
 }
 
 .documentInfo {
   flex: 1;
-  min-width: 130px;
+  min-width: 0;
 }
 
 .documentLabel {
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
-}
-
-.documentDescription {
-  font-size: 12px;
-  color: #9ca3af;
-  margin: 2px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .documentStatus {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
+  gap: 5px;
+  font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .documentDot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
 }
 
@@ -246,12 +253,13 @@
   background: #e8a020;
   color: #ffffff;
   border: none;
-  padding: 9px 18px;
-  border-radius: 8px;
+  padding: 6px 12px;
+  border-radius: 7px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 11.5px;
   cursor: pointer;
   font-family: inherit;
+  flex-shrink: 0;
 }
 
 .viewDocBtn:hover:not(:disabled) {
@@ -266,12 +274,12 @@
 
 .remarksInput {
   width: 100%;
-  min-height: 90px;
+  min-height: 44px;
   background: #f8f9fa;
   border: 1px solid #eceef1;
-  border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 13.5px;
+  border-radius: 9px;
+  padding: 9px 12px;
+  font-size: 12.5px;
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
@@ -289,8 +297,9 @@
 
 .actionsRow {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .rejectBtn {
@@ -298,10 +307,10 @@
   background: #ffffff;
   border: 1.5px solid #e8a020;
   color: #e8a020;
-  padding: 13px;
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 9px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   font-family: inherit;
 }
@@ -315,14 +324,26 @@
   background: #e8a020;
   color: #ffffff;
   border: none;
-  padding: 13px;
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 9px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   font-family: inherit;
 }
 
 .dispatchBtn:hover {
   background: #d18f1c;
+}
+
+@media (max-width: 640px) {
+  .backdrop {
+    padding: 12px;
+    align-items: stretch;
+  }
+  .card {
+    width: 100%;
+    height: calc(100vh - 24px);
+    max-height: calc(100vh - 24px);
+  }
 }
