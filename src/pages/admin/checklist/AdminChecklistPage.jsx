@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
-import AdminLayout from "../dashboard/AdminLayout";
+import AdminLayout from "../AdminLayout";
 import ChecklistFilterTabs from "../../../components/admin/checklist/ChecklistFilterTabs";
 import ChecklistSearchBar from "../../../components/admin/checklist/ChecklistSearchBar";
 import ChecklistTable from "../../../components/admin/checklist/ChecklistTable";
 import ChecklistDetailPanel from "../../../components/admin/checklist/ChecklistDetailPanel";
-import { INITIAL_CHECKLIST_ENTRIES } from "../../../data/admin/mockChecklist";
+import Pagination from "../../../components/admin/common/Pagination";
+import { ALL_CHECKLIST_ENTRIES } from "../../../data/admin/mockChecklist";
 import styles from "./AdminChecklistPage.module.css";
 
 const TAB_TITLES = {
@@ -14,13 +15,16 @@ const TAB_TITLES = {
   Rejected: "Rejected Bookings",
 };
 
+const PAGE_SIZE = 6;
+
 export default function AdminChecklistPage() {
   // TODO: local-only state backed by mock data — swap for real Firestore
   // reads/writes once the admin data layer exists. Actions below (reject,
   // send to dispatcher) only mutate this in-memory array for now.
-  const [entries, setEntries] = useState(INITIAL_CHECKLIST_ENTRIES);
+  const [entries, setEntries] = useState(ALL_CHECKLIST_ENTRIES);
   const [activeTab, setActiveTab] = useState("Pending Documents");
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
   // No entry selected on load — the popup only appears once the admin
   // explicitly clicks a row's eye icon.
   const [selectedId, setSelectedId] = useState(null);
@@ -38,11 +42,21 @@ export default function AdminChecklistPage() {
     });
   }, [entries, activeTab, query]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredEntries.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pageItems = filteredEntries.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
   const selectedEntry = entries.find((entry) => entry.id === selectedId) ?? null;
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setQuery("");
+    setPage(1);
+  };
+
+  const handleQueryChange = (value) => {
+    setQuery(value);
+    setPage(1);
   };
 
   const updateEntryStatus = (id, newStatus, remarks) => {
@@ -69,14 +83,24 @@ export default function AdminChecklistPage() {
 
       <div className={styles.toolbar}>
         <ChecklistFilterTabs active={activeTab} onChange={handleTabChange} />
-        <ChecklistSearchBar value={query} onChange={setQuery} />
+        <ChecklistSearchBar value={query} onChange={handleQueryChange} />
       </div>
 
       <ChecklistTable
         title={TAB_TITLES[activeTab]}
-        entries={filteredEntries}
+        totalCount={filteredEntries.length}
+        entries={pageItems}
         selectedId={selectedId}
         onSelect={setSelectedId}
+      />
+
+      <Pagination
+        page={currentPage}
+        totalPages={totalPages}
+        totalItems={filteredEntries.length}
+        pageSize={PAGE_SIZE}
+        onPageChange={setPage}
+        itemLabel="entries"
       />
 
       {selectedEntry && (

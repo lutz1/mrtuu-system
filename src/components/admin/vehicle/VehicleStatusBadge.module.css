@@ -1,0 +1,31 @@
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.statusAvailable {
+  background: #e8a020;
+  color: #ffffff;
+}
+
+.statusOnRent {
+  background: #e8a020;
+  color: #ffffff;
+}
+
+.statusMaintenance {
+  background: #f0f1f3;
+  color: #4b5563;
+}
+
+.statusUnavailable {
+  background: #fdeceb;
+  color: #e0483e;
+}

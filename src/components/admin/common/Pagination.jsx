@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./BookingPagination.module.css";
 
-export default function BookingPagination({ page, totalPages, totalItems, pageSize, onPageChange }) {
+export default function BookingPagination({ page, totalPages, totalItems, pageSize, onPageChange, itemLabel = "bookings" }) {
   const start = totalItems === 0 ? 0 : (page - 1) * pageSize + 1;
   const end = Math.min(page * pageSize, totalItems);
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -9,7 +9,7 @@ export default function BookingPagination({ page, totalPages, totalItems, pageSi
   return (
     <div className={styles.wrap}>
       <p className={styles.summary}>
-        Showing {start} to {end} of {totalItems} bookings
+        Showing {start} to {end} of {totalItems} {itemLabel}
       </p>
 
       <div className={styles.controls}>

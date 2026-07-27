@@ -26,6 +26,7 @@ import AdminLoginPage from "./pages/admin/dashboard/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
 import AdminBookingsPage from "./pages/admin/booking/AdminBookingsPage";
 import AdminChecklistPage from "./pages/admin/checklist/AdminChecklistPage";
+import AdminVehiclesPage from "./pages/admin/vehicle/AdminVehiclesPage";
 
 function App() {
   return (
@@ -155,6 +156,14 @@ function App() {
                   </AdminRoute>
                 }
               />
+              <Route
+              path="/admin/vehicles"
+              element={
+                <AdminRoute>
+                  <AdminVehiclesPage />
+                </AdminRoute>
+              }
+            />
               </Routes>
             </AuthProvider>
           </BrowserRouter>

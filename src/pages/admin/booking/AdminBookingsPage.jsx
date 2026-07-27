@@ -3,7 +3,7 @@ import AdminLayout from "../dashboard/AdminLayout";
 import BookingFilterTabs from "../../../components/admin/booking/BookingFilterTabs";
 import BookingSearchBar from "../../../components/admin/booking/BookingSearchBar";
 import BookingsTable from "../../../components/admin/booking/BookingsTable";
-import BookingPagination from "../../../components/admin/booking/BookingPagination";
+import Pagination from "../../../components/admin/common/Pagination";
 import { MOCK_BOOKINGS } from "../../../data/admin/mockBookings";
 import styles from "./AdminBookingsPage.module.css";
 
@@ -54,7 +54,7 @@ export default function AdminBookingsPage() {
 
       <BookingsTable bookings={pageItems} />
 
-      <BookingPagination
+      <Pagination
         page={currentPage}
         totalPages={totalPages}
         totalItems={filteredBookings.length}
