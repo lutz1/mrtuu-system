@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import AdminLayout from "../AdminLayout";
+import AdminLayout from "../dashboard/AdminLayout";
 import ChecklistFilterTabs from "../../../components/admin/checklist/ChecklistFilterTabs";
 import ChecklistSearchBar from "../../../components/admin/checklist/ChecklistSearchBar";
 import ChecklistTable from "../../../components/admin/checklist/ChecklistTable";

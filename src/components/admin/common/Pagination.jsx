@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./BookingPagination.module.css";
+import styles from "./Pagination.module.css";
 
 export default function BookingPagination({ page, totalPages, totalItems, pageSize, onPageChange, itemLabel = "bookings" }) {
   const start = totalItems === 0 ? 0 : (page - 1) * pageSize + 1;

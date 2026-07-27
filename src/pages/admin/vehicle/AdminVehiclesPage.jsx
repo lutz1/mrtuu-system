@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import AdminLayout from "../AdminLayout";
+import AdminLayout from "../dashboard/AdminLayout";
 import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
 import VehicleFilterBar from "../../../components/admin/vehicle/VehicleFilterBar";
 import VehicleCard from "../../../components/admin/vehicle/VehicleCard";
