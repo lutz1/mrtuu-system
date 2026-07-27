@@ -27,6 +27,8 @@ import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
 import AdminBookingsPage from "./pages/admin/booking/AdminBookingsPage";
 import AdminChecklistPage from "./pages/admin/checklist/AdminChecklistPage";
 import AdminVehiclesPage from "./pages/admin/vehicle/AdminVehiclesPage";
+import AdminCustomersPage from "./pages/admin/customer/AdminCustomersPage";
+import AdminSalesReportsPage from "./pages/admin/salesReports/AdminSalesReportsPage";
 
 function App() {
   return (
@@ -164,6 +166,22 @@ function App() {
                 </AdminRoute>
               }
             />
+            <Route
+              path="/admin/customers"
+              element={
+                <AdminRoute>
+                  <AdminCustomersPage />
+                </AdminRoute>
+              }
+            />
+            <Route
+                path="/admin/sales-reports"
+                element={
+                  <AdminRoute>
+                    <AdminSalesReportsPage />
+                  </AdminRoute>
+                }
+              />  
               </Routes>
             </AuthProvider>
           </BrowserRouter>
