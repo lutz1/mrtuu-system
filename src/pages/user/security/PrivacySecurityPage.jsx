@@ -180,6 +180,9 @@ export default function PrivacySecurityPage() {
       setPasswordNotice("Password updated successfully.");
     } catch (err) {
       setPasswordNotice(getFirebaseErrorMessage(err));
+      // Re-throw so ChangePasswordForm's await knows the submit failed
+      // and keeps the fields populated instead of clearing them.
+      throw err;
     }
   };
 
