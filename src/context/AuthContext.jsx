@@ -20,6 +20,7 @@ import {
   updatePhoneNumber,
   EmailAuthProvider,
   reauthenticateWithCredential,
+  reauthenticateWithPopup,
   updatePassword,
   verifyBeforeUpdateEmail,
   deleteUser,
@@ -122,7 +123,11 @@ async function reauthenticate(currentPassword) {
   }
 
   // Google (or other popup-based) provider — re-run the popup flow.
-  return signInWithPopup(currentUser, googleProvider);
+  // NOTE: must be reauthenticateWithPopup(user, provider), not
+  // signInWithPopup(auth, provider) — signInWithPopup's first argument
+  // has to be the Auth instance, not a User, and using it here would
+  // start a fresh sign-in rather than re-authenticating this session.
+  return reauthenticateWithPopup(currentUser, googleProvider);
 }
 
 // Change the signed-in user's password. Requires reauthentication first
@@ -142,6 +147,7 @@ async function changeEmail(currentPassword, newEmail) {
   // itself is intentionally NOT updated here since Firebase hasn't
   // committed the change yet — it'll be correct next time upsertSharedUserDoc
   // runs after the user re-authenticates post-verification.
+  await upsertSharedUserDoc(auth.currentUser);
 }
 
 // Permanently delete the signed-in user's Firebase Auth account.
