@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ChangePasswordForm.module.css";
 
-export default function ChangePasswordForm({ onSubmit }) {
+export default function ChangePasswordForm({ onSubmit, statusMessage }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -24,10 +25,23 @@ export default function ChangePasswordForm({ onSubmit }) {
       return;
     }
 
-    onSubmit?.({ currentPassword, newPassword });
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
+    setSubmitting(true);
+    try {
+      // Awaited so we only clear the form once the parent's onSubmit
+      // (which calls Firebase's changePassword) actually resolves —
+      // previously the fields were wiped even when the request failed,
+      // hiding the failure from the user along with the error message.
+      await onSubmit?.({ currentPassword, newPassword });
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch {
+      // Parent (PrivacySecurityPage) is responsible for surfacing the
+      // error via statusMessage; nothing further to do here except
+      // keep the fields populated so the user can retry.
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -69,9 +83,16 @@ export default function ChangePasswordForm({ onSubmit }) {
         </label>
 
         {error && <p className={styles.error}>{error}</p>}
+        {!error && statusMessage && (
+          <p className={styles.notice}>{statusMessage}</p>
+        )}
 
-        <button type="submit" className={styles.submitBtn}>
-          Change Password
+        <button
+          type="submit"
+          className={styles.submitBtn}
+          disabled={submitting}
+        >
+          {submitting ? "Changing Password..." : "Change Password"}
         </button>
       </form>
     </section>
