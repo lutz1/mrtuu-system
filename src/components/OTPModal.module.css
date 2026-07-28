@@ -1,0 +1,205 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  text-align: center;
+  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f2f2f2;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b6b6b;
+}
+
+.closeBtn:hover {
+  background: #e5e5e5;
+}
+
+.closeBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.iconCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #fef1d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: #f0a93a;
+}
+
+.iconCircle svg {
+  width: 26px;
+  height: 26px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b6b6b;
+  margin: 0 0 28px;
+  line-height: 1.5;
+}
+
+.subtitle strong {
+  color: #1a1a1a;
+}
+
+.codeRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.codeInput {
+  width: 44px;
+  height: 52px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  border: 1.5px solid #e2e2e2;
+  border-radius: 10px;
+  outline: none;
+  font-family: inherit;
+}
+
+.codeInput:focus {
+  border-color: #f0a93a;
+  box-shadow: 0 0 0 3px rgba(240, 169, 58, 0.15);
+}
+
+.codeInput:disabled {
+  opacity: 0.6;
+}
+
+.errorText {
+  background: #fdecea;
+  color: #b3261e;
+  border: 1px solid #f5c2bd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  margin: 0 0 16px;
+}
+
+.verifyBtn {
+  width: 100%;
+  background: linear-gradient(90deg, #f0a93a, #d9922a);
+  color: #1a1a1a;
+  border: none;
+  padding: 15px;
+  border-radius: 26px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.verifyBtn:hover {
+  filter: brightness(0.95);
+}
+
+.verifyBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  border-top-color: #1a1a1a;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.resendRow {
+  margin: 20px 0 0;
+  font-size: 13px;
+}
+
+.resendMuted {
+  color: #9ca3af;
+}
+
+.resentNote {
+  color: #2e7d32;
+  font-size: 13px;
+  margin: -12px 0 16px;
+}
+
+.resendBtn {
+  background: none;
+  border: none;
+  color: #f0a93a;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.resendBtn:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 28px 20px;
+  }
+  .codeInput {
+    width: 38px;
+    height: 46px;
+    font-size: 18px;
+  }
+  .codeRow {
+    gap: 8px;
+  }
+}
