@@ -1,0 +1,36 @@
+.pageHeading {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 800;
+  margin: 0;
+  color: #1a1a1a;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.filterWrap {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  .title {
+    font-size: 26px;
+  }
+}

@@ -29,6 +29,7 @@ import AdminChecklistPage from "./pages/admin/checklist/AdminChecklistPage";
 import AdminVehiclesPage from "./pages/admin/vehicle/AdminVehiclesPage";
 import AdminCustomersPage from "./pages/admin/customer/AdminCustomersPage";
 import AdminSalesReportsPage from "./pages/admin/salesReports/AdminSalesReportsPage";
+import AdminUsersPage from "./pages/admin/user/AdminUsersPage";
 
 function App() {
   return (
@@ -182,6 +183,14 @@ function App() {
                   </AdminRoute>
                 }
               />  
+              <Route
+                path="/admin/users"
+                element={
+                  <AdminRoute>
+                    <AdminUsersPage />
+                  </AdminRoute>
+                }
+              />
               </Routes>
             </AuthProvider>
           </BrowserRouter>
