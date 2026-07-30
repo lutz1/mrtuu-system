@@ -2,6 +2,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
+import { StaffProvider } from "./context/StaffContext";
+import PermissionRoute from "./context/PermissionRoute";
+import { VehiclesProvider } from "./context/VehiclesContext";
 import LandingPage from "./pages/user/landing_page/LandingPage";
 import ShowroomPage from "./pages/user/main_page/ShowroomPage";
 import VehicleOverviewPage from "./pages/user/main_page/VehicleOverviewPage";
@@ -20,9 +23,7 @@ import RequirementsPage from "./pages/user/requirements/RequirementsPage";
 import ContactPage from "./pages/user/contact/ContactPage";
 import { ThemeProvider } from "./context/ThemeContext";
 
-import { AdminAuthProvider } from "./context/AdminAuthContext";
 import AdminRoute from "./context/AdminRoute";
-import AdminLoginPage from "./pages/admin/dashboard/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
 import AdminBookingsPage from "./pages/admin/booking/AdminBookingsPage";
 import AdminChecklistPage from "./pages/admin/checklist/AdminChecklistPage";
@@ -32,17 +33,16 @@ import AdminSalesReportsPage from "./pages/admin/salesReports/AdminSalesReportsP
 import AdminUsersPage from "./pages/admin/user/AdminUsersPage";
 import { AdminVehiclesProvider } from "./context/AdminVehiclesContext";
 import AdminAddVehiclePage from "./pages/admin/vehicle/AdminAddVehiclePage";
-import { VehiclesProvider } from "./context/VehicesContext";
 
 function App() {
   return (
     <div className="app">
       <ThemeProvider>
         <VehiclesProvider>
-          <AdminAuthProvider>
-            <AdminVehiclesProvider>
-              <BrowserRouter>
-                <AuthProvider>
+          <AdminVehiclesProvider>
+            <BrowserRouter>
+              <AuthProvider>
+                <StaffProvider>
                   <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/home" element={<Navigate to="/" replace />} />
@@ -142,7 +142,10 @@ function App() {
                       }
                     />
 
-                    <Route path="/admin/login" element={<AdminLoginPage />} />
+                    <Route
+                      path="/admin/login"
+                      element={<Navigate to={"/login"} replace />}
+                    />
                     <Route
                       path="/admin/dashboard"
                       element={
@@ -155,7 +158,9 @@ function App() {
                       path="/admin/bookings"
                       element={
                         <AdminRoute>
-                          <AdminBookingsPage />
+                          <PermissionRoute permission="view_reports">
+                            <AdminBookingsPage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
@@ -163,7 +168,9 @@ function App() {
                       path="/admin/checklist"
                       element={
                         <AdminRoute>
-                          <AdminChecklistPage />
+                          <PermissionRoute permission="clearance_review">
+                            <AdminChecklistPage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
@@ -171,7 +178,9 @@ function App() {
                       path="/admin/vehicles"
                       element={
                         <AdminRoute>
-                          <AdminVehiclesPage />
+                          <PermissionRoute permission="manage_fleet">
+                            <AdminVehiclesPage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
@@ -179,7 +188,9 @@ function App() {
                       path="/admin/customers"
                       element={
                         <AdminRoute>
-                          <AdminCustomersPage />
+                          <PermissionRoute permission="view_reports">
+                            <AdminCustomersPage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
@@ -187,7 +198,9 @@ function App() {
                       path="/admin/sales-reports"
                       element={
                         <AdminRoute>
-                          <AdminSalesReportsPage />
+                          <PermissionRoute permission="view_reports">
+                            <AdminSalesReportsPage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
@@ -195,7 +208,9 @@ function App() {
                       path="/admin/users"
                       element={
                         <AdminRoute>
-                          <AdminUsersPage />
+                          <PermissionRoute permission="manage_staff">
+                            <AdminUsersPage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
@@ -203,7 +218,9 @@ function App() {
                       path="/admin/vehicles/new"
                       element={
                         <AdminRoute>
-                          <AdminAddVehiclePage />
+                          <PermissionRoute permission="manage_fleet">
+                            <AdminAddVehiclePage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
@@ -211,15 +228,17 @@ function App() {
                       path="/admin/vehicles/:id/edit"
                       element={
                         <AdminRoute>
-                          <AdminAddVehiclePage />
+                          <PermissionRoute permission="manage_fleet">
+                            <AdminAddVehiclePage />
+                          </PermissionRoute>
                         </AdminRoute>
                       }
                     />
                   </Routes>
-                </AuthProvider>
-              </BrowserRouter>
-            </AdminVehiclesProvider>
-          </AdminAuthProvider>
+                </StaffProvider>
+              </AuthProvider>
+            </BrowserRouter>
+          </AdminVehiclesProvider>
         </VehiclesProvider>
       </ThemeProvider>
     </div>

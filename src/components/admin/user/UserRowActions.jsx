@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./UserRowActions.module.css";
 
@@ -12,9 +12,20 @@ function DotsIcon() {
   );
 }
 
-export default function UserRowActions({ user, onToggleStatus }) {
+export default function UserRowActions({
+  user,
+  isSelf,
+  canDelete,
+  onEdit,
+  onToggleStatus,
+  onDelete,
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [menuPos, setMenuPos] = useState({ top: 0, left: 0, placement: "bottom" });
+  const [menuPos, setMenuPos] = useState({
+    top: 0,
+    left: 0,
+    placement: "bottom",
+  });
   const triggerRef = useRef(null);
   const menuRef = useRef(null);
 
@@ -67,7 +78,7 @@ export default function UserRowActions({ user, onToggleStatus }) {
     };
   }, [isOpen]);
 
-  const isActive = user.status === "Active";
+  const isActive = user.active;
 
   return (
     <>
@@ -89,32 +100,39 @@ export default function UserRowActions({ user, onToggleStatus }) {
             style={{
               top: menuPos.top,
               left: menuPos.left,
-              transform: menuPos.placement === "top" ? "translateY(-100%)" : "none",
+              transform:
+                menuPos.placement === "top" ? "translateY(-100%)" : "none",
             }}
           >
-            <button type="button" className={styles.menuItem} onClick={() => setIsOpen(false)}>
-              Edit User
-            </button>
-            <button type="button" className={styles.menuItem} onClick={() => setIsOpen(false)}>
-              Reset Password
-            </button>
-            <button
-              type="button"
-              className={styles.menuItem}
-              onClick={() => {
-                onToggleStatus(user.id);
-                setIsOpen(false);
-              }}
-            >
-              {isActive ? "Deactivate User" : "Activate User"}
-            </button>
-            <button
-              type="button"
-              className={`${styles.menuItem} ${styles.menuItemDanger}`}
-              onClick={() => setIsOpen(false)}
-            >
-              Delete User
-            </button>
+            {!isSelf && (
+              <button
+                type="button"
+                className={styles.menuItem}
+                onClick={() => {
+                  onToggleStatus(user);
+                  setIsOpen(false);
+                }}
+              >
+                {isActive ? "Deactivate User" : "Activate User"}
+              </button>
+            )}
+            {isSelf && (
+              <p className={styles.selfNote}>
+                You can't edit or deactivate your own account.
+              </p>
+            )}
+            {canDelete && !isSelf && (
+              <button
+                type="button"
+                className={`${styles.menuItem} ${styles.menuItemDanger}`}
+                onClick={() => {
+                  onDelete(user);
+                  setIsOpen(false);
+                }}
+              >
+                Delete User
+              </button>
+            )}
           </div>,
           document.body
         )}

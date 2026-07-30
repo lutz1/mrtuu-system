@@ -3,9 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.png";
 import headerImage from "../../assets/header.png";
-import styles from "./LoginPage.module.css";
-import { IconMail, IconLock, IconEye, IconEyeOff, IconGoogle } from "../../components/user/icons/AuthIcons";
+import { doc, getDoc } from "firebase/firestore";
+import db from "../../lib/firebase";
+import {
+  IconMail,
+  IconLock,
+  IconEye,
+  IconEyeOff,
+  IconGoogle,
+} from "../../components/user/icons/AuthIcons";
 import "../../components/user/icons/authShared.css";
+import styles from "./LoginPage.module.css";
 
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
@@ -25,7 +33,6 @@ function getFirebaseErrorMessage(error) {
       return "Sign-in is taking too long. Please try again.";
     default:
       return "Something went wrong. Please try again.";
-      
   }
 }
 
@@ -39,13 +46,28 @@ export default function LoginPage() {
   const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
+  // Checks lykas_staff/{uid} after a successful login and routes staff
+  // to the admin dashboard, everyone else to the normal homepage.
+  const routeAfterLogin = async (uid) => {
+    try {
+      const staffSnap = await getDoc(doc(db, "lykas_staff", uid));
+      if (staffSnap.exists() && staffSnap.data().active === true) {
+        navigate("/admin/dashboard");
+        return;
+      }
+    } catch (err) {
+      console.error("Failed to check staff profile after login:", err);
+    }
+    navigate("/");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setIsSubmitting(true);
     try {
-      await login(email, password);
-      navigate("/");
+      const credential = await login(email, password);
+      await routeAfterLogin(credential.user.uid);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
@@ -57,8 +79,8 @@ export default function LoginPage() {
     setError("");
     setIsGoogleSubmitting(true);
     try {
-      await loginWithGoogle();
-      navigate("/");
+      const result = await loginWithGoogle();
+      await routeAfterLogin(result.user.uid);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
@@ -91,8 +113,8 @@ export default function LoginPage() {
             © 2026 Lyka's Car Rental. All Rights Reserved.
             <br />
             All content, images, logos, and materials on this website are the
-            property of Lyka's Car Rental and may not be copied, reproduced,
-            or distributed without permission.
+            property of Lyka's Car Rental and may not be copied, reproduced, or
+            distributed without permission.
           </p>
         </div>
       </div>
@@ -179,7 +201,8 @@ export default function LoginPage() {
           <p className={styles.terms}>
             By logging in, you agree to Lyka's Car Rental
             <br />
-            <a href="#terms">TERMS OF SERVICE</a> & <a href="#privacy">PRIVACY POLICY</a>
+            <a href="#terms">TERMS OF SERVICE</a> &{" "}
+            <a href="#privacy">PRIVACY POLICY</a>
           </p>
 
           <p className={styles.signupPrompt}>

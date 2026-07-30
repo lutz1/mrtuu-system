@@ -1,16 +1,15 @@
 import { Navigate } from "react-router-dom";
-import { useAdminAuth } from "./AdminAuthContext";
+import { useStaff } from "./StaffContext";
+import Loading from "../components/user/Loading";
 
-// TODO: TEMPORARY guard, checking only the dummy AdminAuthContext session
-// flag. Swap isAdminLoggedIn for a real role/claim check once admin auth
-// is properly designed — this component's shape (redirect if not
-// authorized) should stay the same, only the check inside changes.
 export default function AdminRoute({ children }) {
-  const { isAdminLoggedIn } = useAdminAuth();
+  const { staffProfile, staffLoading } = useStaff();
 
-  if (!isAdminLoggedIn) {
-    return <Navigate to="/admin/login" replace />;
+  if (staffLoading) {
+    return <Loading message="Checking staff access..." />;
   }
-
+  if (!staffProfile) {
+    return <Navigate to="/login" replace />;
+  }
   return children;
 }

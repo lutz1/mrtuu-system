@@ -1,12 +1,12 @@
-import React from "react";
 import styles from "./UserStatusBadge.module.css";
 
-export default function UserStatusBadge({ status }) {
-  const isActive = status === "Active";
+export default function UserStatusBadge({ active }) {
   return (
-    <span className={`${styles.badge} ${isActive ? styles.active : styles.inactive}`}>
+    <span
+      className={`${styles.badge} ${active ? styles.active : styles.inactive}`}
+    >
       <span className={styles.dot} />
-      {status}
+      {active ? "Active" : "Inactive"}
     </span>
   );
 }
