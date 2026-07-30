@@ -1,0 +1,76 @@
+.photoSlot {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.photoSlotEmpty {
+  border: 1.5px dashed #d1d5db;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #c7cad0;
+}
+
+.photoSlotEmpty:hover {
+  border-color: #e8a020;
+  color: #e8a020;
+}
+
+.photoSlotEmpty svg {
+  width: 28px;
+  height: 28px;
+}
+
+.photoSlotMain {
+  height: 300px;
+  margin-bottom: 12px;
+}
+
+.thumbRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.thumbRow .photoSlot {
+  aspect-ratio: 1;
+}
+
+.photoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.removePhotoBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(26, 26, 26, 0.75);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.removePhotoBtn:hover {
+  background: rgba(26, 26, 26, 0.9);
+}
+
+.removePhotoBtn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.hiddenInput {
+  display: none;
+}

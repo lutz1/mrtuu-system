@@ -9,6 +9,18 @@
 
 export const VEHICLE_STATUSES = ["Available", "On Rent", "Under Maintenance", "Unavailable"];
 export const VEHICLE_TYPES = ["Sedan", "SUV", "Hatchback", "MPV", "Pickup", "Van"];
+export const VEHICLE_BRANDS = ["Toyota", "Honda", "Suzuki", "Ford", "Mitsubishi", "Nissan", "Hyundai"];
+export const FUEL_TYPES = ["Gasoline", "Diesel", "Electric", "Hybrid"];
+export const SEAT_OPTIONS = [2, 4, 5, 7, 8, 12, 15];
+export const PREDEFINED_FEATURES = [
+  "Bluetooth",
+  "Air conditioning",
+  "GPS navigation",
+  "Sunroof",
+  "Reverse Camera",
+  "Apple CarPlay",
+  "ABS",
+];
 
 const BASE_VEHICLES = [
   { id: "V-001", name: "Toyota Fortuner", plate: "ABC 1234", transmission: "Automatic", seats: 5, type: "SUV", price: 1800, status: "Available" },

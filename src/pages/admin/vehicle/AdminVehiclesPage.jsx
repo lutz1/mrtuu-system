@@ -5,6 +5,7 @@ import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
 import VehicleFilterBar from "../../../components/admin/vehicle/VehicleFilterBar";
 import VehicleCard from "../../../components/admin/vehicle/VehicleCard";
 import VehicleViewOverlay from "../../../components/admin/vehicle/VehicleViewOverlay";
+import AddVehicleModal from "../../../components/admin/vehicle/addVehicle/AddVehicleModal";
 import Pagination from "../../../components/admin/common/Pagination";
 import { useAdminVehicles } from "../../../context/AdminVehiclesContext";
 import styles from "./AdminVehiclesPage.module.css";
@@ -72,6 +73,7 @@ export default function AdminVehiclesPage() {
   const [transmission, setTransmission] = useState("Transmission");
   const [page, setPage] = useState(1);
   const [viewingVehicle, setViewingVehicle] = useState(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const filteredVehicles = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -122,7 +124,7 @@ export default function AdminVehiclesPage() {
           onTypeChange={makeFilterHandler(setType)}
           transmission={transmission}
           onTransmissionChange={makeFilterHandler(setTransmission)}
-          onAddVehicle={() => navigate("/admin/vehicles/new")}
+          onAddVehicle={() => setIsAddModalOpen(true)}
         />
       </div>
 
@@ -131,12 +133,7 @@ export default function AdminVehiclesPage() {
       ) : (
         <div className={styles.grid}>
           {pageItems.map((vehicle) => (
-            <VehicleCard
-              key={vehicle.id}
-              vehicle={vehicle}
-              onView={setViewingVehicle}
-              onEdit={handleEdit}
-            />
+            <VehicleCard key={vehicle.id} vehicle={vehicle} onView={setViewingVehicle} onEdit={handleEdit} />
           ))}
         </div>
       )}
@@ -160,6 +157,8 @@ export default function AdminVehiclesPage() {
           }}
         />
       )}
+
+      {isAddModalOpen && <AddVehicleModal onClose={() => setIsAddModalOpen(false)} />}
     </AdminLayout>
   );
 }

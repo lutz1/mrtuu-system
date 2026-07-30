@@ -1,0 +1,81 @@
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.pill {
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.pill:hover {
+  border-color: #9ca3af;
+}
+
+.pillActive {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.addPill {
+  background: #ffffff;
+  border: 1.5px dashed #d1d5db;
+  border-radius: 999px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.addPill:hover {
+  border-color: #e8a020;
+  color: #e8a020;
+}
+
+.customInput {
+  background: #ffffff;
+  border: 1.5px solid #e8a020;
+  border-radius: 999px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a1a;
+  outline: none;
+  width: 160px;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 180px;
+  background: #f2f2f2;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a1a;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.textarea::placeholder {
+  color: #9ca3af;
+}
+
+.textarea:focus {
+  border-color: #e8a020;
+  background: #ffffff;
+}
