@@ -36,8 +36,6 @@ function TypeIcon() {
   );
 }
 
-// TODO: placeholder silhouette used when a vehicle has no photo (either
-// generated mock data, or a real upload will eventually replace this).
 function VehiclePlaceholderImage() {
   return (
     <svg viewBox="0 0 200 110" className={styles.placeholderSvg} xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +54,7 @@ function VehiclePlaceholderImage() {
   );
 }
 
-export default function VehicleCard({ vehicle }) {
+export default function VehicleCard({ vehicle, onView, onEdit }) {
   return (
     <div className={styles.card}>
       <div className={styles.imageWrap}>
@@ -92,12 +90,10 @@ export default function VehicleCard({ vehicle }) {
         </p>
 
         <div className={styles.actions}>
-          {/* TODO: link to a real vehicle-details view once it exists */}
-          <button type="button" className={styles.viewBtn}>
+          <button type="button" className={styles.viewBtn} onClick={() => onView(vehicle)}>
             View
           </button>
-          {/* TODO: link to a real edit-vehicle form once it exists */}
-          <button type="button" className={styles.editBtn}>
+          <button type="button" className={styles.editBtn} onClick={() => onEdit(vehicle)}>
             Edit
           </button>
         </div>

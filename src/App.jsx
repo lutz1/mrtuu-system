@@ -202,6 +202,14 @@ function App() {
                   </AdminRoute>
                 }
               />
+              <Route
+                path="/admin/vehicles/:id/edit"
+                element={
+                  <AdminRoute>
+                    <AdminAddVehiclePage />
+                  </AdminRoute>
+                }
+              />
               </Routes>
             </AuthProvider>
           </BrowserRouter>

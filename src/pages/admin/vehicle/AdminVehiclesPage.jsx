@@ -4,6 +4,7 @@ import AdminLayout from "../dashboard/AdminLayout";
 import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
 import VehicleFilterBar from "../../../components/admin/vehicle/VehicleFilterBar";
 import VehicleCard from "../../../components/admin/vehicle/VehicleCard";
+import VehicleViewOverlay from "../../../components/admin/vehicle/VehicleViewOverlay";
 import Pagination from "../../../components/admin/common/Pagination";
 import { useAdminVehicles } from "../../../context/AdminVehiclesContext";
 import styles from "./AdminVehiclesPage.module.css";
@@ -70,6 +71,7 @@ export default function AdminVehiclesPage() {
   const [type, setType] = useState("All Types");
   const [transmission, setTransmission] = useState("Transmission");
   const [page, setPage] = useState(1);
+  const [viewingVehicle, setViewingVehicle] = useState(null);
 
   const filteredVehicles = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -91,6 +93,10 @@ export default function AdminVehiclesPage() {
     setPage(1);
   };
 
+  const handleEdit = (vehicle) => {
+    navigate(`/admin/vehicles/${vehicle.id}/edit`);
+  };
+
   return (
     <AdminLayout>
       <div className={styles.pageHeading}>
@@ -98,9 +104,6 @@ export default function AdminVehiclesPage() {
         <p className={styles.subtitle}>Overview of your car rental services</p>
       </div>
 
-      {/* NOTE: these five numbers are fixed mock values matching the
-          original reference design, independent of the live vehicle
-          list below. */}
       <div className={styles.statsGrid}>
         <VehicleStatCard icon={<TotalIcon />} label="Total Vehicles" value="48" />
         <VehicleStatCard icon={<AvailableIcon />} label="Available" value="25" />
@@ -128,7 +131,12 @@ export default function AdminVehiclesPage() {
       ) : (
         <div className={styles.grid}>
           {pageItems.map((vehicle) => (
-            <VehicleCard key={vehicle.id} vehicle={vehicle} />
+            <VehicleCard
+              key={vehicle.id}
+              vehicle={vehicle}
+              onView={setViewingVehicle}
+              onEdit={handleEdit}
+            />
           ))}
         </div>
       )}
@@ -141,6 +149,17 @@ export default function AdminVehiclesPage() {
         onPageChange={setPage}
         itemLabel="vehicles"
       />
+
+      {viewingVehicle && (
+        <VehicleViewOverlay
+          vehicle={viewingVehicle}
+          onClose={() => setViewingVehicle(null)}
+          onEdit={(vehicle) => {
+            setViewingVehicle(null);
+            handleEdit(vehicle);
+          }}
+        />
+      )}
     </AdminLayout>
   );
 }

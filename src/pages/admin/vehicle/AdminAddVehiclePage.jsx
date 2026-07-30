@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import AdminLayout from "../dashboard/AdminLayout";
 import { useAdminVehicles } from "../../../context/AdminVehiclesContext";
 import { VEHICLE_STATUSES, VEHICLE_TYPES } from "../../../data/admin/mockVehicles";
@@ -19,21 +19,60 @@ const MAX_IMAGE_SIZE_MB = 5;
 
 export default function AdminAddVehiclePage() {
   const navigate = useNavigate();
-  const { addVehicle } = useAdminVehicles();
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const { id } = useParams();
+  const { addVehicle, updateVehicle, getVehicleById } = useAdminVehicles();
+
+  const isEditMode = Boolean(id);
+  const existingVehicle = isEditMode ? getVehicleById(id) : null;
+
+  const [form, setForm] = useState(() =>
+    existingVehicle
+      ? {
+          name: existingVehicle.name,
+          plate: existingVehicle.plate,
+          transmission: existingVehicle.transmission,
+          seats: existingVehicle.seats,
+          type: existingVehicle.type,
+          price: existingVehicle.price,
+          status: existingVehicle.status,
+        }
+      : EMPTY_FORM
+  );
+
+  // The vehicle's existing photo (a URL that may already be shown on its
+  // card elsewhere in the app) is tracked separately from any brand-new
+  // photo picked in this session. We only ever revoke the new one — the
+  // existing URL isn't ours to release, since other views may still be
+  // using it right now.
+  const [existingImageUrl, setExistingImageUrl] = useState(existingVehicle?.imageUrl ?? null);
+  const [newImagePreviewUrl, setNewImagePreviewUrl] = useState(null);
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
 
-  // Revoke the previous object URL whenever it changes or the component
-  // unmounts — object URLs hold a reference to the file in memory until
-  // explicitly released, so leaving them un-revoked is a memory leak.
   useEffect(() => {
     return () => {
-      if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
+      if (newImagePreviewUrl) URL.revokeObjectURL(newImagePreviewUrl);
     };
-  }, [imagePreviewUrl]);
+  }, [newImagePreviewUrl]);
+
+  if (isEditMode && !existingVehicle) {
+    return (
+      <AdminLayout>
+        <div className={styles.pageHeading}>
+          <Link to="/admin/vehicles" className={styles.backLink}>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Back to Vehicles
+          </Link>
+          <h1 className={styles.title}>Vehicle not found</h1>
+          <p className={styles.subtitle}>This vehicle may have been removed. Refreshing also resets mock data.</p>
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  const displayImageUrl = newImagePreviewUrl ?? existingImageUrl;
 
   const updateField = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -53,15 +92,16 @@ export default function AdminAddVehiclePage() {
     }
 
     setError("");
-    if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
-    setImageFile(file);
-    setImagePreviewUrl(URL.createObjectURL(file));
+    if (newImagePreviewUrl) URL.revokeObjectURL(newImagePreviewUrl);
+    setNewImagePreviewUrl(URL.createObjectURL(file));
   };
 
   const handleRemoveImage = () => {
-    if (imagePreviewUrl) URL.revokeObjectURL(imagePreviewUrl);
-    setImageFile(null);
-    setImagePreviewUrl(null);
+    if (newImagePreviewUrl) {
+      URL.revokeObjectURL(newImagePreviewUrl);
+      setNewImagePreviewUrl(null);
+    }
+    setExistingImageUrl(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -74,7 +114,7 @@ export default function AdminAddVehiclePage() {
       return;
     }
 
-    addVehicle({
+    const vehicleData = {
       name: form.name.trim(),
       plate: form.plate.trim().toUpperCase(),
       transmission: form.transmission,
@@ -82,12 +122,17 @@ export default function AdminAddVehiclePage() {
       type: form.type,
       price: Number(form.price),
       status: form.status,
-      // TODO: this is a local, in-browser-memory object URL — it does not
-      // persist across refresh and nothing is actually uploaded anywhere.
-      // Swap for a real Firebase Storage URL (same pattern as
-      // ProfilePictureUpload) once the admin data layer exists.
-      imageUrl: imagePreviewUrl,
-    });
+      // TODO: object URLs are local, in-browser-memory only — not real
+      // uploads. Swap for real Firebase Storage URLs once the admin data
+      // layer exists.
+      imageUrl: displayImageUrl,
+    };
+
+    if (isEditMode) {
+      updateVehicle(id, vehicleData);
+    } else {
+      addVehicle(vehicleData);
+    }
 
     navigate("/admin/vehicles");
   };
@@ -101,9 +146,9 @@ export default function AdminAddVehiclePage() {
           </svg>
           Back to Vehicles
         </Link>
-        <h1 className={styles.title}>Add Vehicle</h1>
+        <h1 className={styles.title}>{isEditMode ? "Edit Vehicle" : "Add Vehicle"}</h1>
         <p className={styles.subtitle}>
-          Temporary form — will be replaced once the real Add Vehicle design is ready.
+          Temporary form — will be replaced once the real {isEditMode ? "Edit" : "Add"} Vehicle design is ready.
         </p>
       </div>
 
@@ -113,9 +158,9 @@ export default function AdminAddVehiclePage() {
         <div className={styles.field}>
           <label className={styles.label}>Vehicle Photo</label>
 
-          {imagePreviewUrl ? (
+          {displayImageUrl ? (
             <div className={styles.imagePreviewWrap}>
-              <img src={imagePreviewUrl} alt="Vehicle preview" className={styles.imagePreview} />
+              <img src={displayImageUrl} alt="Vehicle preview" className={styles.imagePreview} />
               <button type="button" className={styles.removeImageBtn} onClick={handleRemoveImage}>
                 Remove Photo
               </button>
@@ -256,7 +301,7 @@ export default function AdminAddVehiclePage() {
             Cancel
           </Link>
           <button type="submit" className={styles.submitBtn}>
-            Add Vehicle
+            {isEditMode ? "Save Changes" : "Add Vehicle"}
           </button>
         </div>
       </form>

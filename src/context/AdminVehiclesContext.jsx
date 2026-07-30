@@ -24,7 +24,13 @@ export function AdminVehiclesProvider({ children }) {
     return newVehicle;
   };
 
-  const value = { vehicles, addVehicle };
+  const updateVehicle = (id, vehicleData) => {
+    setVehicles((prev) => prev.map((v) => (v.id === id ? { ...v, ...vehicleData } : v)));
+  };
+
+  const getVehicleById = (id) => vehicles.find((v) => v.id === id);
+
+  const value = { vehicles, addVehicle, updateVehicle, getVehicleById };
 
   return <AdminVehiclesContext.Provider value={value}>{children}</AdminVehiclesContext.Provider>;
 }
