@@ -32,6 +32,7 @@ const AuthContext = createContext(null);
 
 async function upsertSharedUserDoc(user, extra = {}) {
   if (!user) return;
+  const email = (user.email || "").toLowerCase();
   await setDoc(
     doc(db, "users", user.uid),
     {
@@ -46,6 +47,10 @@ async function upsertSharedUserDoc(user, extra = {}) {
     },
     { merge: true }
   );
+
+  if (email) {
+    await setDoc(doc(db, "user_lookup", email), { uid: user.uid, email });
+  }
 }
 
 function login(email, password) {

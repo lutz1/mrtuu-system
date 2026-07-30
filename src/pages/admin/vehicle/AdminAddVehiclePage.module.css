@@ -214,6 +214,23 @@
 .submitBtn:hover {
   background: #d18f1c;
 }
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.imageSlot {
+  aspect-ratio: 1;
+}
+.imageSlot .imagePreviewWrap,
+.imageSlot .uploadDropzone {
+  height: 100%;
+}
+@media (max-width: 640px) {
+  .imageGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media (max-width: 640px) {
   .row {

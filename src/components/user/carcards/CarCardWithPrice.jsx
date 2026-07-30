@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { IconTransmission, IconFuel, IconSeats, IconMileage } from "../icons";
 import styles from "./CarCardWithPrice.module.css";
@@ -13,7 +12,9 @@ export default function CarCardWithPrice({ car }) {
         <div className={styles.carTitleRow}>
           <h3 className={styles.carName}>{car.name}</h3>
           <div className={styles.carPrice}>
-            <span className={styles.priceAmount}>₱{car.price.toLocaleString()}</span>
+            <span className={styles.priceAmount}>
+              ₱{car.price.toLocaleString()}
+            </span>
             <span className={styles.priceUnit}>per day</span>
           </div>
         </div>
@@ -33,7 +34,7 @@ export default function CarCardWithPrice({ car }) {
           </span>
           <span className={styles.specItem}>
             <IconMileage className={styles.specIcon} />
-            {car.mileage}
+            {car.mileage} km
           </span>
         </div>
 
