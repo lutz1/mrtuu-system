@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../dashboard/AdminLayout";
 import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
 import VehicleFilterBar from "../../../components/admin/vehicle/VehicleFilterBar";
 import VehicleCard from "../../../components/admin/vehicle/VehicleCard";
 import Pagination from "../../../components/admin/common/Pagination";
-import { MOCK_VEHICLES } from "../../../data/admin/mockVehicles";
+import { useAdminVehicles } from "../../../context/AdminVehiclesContext";
 import styles from "./AdminVehiclesPage.module.css";
 
 const PAGE_SIZE = 8;
@@ -61,6 +62,9 @@ function UnavailableIcon() {
 }
 
 export default function AdminVehiclesPage() {
+  const navigate = useNavigate();
+  const { vehicles } = useAdminVehicles();
+
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("All Status");
   const [type, setType] = useState("All Types");
@@ -69,14 +73,14 @@ export default function AdminVehiclesPage() {
 
   const filteredVehicles = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return MOCK_VEHICLES.filter((v) => {
+    return vehicles.filter((v) => {
       const matchesQuery = q === "" || v.name.toLowerCase().includes(q) || v.plate.toLowerCase().includes(q);
       const matchesStatus = status === "All Status" || v.status === status;
       const matchesType = type === "All Types" || v.type === type;
       const matchesTransmission = transmission === "Transmission" || v.transmission === transmission;
       return matchesQuery && matchesStatus && matchesType && matchesTransmission;
     });
-  }, [query, status, type, transmission]);
+  }, [vehicles, query, status, type, transmission]);
 
   const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -95,10 +99,8 @@ export default function AdminVehiclesPage() {
       </div>
 
       {/* NOTE: these five numbers are fixed mock values matching the
-          reference design, independent of the filtered list below —
-          same approach as the Dashboard's stat cards. They don't sum
-          correctly in the reference (25+8+3+0=36, not 48) and are kept
-          as-is rather than reconciled against the generated list. */}
+          original reference design, independent of the live vehicle
+          list below. */}
       <div className={styles.statsGrid}>
         <VehicleStatCard icon={<TotalIcon />} label="Total Vehicles" value="48" />
         <VehicleStatCard icon={<AvailableIcon />} label="Available" value="25" />
@@ -117,6 +119,7 @@ export default function AdminVehiclesPage() {
           onTypeChange={makeFilterHandler(setType)}
           transmission={transmission}
           onTransmissionChange={makeFilterHandler(setTransmission)}
+          onAddVehicle={() => navigate("/admin/vehicles/new")}
         />
       </div>
 

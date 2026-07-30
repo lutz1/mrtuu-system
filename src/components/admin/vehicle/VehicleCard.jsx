@@ -36,8 +36,8 @@ function TypeIcon() {
   );
 }
 
-// TODO: real car photos needed — placeholder silhouette used until
-// per-vehicle image assets exist.
+// TODO: placeholder silhouette used when a vehicle has no photo (either
+// generated mock data, or a real upload will eventually replace this).
 function VehiclePlaceholderImage() {
   return (
     <svg viewBox="0 0 200 110" className={styles.placeholderSvg} xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +61,11 @@ export default function VehicleCard({ vehicle }) {
     <div className={styles.card}>
       <div className={styles.imageWrap}>
         <VehicleStatusBadge status={vehicle.status} />
-        <VehiclePlaceholderImage />
+        {vehicle.imageUrl ? (
+          <img src={vehicle.imageUrl} alt={vehicle.name} className={styles.photo} />
+        ) : (
+          <VehiclePlaceholderImage />
+        )}
       </div>
 
       <div className={styles.body}>

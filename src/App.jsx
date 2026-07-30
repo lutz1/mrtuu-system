@@ -30,12 +30,15 @@ import AdminVehiclesPage from "./pages/admin/vehicle/AdminVehiclesPage";
 import AdminCustomersPage from "./pages/admin/customer/AdminCustomersPage";
 import AdminSalesReportsPage from "./pages/admin/salesReports/AdminSalesReportsPage";
 import AdminUsersPage from "./pages/admin/user/AdminUsersPage";
+import { AdminVehiclesProvider } from "./context/AdminVehiclesContext";
+import AdminAddVehiclePage from "./pages/admin/vehicle/AdminAddVehiclePage";
 
 function App() {
   return (
     <div className="app">
       <ThemeProvider>
         <AdminAuthProvider>
+           <AdminVehiclesProvider>
           <BrowserRouter>
             <AuthProvider>
               <Routes>
@@ -191,9 +194,18 @@ function App() {
                   </AdminRoute>
                 }
               />
+              <Route
+                path="/admin/vehicles/new"
+                element={
+                  <AdminRoute>
+                    <AdminAddVehiclePage />
+                  </AdminRoute>
+                }
+              />
               </Routes>
             </AuthProvider>
           </BrowserRouter>
+          </AdminVehiclesProvider>
         </AdminAuthProvider>
       </ThemeProvider>
     </div>
