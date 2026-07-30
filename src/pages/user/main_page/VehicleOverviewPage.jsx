@@ -14,7 +14,7 @@ import {
   IconMileage,
 } from "../../../components/user/icons";
 import styles from "./VehicleOverviewPage.module.css";
-import { useVehicles } from "../../../context/VehicesContext.jsx";
+import { useVehicles } from "../../../context/VehiclesContext.jsx";
 import { RENTAL_POLICIES } from "../../../Data/rentalPolicies";
 
 export default function VehicleOverviewPage() {
