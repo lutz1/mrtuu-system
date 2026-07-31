@@ -5,7 +5,6 @@ import ProtectedRoute from "./context/ProtectedRoute";
 import { StaffProvider } from "./context/StaffContext";
 import PermissionRoute from "./context/PermissionRoute";
 import { VehiclesProvider } from "./context/VehiclesContext";
-import LandingPage from "./pages/user/landing_page/LandingPage";
 import ShowroomPage from "./pages/user/main_page/ShowroomPage";
 import VehicleOverviewPage from "./pages/user/main_page/VehicleOverviewPage";
 import LoginPage from "./pages/Login_Signup/LoginPage";
@@ -33,6 +32,7 @@ import AdminSalesReportsPage from "./pages/admin/salesReports/AdminSalesReportsP
 import AdminUsersPage from "./pages/admin/user/AdminUsersPage";
 import { AdminVehiclesProvider } from "./context/AdminVehiclesContext";
 import AdminAddVehiclePage from "./pages/admin/vehicle/AdminAddVehiclePage";
+import RootRedirect from "./pages/RootRedirect";
 
 function App() {
   return (
@@ -44,7 +44,7 @@ function App() {
               <AuthProvider>
                 <StaffProvider>
                   <Routes>
-                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/" element={<RootRedirect />} />
                     <Route path="/home" element={<Navigate to="/" replace />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
