@@ -50,9 +50,20 @@ function formFromVehicle(vehicle) {
   };
 }
 
-// Existing vehicles now store `images: string[]` (up to 5). Older mock data
-// (or anything not yet migrated) may still carry a single `imageUrl` —
-// fall back to that as slot 0 so editing still works either way.
+function formatTimestamp(date) {
+  const datePart = date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  const timePart = date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return `${datePart} ${timePart}`;
+}
+
 function photosFromVehicle(vehicle) {
   const photos = [...EMPTY_PHOTOS];
   const existingImages =
@@ -86,7 +97,9 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     isEditMode ? photosFromVehicle(vehicle) : EMPTY_PHOTOS
   );
   const [error, setError] = useState("");
-  const [isSaving, setIsSaving] = useState(false);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState(() =>
+    isEditMode ? vehicle.updatedAt ?? null : null
+  );
   const photosRef = useRef(photos);
 
   useEffect(() => {
@@ -201,12 +214,8 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       return;
     }
 
-    // Each slot resolves to either the actual File (newly picked this
-    // session) or the existing URL string (unchanged) — this is exactly
-    // the shape AdminVehiclesContext.addVehicle/updateVehicle expect.
-    const images = photos.map((p) =>
-      p ? (p.isNew ? p.file : p.previewUrl) : null
-    );
+    const firstPhoto = photos.find(Boolean);
+    const now = new Date();
 
     const vehicleData = {
       plate: form.plate.trim(),
@@ -223,23 +232,18 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       price: Number(form.dailyRate),
       rate12h: form.rate12h ? Number(form.rate12h) : null,
       status: isEditMode ? vehicle.status : "Available",
+      imageUrl: firstPhoto ? firstPhoto.previewUrl : null,
+      updatedAt: now,
     };
 
-    setError("");
-    setIsSaving(true);
-    try {
-      if (isEditMode) {
-        await updateVehicle(vehicle.id, vehicleData, images);
-      } else {
-        await addVehicle(vehicleData, images);
-      }
-      onClose();
-    } catch (err) {
-      console.error("Failed to save vehicle:", err);
-      setError(err.message || "Failed to save vehicle. Please try again.");
-    } finally {
-      setIsSaving(false);
+    if (isEditMode) {
+      updateVehicle(vehicle.id, vehicleData);
+    } else {
+      addVehicle(vehicleData);
     }
+
+    setLastUpdatedAt(now);
+    onClose();
   };
 
   const photoCount = photos.filter(Boolean).length;
@@ -309,7 +313,11 @@ export default function AddVehicleModal({ vehicle, onClose }) {
 
         <div className={styles.footer}>
           <span className={styles.draftText}>
-            {isSaving ? "Saving to server…" : "Draft saved automatically"}
+            {isEditMode
+              ? lastUpdatedAt
+                ? `Last updated: ${formatTimestamp(lastUpdatedAt)}`
+                : "No changes saved yet"
+              : "Draft saved automatically"}
           </span>
           <div className={styles.footerActions}>
             {step > 1 && (
