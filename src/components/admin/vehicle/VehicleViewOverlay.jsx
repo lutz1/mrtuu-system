@@ -22,9 +22,9 @@ function VehiclePlaceholderImage() {
 
 function CheckIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="10" fill="#374151" />
-      <path d="M8 12.3l2.5 2.5L16 9.3" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="10" cy="10" r="10" fill="#4b5563" />
+      <path d="M6 10l3 3 5-5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -32,7 +32,7 @@ function CheckIcon() {
 function formatDate(date) {
   if (!date) return "—";
   const d = typeof date === "string" ? new Date(date) : date;
-  if (Number.isNaN(d.getTime())) return date; // already a formatted string like "January 15, 2026"
+  if (Number.isNaN(d.getTime())) return date;
   return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 }
 
@@ -60,7 +60,7 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
   const handleArchive = () => {
     // eslint-disable-next-line no-alert
     const confirmed = window.confirm(
-      `Archive ${vehicle.name}? It will be removed from the active showroom. This can't be undone from here yet.`
+      `Archive ${vehicle.name}? It will be removed from the active showroom.`
     );
     if (!confirmed) return;
     archiveVehicle(vehicle.id);
@@ -70,58 +70,68 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
   return (
     <div className={styles.backdrop} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
         <div className={styles.header}>
           <h1 className={styles.headerTitle}>View Vehicle</h1>
           <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </svg>
+            X
           </button>
         </div>
 
+        {/* Scrollable Body */}
         <div className={styles.body}>
+          {/* Top Row: Main Specs Card + Status Card */}
           <div className={styles.topGrid}>
-            {/* Identity card: gallery + core info */}
-            <section className={styles.card}>
-              <div className={styles.galleryMain}>
-                {hasImages ? (
-                  <img src={currentImage} alt={vehicle.name} className={styles.galleryImage} />
-                ) : (
-                  <VehiclePlaceholderImage />
-                )}
+            {/* Identity & Gallery Card */}
+            <section className={styles.identityCard}>
+              <div className={styles.galleryContainer}>
+                <div className={styles.galleryMain}>
+                  {hasImages ? (
+                    <img src={currentImage} alt={vehicle.name} className={styles.galleryImage} />
+                  ) : (
+                    <VehiclePlaceholderImage />
+                  )}
+
+                  {images.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        className={`${styles.galleryNav} ${styles.galleryNavPrev}`}
+                        onClick={goPrev}
+                        aria-label="Previous photo"
+                      >
+                        ‹
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles.galleryNav} ${styles.galleryNavNext}`}
+                        onClick={goNext}
+                        aria-label="Next photo"
+                      >
+                        ›
+                      </button>
+                    </>
+                  )}
+                </div>
 
                 {images.length > 1 && (
-                  <>
-                    <button type="button" className={`${styles.galleryNav} ${styles.galleryNavPrev}`} onClick={goPrev} aria-label="Previous photo">
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </button>
-                    <button type="button" className={`${styles.galleryNav} ${styles.galleryNavNext}`} onClick={goNext} aria-label="Next photo">
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </button>
-                  </>
+                  <div className={styles.thumbRow}>
+                    {images.map((img, i) => (
+                      <button
+                        key={img + i}
+                        type="button"
+                        className={`${styles.thumb} ${i === activeIndex ? styles.thumbActive : ""}`}
+                        onClick={() => setActiveIndex(i)}
+                      >
+                        <img src={img} alt="" className={styles.thumbImage} />
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
 
-              {images.length > 1 && (
-                <div className={styles.thumbRow}>
-                  {images.map((img, i) => (
-                    <button
-                      key={img + i}
-                      type="button"
-                      className={`${styles.thumb} ${i === activeIndex ? styles.thumbActive : ""}`}
-                      onClick={() => setActiveIndex(i)}
-                    >
-                      <img src={img} alt="" className={styles.thumbImage} />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              <div className={styles.infoBlock}>
+              {/* Side Details inside Identity Card */}
+              <div className={styles.identityInfo}>
                 <h2 className={styles.vehicleName}>
                   {vehicle.name} {vehicle.variant ? vehicle.variant : ""}
                 </h2>
@@ -154,13 +164,13 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
                   </div>
                   <div className={styles.infoRow}>
                     <dt>Daily Rate</dt>
-                    <dd>₱ {vehicle.price.toLocaleString()}</dd>
+                    <dd>₱ {Number(vehicle.price || 0).toLocaleString()}</dd>
                   </div>
                 </dl>
               </div>
             </section>
 
-            {/* Status Information card */}
+            {/* Status Information Card */}
             <section className={styles.statusCard}>
               <h2 className={styles.cardTitle}>Status Information</h2>
 
@@ -185,16 +195,17 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
 
               <div className={styles.statusActions}>
                 <button type="button" className={styles.editBtn} onClick={() => onEdit(vehicle)}>
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15.5 4.5l4 4L8 20H4v-4l11.5-11.5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                   </svg>
                   Edit Vehicle
                 </button>
                 <button type="button" className={styles.archiveBtn} onClick={handleArchive}>
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3.5" y="5" width="17" height="4" rx="1" stroke="currentColor" strokeWidth="1.6" />
-                    <path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9" stroke="currentColor" strokeWidth="1.6" />
-                    <path d="M10 13h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="4" width="18" height="4" rx="1" />
+                    <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8" />
+                    <path d="M10 12h4" />
                   </svg>
                   Archive Vehicle
                 </button>
@@ -202,6 +213,7 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
             </section>
           </div>
 
+          {/* Middle Row: Specifications & Features */}
           <div className={styles.bottomGrid}>
             <section className={styles.card}>
               <h2 className={styles.cardTitle}>Vehicle Specifications</h2>
@@ -239,7 +251,9 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Fuel Capacity</span>
-                    <span className={styles.specValue}>{vehicle.fuelCapacity ? `${vehicle.fuelCapacity} Liters` : "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.fuelCapacity ? `${vehicle.fuelCapacity} Liters` : "—"}
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Mileage</span>
@@ -262,7 +276,7 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
                       <span className={styles.featureIcon}>
                         <CheckIcon />
                       </span>
-                      {feature}
+                      <span>{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -272,9 +286,12 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
             </section>
           </div>
 
+          {/* Bottom Row: Description */}
           <section className={styles.card}>
             <h2 className={styles.cardTitle}>Description</h2>
-            <p className={styles.descriptionText}>{vehicle.description || "No description added yet."}</p>
+            <p className={styles.descriptionText}>
+              {vehicle.description || "No description added yet."}
+            </p>
           </section>
         </div>
       </div>
