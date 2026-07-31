@@ -41,8 +41,29 @@ function CheckIcon() {
 
 function formatDate(date) {
   if (!date) return "—";
-  const d = typeof date === "string" ? new Date(date) : date;
-  if (Number.isNaN(d.getTime())) return date;
+
+  let d;
+
+  // 1. Handle Firebase / Firestore Timestamp objects (with toDate method)
+  if (typeof date?.toDate === "function") {
+    d = date.toDate();
+  }
+  // 2. Handle Firestore Timestamp objects represented as plain JS objects ({ seconds, nanoseconds })
+  else if (typeof date === "object" && typeof date?.seconds === "number") {
+    d = new Date(date.seconds * 1000);
+  }
+  // 3. Handle standard Date instances directly
+  else if (date instanceof Date) {
+    d = date;
+  }
+  // 4. Handle Strings or numeric Epoch Timestamps
+  else {
+    d = new Date(date);
+  }
+
+  // Fallback if Date parsing results in an Invalid Date
+  if (Number.isNaN(d.getTime())) return String(date);
+
   return d.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
