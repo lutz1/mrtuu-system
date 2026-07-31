@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import AdminLayout from "../dashboard/AdminLayout";
 import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
 import VehicleFilterBar from "../../../components/admin/vehicle/VehicleFilterBar";
@@ -64,7 +63,6 @@ function UnavailableIcon() {
 }
 
 export default function AdminVehiclesPage() {
-  const navigate = useNavigate();
   const { vehicles } = useAdminVehicles();
 
   const [query, setQuery] = useState("");
@@ -73,6 +71,7 @@ export default function AdminVehiclesPage() {
   const [transmission, setTransmission] = useState("Transmission");
   const [page, setPage] = useState(1);
   const [viewingVehicle, setViewingVehicle] = useState(null);
+  const [editingVehicle, setEditingVehicle] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const filteredVehicles = useMemo(() => {
@@ -93,10 +92,6 @@ export default function AdminVehiclesPage() {
   const makeFilterHandler = (setter) => (value) => {
     setter(value);
     setPage(1);
-  };
-
-  const handleEdit = (vehicle) => {
-    navigate(`/admin/vehicles/${vehicle.id}/edit`);
   };
 
   return (
@@ -133,7 +128,12 @@ export default function AdminVehiclesPage() {
       ) : (
         <div className={styles.grid}>
           {pageItems.map((vehicle) => (
-            <VehicleCard key={vehicle.id} vehicle={vehicle} onView={setViewingVehicle} onEdit={handleEdit} />
+            <VehicleCard
+              key={vehicle.id}
+              vehicle={vehicle}
+              onView={setViewingVehicle}
+              onEdit={setEditingVehicle}
+            />
           ))}
         </div>
       )}
@@ -153,12 +153,16 @@ export default function AdminVehiclesPage() {
           onClose={() => setViewingVehicle(null)}
           onEdit={(vehicle) => {
             setViewingVehicle(null);
-            handleEdit(vehicle);
+            setEditingVehicle(vehicle);
           }}
         />
       )}
 
       {isAddModalOpen && <AddVehicleModal onClose={() => setIsAddModalOpen(false)} />}
+
+      {editingVehicle && (
+        <AddVehicleModal vehicle={editingVehicle} onClose={() => setEditingVehicle(null)} />
+      )}
     </AdminLayout>
   );
 }

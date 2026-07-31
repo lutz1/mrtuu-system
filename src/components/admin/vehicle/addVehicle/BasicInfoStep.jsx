@@ -67,6 +67,20 @@ export default function BasicInfoStep({ form, updateField, photos, onPhotoSelect
           />
         </div>
 
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="plate">
+            License Plate <span className={fields.required}>*</span>
+          </label>
+          <input
+            id="plate"
+            type="text"
+            className={fields.input}
+            placeholder="e.g. ABC 1234"
+            value={form.plate}
+            onChange={(e) => updateField("plate", e.target.value.toUpperCase())}
+          />
+        </div>
+
         <div className={fields.row}>
           <div className={fields.field}>
             <label className={fields.label} htmlFor="brand">
