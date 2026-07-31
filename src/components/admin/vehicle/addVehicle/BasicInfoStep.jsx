@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { VEHICLE_BRANDS, VEHICLE_TYPES } from "../../../../data/admin/mockVehicles";
+import { VEHICLE_BRANDS, VEHICLE_TYPES, VEHICLE_COLORS } from "../../../../data/admin/mockVehicles";
 import fields from "./FormFields.module.css";
 import styles from "./BasicInfoStep.module.css";
 
@@ -119,6 +119,36 @@ export default function BasicInfoStep({ form, updateField, photos, onPhotoSelect
               <option key={t}>{t}</option>
             ))}
           </select>
+        </div>
+
+        <div className={fields.row}>
+          <div className={fields.field}>
+            <label className={fields.label} htmlFor="yearModel">
+              Year Model
+            </label>
+            <input
+              id="yearModel"
+              type="number"
+              min="1990"
+              max="2100"
+              className={fields.input}
+              placeholder="e.g. 2024"
+              value={form.yearModel}
+              onChange={(e) => updateField("yearModel", e.target.value)}
+            />
+          </div>
+
+          <div className={fields.field}>
+            <label className={fields.label} htmlFor="color">
+              Color
+            </label>
+            <select id="color" className={fields.select} value={form.color} onChange={(e) => updateField("color", e.target.value)}>
+              <option value="">Select color</option>
+              {VEHICLE_COLORS.map((c) => (
+                <option key={c}>{c}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <p className={fields.hint}>Tip: You can update all information later. Fields marked with * are required.</p>

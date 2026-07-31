@@ -15,9 +15,17 @@ const EMPTY_FORM = {
   brand: "",
   model: "",
   type: "",
+  yearModel: "",
+  color: "",
   transmission: "Automatic",
   seats: "",
   fuelType: "",
+  variant: "",
+  engine: "",
+  fuelCapacity: "",
+  mileage: "",
+  doors: "",
+  drivetrain: "",
   features: [],
   description: "",
   dailyRate: "",
@@ -33,9 +41,17 @@ function formFromVehicle(vehicle) {
     brand: vehicle.brand ?? "",
     model: vehicle.model ?? "",
     type: vehicle.type ?? "",
+    yearModel: vehicle.yearModel ?? "",
+    color: vehicle.color ?? "",
     transmission: vehicle.transmission ?? "Automatic",
     seats: vehicle.seats ?? "",
     fuelType: vehicle.fuelType ?? "",
+    variant: vehicle.variant ?? "",
+    engine: vehicle.engine ?? "",
+    fuelCapacity: vehicle.fuelCapacity ?? "",
+    mileage: vehicle.mileage ?? "",
+    doors: vehicle.doors ?? "",
+    drivetrain: vehicle.drivetrain ?? "",
     features: vehicle.features ?? [],
     description: vehicle.description ?? "",
     dailyRate: vehicle.price ?? "",
@@ -59,12 +75,14 @@ function formatTimestamp(date) {
 
 function photosFromVehicle(vehicle) {
   const photos = [...EMPTY_PHOTOS];
-  if (vehicle.imageUrl) {
-    // isNew: false — this URL may already be rendering elsewhere (the
-    // vehicle's card behind this modal), so it must never be revoked
-    // unless the admin actively replaces or removes it in this session.
-    photos[0] = { previewUrl: vehicle.imageUrl, isNew: false };
-  }
+  const sourceImages = vehicle.images?.length ? vehicle.images : vehicle.imageUrl ? [vehicle.imageUrl] : [];
+  sourceImages.slice(0, 5).forEach((url, i) => {
+    // isNew: false — these URLs may already be rendering elsewhere (the
+    // vehicle's card, or the View overlay behind this modal), so they
+    // must never be revoked unless the admin actively replaces or
+    // removes them in this session.
+    photos[i] = { previewUrl: url, isNew: false };
+  });
   return photos;
 }
 
@@ -119,9 +137,6 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     setError("");
     setPhotos((prev) => {
       const next = [...prev];
-      // Only revoke the slot being replaced if it was itself a new
-      // (session-local) photo — an existing vehicle photo being swapped
-      // out is left alone, same reasoning as the unmount cleanup above.
       if (next[index]?.isNew) URL.revokeObjectURL(next[index].previewUrl);
       next[index] = { previewUrl: URL.createObjectURL(file), isNew: true };
       return next;
@@ -178,7 +193,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       return;
     }
 
-    const firstPhoto = photos.find(Boolean);
+    const photoUrls = photos.filter(Boolean).map((p) => p.previewUrl);
     const now = new Date();
 
     const vehicleData = {
@@ -187,15 +202,24 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       brand: form.brand,
       model: form.model.trim(),
       type: form.type,
+      yearModel: form.yearModel ? Number(form.yearModel) : null,
+      color: form.color,
       transmission: form.transmission,
       seats: Number(form.seats),
       fuelType: form.fuelType,
+      variant: form.variant,
+      engine: form.engine,
+      fuelCapacity: form.fuelCapacity ? Number(form.fuelCapacity) : null,
+      mileage: form.mileage ? Number(form.mileage) : null,
+      doors: form.doors ? Number(form.doors) : null,
+      drivetrain: form.drivetrain,
       features: form.features,
       description: form.description,
       price: Number(form.dailyRate),
       rate12h: form.rate12h ? Number(form.rate12h) : null,
       status: isEditMode ? vehicle.status : "Available",
-      imageUrl: firstPhoto ? firstPhoto.previewUrl : null,
+      imageUrl: photoUrls[0] ?? null,
+      images: photoUrls,
       updatedAt: now,
     };
 

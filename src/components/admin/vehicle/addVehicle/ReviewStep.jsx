@@ -13,6 +13,7 @@ export default function ReviewStep({ form, photoCount }) {
     { label: "Car name", value: form.carName || "—" },
     { label: "License plate", value: form.plate || "—" },
     { label: "Brand / model", value: `${form.brand || "—"} ${form.model || ""}`.trim() },
+    { label: "Year / Color", value: `${form.yearModel || "—"} • ${form.color || "—"}` },
     { label: "Transmission", value: form.transmission },
     { label: "Seats/ fuel", value: `${form.seats || "—"} seats • ${form.fuelType || "—"}` },
     { label: "Daily rate", value: form.dailyRate ? `₱ ${Number(form.dailyRate).toFixed(2)}` : "—" },

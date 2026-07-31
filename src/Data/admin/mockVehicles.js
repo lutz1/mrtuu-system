@@ -1,11 +1,11 @@
-// TODO: mock data — replace with real vehicle records (and real photos)
-// once the admin data layer exists.
+// TODO: mock data — replace with real vehicle records once the admin
+// data layer exists.
 //
 // NOTE: the reference design labeled every vehicle's type as "SUV"
 // regardless of actual body style (including the Swift and Vios/Corolla,
-// which aren't SUVs). Since this page has a real "All Types" filter,
-// replicating that would make the filter non-functional — types below
-// are corrected to match each vehicle's real body style instead.
+// which aren't SUVs) in the original Vehicles screen. Since this page
+// has a real "All Types" filter, types below are corrected to match
+// each vehicle's real body style.
 
 export const VEHICLE_STATUSES = ["Available", "On Rent", "Under Maintenance", "Unavailable"];
 export const VEHICLE_TYPES = ["Sedan", "SUV", "Hatchback", "MPV", "Pickup", "Van"];
@@ -21,6 +21,9 @@ export const PREDEFINED_FEATURES = [
   "Apple CarPlay",
   "ABS",
 ];
+export const VEHICLE_COLORS = ["White", "Silver Metallic", "Black", "Gray", "Red", "Blue"];
+export const DRIVETRAIN_OPTIONS = ["FWD", "RWD", "AWD", "4WD"];
+export const DOOR_OPTIONS = [2, 4, 5];
 
 const BASE_VEHICLES = [
   { id: "V-001", name: "Toyota Fortuner", plate: "ABC 1234", transmission: "Automatic", seats: 5, type: "SUV", price: 1800, status: "Available" },
@@ -62,4 +65,41 @@ const EXTRA_VEHICLES = Array.from({ length: 40 }, (_, i) => {
   };
 });
 
-export const MOCK_VEHICLES = [...BASE_VEHICLES, ...EXTRA_VEHICLES];
+// NOTE: fills in fields that the original mock data never had (they
+// didn't exist until the Add/Edit wizard and View screen introduced
+// them) with plausible generated defaults, without ever overwriting a
+// value that's already set — so vehicles added/edited for real through
+// the app keep their real data untouched.
+const ENGINE_BY_TYPE = {
+  Sedan: "1.5L Dual VVT-i",
+  SUV: "2.0L Turbo",
+  Hatchback: "1.2L VVT-i",
+  MPV: "1.5L DOHC",
+  Pickup: "2.4L Turbo Diesel",
+  Van: "2.8L Turbo Diesel",
+};
+
+function decorateVehicle(v, index) {
+  return {
+    ...v,
+    brand: v.brand ?? (v.name ? v.name.split(" ")[0] : ""),
+    model: v.model ?? (v.name ? v.name.split(" ").slice(1).join(" ") : ""),
+    variant: v.variant ?? "Base",
+    fuelType: v.fuelType ?? "Gasoline",
+    engine: v.engine ?? ENGINE_BY_TYPE[v.type] ?? "1.5L",
+    fuelCapacity: v.fuelCapacity ?? 40 + (index % 4) * 5,
+    mileage: v.mileage ?? 12 + (index % 6),
+    drivetrain: v.drivetrain ?? (v.type === "SUV" || v.type === "Pickup" ? "4WD" : "FWD"),
+    doors: v.doors ?? (v.type === "Pickup" ? 2 : 4),
+    color: v.color ?? VEHICLE_COLORS[index % VEHICLE_COLORS.length],
+    yearModel: v.yearModel ?? 2022 + (index % 4),
+    addedOn: v.addedOn ?? "January 15, 2026",
+    updatedAt: v.updatedAt ?? null,
+    images: v.images ?? (v.imageUrl ? [v.imageUrl] : []),
+    features: v.features ?? [],
+    description: v.description ?? "",
+    archived: v.archived ?? false,
+  };
+}
+
+export const MOCK_VEHICLES = [...BASE_VEHICLES, ...EXTRA_VEHICLES].map(decorateVehicle);

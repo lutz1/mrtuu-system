@@ -1,7 +1,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(17, 17, 19, 0.45);
+  background: rgba(17, 17, 19, 0.5);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -9,139 +9,419 @@
   padding: 24px;
 }
 
-.card {
-  position: relative;
+.modal {
   width: 100%;
-  max-width: 440px;
+  max-width: 1080px;
   max-height: calc(100vh - 48px);
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  overflow-y: auto;
-}
-
-.closeBtn {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 2;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #374151;
-}
-
-.closeBtn:hover {
-  background: #ffffff;
-}
-
-.closeBtn svg {
-  width: 16px;
-  height: 16px;
-}
-
-.imageWrap {
-  position: relative;
-  background: #f0f1f3;
-}
-
-.placeholderSvg {
-  width: 100%;
-  height: 200px;
-  display: block;
-}
-
-.photo {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-}
-
-.body {
-  padding: 22px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  overflow: hidden;
 }
 
-.name {
-  font-size: 20px;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px 0;
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  font-size: 22px;
   font-weight: 800;
   margin: 0;
   color: #1a1a1a;
 }
 
-.plate {
-  font-size: 13.5px;
-  color: #9ca3af;
-  margin: 0 0 16px;
-}
-
-.specsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 18px;
-}
-
-.specLabel {
-  font-size: 11.5px;
-  color: #9ca3af;
-  margin: 0 0 3px;
-}
-
-.specValue {
-  font-size: 14.5px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.closeTextBtn {
-  flex: 1;
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
   background: #ffffff;
-  border: 1.5px solid #e5e7eb;
-  color: #374151;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-family: inherit;
+  color: #374151;
+  flex-shrink: 0;
 }
 
-.closeTextBtn:hover {
+.closeBtn:hover {
   border-color: #9ca3af;
 }
 
-.editBtn {
+.closeBtn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.body {
+  padding: 20px 28px 28px;
+  overflow-y: auto;
   flex: 1;
-  background: #e8a020;
-  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.cardTitle {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 18px;
+  color: #1a1a1a;
+}
+
+/* Top row: gallery+identity card / status card */
+
+.topGrid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.galleryMain {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0f1f3;
+  height: 300px;
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.placeholderSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.galleryNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+.galleryNav:hover {
+  background: #ffffff;
+}
+
+.galleryNav svg {
+  width: 18px;
+  height: 18px;
+}
+
+.galleryNavPrev {
+  left: 12px;
+}
+
+.galleryNavNext {
+  right: 12px;
+}
+
+.thumbRow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.thumb {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  aspect-ratio: 1;
+  background: #f0f1f3;
+}
+
+.thumbActive {
+  border-color: #1a1a1a;
+}
+
+.thumbImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.infoBlock {
+  margin-top: 20px;
+}
+
+.vehicleName {
+  font-size: 21px;
+  font-weight: 800;
+  margin: 0 0 10px;
+  color: #1a1a1a;
+}
+
+.statusBadge {
+  display: inline-block;
+  background: #f0f1f3;
+  color: #374151;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
+
+.infoList {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 14px;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+}
+
+.infoRow dt {
+  color: #9ca3af;
+}
+
+.infoRow dd {
+  margin: 0;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.statusCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.statusList {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.statusRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.statusRow:last-child {
+  border-bottom: none;
+}
+
+.statusLabel {
+  font-size: 13.5px;
+  color: #6b7280;
+}
+
+.statusValueBadge {
+  background: #f0f1f3;
+  color: #374151;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.statusValueBold {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.statusActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  color: #1a1a1a;
   padding: 12px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: 14px;
   cursor: pointer;
   font-family: inherit;
 }
 
 .editBtn:hover {
+  border-color: #9ca3af;
+}
+
+.editBtn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.archiveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #e8a020;
+  border: none;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.archiveBtn:hover {
   background: #d18f1c;
+}
+
+.archiveBtn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Bottom row: specs / features */
+
+.bottomGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.specsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+}
+
+.specRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 13.5px;
+}
+
+.specsColumn .specRow:last-child {
+  border-bottom: none;
+}
+
+.specLabel {
+  color: #9ca3af;
+}
+
+.specValue {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 20px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.featureIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.featureIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.emptyText {
+  font-size: 13.5px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.descriptionText {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .topGrid,
+  .bottomGrid {
+    grid-template-columns: 1fr;
+  }
+  .specsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .modal {
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+  }
+  .header,
+  .body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

@@ -3,7 +3,8 @@ import { MOCK_VEHICLES } from "../data/admin/mockVehicles";
 
 // TODO: TEMPORARY. Holds vehicles in memory only — resets on page refresh.
 // Replace with real Firestore reads/writes once the admin data layer
-// exists; the addVehicle/updateVehicle shape here should carry over.
+// exists; the addVehicle/updateVehicle/archiveVehicle shape here should
+// carry over.
 const AdminVehiclesContext = createContext(null);
 
 function generateId(vehicles) {
@@ -16,21 +17,30 @@ function generateId(vehicles) {
 }
 
 export function AdminVehiclesProvider({ children }) {
-  const [vehicles, setVehicles] = useState(MOCK_VEHICLES);
+  const [allVehicles, setAllVehicles] = useState(MOCK_VEHICLES);
 
   const addVehicle = (vehicleData) => {
-    const newVehicle = { ...vehicleData, id: generateId(vehicles) };
-    setVehicles((prev) => [newVehicle, ...prev]);
+    const newVehicle = { ...vehicleData, id: generateId(allVehicles) };
+    setAllVehicles((prev) => [newVehicle, ...prev]);
     return newVehicle;
   };
 
   const updateVehicle = (id, vehicleData) => {
-    setVehicles((prev) => prev.map((v) => (v.id === id ? { ...v, ...vehicleData } : v)));
+    setAllVehicles((prev) => prev.map((v) => (v.id === id ? { ...v, ...vehicleData } : v)));
   };
 
-  const getVehicleById = (id) => vehicles.find((v) => v.id === id);
+  // TODO: soft-delete only — there's no "view archived vehicles" screen
+  // yet, so archived vehicles simply disappear from the active list.
+  const archiveVehicle = (id) => {
+    setAllVehicles((prev) => prev.map((v) => (v.id === id ? { ...v, archived: true } : v)));
+  };
 
-  const value = { vehicles, addVehicle, updateVehicle, getVehicleById };
+  const getVehicleById = (id) => allVehicles.find((v) => v.id === id);
+
+  // Consumers see only non-archived vehicles by default.
+  const vehicles = allVehicles.filter((v) => !v.archived);
+
+  const value = { vehicles, addVehicle, updateVehicle, archiveVehicle, getVehicleById };
 
   return <AdminVehiclesContext.Provider value={value}>{children}</AdminVehiclesContext.Provider>;
 }
