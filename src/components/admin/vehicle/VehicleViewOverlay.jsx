@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import VehicleStatusBadge from "./VehicleStatusBadge";
 import styles from "./VehicleViewOverlay.module.css";
 
 function VehiclePlaceholderImage() {
   return (
-    <svg viewBox="0 0 200 110" className={styles.placeholderSvg} xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 200 110"
+      className={styles.placeholderSvg}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <rect x="0" y="0" width="200" height="110" fill="#f0f1f3" />
       <path
         d="M30 75h140M40 75l8-22a8 8 0 0 1 7-5h30a8 8 0 0 1 7 5l8 22M55 75v-8h90v8"
@@ -31,19 +35,38 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
 
   if (!vehicle) return null;
 
+  // Firestore vehicles carry `images: string[]`; older/mock records may
+  // still only have a single `imageUrl` — fall back to that.
+  const thumbnail = vehicle.images?.[0] || vehicle.imageUrl;
+  const vehicleType = vehicle.carType || vehicle.type;
+
   return (
     <div className={styles.backdrop} onClick={onClose}>
       <div className={styles.card} onClick={(e) => e.stopPropagation()}>
-        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <button
+          type="button"
+          className={styles.closeBtn}
+          onClick={onClose}
+          aria-label="Close"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 6l12 12M18 6L6 18"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
 
         <div className={styles.imageWrap}>
           <VehicleStatusBadge status={vehicle.status} />
-          {vehicle.imageUrl ? (
-            <img src={vehicle.imageUrl} alt={vehicle.name} className={styles.photo} />
+          {thumbnail ? (
+            <img src={thumbnail} alt={vehicle.name} className={styles.photo} />
           ) : (
             <VehiclePlaceholderImage />
           )}
@@ -64,19 +87,29 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
             </div>
             <div>
               <p className={styles.specLabel}>Type</p>
-              <p className={styles.specValue}>{vehicle.type}</p>
+              <p className={styles.specValue}>{vehicleType}</p>
             </div>
             <div>
               <p className={styles.specLabel}>Price per Day</p>
-              <p className={styles.specValue}>₱{vehicle.price.toLocaleString()}</p>
+              <p className={styles.specValue}>
+                ₱{vehicle.price.toLocaleString()}
+              </p>
             </div>
           </div>
 
           <div className={styles.actions}>
-            <button type="button" className={styles.closeTextBtn} onClick={onClose}>
+            <button
+              type="button"
+              className={styles.closeTextBtn}
+              onClick={onClose}
+            >
               Close
             </button>
-            <button type="button" className={styles.editBtn} onClick={() => onEdit(vehicle)}>
+            <button
+              type="button"
+              className={styles.editBtn}
+              onClick={() => onEdit(vehicle)}
+            >
               Edit Vehicle
             </button>
           </div>

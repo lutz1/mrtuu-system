@@ -9,6 +9,8 @@ import ReviewStep from "./ReviewStep";
 import fields from "./FormFields.module.css";
 import styles from "./AddVehicleModal.module.css";
 
+const REQUIRED_IMAGE_COUNT = 5;
+
 const EMPTY_FORM = {
   carName: "",
   plate: "",
@@ -18,6 +20,10 @@ const EMPTY_FORM = {
   transmission: "Automatic",
   seats: "",
   fuelType: "",
+  // NOTE: mileage isn't part of the original mock form, but the Firestore
+  // vehicle doc requires it (see AdminVehiclesContext). Defaulting to
+  // "Unlimited" to match the existing catalog data shape (data/cars.js).
+  mileage: "Unlimited",
   features: [],
   description: "",
   dailyRate: "",
@@ -32,10 +38,11 @@ function formFromVehicle(vehicle) {
     plate: vehicle.plate ?? "",
     brand: vehicle.brand ?? "",
     model: vehicle.model ?? "",
-    type: vehicle.type ?? "",
+    type: vehicle.carType ?? vehicle.type ?? "",
     transmission: vehicle.transmission ?? "Automatic",
     seats: vehicle.seats ?? "",
     fuelType: vehicle.fuelType ?? "",
+    mileage: vehicle.mileage ?? "Unlimited",
     features: vehicle.features ?? [],
     description: vehicle.description ?? "",
     dailyRate: vehicle.price ?? "",
@@ -43,14 +50,27 @@ function formFromVehicle(vehicle) {
   };
 }
 
+// Existing vehicles now store `images: string[]` (up to 5). Older mock data
+// (or anything not yet migrated) may still carry a single `imageUrl` —
+// fall back to that as slot 0 so editing still works either way.
 function photosFromVehicle(vehicle) {
   const photos = [...EMPTY_PHOTOS];
-  if (vehicle.imageUrl) {
-    // isNew: false — this URL may already be rendering elsewhere (the
-    // vehicle's card behind this modal), so it must never be revoked
-    // unless the admin actively replaces or removes it in this session.
-    photos[0] = { previewUrl: vehicle.imageUrl, isNew: false };
-  }
+  const existingImages =
+    vehicle.images && vehicle.images.length > 0
+      ? vehicle.images
+      : vehicle.imageUrl
+      ? [vehicle.imageUrl]
+      : [];
+
+  existingImages.slice(0, REQUIRED_IMAGE_COUNT).forEach((url, i) => {
+    if (url) {
+      // isNew: false — this URL is already live in Storage/rendering
+      // elsewhere, so it must never be revoked unless the admin actively
+      // replaces or removes it in this session.
+      photos[i] = { previewUrl: url, isNew: false, file: null };
+    }
+  });
+
   return photos;
 }
 
@@ -66,6 +86,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     isEditMode ? photosFromVehicle(vehicle) : EMPTY_PHOTOS
   );
   const [error, setError] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
   const photosRef = useRef(photos);
 
   useEffect(() => {
@@ -112,7 +133,11 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       // (session-local) photo — an existing vehicle photo being swapped
       // out is left alone, same reasoning as the unmount cleanup above.
       if (next[index]?.isNew) URL.revokeObjectURL(next[index].previewUrl);
-      next[index] = { previewUrl: URL.createObjectURL(file), isNew: true };
+      next[index] = {
+        previewUrl: URL.createObjectURL(file),
+        isNew: true,
+        file,
+      };
       return next;
     });
   };
@@ -136,6 +161,9 @@ export default function AddVehicleModal({ vehicle, onClose }) {
         !form.type
       ) {
         return "Car name, license plate, brand, model, and type are required.";
+      }
+      if (photos.filter(Boolean).length < REQUIRED_IMAGE_COUNT) {
+        return `All ${REQUIRED_IMAGE_COUNT} vehicle photos are required.`;
       }
     }
     if (step === 2) {
@@ -166,39 +194,52 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     setStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const validationError = validateStep();
     if (validationError) {
       setError(validationError);
       return;
     }
 
-    const firstPhoto = photos.find(Boolean);
+    // Each slot resolves to either the actual File (newly picked this
+    // session) or the existing URL string (unchanged) — this is exactly
+    // the shape AdminVehiclesContext.addVehicle/updateVehicle expect.
+    const images = photos.map((p) =>
+      p ? (p.isNew ? p.file : p.previewUrl) : null
+    );
 
     const vehicleData = {
       plate: form.plate.trim(),
       name: form.carName.trim(),
       brand: form.brand,
       model: form.model.trim(),
-      type: form.type,
+      carType: form.type,
       transmission: form.transmission,
       seats: Number(form.seats),
       fuelType: form.fuelType,
+      mileage: form.mileage || "Unlimited",
       features: form.features,
       description: form.description,
       price: Number(form.dailyRate),
       rate12h: form.rate12h ? Number(form.rate12h) : null,
       status: isEditMode ? vehicle.status : "Available",
-      imageUrl: firstPhoto ? firstPhoto.previewUrl : null,
     };
 
-    if (isEditMode) {
-      updateVehicle(vehicle.id, vehicleData);
-    } else {
-      addVehicle(vehicleData);
+    setError("");
+    setIsSaving(true);
+    try {
+      if (isEditMode) {
+        await updateVehicle(vehicle.id, vehicleData, images);
+      } else {
+        await addVehicle(vehicleData, images);
+      }
+      onClose();
+    } catch (err) {
+      console.error("Failed to save vehicle:", err);
+      setError(err.message || "Failed to save vehicle. Please try again.");
+    } finally {
+      setIsSaving(false);
     }
-
-    onClose();
   };
 
   const photoCount = photos.filter(Boolean).length;
@@ -267,13 +308,16 @@ export default function AddVehicleModal({ vehicle, onClose }) {
         </div>
 
         <div className={styles.footer}>
-          <span className={styles.draftText}>Draft saved automatically</span>
+          <span className={styles.draftText}>
+            {isSaving ? "Saving to server…" : "Draft saved automatically"}
+          </span>
           <div className={styles.footerActions}>
             {step > 1 && (
               <button
                 type="button"
                 className={styles.backBtn}
                 onClick={handleBack}
+                disabled={isSaving}
               >
                 Back
               </button>
@@ -283,6 +327,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
                 type="button"
                 className={styles.nextBtn}
                 onClick={handleNext}
+                disabled={isSaving}
               >
                 Next
               </button>
@@ -291,8 +336,13 @@ export default function AddVehicleModal({ vehicle, onClose }) {
                 type="button"
                 className={styles.nextBtn}
                 onClick={handleSave}
+                disabled={isSaving}
               >
-                {isEditMode ? "Save Changes" : "Save Vehicle"}
+                {isSaving
+                  ? "Saving..."
+                  : isEditMode
+                  ? "Save Changes"
+                  : "Save Vehicle"}
               </button>
             )}
           </div>

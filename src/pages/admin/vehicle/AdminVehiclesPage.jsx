@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import AdminLayout from "../dashboard/AdminLayout";
 import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
 import VehicleFilterBar from "../../../components/admin/vehicle/VehicleFilterBar";
@@ -14,10 +14,36 @@ const PAGE_SIZE = 8;
 function TotalIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 15l1.5-5A2 2 0 0 1 7.4 8.5h9.2a2 2 0 0 1 1.9 1.5L20 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      <rect x="3" y="15" width="18" height="4" rx="1.3" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="7.5" cy="19.5" r="1.4" stroke="currentColor" strokeWidth="1.4" />
-      <circle cx="16.5" cy="19.5" r="1.4" stroke="currentColor" strokeWidth="1.4" />
+      <path
+        d="M4 15l1.5-5A2 2 0 0 1 7.4 8.5h9.2a2 2 0 0 1 1.9 1.5L20 15"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect
+        x="3"
+        y="15"
+        width="18"
+        height="4"
+        rx="1.3"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <circle
+        cx="7.5"
+        cy="19.5"
+        r="1.4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <circle
+        cx="16.5"
+        cy="19.5"
+        r="1.4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
     </svg>
   );
 }
@@ -25,8 +51,22 @@ function TotalIcon() {
 function AvailableIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="4.5" width="16" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M8 9.5l2.3 2.3L16 6.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <rect
+        x="4"
+        y="4.5"
+        width="16"
+        height="16"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M8 9.5l2.3 2.3L16 6.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -35,7 +75,13 @@ function OnRentIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M12 7.5V12l3 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12 7.5V12l3 2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -57,13 +103,18 @@ function UnavailableIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M6.5 6.5l11 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M6.5 6.5l11 11"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 export default function AdminVehiclesPage() {
-  const { vehicles } = useAdminVehicles();
+  const { vehicles, loading } = useAdminVehicles();
 
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("All Status");
@@ -77,22 +128,49 @@ export default function AdminVehiclesPage() {
   const filteredVehicles = useMemo(() => {
     const q = query.trim().toLowerCase();
     return vehicles.filter((v) => {
-      const matchesQuery = q === "" || v.name.toLowerCase().includes(q) || v.plate.toLowerCase().includes(q);
+      // Firestore vehicles store the body style under `carType`; older/mock
+      // records may still only have `type` — check both so the filter
+      // (and the stat cards below) keep matching either shape.
+      const vType = v.carType || v.type;
+      const matchesQuery =
+        q === "" ||
+        v.name.toLowerCase().includes(q) ||
+        (v.plate || "").toLowerCase().includes(q);
       const matchesStatus = status === "All Status" || v.status === status;
-      const matchesType = type === "All Types" || v.type === type;
-      const matchesTransmission = transmission === "Transmission" || v.transmission === transmission;
-      return matchesQuery && matchesStatus && matchesType && matchesTransmission;
+      const matchesType = type === "All Types" || vType === type;
+      const matchesTransmission =
+        transmission === "Transmission" || v.transmission === transmission;
+      return (
+        matchesQuery && matchesStatus && matchesType && matchesTransmission
+      );
     });
   }, [vehicles, query, status, type, transmission]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / PAGE_SIZE));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredVehicles.length / PAGE_SIZE)
+  );
   const currentPage = Math.min(page, totalPages);
-  const pageItems = filteredVehicles.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+  const pageItems = filteredVehicles.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
   const makeFilterHandler = (setter) => (value) => {
     setter(value);
     setPage(1);
   };
+
+  const availableCount = vehicles.filter(
+    (v) => v.status === "Available"
+  ).length;
+  const onRentCount = vehicles.filter((v) => v.status === "On Rent").length;
+  const maintenanceCount = vehicles.filter(
+    (v) => v.status === "Under Maintenance"
+  ).length;
+  const unavailableCount = vehicles.filter(
+    (v) => v.status === "Unavailable"
+  ).length;
 
   return (
     <AdminLayout>
@@ -102,11 +180,31 @@ export default function AdminVehiclesPage() {
       </div>
 
       <div className={styles.statsGrid}>
-        <VehicleStatCard icon={<TotalIcon />} label="Total Vehicles" value="48" />
-        <VehicleStatCard icon={<AvailableIcon />} label="Available" value="25" />
-        <VehicleStatCard icon={<OnRentIcon />} label="On Rent" value="8" />
-        <VehicleStatCard icon={<MaintenanceIcon />} label="Under Maintenance" value="3" />
-        <VehicleStatCard icon={<UnavailableIcon />} label="Unavailable" value="0" />
+        <VehicleStatCard
+          icon={<TotalIcon />}
+          label="Total Vehicles"
+          value={vehicles.length}
+        />
+        <VehicleStatCard
+          icon={<AvailableIcon />}
+          label="Available"
+          value={availableCount}
+        />
+        <VehicleStatCard
+          icon={<OnRentIcon />}
+          label="On Rent"
+          value={onRentCount}
+        />
+        <VehicleStatCard
+          icon={<MaintenanceIcon />}
+          label="Under Maintenance"
+          value={maintenanceCount}
+        />
+        <VehicleStatCard
+          icon={<UnavailableIcon />}
+          label="Unavailable"
+          value={unavailableCount}
+        />
       </div>
 
       <div className={styles.filterWrap}>
@@ -123,8 +221,12 @@ export default function AdminVehiclesPage() {
         />
       </div>
 
-      {pageItems.length === 0 ? (
-        <div className={styles.empty}>No vehicles match your search or filters.</div>
+      {loading ? (
+        <div className={styles.empty}>Loading vehicles…</div>
+      ) : pageItems.length === 0 ? (
+        <div className={styles.empty}>
+          No vehicles match your search or filters.
+        </div>
       ) : (
         <div className={styles.grid}>
           {pageItems.map((vehicle) => (
@@ -158,10 +260,15 @@ export default function AdminVehiclesPage() {
         />
       )}
 
-      {isAddModalOpen && <AddVehicleModal onClose={() => setIsAddModalOpen(false)} />}
+      {isAddModalOpen && (
+        <AddVehicleModal onClose={() => setIsAddModalOpen(false)} />
+      )}
 
       {editingVehicle && (
-        <AddVehicleModal vehicle={editingVehicle} onClose={() => setEditingVehicle(null)} />
+        <AddVehicleModal
+          vehicle={editingVehicle}
+          onClose={() => setEditingVehicle(null)}
+        />
       )}
     </AdminLayout>
   );

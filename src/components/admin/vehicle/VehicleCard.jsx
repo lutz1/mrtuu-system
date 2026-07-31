@@ -1,11 +1,15 @@
-import React from "react";
 import VehicleStatusBadge from "./VehicleStatusBadge";
 import styles from "./VehicleCard.module.css";
 
 function TransmissionIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3v18M7 8h10M7 16h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M12 3v18M7 8h10M7 16h10"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
       <circle cx="12" cy="8" r="1.4" fill="currentColor" />
       <circle cx="12" cy="16" r="1.4" fill="currentColor" />
     </svg>
@@ -16,7 +20,12 @@ function SeatsIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="7" r="3" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M5.5 19c1.2-4 3.4-6 6.5-6s5.3 2 6.5 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M5.5 19c1.2-4 3.4-6 6.5-6s5.3 2 6.5 6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -31,14 +40,26 @@ function TypeIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <rect x="3" y="15" width="18" height="4" rx="1.3" stroke="currentColor" strokeWidth="1.6" />
+      <rect
+        x="3"
+        y="15"
+        width="18"
+        height="4"
+        rx="1.3"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
     </svg>
   );
 }
 
 function VehiclePlaceholderImage() {
   return (
-    <svg viewBox="0 0 200 110" className={styles.placeholderSvg} xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 200 110"
+      className={styles.placeholderSvg}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <rect x="0" y="0" width="200" height="110" fill="#f0f1f3" />
       <path
         d="M30 75h140M40 75l8-22a8 8 0 0 1 7-5h30a8 8 0 0 1 7 5l8 22M55 75v-8h90v8"
@@ -55,12 +76,17 @@ function VehiclePlaceholderImage() {
 }
 
 export default function VehicleCard({ vehicle, onView, onEdit }) {
+  // Firestore vehicles carry `images: string[]`; older/mock records may
+  // still only have a single `imageUrl` — fall back to that.
+  const thumbnail = vehicle.images?.[0] || vehicle.imageUrl;
+  const vehicleType = vehicle.carType || vehicle.type;
+
   return (
     <div className={styles.card}>
       <div className={styles.imageWrap}>
         <VehicleStatusBadge status={vehicle.status} />
-        {vehicle.imageUrl ? (
-          <img src={vehicle.imageUrl} alt={vehicle.name} className={styles.photo} />
+        {thumbnail ? (
+          <img src={thumbnail} alt={vehicle.name} className={styles.photo} />
         ) : (
           <VehiclePlaceholderImage />
         )}
@@ -81,19 +107,28 @@ export default function VehicleCard({ vehicle, onView, onEdit }) {
           </span>
           <span className={styles.specItem}>
             <TypeIcon />
-            {vehicle.type}
+            {vehicleType}
           </span>
         </div>
 
         <p className={styles.price}>
-          ₱{vehicle.price.toLocaleString()} <span className={styles.priceUnit}>/ day</span>
+          ₱{vehicle.price.toLocaleString()}{" "}
+          <span className={styles.priceUnit}>/ day</span>
         </p>
 
         <div className={styles.actions}>
-          <button type="button" className={styles.viewBtn} onClick={() => onView(vehicle)}>
+          <button
+            type="button"
+            className={styles.viewBtn}
+            onClick={() => onView(vehicle)}
+          >
             View
           </button>
-          <button type="button" className={styles.editBtn} onClick={() => onEdit(vehicle)}>
+          <button
+            type="button"
+            className={styles.editBtn}
+            onClick={() => onEdit(vehicle)}
+          >
             Edit
           </button>
         </div>
