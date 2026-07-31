@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useAuth } from "./AuthContext";
@@ -11,7 +11,7 @@ export function StaffProvider({ children }) {
   const [staffLoading, setStaffLoading] = useState(true);
 
   useEffect(() => {
-    if (authLoading) return; // wait for customer auth to resolve first
+    if (authLoading) return;
     setStaffLoading(true);
     if (!user) {
       queueMicrotask(() => {
@@ -24,8 +24,6 @@ export function StaffProvider({ children }) {
     const unsubscribe = onSnapshot(
       doc(db, "lykas_staff", user.uid),
       (snap) => {
-        // Real-time: a deactivation or role change elsewhere takes effect
-        // within seconds for this already-logged-in session.
         if (snap.exists() && snap.data().active === true) {
           setStaffProfile({ uid: user.uid, ...snap.data() });
         } else {
@@ -44,10 +42,11 @@ export function StaffProvider({ children }) {
     return unsubscribe;
   }, [user, authLoading]);
 
-  const hasPermission = (permission) =>
-    !!staffProfile?.permissions?.includes(permission);
-
-  const value = { staffProfile, staffLoading, hasPermission };
+  const value = useMemo(() => {
+    const hasPermission = (permission) =>
+      !!staffProfile?.permissions?.includes(permission);
+    return { staffProfile, staffLoading, hasPermission };
+  }, [staffProfile, staffLoading]);
 
   return (
     <StaffContext.Provider value={value}>{children}</StaffContext.Provider>

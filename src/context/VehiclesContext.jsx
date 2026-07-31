@@ -1,9 +1,15 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
 const VEHICLES_COLLECTION = "lykas_vehicles";
-
 const VehiclesContext = createContext(null);
 
 export function VehiclesProvider({ children }) {
@@ -29,11 +35,18 @@ export function VehiclesProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  const getVehicleById = (id) =>
-    vehicles.find((v) => String(v.id) === String(id));
+  const getVehicleById = useCallback(
+    (id) => vehicles.find((v) => String(v.id) === String(id)),
+    [vehicles]
+  );
+
+  const value = useMemo(
+    () => ({ vehicles, loading, getVehicleById }),
+    [vehicles, loading, getVehicleById]
+  );
 
   return (
-    <VehiclesContext.Provider value={{ vehicles, loading, getVehicleById }}>
+    <VehiclesContext.Provider value={value}>
       {children}
     </VehiclesContext.Provider>
   );

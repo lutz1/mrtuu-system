@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   collection,
   doc,
@@ -27,6 +27,26 @@ const DEFAULT_PERMISSIONS = {
   checklist_admin: ["clearance_review"],
 };
 
+// Module-scope — none of these read component/hook state.
+async function updateStaff(uid, { role, permissions }) {
+  await updateDoc(doc(db, "lykas_staff", uid), {
+    role,
+    permissions: permissions ?? DEFAULT_PERMISSIONS[role] ?? [],
+    updatedAt: serverTimestamp(),
+  });
+}
+
+async function toggleActive(uid, active) {
+  await updateDoc(doc(db, "lykas_staff", uid), {
+    active,
+    updatedAt: serverTimestamp(),
+  });
+}
+
+async function deleteStaff(uid) {
+  await deleteDoc(doc(db, "lykas_staff", uid));
+}
+
 export function useStaffDirectory() {
   const { staffProfile } = useStaff();
   const [staffList, setStaffList] = useState([]);
@@ -51,8 +71,7 @@ export function useStaffDirectory() {
     return unsubscribe;
   }, []);
 
-  // Looks up user_lookup/{email} to resolve a uid, then creates the
-  // lykas_staff doc. Throws if the person hasn't signed up as a customer yet.
+  // Stays in the hook — needs staffProfile.uid for createdBy.
   const addStaffByEmail = async (email, role, permissions) => {
     const normalizedEmail = email.trim().toLowerCase();
     const lookupSnap = await getDoc(doc(db, "user_lookup", normalizedEmail));
@@ -80,32 +99,16 @@ export function useStaffDirectory() {
     });
   };
 
-  const updateStaff = async (uid, { role, permissions }) => {
-    await updateDoc(doc(db, "lykas_staff", uid), {
-      role,
-      permissions: permissions ?? DEFAULT_PERMISSIONS[role] ?? [],
-      updatedAt: serverTimestamp(),
-    });
-  };
-
-  const toggleActive = async (uid, active) => {
-    await updateDoc(doc(db, "lykas_staff", uid), {
-      active,
-      updatedAt: serverTimestamp(),
-    });
-  };
-
-  const deleteStaff = async (uid) => {
-    await deleteDoc(doc(db, "lykas_staff", uid));
-  };
-
-  return {
-    staffList,
-    loading,
-    addStaffByEmail,
-    updateStaff,
-    toggleActive,
-    deleteStaff,
-    DEFAULT_PERMISSIONS,
-  };
+  return useMemo(
+    () => ({
+      staffList,
+      loading,
+      addStaffByEmail,
+      updateStaff,
+      toggleActive,
+      deleteStaff,
+      DEFAULT_PERMISSIONS,
+    }),
+    [staffList, loading, staffProfile, addStaffByEmail]
+  );
 }

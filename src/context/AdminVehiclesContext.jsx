@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import {
   collection,
   doc,
@@ -17,17 +24,11 @@ import {
 } from "firebase/storage";
 import { db, storage } from "../lib/firebase";
 
-// Firestore collection per LYKAS_AJEX_SYSTEM_ARCHITECTURE.md — lykas_-prefixed,
-// Lyka's-only. Firestore security rules are intentionally open for now per
-// the current placeholder-auth state of the app (see admin-auth-design.md);
-// revisit once StaffContext + permission-gated writes exist.
 const VEHICLES_COLLECTION = "lykas_vehicles";
 const REQUIRED_IMAGE_COUNT = 5;
 
 const AdminVehiclesContext = createContext(null);
 
-// Uploads a File to Storage under vehicle-images/{vehicleId}/{slotIndex}-{filename}
-// and returns its public download URL.
 async function uploadVehicleImage(vehicleId, file, slotIndex) {
   const storageRef = ref(
     storage,
@@ -37,20 +38,16 @@ async function uploadVehicleImage(vehicleId, file, slotIndex) {
   return getDownloadURL(storageRef);
 }
 
-// images: array of length 5, each entry either a File (new upload) or a
-// string (existing URL to keep as-is). Returns array of 5 URLs.
 async function resolveImageUrls(vehicleId, images) {
-  const urls = await Promise.all(
+  return Promise.all(
     images.map((entry, i) =>
       entry instanceof File
         ? uploadVehicleImage(vehicleId, entry, i)
         : Promise.resolve(entry)
     )
   );
-  return urls;
 }
 
-// Best-effort cleanup — failures here shouldn't block the UI flow.
 async function tryDeleteImageUrl(url) {
   try {
     if (!url) return;
@@ -61,6 +58,31 @@ async function tryDeleteImageUrl(url) {
       err
     );
   }
+}
+
+// Module-scope — doesn't touch component state.
+async function addVehicle(vehicleData, images) {
+  if (
+    !images ||
+    images.length !== REQUIRED_IMAGE_COUNT ||
+    images.some((f) => !f)
+  ) {
+    throw new Error(`Exactly ${REQUIRED_IMAGE_COUNT} images are required.`);
+  }
+
+  const docRef = await addDoc(collection(db, VEHICLES_COLLECTION), {
+    ...vehicleData,
+    images: [],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+
+  const imageUrls = await resolveImageUrls(docRef.id, images);
+  await updateDoc(doc(db, VEHICLES_COLLECTION, docRef.id), {
+    images: imageUrls,
+  });
+
+  return { id: docRef.id, ...vehicleData, images: imageUrls };
 }
 
 export function AdminVehiclesProvider({ children }) {
@@ -88,71 +110,51 @@ export function AdminVehiclesProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  // vehicleData: { name, brand, model, transmission, carType, seats, fuelType,
-  //   mileage, price, plate, status, description, features: string[] }
-  // images: array of exactly 5 Files
-  const addVehicle = async (vehicleData, images) => {
-    if (
-      !images ||
-      images.length !== REQUIRED_IMAGE_COUNT ||
-      images.some((f) => !f)
-    ) {
-      throw new Error(`Exactly ${REQUIRED_IMAGE_COUNT} images are required.`);
-    }
+  // Depends on `vehicles`, so it stays inside the component — wrapped in
+  // useCallback so it's still a stable reference when vehicles hasn't changed.
+  const updateVehicle = useCallback(
+    async (id, vehicleData, images) => {
+      const existing = vehicles.find((v) => v.id === id);
+      const previousImages = existing?.images ?? [];
 
-    // Create the doc first (with empty images) so we have an ID to namespace
-    // the Storage upload path under, then backfill the real image URLs.
-    const docRef = await addDoc(collection(db, VEHICLES_COLLECTION), {
-      ...vehicleData,
-      images: [],
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
-
-    const imageUrls = await resolveImageUrls(docRef.id, images);
-    await updateDoc(doc(db, VEHICLES_COLLECTION, docRef.id), {
-      images: imageUrls,
-    });
-
-    return { id: docRef.id, ...vehicleData, images: imageUrls };
-  };
-
-  // images: array of length 5, each a File (new) or existing URL string (unchanged)
-  const updateVehicle = async (id, vehicleData, images) => {
-    const existing = vehicles.find((v) => v.id === id);
-    const previousImages = existing?.images ?? [];
-
-    let imageUrls = previousImages;
-    if (images) {
-      if (images.length !== REQUIRED_IMAGE_COUNT || images.some((f) => !f)) {
-        throw new Error(`Exactly ${REQUIRED_IMAGE_COUNT} images are required.`);
+      let imageUrls = previousImages;
+      if (images) {
+        if (images.length !== REQUIRED_IMAGE_COUNT || images.some((f) => !f)) {
+          throw new Error(
+            `Exactly ${REQUIRED_IMAGE_COUNT} images are required.`
+          );
+        }
+        imageUrls = await resolveImageUrls(id, images);
+        previousImages.forEach((oldUrl, i) => {
+          if (oldUrl && oldUrl !== imageUrls[i]) tryDeleteImageUrl(oldUrl);
+        });
       }
-      imageUrls = await resolveImageUrls(id, images);
 
-      // Clean up any slot whose URL actually changed.
-      previousImages.forEach((oldUrl, i) => {
-        if (oldUrl && oldUrl !== imageUrls[i]) tryDeleteImageUrl(oldUrl);
+      await updateDoc(doc(db, VEHICLES_COLLECTION, id), {
+        ...vehicleData,
+        images: imageUrls,
+        updatedAt: serverTimestamp(),
       });
-    }
+    },
+    [vehicles]
+  );
 
-    await updateDoc(doc(db, VEHICLES_COLLECTION, id), {
-      ...vehicleData,
-      images: imageUrls,
-      updatedAt: serverTimestamp(),
-    });
-  };
+  const getVehicleById = useCallback(
+    (id) => vehicles.find((v) => String(v.id) === String(id)),
+    [vehicles]
+  );
 
-  const getVehicleById = (id) =>
-    vehicles.find((v) => String(v.id) === String(id));
-
-  const value = {
-    vehicles,
-    loading,
-    error,
-    addVehicle,
-    updateVehicle,
-    getVehicleById,
-  };
+  const value = useMemo(
+    () => ({
+      vehicles,
+      loading,
+      error,
+      addVehicle,
+      updateVehicle,
+      getVehicleById,
+    }),
+    [vehicles, loading, error, updateVehicle, getVehicleById]
+  );
 
   return (
     <AdminVehiclesContext.Provider value={value}>
