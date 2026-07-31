@@ -1,5 +1,5 @@
 import React from "react";
-import { SEAT_OPTIONS, FUEL_TYPES } from "../../../../data/admin/mockVehicles";
+import { SEAT_OPTIONS, FUEL_TYPES, DRIVETRAIN_OPTIONS, DOOR_OPTIONS } from "../../../../data/admin/mockVehicles";
 import fields from "./FormFields.module.css";
 import styles from "./SpecificationsStep.module.css";
 
@@ -54,6 +54,101 @@ export default function SpecificationsStep({ form, updateField }) {
             <option value="">Select fuel type</option>
             {FUEL_TYPES.map((f) => (
               <option key={f}>{f}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className={fields.row}>
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="variant">
+            Variant
+          </label>
+          <input
+            id="variant"
+            type="text"
+            className={fields.input}
+            placeholder="e.g. 1.5E CVT"
+            value={form.variant}
+            onChange={(e) => updateField("variant", e.target.value)}
+          />
+        </div>
+
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="engine">
+            Engine
+          </label>
+          <input
+            id="engine"
+            type="text"
+            className={fields.input}
+            placeholder="e.g. 1.5L Dual VVT-i"
+            value={form.engine}
+            onChange={(e) => updateField("engine", e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className={fields.row}>
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="fuelCapacity">
+            Fuel Capacity (Liters)
+          </label>
+          <input
+            id="fuelCapacity"
+            type="number"
+            min="0"
+            className={fields.input}
+            placeholder="e.g. 42"
+            value={form.fuelCapacity}
+            onChange={(e) => updateField("fuelCapacity", e.target.value)}
+          />
+        </div>
+
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="mileage">
+            Mileage (km/l)
+          </label>
+          <input
+            id="mileage"
+            type="number"
+            min="0"
+            className={fields.input}
+            placeholder="e.g. 16"
+            value={form.mileage}
+            onChange={(e) => updateField("mileage", e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className={fields.row}>
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="doors">
+            Doors
+          </label>
+          <select id="doors" className={fields.select} value={form.doors} onChange={(e) => updateField("doors", e.target.value)}>
+            <option value="">Select doors</option>
+            {DOOR_OPTIONS.map((n) => (
+              <option key={n} value={n}>
+                {n} Doors
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="drivetrain">
+            Drivetrain
+          </label>
+          <select
+            id="drivetrain"
+            className={fields.select}
+            value={form.drivetrain}
+            onChange={(e) => updateField("drivetrain", e.target.value)}
+          >
+            <option value="">Select drivetrain</option>
+            {DRIVETRAIN_OPTIONS.map((d) => (
+              <option key={d}>{d}</option>
             ))}
           </select>
         </div>

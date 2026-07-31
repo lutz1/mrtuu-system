@@ -17,13 +17,17 @@ const EMPTY_FORM = {
   brand: "",
   model: "",
   type: "",
+  yearModel: "",
+  color: "",
   transmission: "Automatic",
   seats: "",
   fuelType: "",
-  // NOTE: mileage isn't part of the original mock form, but the Firestore
-  // vehicle doc requires it (see AdminVehiclesContext). Defaulting to
-  // "Unlimited" to match the existing catalog data shape (data/cars.js).
-  mileage: "Unlimited",
+  variant: "",
+  engine: "",
+  fuelCapacity: "",
+  mileage: "",
+  doors: "",
+  drivetrain: "",
   features: [],
   description: "",
   dailyRate: "",
@@ -38,11 +42,18 @@ function formFromVehicle(vehicle) {
     plate: vehicle.plate ?? "",
     brand: vehicle.brand ?? "",
     model: vehicle.model ?? "",
-    type: vehicle.carType ?? vehicle.type ?? "",
+    type: vehicle.type ?? "",
+    yearModel: vehicle.yearModel ?? "",
+    color: vehicle.color ?? "",
     transmission: vehicle.transmission ?? "Automatic",
     seats: vehicle.seats ?? "",
     fuelType: vehicle.fuelType ?? "",
-    mileage: vehicle.mileage ?? "Unlimited",
+    variant: vehicle.variant ?? "",
+    engine: vehicle.engine ?? "",
+    fuelCapacity: vehicle.fuelCapacity ?? "",
+    mileage: vehicle.mileage ?? "",
+    doors: vehicle.doors ?? "",
+    drivetrain: vehicle.drivetrain ?? "",
     features: vehicle.features ?? [],
     description: vehicle.description ?? "",
     dailyRate: vehicle.price ?? "",
@@ -75,22 +86,14 @@ function formatTimestamp(date) {
 
 function photosFromVehicle(vehicle) {
   const photos = [...EMPTY_PHOTOS];
-  const existingImages =
-    vehicle.images && vehicle.images.length > 0
-      ? vehicle.images
-      : vehicle.imageUrl
-      ? [vehicle.imageUrl]
-      : [];
-
-  existingImages.slice(0, REQUIRED_IMAGE_COUNT).forEach((url, i) => {
-    if (url) {
-      // isNew: false — this URL is already live in Storage/rendering
-      // elsewhere, so it must never be revoked unless the admin actively
-      // replaces or removes it in this session.
-      photos[i] = { previewUrl: url, isNew: false, file: null };
-    }
+  const sourceImages = vehicle.images?.length ? vehicle.images : vehicle.imageUrl ? [vehicle.imageUrl] : [];
+  sourceImages.slice(0, 5).forEach((url, i) => {
+    // isNew: false — these URLs may already be rendering elsewhere (the
+    // vehicle's card, or the View overlay behind this modal), so they
+    // must never be revoked unless the admin actively replaces or
+    // removes them in this session.
+    photos[i] = { previewUrl: url, isNew: false };
   });
-
   return photos;
 }
 
@@ -152,9 +155,6 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     setError("");
     setPhotos((prev) => {
       const next = [...prev];
-      // Only revoke the slot being replaced if it was itself a new
-      // (session-local) photo — an existing vehicle photo being swapped
-      // out is left alone, same reasoning as the unmount cleanup above.
       if (next[index]?.isNew) URL.revokeObjectURL(next[index].previewUrl);
       next[index] = {
         previewUrl: URL.createObjectURL(file),
@@ -224,32 +224,35 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       return;
     }
 
-    setError("");
-    setIsSaving(true);
+    const photoUrls = photos.filter(Boolean).map((p) => p.previewUrl);
+    const now = new Date();
 
-    try {
-      // AdminVehiclesContext expects `images` as an array of 5 entries:
-      // a File for a newly-picked photo, or the existing URL string to keep.
-      const images = photos.map((p) =>
-        p ? (p.isNew ? p.file : p.previewUrl) : null
-      );
-
-      const vehicleData = {
-        plate: form.plate.trim(),
-        name: form.carName.trim(),
-        brand: form.brand,
-        model: form.model.trim(),
-        carType: form.type,
-        transmission: form.transmission,
-        seats: Number(form.seats),
-        fuelType: form.fuelType,
-        mileage: form.mileage || "Unlimited",
-        features: form.features,
-        description: form.description,
-        price: Number(form.dailyRate),
-        rate12h: form.rate12h ? Number(form.rate12h) : null,
-        status: isEditMode ? vehicle.status : "Available",
-      };
+    const vehicleData = {
+      plate: form.plate.trim(),
+      name: form.carName.trim(),
+      brand: form.brand,
+      model: form.model.trim(),
+      type: form.type,
+      yearModel: form.yearModel ? Number(form.yearModel) : null,
+      color: form.color,
+      transmission: form.transmission,
+      seats: Number(form.seats),
+      fuelType: form.fuelType,
+      variant: form.variant,
+      engine: form.engine,
+      fuelCapacity: form.fuelCapacity ? Number(form.fuelCapacity) : null,
+      mileage: form.mileage ? Number(form.mileage) : null,
+      doors: form.doors ? Number(form.doors) : null,
+      drivetrain: form.drivetrain,
+      features: form.features,
+      description: form.description,
+      price: Number(form.dailyRate),
+      rate12h: form.rate12h ? Number(form.rate12h) : null,
+      status: isEditMode ? vehicle.status : "Available",
+      imageUrl: photoUrls[0] ?? null,
+      images: photoUrls,
+      updatedAt: now,
+    };
 
       if (isEditMode) {
         await updateVehicle(vehicle.id, vehicleData, images);
