@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.png";
 import headerImage from "../../assets/header.png";
 import { doc, getDoc } from "firebase/firestore";
-import db from "../../lib/firebase";
+import { db } from "../../lib/firebase";
 import {
   IconMail,
   IconLock,
@@ -73,13 +73,17 @@ export default function LoginPage() {
     }
   };
 
-  async function redirectByRole(user) {
-    const staffSnap = await getDoc(doc(db, "lykas_staff", user.uid));
-    if (staffSnap.exists() && staffSnap.data().active === true) {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/");
+  async function redirectByRole(uid) {
+    try {
+      const staffSnap = await getDoc(doc(db, "lykas_staff", uid));
+      if (staffSnap.exists() && staffSnap.data().active === true) {
+        navigate("/admin/dashboard");
+        return;
+      }
+    } catch (err) {
+      console.error("Staff role check failed", err);
     }
+    navigate("/");
   }
 
   const disabled = isSubmitting || isGoogleSubmitting;
