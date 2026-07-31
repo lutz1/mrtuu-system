@@ -43,6 +43,20 @@ function formFromVehicle(vehicle) {
   };
 }
 
+function formatTimestamp(date) {
+  const datePart = date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  const timePart = date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return `${datePart} ${timePart}`;
+}
+
 function photosFromVehicle(vehicle) {
   const photos = [...EMPTY_PHOTOS];
   if (vehicle.imageUrl) {
@@ -62,6 +76,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
   const [form, setForm] = useState(() => (isEditMode ? formFromVehicle(vehicle) : EMPTY_FORM));
   const [photos, setPhotos] = useState(() => (isEditMode ? photosFromVehicle(vehicle) : EMPTY_PHOTOS));
   const [error, setError] = useState("");
+  const [lastUpdatedAt, setLastUpdatedAt] = useState(() => (isEditMode ? vehicle.updatedAt ?? null : null));
   const photosRef = useRef(photos);
 
   useEffect(() => {
@@ -164,6 +179,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     }
 
     const firstPhoto = photos.find(Boolean);
+    const now = new Date();
 
     const vehicleData = {
       plate: form.plate.trim(),
@@ -180,6 +196,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       rate12h: form.rate12h ? Number(form.rate12h) : null,
       status: isEditMode ? vehicle.status : "Available",
       imageUrl: firstPhoto ? firstPhoto.previewUrl : null,
+      updatedAt: now,
     };
 
     if (isEditMode) {
@@ -188,6 +205,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       addVehicle(vehicleData);
     }
 
+    setLastUpdatedAt(now);
     onClose();
   };
 
@@ -235,7 +253,13 @@ export default function AddVehicleModal({ vehicle, onClose }) {
         </div>
 
         <div className={styles.footer}>
-          <span className={styles.draftText}>Draft saved automatically</span>
+          <span className={styles.draftText}>
+            {isEditMode
+              ? lastUpdatedAt
+                ? `Last updated: ${formatTimestamp(lastUpdatedAt)}`
+                : "No changes saved yet"
+              : "Draft saved automatically"}
+          </span>
           <div className={styles.footerActions}>
             {step > 1 && (
               <button type="button" className={styles.backBtn} onClick={handleBack}>
