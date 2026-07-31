@@ -23,10 +23,16 @@
   margin-bottom: 20px;
 }
 
+/* Default 2-column layout (Keeps existing forms safe) */
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+}
+
+/* Modifier class for 3-column layouts (Used for Pricing) */
+.threeColumns {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .label {
@@ -62,6 +68,27 @@
   background: #ffffff;
 }
 
+/* Input Wrapper & Suffix (For "per hour" text inside input) */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.inputWrapper .input {
+  padding-right: 80px; /* Space so text doesn't overlap suffix */
+}
+
+.inputSuffix {
+  position: absolute;
+  right: 16px;
+  font-size: 14px;
+  color: #1a1a1a;
+  pointer-events: none;
+  user-select: none;
+}
+
 .select {
   cursor: pointer;
   appearance: none;
@@ -92,7 +119,8 @@
     grid-template-columns: 1fr;
     gap: 0;
   }
-  .row {
+  .row,
+  .threeColumns {
     grid-template-columns: 1fr;
   }
 }

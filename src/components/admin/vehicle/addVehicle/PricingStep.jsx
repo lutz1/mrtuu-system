@@ -6,10 +6,12 @@ export default function PricingStep({ form, updateField }) {
     <div>
       <h2 className={fields.stepTitle}>Pricing</h2>
 
-      <div className={fields.row}>
+      {/* Applied both classes here */}
+      <div className={`${fields.row} ${fields.threeColumns}`}>
+        {/* Daily Rate */}
         <div className={fields.field}>
           <label className={fields.label} htmlFor="dailyRate">
-            Daily rate <span className={fields.required}>*</span>
+            Daily Rate <span className={fields.required}>*</span>
           </label>
           <input
             id="dailyRate"
@@ -23,9 +25,10 @@ export default function PricingStep({ form, updateField }) {
           />
         </div>
 
+        {/* 12-hour Rate */}
         <div className={fields.field}>
           <label className={fields.label} htmlFor="rate12h">
-            12-hour rate
+            12-hour rate <span className={fields.required}>*</span>
           </label>
           <input
             id="rate12h"
@@ -37,6 +40,26 @@ export default function PricingStep({ form, updateField }) {
             value={form.rate12h}
             onChange={(e) => updateField("rate12h", e.target.value)}
           />
+        </div>
+
+        {/* Overcharge (per hour) */}
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="overchargePerHour">
+            Overcharge (per hour)<span className={fields.required}>*</span>
+          </label>
+          <div className={fields.inputWrapper}>
+            <input
+              id="overchargePerHour"
+              type="number"
+              min="0"
+              step="10"
+              className={fields.input}
+              placeholder="₱ 0.00"
+              value={form.overchargePerHour}
+              onChange={(e) => updateField("overchargePerHour", e.target.value)}
+            />
+            <span className={fields.inputSuffix}>per hour</span>
+          </div>
         </div>
       </div>
     </div>
