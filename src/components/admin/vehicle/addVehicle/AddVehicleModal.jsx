@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAdminVehicles } from "../../../../context/AdminVehiclesContext";
 import StepIndicator from "./StepIndicator";
 import BasicInfoStep from "./BasicInfoStep";
@@ -88,7 +88,12 @@ export default function AddVehicleModal({ onClose }) {
 
   const validateStep = () => {
     if (step === 1) {
-      if (!form.carName.trim() || !form.brand || !form.model.trim() || !form.type) {
+      if (
+        !form.carName.trim() ||
+        !form.brand ||
+        !form.model.trim() ||
+        !form.type
+      ) {
         return "Car name, brand, model, and type are required.";
       }
     }
@@ -161,11 +166,27 @@ export default function AddVehicleModal({ onClose }) {
         <div className={styles.header}>
           <div>
             <h1 className={styles.title}>Add New Vehicle</h1>
-            <p className={styles.subtitle}>Fill in the information to add a new vehicle to your showroom.</p>
+            <p className={styles.subtitle}>
+              Fill in the information to add a new vehicle to your showroom.
+            </p>
           </div>
-          <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          <button
+            type="button"
+            className={styles.closeBtn}
+            onClick={onClose}
+            aria-label="Close"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
             </svg>
           </button>
         </div>
@@ -185,9 +206,15 @@ export default function AddVehicleModal({ onClose }) {
                 onPhotoRemove={handlePhotoRemove}
               />
             )}
-            {step === 2 && <SpecificationsStep form={form} updateField={updateField} />}
-            {step === 3 && <FeaturesStep form={form} updateField={updateField} />}
-            {step === 4 && <PricingStep form={form} updateField={updateField} />}
+            {step === 2 && (
+              <SpecificationsStep form={form} updateField={updateField} />
+            )}
+            {step === 3 && (
+              <FeaturesStep form={form} updateField={updateField} />
+            )}
+            {step === 4 && (
+              <PricingStep form={form} updateField={updateField} />
+            )}
             {step === 5 && <ReviewStep form={form} photoCount={photoCount} />}
           </div>
         </div>
@@ -196,16 +223,28 @@ export default function AddVehicleModal({ onClose }) {
           <span className={styles.draftText}>Draft saved automatically</span>
           <div className={styles.footerActions}>
             {step > 1 && (
-              <button type="button" className={styles.backBtn} onClick={handleBack}>
+              <button
+                type="button"
+                className={styles.backBtn}
+                onClick={handleBack}
+              >
                 Back
               </button>
             )}
             {step < 5 ? (
-              <button type="button" className={styles.nextBtn} onClick={handleNext}>
+              <button
+                type="button"
+                className={styles.nextBtn}
+                onClick={handleNext}
+              >
                 Next
               </button>
             ) : (
-              <button type="button" className={styles.nextBtn} onClick={handleSave}>
+              <button
+                type="button"
+                className={styles.nextBtn}
+                onClick={handleSave}
+              >
                 Save Vehicle
               </button>
             )}
