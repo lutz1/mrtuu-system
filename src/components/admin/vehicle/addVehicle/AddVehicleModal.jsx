@@ -50,7 +50,16 @@ function formFromVehicle(vehicle) {
   };
 }
 
+function toDate(value) {
+  if (!value) return null;
+  // Firestore Timestamp has .toDate(); a plain JS Date does not.
+  if (typeof value.toDate === "function") return value.toDate();
+  if (value instanceof Date) return value;
+  return null;
+}
+
 function formatTimestamp(date) {
+  if (!date) return null;
   const datePart = date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -97,8 +106,9 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     isEditMode ? photosFromVehicle(vehicle) : EMPTY_PHOTOS
   );
   const [error, setError] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
   const [lastUpdatedAt, setLastUpdatedAt] = useState(() =>
-    isEditMode ? vehicle.updatedAt ?? null : null
+    isEditMode ? toDate(vehicle.updatedAt) : null
   );
   const photosRef = useRef(photos);
 
@@ -214,36 +224,47 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       return;
     }
 
-    const firstPhoto = photos.find(Boolean);
-    const now = new Date();
+    setError("");
+    setIsSaving(true);
 
-    const vehicleData = {
-      plate: form.plate.trim(),
-      name: form.carName.trim(),
-      brand: form.brand,
-      model: form.model.trim(),
-      carType: form.type,
-      transmission: form.transmission,
-      seats: Number(form.seats),
-      fuelType: form.fuelType,
-      mileage: form.mileage || "Unlimited",
-      features: form.features,
-      description: form.description,
-      price: Number(form.dailyRate),
-      rate12h: form.rate12h ? Number(form.rate12h) : null,
-      status: isEditMode ? vehicle.status : "Available",
-      imageUrl: firstPhoto ? firstPhoto.previewUrl : null,
-      updatedAt: now,
-    };
+    try {
+      // AdminVehiclesContext expects `images` as an array of 5 entries:
+      // a File for a newly-picked photo, or the existing URL string to keep.
+      const images = photos.map((p) =>
+        p ? (p.isNew ? p.file : p.previewUrl) : null
+      );
 
-    if (isEditMode) {
-      updateVehicle(vehicle.id, vehicleData);
-    } else {
-      addVehicle(vehicleData);
+      const vehicleData = {
+        plate: form.plate.trim(),
+        name: form.carName.trim(),
+        brand: form.brand,
+        model: form.model.trim(),
+        carType: form.type,
+        transmission: form.transmission,
+        seats: Number(form.seats),
+        fuelType: form.fuelType,
+        mileage: form.mileage || "Unlimited",
+        features: form.features,
+        description: form.description,
+        price: Number(form.dailyRate),
+        rate12h: form.rate12h ? Number(form.rate12h) : null,
+        status: isEditMode ? vehicle.status : "Available",
+      };
+
+      if (isEditMode) {
+        await updateVehicle(vehicle.id, vehicleData, images);
+      } else {
+        await addVehicle(vehicleData, images);
+      }
+
+      setLastUpdatedAt(new Date());
+      onClose();
+    } catch (err) {
+      console.error("Failed to save vehicle:", err);
+      setError(err.message || "Failed to save vehicle. Please try again.");
+    } finally {
+      setIsSaving(false);
     }
-
-    setLastUpdatedAt(now);
-    onClose();
   };
 
   const photoCount = photos.filter(Boolean).length;
