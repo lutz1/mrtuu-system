@@ -46,28 +46,13 @@ export default function LoginPage() {
   const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
-  // Checks lykas_staff/{uid} after a successful login and routes staff
-  // to the admin dashboard, everyone else to the normal homepage.
-  const routeAfterLogin = async (uid) => {
-    try {
-      const staffSnap = await getDoc(doc(db, "lykas_staff", uid));
-      if (staffSnap.exists() && staffSnap.data().active === true) {
-        navigate("/admin/dashboard");
-        return;
-      }
-    } catch (err) {
-      console.error("Failed to check staff profile after login:", err);
-    }
-    navigate("/");
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setIsSubmitting(true);
     try {
       const credential = await login(email, password);
-      await routeAfterLogin(credential.user.uid);
+      await redirectByRole(credential.user.uid);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
@@ -80,13 +65,22 @@ export default function LoginPage() {
     setIsGoogleSubmitting(true);
     try {
       const result = await loginWithGoogle();
-      await routeAfterLogin(result.user.uid);
+      await redirectByRole(result.user.uid);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
       setIsGoogleSubmitting(false);
     }
   };
+
+  async function redirectByRole(user) {
+    const staffSnap = await getDoc(doc(db, "lykas_staff", user.uid));
+    if (staffSnap.exists() && staffSnap.data().active === true) {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/");
+    }
+  }
 
   const disabled = isSubmitting || isGoogleSubmitting;
 
