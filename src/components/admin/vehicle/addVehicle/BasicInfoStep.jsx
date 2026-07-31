@@ -1,5 +1,9 @@
-import React, { useRef } from "react";
-import { VEHICLE_BRANDS, VEHICLE_TYPES, VEHICLE_COLORS } from "../../../../data/admin/mockVehicles";
+import { useRef } from "react";
+import {
+  VEHICLE_BRANDS,
+  VEHICLE_TYPES,
+  VEHICLE_COLORS,
+} from "../../../../data/admin/mockVehicles";
 import fields from "./FormFields.module.css";
 import styles from "./BasicInfoStep.module.css";
 
@@ -167,7 +171,12 @@ export default function BasicInfoStep({
           <label className={fields.label} htmlFor="type">
             Type <span className={fields.required}>*</span>
           </label>
-          <select id="type" className={fields.select} value={form.type} onChange={(e) => updateField("type", e.target.value)}>
+          <select
+            id="type"
+            className={fields.select}
+            value={form.type}
+            onChange={(e) => updateField("type", e.target.value)}
+          >
             <option value="">Select Type</option>
             {VEHICLE_TYPES.map((t) => (
               <option key={t}>{t}</option>
@@ -196,7 +205,12 @@ export default function BasicInfoStep({
             <label className={fields.label} htmlFor="color">
               Color
             </label>
-            <select id="color" className={fields.select} value={form.color} onChange={(e) => updateField("color", e.target.value)}>
+            <select
+              id="color"
+              className={fields.select}
+              value={form.color}
+              onChange={(e) => updateField("color", e.target.value)}
+            >
               <option value="">Select color</option>
               {VEHICLE_COLORS.map((c) => (
                 <option key={c}>{c}</option>
@@ -205,26 +219,25 @@ export default function BasicInfoStep({
           </div>
         </div>
 
-          <div className={fields.field}>
-            <label className={fields.label} htmlFor="mileage">
-              Mileage
-            </label>
-            <input
-              id="mileage"
-              type="text"
-              className={fields.input}
-              placeholder="e.g. Unlimited or 50,000 km"
-              value={form.mileage}
-              onChange={(e) => updateField("mileage", e.target.value)}
-            />
-          </div>
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="mileage">
+            Mileage
+          </label>
+          <input
+            id="mileage"
+            type="text"
+            className={fields.input}
+            placeholder="e.g. Unlimited or 50,000 km"
+            value={form.mileage}
+            onChange={(e) => updateField("mileage", e.target.value)}
+          />
         </div>
-
-        <p className={fields.hint}>
-          Tip: You can update all information later. Fields marked with * are
-          required. All 5 photos are required to save.
-        </p>
       </div>
+
+      <p className={fields.hint}>
+        Tip: You can update all information later. Fields marked with * are
+        required. All 5 photos are required to save.
+      </p>
 
       <div className={fields.column}>
         <h2 className={fields.stepTitle}>Photos</h2>

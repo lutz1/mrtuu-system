@@ -86,7 +86,11 @@ function formatTimestamp(date) {
 
 function photosFromVehicle(vehicle) {
   const photos = [...EMPTY_PHOTOS];
-  const sourceImages = vehicle.images?.length ? vehicle.images : vehicle.imageUrl ? [vehicle.imageUrl] : [];
+  const sourceImages = vehicle.images?.length
+    ? vehicle.images
+    : vehicle.imageUrl
+    ? [vehicle.imageUrl]
+    : [];
   sourceImages.slice(0, 5).forEach((url, i) => {
     // isNew: false — these URLs may already be rendering elsewhere (the
     // vehicle's card, or the View overlay behind this modal), so they
@@ -224,35 +228,39 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       return;
     }
 
-    const photoUrls = photos.filter(Boolean).map((p) => p.previewUrl);
-    const now = new Date();
+    setError("");
+    setIsSaving(true);
 
-    const vehicleData = {
-      plate: form.plate.trim(),
-      name: form.carName.trim(),
-      brand: form.brand,
-      model: form.model.trim(),
-      type: form.type,
-      yearModel: form.yearModel ? Number(form.yearModel) : null,
-      color: form.color,
-      transmission: form.transmission,
-      seats: Number(form.seats),
-      fuelType: form.fuelType,
-      variant: form.variant,
-      engine: form.engine,
-      fuelCapacity: form.fuelCapacity ? Number(form.fuelCapacity) : null,
-      mileage: form.mileage ? Number(form.mileage) : null,
-      doors: form.doors ? Number(form.doors) : null,
-      drivetrain: form.drivetrain,
-      features: form.features,
-      description: form.description,
-      price: Number(form.dailyRate),
-      rate12h: form.rate12h ? Number(form.rate12h) : null,
-      status: isEditMode ? vehicle.status : "Available",
-      imageUrl: photoUrls[0] ?? null,
-      images: photoUrls,
-      updatedAt: now,
-    };
+    try {
+      // AdminVehiclesContext expects `images` as an array of 5 entries:
+      // a File for a newly-picked photo, or the existing URL string to keep.
+      const images = photos.map((p) =>
+        p ? (p.isNew ? p.file : p.previewUrl) : null
+      );
+
+      const vehicleData = {
+        plate: form.plate.trim(),
+        name: form.carName.trim(),
+        brand: form.brand,
+        model: form.model.trim(),
+        type: form.type,
+        yearModel: form.yearModel ? Number(form.yearModel) : null,
+        color: form.color,
+        transmission: form.transmission,
+        seats: Number(form.seats),
+        fuelType: form.fuelType,
+        variant: form.variant,
+        engine: form.engine,
+        fuelCapacity: form.fuelCapacity ? Number(form.fuelCapacity) : null,
+        mileage: form.mileage ? Number(form.mileage) : null,
+        doors: form.doors ? Number(form.doors) : null,
+        drivetrain: form.drivetrain,
+        features: form.features,
+        description: form.description,
+        price: Number(form.dailyRate),
+        rate12h: form.rate12h ? Number(form.rate12h) : null,
+        status: isEditMode ? vehicle.status : "Available",
+      };
 
       if (isEditMode) {
         await updateVehicle(vehicle.id, vehicleData, images);
