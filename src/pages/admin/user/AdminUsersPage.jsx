@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import AdminLayout from "../dashboard/AdminLayout";
 import UserStatCard from "../../../components/admin/user/UserStatCard";
 import UserFilterBar from "../../../components/admin/user/UserFilterBar";
 import UserTable from "../../../components/admin/user/UserTable";
 import Pagination from "../../../components/admin/common/Pagination";
-import { MOCK_USERS } from "../../../data/admin/mockUsers";
+import { useStaffDirectory } from "../../../context/useStaffDirectory";
+import { useStaff } from "../../../context/StaffContext";
 import styles from "./AdminUsersPage.module.css";
 
 const PAGE_SIZE = 10;
@@ -13,75 +14,144 @@ function TotalUsersIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="8.5" cy="8" r="3" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M2.5 19c1-3.4 3.2-5 6-5s5 1.6 6 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M15 6a3 3 0 0 1 0 6M17 19c-.4-2-1.4-3.6-2.8-4.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M2.5 19c1-3.4 3.2-5 6-5s5 1.6 6 5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+      <path
+        d="M15 6a3 3 0 0 1 0 6M17 19c-.4-2-1.4-3.6-2.8-4.6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
-
-function AdminIcon() {
+function OwnerIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8.5" r="3.2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M5.5 19c1.1-3.7 3.5-5.4 6.5-5.4s5.4 1.7 6.5 5.4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <rect x="9.8" y="6.3" width="4.4" height="3.4" rx="0.8" fill="#ffffff" />
-      <path d="M10.3 6.3v-.7a1.7 1.7 0 0 1 3.4 0v.7" stroke="currentColor" strokeWidth="1.3" />
+      <circle
+        cx="12"
+        cy="8.5"
+        r="3.2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M5.5 19c1.1-3.7 3.5-5.4 6.5-5.4s5.4 1.7 6.5 5.4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
-
 function DispatcherIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M4.5 20c1-3.8 4.2-6 7.5-6s6.5 2.2 7.5 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M4.5 20c1-3.8 4.2-6 7.5-6s6.5 2.2 7.5 6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 export default function AdminUsersPage() {
-  const [users, setUsers] = useState(MOCK_USERS);
+  const { staffProfile } = useStaff();
+  const {
+    staffList,
+    loading,
+    addStaffByEmail,
+    updateStaff,
+    toggleActive,
+    deleteStaff,
+  } = useStaffDirectory();
+
   const [query, setQuery] = useState("");
   const [role, setRole] = useState("All Roles");
   const [status, setStatus] = useState("All Status");
   const [page, setPage] = useState(1);
 
+  // TODO: frontend to provide the actual Add/Edit Staff modal component.
+  // These flags + handler functions below are wired and ready to hook up —
+  // swap the console.log calls for real modal open/submit once it exists.
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingStaff, setEditingStaff] = useState(null);
+
   const filteredUsers = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return users.filter((u) => {
+    return staffList.filter((u) => {
       const matchesQuery =
         q === "" ||
-        u.name.toLowerCase().includes(q) ||
-        u.email.toLowerCase().includes(q) ||
+        (u.displayName || "").toLowerCase().includes(q) ||
+        (u.email || "").toLowerCase().includes(q) ||
         u.role.toLowerCase().includes(q);
       const matchesRole = role === "All Roles" || u.role === role;
-      const matchesStatus = status === "All Status" || u.status === status;
+      const matchesStatus =
+        status === "All Status" || (status === "Active" ? u.active : !u.active);
       return matchesQuery && matchesRole && matchesStatus;
     });
-  }, [users, query, role, status]);
+  }, [staffList, query, role, status]);
 
   const totalPages = Math.max(1, Math.ceil(filteredUsers.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
-  const pageItems = filteredUsers.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+  const pageItems = filteredUsers.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
   const makeFilterHandler = (setter) => (value) => {
     setter(value);
     setPage(1);
   };
 
-  const handleToggleStatus = (id) => {
-    setUsers((prev) =>
-      prev.map((u) => (u.id === id ? { ...u, status: u.status === "Active" ? "Inactive" : "Active" } : u))
+  const handleToggleStatus = async (staffMember) => {
+    if (staffMember.uid === staffProfile?.uid) return; // self-lockout guard
+    try {
+      await toggleActive(staffMember.uid, !staffMember.active);
+    } catch (err) {
+      console.error("Failed to toggle staff status:", err);
+    }
+  };
+
+  const handleDelete = async (staffMember) => {
+    if (staffProfile?.role !== "owner") return;
+    if (staffMember.uid === staffProfile?.uid) return; // can't delete self
+    try {
+      await deleteStaff(staffMember.uid);
+    } catch (err) {
+      console.error("Failed to delete staff member:", err);
+    }
+  };
+
+  const handleOpenAdd = () => {
+    // TODO: open real "Add Staff" modal once it exists.
+    // Expected submit shape: addStaffByEmail(email, role, permissions)
+    console.log("Open Add Staff modal — pending frontend component");
+    setIsAddModalOpen(true);
+  };
+
+  const handleOpenEdit = (staffMember) => {
+    // TODO: open real "Edit Staff" modal once it exists.
+    // Expected submit shape: updateStaff(uid, { role, permissions })
+    console.log(
+      "Open Edit Staff modal for",
+      staffMember.uid,
+      "— pending frontend component"
     );
+    setEditingStaff(staffMember);
   };
 
-  // TODO: wire to a real add-user form once it exists
-  const handleAddUser = () => {
-    console.log("Add user clicked");
-  };
-
-  const adminCount = users.filter((u) => u.role === "Admin").length;
-  const dispatcherCount = users.filter((u) => u.role === "Dispatcher").length;
+  const ownerCount = staffList.filter((u) => u.role === "owner").length;
+  const dispatcherCount = staffList.filter(
+    (u) => u.role === "dispatcher"
+  ).length;
 
   return (
     <AdminLayout>
@@ -90,9 +160,17 @@ export default function AdminUsersPage() {
       </div>
 
       <div className={styles.statsGrid}>
-        <UserStatCard icon={<TotalUsersIcon />} label="Total Users" value={users.length} />
-        <UserStatCard icon={<AdminIcon />} label="Administrator" value={adminCount} />
-        <UserStatCard icon={<DispatcherIcon />} label="Dispatchers" value={dispatcherCount} />
+        <UserStatCard
+          icon={<TotalUsersIcon />}
+          label="Total Staff"
+          value={staffList.length}
+        />
+        <UserStatCard icon={<OwnerIcon />} label="Owners" value={ownerCount} />
+        <UserStatCard
+          icon={<DispatcherIcon />}
+          label="Dispatchers"
+          value={dispatcherCount}
+        />
       </div>
 
       <div className={styles.filterWrap}>
@@ -103,11 +181,22 @@ export default function AdminUsersPage() {
           onRoleChange={makeFilterHandler(setRole)}
           status={status}
           onStatusChange={makeFilterHandler(setStatus)}
-          onAddUser={handleAddUser}
+          onAddUser={handleOpenAdd}
         />
       </div>
 
-      <UserTable users={pageItems} onToggleStatus={handleToggleStatus} />
+      {loading ? (
+        <p>Loading staff...</p>
+      ) : (
+        <UserTable
+          users={pageItems}
+          currentUid={staffProfile?.uid}
+          currentRole={staffProfile?.role}
+          onEdit={handleOpenEdit}
+          onToggleStatus={handleToggleStatus}
+          onDelete={handleDelete}
+        />
+      )}
 
       <Pagination
         page={currentPage}
@@ -117,6 +206,9 @@ export default function AdminUsersPage() {
         onPageChange={setPage}
         itemLabel="users"
       />
+
+      {/* TODO: <AddStaffModal open={isAddModalOpen} onClose={...} onSubmit={addStaffByEmail} /> */}
+      {/* TODO: <EditStaffModal staff={editingStaff} onClose={...} onSubmit={updateStaff} /> */}
     </AdminLayout>
   );
 }

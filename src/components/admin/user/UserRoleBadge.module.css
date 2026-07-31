@@ -16,12 +16,22 @@
   background: #7c3aed;
 }
 
-.admin {
+.owner {
   background: #ede9fe;
   color: #6d28d9;
+}
+
+.staff {
+  background: #e0f2fe;
+  color: #0369a1;
 }
 
 .dispatcher {
   background: #dbeafe;
   color: #1d4ed8;
+}
+
+.checklistAdmin {
+  background: #fef3c7;
+  color: #b45309;
 }

@@ -4,7 +4,11 @@ import styles from "./VehicleViewOverlay.module.css";
 
 function VehiclePlaceholderImage() {
   return (
-    <svg viewBox="0 0 200 110" className={styles.placeholderSvg} xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 200 110"
+      className={styles.placeholderSvg}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <rect x="0" y="0" width="200" height="110" fill="#f0f1f3" />
       <path
         d="M30 75h140M40 75l8-22a8 8 0 0 1 7-5h30a8 8 0 0 1 7 5l8 22M55 75v-8h90v8"
@@ -24,7 +28,13 @@ function CheckIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="10" cy="10" r="10" fill="#4b5563" />
-      <path d="M6 10l3 3 5-5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M6 10l3 3 5-5"
+        stroke="#ffffff"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -33,7 +43,11 @@ function formatDate(date) {
   if (!date) return "—";
   const d = typeof date === "string" ? new Date(date) : date;
   if (Number.isNaN(d.getTime())) return date;
-  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  return d.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
@@ -50,11 +64,16 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
 
   if (!vehicle) return null;
 
-  const images = vehicle.images?.length ? vehicle.images : vehicle.imageUrl ? [vehicle.imageUrl] : [];
+  const images = vehicle.images?.length
+    ? vehicle.images
+    : vehicle.imageUrl
+    ? [vehicle.imageUrl]
+    : [];
   const hasImages = images.length > 0;
   const currentImage = images[activeIndex];
 
-  const goPrev = () => setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+  const goPrev = () =>
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
   const goNext = () => setActiveIndex((prev) => (prev + 1) % images.length);
 
   const handleArchive = () => {
@@ -73,7 +92,12 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
         {/* Header */}
         <div className={styles.header}>
           <h1 className={styles.headerTitle}>View Vehicle</h1>
-          <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
+          <button
+            type="button"
+            className={styles.closeBtn}
+            onClick={onClose}
+            aria-label="Close"
+          >
             X
           </button>
         </div>
@@ -87,7 +111,11 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
               <div className={styles.galleryContainer}>
                 <div className={styles.galleryMain}>
                   {hasImages ? (
-                    <img src={currentImage} alt={vehicle.name} className={styles.galleryImage} />
+                    <img
+                      src={currentImage}
+                      alt={vehicle.name}
+                      className={styles.galleryImage}
+                    />
                   ) : (
                     <VehiclePlaceholderImage />
                   )}
@@ -120,7 +148,9 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
                       <button
                         key={img + i}
                         type="button"
-                        className={`${styles.thumb} ${i === activeIndex ? styles.thumbActive : ""}`}
+                        className={`${styles.thumb} ${
+                          i === activeIndex ? styles.thumbActive : ""
+                        }`}
                         onClick={() => setActiveIndex(i)}
                       >
                         <img src={img} alt="" className={styles.thumbImage} />
@@ -177,32 +207,58 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
               <div className={styles.statusList}>
                 <div className={styles.statusRow}>
                   <span className={styles.statusLabel}>Status</span>
-                  <span className={styles.statusValueBadge}>{vehicle.status}</span>
+                  <span className={styles.statusValueBadge}>
+                    {vehicle.status}
+                  </span>
                 </div>
                 <div className={styles.statusRow}>
                   <span className={styles.statusLabel}>Availability</span>
-                  <span className={styles.statusValueBold}>{vehicle.status}</span>
+                  <span className={styles.statusValueBold}>
+                    {vehicle.status}
+                  </span>
                 </div>
                 <div className={styles.statusRow}>
                   <span className={styles.statusLabel}>Added On</span>
-                  <span className={styles.statusValueBold}>{formatDate(vehicle.addedOn)}</span>
+                  <span className={styles.statusValueBold}>
+                    {formatDate(vehicle.addedOn)}
+                  </span>
                 </div>
                 <div className={styles.statusRow}>
                   <span className={styles.statusLabel}>Last Updated</span>
-                  <span className={styles.statusValueBold}>{formatDate(vehicle.updatedAt) ?? "—"}</span>
+                  <span className={styles.statusValueBold}>
+                    {formatDate(vehicle.updatedAt) ?? "—"}
+                  </span>
                 </div>
               </div>
 
               <div className={styles.statusActions}>
-                <button type="button" className={styles.editBtn} onClick={() => onEdit(vehicle)}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <button
+                  type="button"
+                  className={styles.editBtn}
+                  onClick={() => onEdit(vehicle)}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                   </svg>
                   Edit Vehicle
                 </button>
-                <button type="button" className={styles.archiveBtn} onClick={handleArchive}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <button
+                  type="button"
+                  className={styles.archiveBtn}
+                  onClick={handleArchive}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <rect x="3" y="4" width="18" height="4" rx="1" />
                     <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8" />
                     <path d="M10 12h4" />
@@ -221,47 +277,67 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
                 <div className={styles.specsColumn}>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Brand</span>
-                    <span className={styles.specValue}>{vehicle.brand || "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.brand || "—"}
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Model</span>
-                    <span className={styles.specValue}>{vehicle.model || "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.model || "—"}
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Variant</span>
-                    <span className={styles.specValue}>{vehicle.variant || "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.variant || "—"}
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Seating Capacity</span>
-                    <span className={styles.specValue}>{vehicle.seats} Seats</span>
+                    <span className={styles.specValue}>
+                      {vehicle.seats} Seats
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Doors</span>
-                    <span className={styles.specValue}>{vehicle.doors ? `${vehicle.doors} Doors` : "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.doors ? `${vehicle.doors} Doors` : "—"}
+                    </span>
                   </div>
                 </div>
                 <div className={styles.specsColumn}>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Transmission</span>
-                    <span className={styles.specValue}>{vehicle.transmission}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.transmission}
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Engine</span>
-                    <span className={styles.specValue}>{vehicle.engine || "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.engine || "—"}
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Fuel Capacity</span>
                     <span className={styles.specValue}>
-                      {vehicle.fuelCapacity ? `${vehicle.fuelCapacity} Liters` : "—"}
+                      {vehicle.fuelCapacity
+                        ? `${vehicle.fuelCapacity} Liters`
+                        : "—"}
                     </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Mileage</span>
-                    <span className={styles.specValue}>{vehicle.mileage ? `${vehicle.mileage} km/l` : "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.mileage ? `${vehicle.mileage} km/l` : "—"}
+                    </span>
                   </div>
                   <div className={styles.specRow}>
                     <span className={styles.specLabel}>Drivetrain</span>
-                    <span className={styles.specValue}>{vehicle.drivetrain || "—"}</span>
+                    <span className={styles.specValue}>
+                      {vehicle.drivetrain || "—"}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -281,7 +357,9 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
                   ))}
                 </div>
               ) : (
-                <p className={styles.emptyText}>No features listed for this vehicle.</p>
+                <p className={styles.emptyText}>
+                  No features listed for this vehicle.
+                </p>
               )}
             </section>
           </div>

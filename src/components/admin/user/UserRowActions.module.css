@@ -58,3 +58,10 @@
 .menuItemDanger:hover {
   background: #fdeceb;
 }
+
+.selfNote {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
+}
