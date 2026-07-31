@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import {
   VEHICLE_BRANDS,
   VEHICLE_TYPES,
@@ -103,6 +103,7 @@ export default function BasicInfoStep({
 }) {
   return (
     <div className={fields.stepGrid}>
+      {/* 1. Left Column: Basic Info Fields */}
       <div className={fields.column}>
         <h2 className={fields.stepTitle}>Basic Info</h2>
 
@@ -234,12 +235,14 @@ export default function BasicInfoStep({
         </div>
       </div>
 
-      <p className={fields.hint}>
-        Tip: You can update all information later. Fields marked with * are
-        required. All 5 photos are required to save.
-      </p>
-
+      {/* 2. Right Column: Photos Column */}
       <div className={fields.column}>
+        {/* Tip Paragraph moved inside here so it doesn't interrupt the 2-column grid */}
+        <p className={fields.hint} style={{ marginBottom: "16px" }}>
+          Tip: You can update all information later. Fields marked with * are
+          required. All 5 photos are required to save.
+        </p>
+
         <h2 className={fields.stepTitle}>Photos</h2>
 
         <PhotoSlot
