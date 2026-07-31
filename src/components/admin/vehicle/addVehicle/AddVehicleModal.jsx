@@ -11,6 +11,7 @@ import styles from "./AddVehicleModal.module.css";
 
 const EMPTY_FORM = {
   carName: "",
+  plate: "",
   brand: "",
   model: "",
   type: "",
@@ -25,11 +26,45 @@ const EMPTY_FORM = {
 
 const EMPTY_PHOTOS = [null, null, null, null, null];
 
-export default function AddVehicleModal({ onClose }) {
-  const { addVehicle } = useAdminVehicles();
+function formFromVehicle(vehicle) {
+  return {
+    carName: vehicle.name ?? "",
+    plate: vehicle.plate ?? "",
+    brand: vehicle.brand ?? "",
+    model: vehicle.model ?? "",
+    type: vehicle.type ?? "",
+    transmission: vehicle.transmission ?? "Automatic",
+    seats: vehicle.seats ?? "",
+    fuelType: vehicle.fuelType ?? "",
+    features: vehicle.features ?? [],
+    description: vehicle.description ?? "",
+    dailyRate: vehicle.price ?? "",
+    rate12h: vehicle.rate12h ?? "",
+  };
+}
+
+function photosFromVehicle(vehicle) {
+  const photos = [...EMPTY_PHOTOS];
+  if (vehicle.imageUrl) {
+    // isNew: false — this URL may already be rendering elsewhere (the
+    // vehicle's card behind this modal), so it must never be revoked
+    // unless the admin actively replaces or removes it in this session.
+    photos[0] = { previewUrl: vehicle.imageUrl, isNew: false };
+  }
+  return photos;
+}
+
+export default function AddVehicleModal({ vehicle, onClose }) {
+  const { addVehicle, updateVehicle } = useAdminVehicles();
+  const isEditMode = Boolean(vehicle);
+
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [photos, setPhotos] = useState(EMPTY_PHOTOS);
+  const [form, setForm] = useState(() =>
+    isEditMode ? formFromVehicle(vehicle) : EMPTY_FORM
+  );
+  const [photos, setPhotos] = useState(() =>
+    isEditMode ? photosFromVehicle(vehicle) : EMPTY_PHOTOS
+  );
   const [error, setError] = useState("");
   const photosRef = useRef(photos);
 
@@ -37,12 +72,14 @@ export default function AddVehicleModal({ onClose }) {
     photosRef.current = photos;
   }, [photos]);
 
-  // Revoke every still-live object URL when the modal unmounts, whether
-  // that's from closing or from saving successfully.
+  // On unmount, revoke only photos picked during THIS session (isNew).
+  // Existing vehicle photos passed in via props are never revoked here —
+  // they aren't this modal's to release, since other views may still
+  // depend on them.
   useEffect(() => {
     return () => {
       photosRef.current.forEach((p) => {
-        if (p) URL.revokeObjectURL(p.previewUrl);
+        if (p?.isNew) URL.revokeObjectURL(p.previewUrl);
       });
     };
   }, []);
@@ -71,8 +108,11 @@ export default function AddVehicleModal({ onClose }) {
     setError("");
     setPhotos((prev) => {
       const next = [...prev];
-      if (next[index]) URL.revokeObjectURL(next[index].previewUrl);
-      next[index] = { previewUrl: URL.createObjectURL(file) };
+      // Only revoke the slot being replaced if it was itself a new
+      // (session-local) photo — an existing vehicle photo being swapped
+      // out is left alone, same reasoning as the unmount cleanup above.
+      if (next[index]?.isNew) URL.revokeObjectURL(next[index].previewUrl);
+      next[index] = { previewUrl: URL.createObjectURL(file), isNew: true };
       return next;
     });
   };
@@ -80,7 +120,7 @@ export default function AddVehicleModal({ onClose }) {
   const handlePhotoRemove = (index) => {
     setPhotos((prev) => {
       const next = [...prev];
-      if (next[index]) URL.revokeObjectURL(next[index].previewUrl);
+      if (next[index]?.isNew) URL.revokeObjectURL(next[index].previewUrl);
       next[index] = null;
       return next;
     });
@@ -90,11 +130,12 @@ export default function AddVehicleModal({ onClose }) {
     if (step === 1) {
       if (
         !form.carName.trim() ||
+        !form.plate.trim() ||
         !form.brand ||
         !form.model.trim() ||
         !form.type
       ) {
-        return "Car name, brand, model, and type are required.";
+        return "Car name, license plate, brand, model, and type are required.";
       }
     }
     if (step === 2) {
@@ -134,12 +175,8 @@ export default function AddVehicleModal({ onClose }) {
 
     const firstPhoto = photos.find(Boolean);
 
-    addVehicle({
-      // TODO: this design has no plate/license-number field anywhere in
-      // the wizard — every other vehicle in mock data has one, and
-      // VehicleCard displays it. Using a placeholder until a plate field
-      // is added to Basic Info.
-      plate: "—",
+    const vehicleData = {
+      plate: form.plate.trim(),
       name: form.carName.trim(),
       brand: form.brand,
       model: form.model.trim(),
@@ -151,9 +188,15 @@ export default function AddVehicleModal({ onClose }) {
       description: form.description,
       price: Number(form.dailyRate),
       rate12h: form.rate12h ? Number(form.rate12h) : null,
-      status: "Available",
+      status: isEditMode ? vehicle.status : "Available",
       imageUrl: firstPhoto ? firstPhoto.previewUrl : null,
-    });
+    };
+
+    if (isEditMode) {
+      updateVehicle(vehicle.id, vehicleData);
+    } else {
+      addVehicle(vehicleData);
+    }
 
     onClose();
   };
@@ -165,9 +208,13 @@ export default function AddVehicleModal({ onClose }) {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <div>
-            <h1 className={styles.title}>Add New Vehicle</h1>
+            <h1 className={styles.title}>
+              {isEditMode ? "Edit Vehicle" : "Add New Vehicle"}
+            </h1>
             <p className={styles.subtitle}>
-              Fill in the information to add a new vehicle to your showroom.
+              {isEditMode
+                ? "Update this vehicle's information."
+                : "Fill in the information to add a new vehicle to your showroom."}
             </p>
           </div>
           <button
@@ -245,7 +292,7 @@ export default function AddVehicleModal({ onClose }) {
                 className={styles.nextBtn}
                 onClick={handleSave}
               >
-                Save Vehicle
+                {isEditMode ? "Save Changes" : "Save Vehicle"}
               </button>
             )}
           </div>

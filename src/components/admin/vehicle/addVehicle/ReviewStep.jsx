@@ -11,6 +11,7 @@ export default function ReviewStep({ form, photoCount }) {
 
   const rows = [
     { label: "Car name", value: form.carName || "—" },
+    { label: "License plate", value: form.plate || "—" },
     { label: "Brand / model", value: `${form.brand || "—"} ${form.model || ""}`.trim() },
     { label: "Transmission", value: form.transmission },
     { label: "Seats/ fuel", value: `${form.seats || "—"} seats • ${form.fuelType || "—"}` },
