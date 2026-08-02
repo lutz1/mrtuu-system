@@ -1,7 +1,11 @@
 // TODO: mock data — replace with real bookings from Firestore/backend
 // once the admin data layer exists.
 
-const STATUSES = ["Pending Documents", "For Dispatcher", "Ready for Pickup", "Completed", "Cancelled"];
+export const BOOKING_STAGES = {
+  QUEUE: "queue",
+  ACTIVE: "active",
+  HISTORY: "history",
+};
 
 const BASE_BOOKINGS = [
   {
@@ -10,12 +14,10 @@ const BASE_BOOKINGS = [
     phone: "0967 676 7676",
     vehicle: "Toyota Vios",
     plate: "ABC 1234",
-    rentalDate: "May 28, 2026",
-    rentalTime: "10:00 AM",
     returnDate: "May 30, 2026",
     returnTime: "10:00 AM",
-    amount: 3600,
-    status: "Pending Documents",
+    source: "Walk-in",
+    stage: BOOKING_STAGES.QUEUE,
   },
   {
     id: "#BK-1025",
@@ -23,12 +25,10 @@ const BASE_BOOKINGS = [
     phone: "0945 969 3524",
     vehicle: "Honda City",
     plate: "FDS 4353",
-    rentalDate: "May 27, 2026",
-    rentalTime: "09:00 AM",
     returnDate: "May 29, 2026",
     returnTime: "09:00 AM",
-    amount: 4000,
-    status: "For Dispatcher",
+    source: "Online",
+    stage: BOOKING_STAGES.QUEUE,
   },
   {
     id: "#BK-1026",
@@ -36,12 +36,10 @@ const BASE_BOOKINGS = [
     phone: "0912 456 7456",
     vehicle: "Misyubibi Xpander",
     plate: "GDF 3455",
-    rentalDate: "May 26, 2026",
-    rentalTime: "02:00 PM",
     returnDate: "May 28, 2026",
     returnTime: "02:00 PM",
-    amount: 5500,
-    status: "Ready for Pickup",
+    source: "Online",
+    stage: BOOKING_STAGES.QUEUE,
   },
   {
     id: "#BK-1027",
@@ -49,12 +47,10 @@ const BASE_BOOKINGS = [
     phone: "0934 654 5632",
     vehicle: "Toyota Raize",
     plate: "FGH 3456",
-    rentalDate: "May 25, 2026",
-    rentalTime: "08:00 AM",
     returnDate: "May 27, 2026",
     returnTime: "08:00 AM",
-    amount: 3200,
-    status: "Completed",
+    source: "Online",
+    stage: BOOKING_STAGES.QUEUE,
   },
   {
     id: "#BK-1028",
@@ -62,12 +58,10 @@ const BASE_BOOKINGS = [
     phone: "0934 654 5632",
     vehicle: "Nissan Almera",
     plate: "QWE 3456",
-    rentalDate: "May 24, 2026",
-    rentalTime: "11:00 AM",
     returnDate: "May 26, 2026",
     returnTime: "11:00 AM",
-    amount: 3800,
-    status: "Cancelled",
+    source: "Online",
+    stage: BOOKING_STAGES.QUEUE,
   },
   {
     id: "#BK-1029",
@@ -75,12 +69,10 @@ const BASE_BOOKINGS = [
     phone: "0956 879 3456",
     vehicle: "Suzuki Swift",
     plate: "GRS 5675",
-    rentalDate: "May 28, 2026",
-    rentalTime: "01:00 PM",
-    returnDate: "May 31, 2026",
+    returnDate: "May 25, 2026",
     returnTime: "01:00 PM",
-    amount: 4200,
-    status: "Pending Documents",
+    source: "Online",
+    stage: BOOKING_STAGES.QUEUE,
   },
 ];
 
@@ -101,6 +93,15 @@ const EXTRA_VEHICLES = [
   { vehicle: "Honda BR-V", plate: "ZXC 3390" },
 ];
 
+// Distributes the 18 generated bookings as: 2 more into the queue
+// (bringing the total queue count to 8, matching the reference), 15 into
+// Active Bookings, and the remaining 1 into Booking History.
+function stageForIndex(i) {
+  if (i < 2) return BOOKING_STAGES.QUEUE;
+  if (i < 17) return BOOKING_STAGES.ACTIVE;
+  return BOOKING_STAGES.HISTORY;
+}
+
 const EXTRA_BOOKINGS = EXTRA_NAMES.map((name, i) => {
   const vehicle = EXTRA_VEHICLES[i % EXTRA_VEHICLES.length];
   return {
@@ -109,12 +110,10 @@ const EXTRA_BOOKINGS = EXTRA_NAMES.map((name, i) => {
     phone: `09${String(10 + i).padStart(2, "0")} ${String(100 + i * 7).padStart(3, "0")} ${String(1000 + i * 13).padStart(4, "0")}`,
     vehicle: vehicle.vehicle,
     plate: vehicle.plate,
-    rentalDate: `May ${(i % 28) + 1}, 2026`,
-    rentalTime: "10:00 AM",
-    returnDate: `May ${((i + 2) % 28) + 1}, 2026`,
+    returnDate: `May ${(i % 28) + 1}, 2026`,
     returnTime: "10:00 AM",
-    amount: 3000 + i * 150,
-    status: STATUSES[i % STATUSES.length],
+    source: i % 5 === 0 ? "Walk-in" : "Online",
+    stage: stageForIndex(i),
   };
 });
 

@@ -1,5 +1,4 @@
 import React from "react";
-import BookingStatusBadge from "./BookingStatusBadge";
 import styles from "./BookingsTable.module.css";
 
 export default function BookingsTable({ bookings, onView }) {
@@ -15,10 +14,8 @@ export default function BookingsTable({ bookings, onView }) {
             <th>Booking ID</th>
             <th>Customer</th>
             <th>Vehicle</th>
-            <th>Rental Date</th>
             <th>Return Date</th>
-            <th>Total Amount</th>
-            <th>Status</th>
+            <th>Source</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -35,19 +32,12 @@ export default function BookingsTable({ bookings, onView }) {
                 <p className={styles.secondaryText}>{b.plate}</p>
               </td>
               <td>
-                <p className={styles.primaryText}>{b.rentalDate}</p>
-                <p className={styles.secondaryText}>{b.rentalTime}</p>
-              </td>
-              <td>
                 <p className={styles.primaryText}>{b.returnDate}</p>
                 <p className={styles.secondaryText}>{b.returnTime}</p>
               </td>
-              <td className={styles.amount}>₱{b.amount.toLocaleString()}.00</td>
+              <td className={styles.cell}>{b.source}</td>
               <td>
-                <BookingStatusBadge status={b.status} />
-              </td>
-              <td>
-                {/* TODO: wire to a real booking-details view once it exists */}
+                {/* TODO: no booking-details view exists yet */}
                 <button
                   type="button"
                   className={styles.viewBtn}

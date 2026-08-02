@@ -13,12 +13,6 @@ const ALL_NAV_ITEMS = [
     permission: "view_reports",
   },
   {
-    to: "/admin/checklist",
-    label: "Checklist",
-    icon: "checklist",
-    permission: "clearance_review",
-  },
-  {
     to: "/admin/vehicles",
     label: "Vehicles",
     icon: "vehicles",

@@ -11,7 +11,39 @@
 
 .toolbar {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.newBookingBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8a020;
+  border: none;
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.newBookingBtn:hover {
+  background: #d18f1c;
+}
+
+.newBookingIcon {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.searchWrap {
   margin-bottom: 20px;
 }

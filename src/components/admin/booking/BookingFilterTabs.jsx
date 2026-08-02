@@ -1,19 +1,17 @@
 import React from "react";
 import styles from "./BookingFilterTabs.module.css";
 
-const TABS = ["All", "Pending Documents", "For Dispatcher", "Ready for Pickup", "Completed", "Cancelled"];
-
-export default function BookingFilterTabs({ active, onChange }) {
+export default function BookingFilterTabs({ tabs, active, onChange }) {
   return (
     <div className={styles.tabs}>
-      {TABS.map((tab) => (
+      {tabs.map((tab) => (
         <button
-          key={tab}
+          key={tab.key}
           type="button"
-          className={`${styles.tab} ${active === tab ? styles.tabActive : ""}`}
-          onClick={() => onChange(tab)}
+          className={`${styles.tab} ${active === tab.key ? styles.tabActive : ""}`}
+          onClick={() => onChange(tab.key)}
         >
-          {tab}
+          {tab.label}
         </button>
       ))}
     </div>

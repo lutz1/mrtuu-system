@@ -25,7 +25,6 @@ import { ThemeProvider } from "./context/ThemeContext";
 import AdminRoute from "./context/AdminRoute";
 import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
 import AdminBookingsPage from "./pages/admin/booking/AdminBookingsPage";
-import AdminChecklistPage from "./pages/admin/checklist/AdminChecklistPage";
 import AdminVehiclesPage from "./pages/admin/vehicle/AdminVehiclesPage";
 import AdminCustomersPage from "./pages/admin/customer/AdminCustomersPage";
 import AdminSalesReportsPage from "./pages/admin/salesReports/AdminSalesReportsPage";
@@ -163,16 +162,6 @@ function App() {
                         <AdminRoute>
                           <PermissionRoute permission="view_reports">
                             <AdminBookingsPage />
-                          </PermissionRoute>
-                        </AdminRoute>
-                      }
-                    />
-                    <Route
-                      path="/admin/checklist"
-                      element={
-                        <AdminRoute>
-                          <PermissionRoute permission="clearance_review">
-                            <AdminChecklistPage />
                           </PermissionRoute>
                         </AdminRoute>
                       }
