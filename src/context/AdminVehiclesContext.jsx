@@ -29,6 +29,10 @@ const REQUIRED_IMAGE_COUNT = 5;
 
 const AdminVehiclesContext = createContext(null);
 
+/* -------------------------------------------------------------------------- */
+/*                              IMAGE HELPERS                                 */
+/* -------------------------------------------------------------------------- */
+
 async function uploadVehicleImage(vehicleId, file, slotIndex) {
   const storageRef = ref(
     storage,
@@ -60,7 +64,10 @@ async function tryDeleteImageUrl(url) {
   }
 }
 
-// Module-scope — doesn't touch component state.
+/* -------------------------------------------------------------------------- */
+/*                            FIRESTORE HELPERS                               */
+/* -------------------------------------------------------------------------- */
+
 async function addVehicle(vehicleData, images) {
   if (
     !images ||
@@ -72,6 +79,8 @@ async function addVehicle(vehicleData, images) {
 
   const docRef = await addDoc(collection(db, VEHICLES_COLLECTION), {
     ...vehicleData,
+    archived: false,
+    archivedAt: null,
     images: [],
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
@@ -85,8 +94,12 @@ async function addVehicle(vehicleData, images) {
   return { id: docRef.id, ...vehicleData, images: imageUrls };
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                 PROVIDER                                   */
+/* -------------------------------------------------------------------------- */
+
 export function AdminVehiclesProvider({ children }) {
-  const [vehicles, setVehicles] = useState([]);
+  const [allVehicles, setAllVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -98,7 +111,7 @@ export function AdminVehiclesProvider({ children }) {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        setVehicles(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+        setAllVehicles(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
         setLoading(false);
       },
       (err) => {
@@ -110,11 +123,9 @@ export function AdminVehiclesProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  // Depends on `vehicles`, so it stays inside the component — wrapped in
-  // useCallback so it's still a stable reference when vehicles hasn't changed.
   const updateVehicle = useCallback(
     async (id, vehicleData, images) => {
-      const existing = vehicles.find((v) => v.id === id);
+      const existing = allVehicles.find((v) => String(v.id) === String(id));
       const previousImages = existing?.images ?? [];
 
       let imageUrls = previousImages;
@@ -136,24 +147,63 @@ export function AdminVehiclesProvider({ children }) {
         updatedAt: serverTimestamp(),
       });
     },
-    [vehicles]
+    [allVehicles]
   );
 
+  const archiveVehicle = useCallback(async (id) => {
+    await updateDoc(doc(db, VEHICLES_COLLECTION, id), {
+      archived: true,
+      archivedAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+  }, []);
+
+  const restoreVehicle = useCallback(async (id) => {
+    await updateDoc(doc(db, VEHICLES_COLLECTION, id), {
+      archived: false,
+      archivedAt: null,
+      updatedAt: serverTimestamp(),
+    });
+  }, []);
+
   const getVehicleById = useCallback(
-    (id) => vehicles.find((v) => String(v.id) === String(id)),
-    [vehicles]
+    (id) => allVehicles.find((v) => String(v.id) === String(id)),
+    [allVehicles]
+  );
+
+  // Derived arrays based on the real-time collection
+  const vehicles = useMemo(
+    () => allVehicles.filter((v) => !v.archived),
+    [allVehicles]
+  );
+  
+  const archivedVehicles = useMemo(
+    () => allVehicles.filter((v) => v.archived),
+    [allVehicles]
   );
 
   const value = useMemo(
     () => ({
       vehicles,
+      archivedVehicles,
       loading,
       error,
       addVehicle,
       updateVehicle,
+      archiveVehicle,
+      restoreVehicle,
       getVehicleById,
     }),
-    [vehicles, loading, error, updateVehicle, getVehicleById]
+    [
+      vehicles,
+      archivedVehicles,
+      loading,
+      error,
+      updateVehicle,
+      archiveVehicle,
+      restoreVehicle,
+      getVehicleById,
+    ]
   );
 
   return (
@@ -162,6 +212,10 @@ export function AdminVehiclesProvider({ children }) {
     </AdminVehiclesContext.Provider>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                   HOOK                                     */
+/* -------------------------------------------------------------------------- */
 
 export function useAdminVehicles() {
   const context = useContext(AdminVehiclesContext);

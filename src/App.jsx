@@ -34,6 +34,7 @@ import { AdminVehiclesProvider } from "./context/AdminVehiclesContext";
 import AdminAddVehiclePage from "./pages/admin/vehicle/AdminAddVehiclePage";
 import RootRedirect from "./pages/RootRedirect";
 import { ToastProvider } from "./context/ToastContext";
+import ArchivedVehiclesPage from "./pages/admin/vehicle/ArchivedVehiclesPage";
 
 function App() {
   return (
@@ -236,6 +237,14 @@ function App() {
                         </AdminRoute>
                       }
                     />
+                    <Route
+                    path="/admin/vehicles/archived"
+                    element={
+                      <AdminRoute>
+                        <ArchivedVehiclesPage />
+                      </AdminRoute>
+                    }
+                  />
                   </Routes>
                 </StaffProvider>
               </AuthProvider>

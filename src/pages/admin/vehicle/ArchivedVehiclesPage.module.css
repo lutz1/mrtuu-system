@@ -1,0 +1,58 @@
+.pageHeading {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: #1a1a1a;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.breadcrumbLink {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  color: #1a1a1a;
+}
+
+.breadcrumbSep {
+  color: #d1d5db;
+}
+
+.infoCard {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+
+.infoTitle {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+
+.infoText {
+  font-size: 13.5px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.filterWrap {
+  margin-bottom: 20px;
+}

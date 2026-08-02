@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../dashboard/AdminLayout";
 import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
 import VehicleFilterBar from "../../../components/admin/vehicle/VehicleFilterBar";
@@ -7,6 +8,7 @@ import VehicleViewOverlay from "../../../components/admin/vehicle/VehicleViewOve
 import AddVehicleModal from "../../../components/admin/vehicle/addVehicle/AddVehicleModal";
 import Pagination from "../../../components/admin/common/Pagination";
 import { useAdminVehicles } from "../../../context/AdminVehiclesContext";
+import { useToast } from "../../../context/ToastContext";
 import styles from "./AdminVehiclesPage.module.css";
 
 const PAGE_SIZE = 8;
@@ -114,7 +116,9 @@ function UnavailableIcon() {
 }
 
 export default function AdminVehiclesPage() {
+  const navigate = useNavigate();
   const { vehicles, loading } = useAdminVehicles();
+  const { showToast } = useToast();
 
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("All Status");
@@ -128,9 +132,6 @@ export default function AdminVehiclesPage() {
   const filteredVehicles = useMemo(() => {
     const q = query.trim().toLowerCase();
     return vehicles.filter((v) => {
-      // Firestore vehicles store the body style under `carType`; older/mock
-      // records may still only have `type` — check both so the filter
-      // (and the stat cards below) keep matching either shape.
       const vType = v.carType || v.type;
       const matchesQuery =
         q === "" ||
@@ -159,6 +160,10 @@ export default function AdminVehiclesPage() {
   const makeFilterHandler = (setter) => (value) => {
     setter(value);
     setPage(1);
+  };
+
+  const handleDrafts = () => {
+    showToast("Drafts isn't built yet — coming soon.", { type: "info" });
   };
 
   const availableCount = vehicles.filter(
@@ -218,6 +223,8 @@ export default function AdminVehiclesPage() {
           transmission={transmission}
           onTransmissionChange={makeFilterHandler(setTransmission)}
           onAddVehicle={() => setIsAddModalOpen(true)}
+          onDrafts={handleDrafts}
+          onArchive={() => navigate("/admin/vehicles/archived")}
         />
       </div>
 
