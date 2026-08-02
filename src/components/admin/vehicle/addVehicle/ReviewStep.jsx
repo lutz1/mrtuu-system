@@ -3,11 +3,14 @@ import fields from "./FormFields.module.css";
 import styles from "./ReviewStep.module.css";
 
 export default function ReviewStep({ form, photoCount }) {
-  // TODO: the reference design's "Confirm details" button has no clear
-  // functional spec — treated here as a simple reviewed/acknowledged
-  // toggle that doesn't gate saving. Revisit once its intended behavior
-  // is clarified.
+  // Toggle state to acknowledge details have been checked
   const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const formatCurrency = (amount) => {
+    if (!amount && amount !== 0) return "—";
+    const num = Number(amount);
+    return Number.isNaN(num) ? "—" : `₱ ${num.toFixed(2)}`;
+  };
 
   const rows = [
     { label: "Car name", value: form.carName || "—" },
@@ -15,10 +18,13 @@ export default function ReviewStep({ form, photoCount }) {
     { label: "Brand / model", value: `${form.brand || "—"} ${form.model || ""}`.trim() },
     { label: "Year / Color", value: `${form.yearModel || "—"} • ${form.color || "—"}` },
     { label: "Transmission", value: form.transmission },
-    { label: "Seats/ fuel", value: `${form.seats || "—"} seats • ${form.fuelType || "—"}` },
-    { label: "Daily rate", value: form.dailyRate ? `₱ ${Number(form.dailyRate).toFixed(2)}` : "—" },
+    { label: "Seats / fuel", value: `${form.seats || "—"} seats • ${form.fuelType || "—"}` },
+    { label: "Daily rate (24h)", value: formatCurrency(form.dailyRate) },
+    { label: "12-Hour rate", value: form.rate12h ? formatCurrency(form.rate12h) : "—" },
+    { label: "Late return fee", value: form.lateFeePerHour ? `${formatCurrency(form.lateFeePerHour)} / hr` : "—" },
+    { label: "Excess mileage fee", value: form.excessMileageFeePerKm ? `${formatCurrency(form.excessMileageFeePerKm)} / km` : "—" },
     { label: "Photos uploaded", value: `${photoCount} / 5` },
-    { label: "Features selected", value: form.features.length },
+    { label: "Features selected", value: form.features?.length || 0 },
   ];
 
   return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAdminVehicles } from "../../../context/AdminVehiclesContext";
+import { useToast } from "../../../context/ToastContext";
 import styles from "./VehicleViewOverlay.module.css";
 
 function VehiclePlaceholderImage() {
@@ -74,6 +75,7 @@ function formatDate(date) {
 export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
   const { archiveVehicle } = useAdminVehicles();
   const [activeIndex, setActiveIndex] = useState(0);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -98,14 +100,15 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
   const goNext = () => setActiveIndex((prev) => (prev + 1) % images.length);
 
   const handleArchive = () => {
-    // eslint-disable-next-line no-alert
-    const confirmed = window.confirm(
-      `Archive ${vehicle.name}? It will be removed from the active showroom.`
-    );
-    if (!confirmed) return;
-    archiveVehicle(vehicle.id);
-    onClose();
-  };
+      // eslint-disable-next-line no-alert
+      const confirmed = window.confirm(
+        `Archive ${vehicle.name}? It will be removed from the active showroom. This can't be undone from here yet.`
+      );
+      if (!confirmed) return;
+      archiveVehicle(vehicle.id);
+      showToast(`${vehicle.name} archived.`, { type: "info" });
+      onClose();
+    };
 
   return (
     <div className={styles.backdrop} onClick={onClose}>

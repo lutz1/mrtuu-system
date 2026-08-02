@@ -33,10 +33,12 @@ import AdminUsersPage from "./pages/admin/user/AdminUsersPage";
 import { AdminVehiclesProvider } from "./context/AdminVehiclesContext";
 import AdminAddVehiclePage from "./pages/admin/vehicle/AdminAddVehiclePage";
 import RootRedirect from "./pages/RootRedirect";
+import { ToastProvider } from "./context/ToastContext";
 
 function App() {
   return (
     <div className="app">
+    <ToastProvider>
       <ThemeProvider>
         <VehiclesProvider>
           <AdminVehiclesProvider>
@@ -241,6 +243,7 @@ function App() {
           </AdminVehiclesProvider>
         </VehiclesProvider>
       </ThemeProvider>
+    </ToastProvider>
     </div>
   );
 }

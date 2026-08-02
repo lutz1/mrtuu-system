@@ -4,14 +4,14 @@ import fields from "./FormFields.module.css";
 export default function PricingStep({ form, updateField }) {
   return (
     <div>
-      <h2 className={fields.stepTitle}>Pricing</h2>
+      <h2 className={fields.stepTitle}>Rental Rates</h2>
 
-      {/* Applied both classes here */}
-      <div className={`${fields.row} ${fields.threeColumns}`}>
+      {/* Base Rental Rates */}
+      <div className={`${fields.row} ${fields.twoColumns}`}>
         {/* Daily Rate */}
         <div className={fields.field}>
           <label className={fields.label} htmlFor="dailyRate">
-            Daily Rate <span className={fields.required}>*</span>
+            Daily Rate (24h) <span className={fields.required}>*</span>
           </label>
           <input
             id="dailyRate"
@@ -28,7 +28,7 @@ export default function PricingStep({ form, updateField }) {
         {/* 12-hour Rate */}
         <div className={fields.field}>
           <label className={fields.label} htmlFor="rate12h">
-            12-hour rate <span className={fields.required}>*</span>
+            12-Hour Rate <span className={fields.required}>*</span>
           </label>
           <input
             id="rate12h"
@@ -41,24 +41,51 @@ export default function PricingStep({ form, updateField }) {
             onChange={(e) => updateField("rate12h", e.target.value)}
           />
         </div>
+      </div>
 
-        {/* Overcharge (per hour) */}
+      <h2 className={fields.stepTitle} style={{ marginTop: "24px" }}>
+        Overcharge Fees
+      </h2>
+
+      {/* Overcharge Fees */}
+      <div className={`${fields.row} ${fields.twoColumns}`}>
+        {/* Late Return Fee */}
         <div className={fields.field}>
-          <label className={fields.label} htmlFor="overchargePerHour">
-            Overcharge (per hour)<span className={fields.required}>*</span>
+          <label className={fields.label} htmlFor="lateFeePerHour">
+            Late Return Fee (per hour)
           </label>
           <div className={fields.inputWrapper}>
             <input
-              id="overchargePerHour"
+              id="lateFeePerHour"
               type="number"
               min="0"
               step="10"
               className={fields.input}
               placeholder="₱ 0.00"
-              value={form.overchargePerHour}
-              onChange={(e) => updateField("overchargePerHour", e.target.value)}
+              value={form.lateFeePerHour || form.overchargePerHour || ""}
+              onChange={(e) => updateField("lateFeePerHour", e.target.value)}
             />
-            <span className={fields.inputSuffix}>per hour</span>
+            <span className={fields.inputSuffix}>/ hr</span>
+          </div>
+        </div>
+
+        {/* Excess Mileage Fee */}
+        <div className={fields.field}>
+          <label className={fields.label} htmlFor="excessMileageFeePerKm">
+            Excess Mileage Fee (per km)
+          </label>
+          <div className={fields.inputWrapper}>
+            <input
+              id="excessMileageFeePerKm"
+              type="number"
+              min="0"
+              step="1"
+              className={fields.input}
+              placeholder="₱ 0.00"
+              value={form.excessMileageFeePerKm || ""}
+              onChange={(e) => updateField("excessMileageFeePerKm", e.target.value)}
+            />
+            <span className={fields.inputSuffix}>/ km</span>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import PricingStep from "./PricingStep";
 import ReviewStep from "./ReviewStep";
 import fields from "./FormFields.module.css";
 import styles from "./AddVehicleModal.module.css";
+import { useToast } from "../../../../context/ToastContext";
 
 const REQUIRED_IMAGE_COUNT = 5;
 
@@ -32,6 +33,8 @@ const EMPTY_FORM = {
   description: "",
   dailyRate: "",
   rate12h: "",
+  lateFeePerHour: "",     
+  excessMileageFeePerKm: "",
 };
 
 const EMPTY_PHOTOS = [null, null, null, null, null];
@@ -58,6 +61,8 @@ function formFromVehicle(vehicle) {
     description: vehicle.description ?? "",
     dailyRate: vehicle.price ?? "",
     rate12h: vehicle.rate12h ?? "",
+    lateFeePerHour: vehicle.lateFeePerHour ?? "",         
+    excessMileageFeePerKm: vehicle.excessMileageFeePerKm ?? "",
   };
 }
 
@@ -105,6 +110,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
   const { addVehicle, updateVehicle } = useAdminVehicles();
   const isEditMode = Boolean(vehicle);
 
+  const { showToast } = useToast();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState(() =>
     isEditMode ? formFromVehicle(vehicle) : EMPTY_FORM
@@ -259,13 +265,17 @@ export default function AddVehicleModal({ vehicle, onClose }) {
         description: form.description,
         price: Number(form.dailyRate),
         rate12h: form.rate12h ? Number(form.rate12h) : null,
+        lateFeePerHour: form.lateFeePerHour ? Number(form.lateFeePerHour) : 0,          
+        excessMileageFeePerKm: form.excessMileageFeePerKm ? Number(form.excessMileageFeePerKm) : 0,
         status: isEditMode ? vehicle.status : "Available",
       };
 
       if (isEditMode) {
-        await updateVehicle(vehicle.id, vehicleData, images);
+        updateVehicle(vehicle.id, vehicleData);
+        showToast(`${vehicleData.name} updated successfully.`, { type: "success" });
       } else {
-        await addVehicle(vehicleData, images);
+        addVehicle(vehicleData);
+        showToast(`${vehicleData.name} added to the showroom.`, { type: "success" });
       }
 
       setLastUpdatedAt(new Date());
