@@ -53,6 +53,33 @@ function TypeIcon() {
   );
 }
 
+function ArchiveIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect
+        x="3.5"
+        y="5"
+        width="17"
+        height="4"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M10 13h4"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function VehiclePlaceholderImage() {
   return (
     <svg
@@ -75,7 +102,7 @@ function VehiclePlaceholderImage() {
   );
 }
 
-export default function VehicleCard({ vehicle, onView, onEdit }) {
+export default function VehicleCard({ vehicle, onView, onEdit, onArchive }) {
   // Firestore vehicles carry `images: string[]`; older/mock records may
   // still only have a single `imageUrl` — fall back to that.
   const thumbnail = vehicle.images?.[0] || vehicle.imageUrl;
@@ -131,6 +158,17 @@ export default function VehicleCard({ vehicle, onView, onEdit }) {
           >
             Edit
           </button>
+          {onArchive && (
+            <button
+              type="button"
+              className={styles.archiveBtn}
+              onClick={() => onArchive(vehicle)}
+              aria-label={`Archive ${vehicle.name}`}
+              title="Archive vehicle"
+            >
+              <ArchiveIcon />
+            </button>
+          )}
         </div>
       </div>
     </div>

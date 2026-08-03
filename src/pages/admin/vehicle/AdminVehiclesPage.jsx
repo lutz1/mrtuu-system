@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../dashboard/AdminLayout";
 import VehicleStatCard from "../../../components/admin/vehicle/VehicleStatCard";
@@ -117,7 +117,7 @@ function UnavailableIcon() {
 
 export default function AdminVehiclesPage() {
   const navigate = useNavigate();
-  const { vehicles, loading } = useAdminVehicles();
+  const { vehicles, loading, archiveVehicle } = useAdminVehicles();
   const { showToast } = useToast();
 
   const [query, setQuery] = useState("");
@@ -164,6 +164,15 @@ export default function AdminVehiclesPage() {
 
   const handleDrafts = () => {
     showToast("Drafts isn't built yet — coming soon.", { type: "info" });
+  };
+
+  const handleArchive = (vehicle) => {
+    const confirmed = window.confirm(
+      `Archive ${vehicle.name}? It will be removed from the active showroom. You can restore it later from the Archived Vehicles page.`
+    );
+    if (!confirmed) return;
+    archiveVehicle(vehicle.id);
+    showToast(`${vehicle.name} archived.`, { type: "info" });
   };
 
   const availableCount = vehicles.filter(
@@ -242,6 +251,7 @@ export default function AdminVehiclesPage() {
               vehicle={vehicle}
               onView={setViewingVehicle}
               onEdit={setEditingVehicle}
+              onArchive={handleArchive}
             />
           ))}
         </div>

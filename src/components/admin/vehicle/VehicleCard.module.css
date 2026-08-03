@@ -120,3 +120,29 @@
 .editBtn:hover {
   background: #d18f1c;
 }
+
+.archiveBtn {
+  flex: 0 0 auto;
+  width: 42px;
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  color: #6b7280;
+  padding: 11px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.archiveBtn:hover {
+  border-color: #e0483e;
+  color: #e0483e;
+  background: #fdeceb;
+}
+
+.archiveBtn svg {
+  width: 16px;
+  height: 16px;
+}
