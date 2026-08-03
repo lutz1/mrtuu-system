@@ -166,13 +166,17 @@ export default function AdminVehiclesPage() {
     showToast("Drafts isn't built yet — coming soon.", { type: "info" });
   };
 
-  const handleArchive = (vehicle) => {
+  const handleArchive = async (vehicle) => {
     const confirmed = window.confirm(
       `Archive ${vehicle.name}? It will be removed from the active showroom. You can restore it later from the Archived Vehicles page.`
     );
     if (!confirmed) return;
-    archiveVehicle(vehicle.id);
-    showToast(`${vehicle.name} archived.`, { type: "info" });
+    try {
+      await archiveVehicle(vehicle.id);
+      showToast(`${vehicle.name} archived.`, { type: "info" });
+    } catch (err) {
+      showToast(`Failed to archive ${vehicle.name}.`, { type: "error" });
+    }
   };
 
   const availableCount = vehicles.filter(
