@@ -1,5 +1,10 @@
 .sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: flex-start;
   width: 260px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   flex-shrink: 0;
   background: #ffffff;
   border-radius: 20px;
@@ -8,7 +13,6 @@
   flex-direction: column;
   gap: 4px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  min-height: calc(100vh - 128px);
 }
 
 .menuLabel {
@@ -92,15 +96,13 @@
 
 @media (max-width: 960px) {
   .sidebar {
+    position: static;
     width: 100%;
-    min-height: auto;
+    max-height: none;
   }
   .nav {
     flex-direction: row;
     flex-wrap: wrap;
-  }
-  .navItem {
-    flex: 1 1 auto;
   }
   .logoutBtn {
     margin-top: 12px;

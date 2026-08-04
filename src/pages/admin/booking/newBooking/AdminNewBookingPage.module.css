@@ -1,0 +1,110 @@
+.pageHeading {
+  margin-bottom: 24px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #9ca3af;
+  margin: 0 0 10px;
+}
+
+.breadcrumbLink {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  color: #1a1a1a;
+}
+
+.breadcrumbSep {
+  color: #d1d5db;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  font-size: 14.5px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.pageError {
+  margin-bottom: 16px;
+}
+
+.stickyFooter {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.footerNote {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.footerActions {
+  display: flex;
+  gap: 12px;
+}
+
+.cancelBtn {
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  color: #1a1a1a;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancelBtn:hover {
+  border-color: #9ca3af;
+}
+
+.createBtn {
+  background: #1a1a1a;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.createBtn:hover {
+  background: #333333;
+}
+
+@media (max-width: 640px) {
+  .stickyFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .footerActions {
+    flex-direction: column-reverse;
+  }
+}

@@ -1,23 +1,27 @@
 import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../dashboard/AdminLayout";
 import BookingFilterTabs from "../../../components/admin/booking/BookingFilterTabs";
 import BookingSearchBar from "../../../components/admin/booking/BookingSearchBar";
 import BookingsTable from "../../../components/admin/booking/BookingsTable";
 import Pagination from "../../../components/admin/common/Pagination";
 import { useToast } from "../../../context/ToastContext";
-import { MOCK_BOOKINGS, BOOKING_STAGES } from "../../../data/admin/mockBookings";
+import { useAdminBookings } from "../../../context/AdminBookingsContext";
+import { BOOKING_STAGES } from "../../../data/admin/mockBookings";
 import styles from "./AdminBookingsPage.module.css";
 
 const PAGE_SIZE = 6;
 
 export default function AdminBookingsPage() {
+  const navigate = useNavigate();
   const { showToast } = useToast();
+  const { bookings } = useAdminBookings();
   const [activeStage, setActiveStage] = useState(BOOKING_STAGES.QUEUE);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 
-  const queueCount = MOCK_BOOKINGS.filter((b) => b.stage === BOOKING_STAGES.QUEUE).length;
-  const activeCount = MOCK_BOOKINGS.filter((b) => b.stage === BOOKING_STAGES.ACTIVE).length;
+  const queueCount = bookings.filter((b) => b.stage === BOOKING_STAGES.QUEUE).length;
+  const activeCount = bookings.filter((b) => b.stage === BOOKING_STAGES.ACTIVE).length;
 
   const tabs = [
     { key: BOOKING_STAGES.QUEUE, label: `Booking Queue (${queueCount})` },
@@ -27,7 +31,7 @@ export default function AdminBookingsPage() {
 
   const filteredBookings = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return MOCK_BOOKINGS.filter((b) => {
+    return bookings.filter((b) => {
       const matchesStage = b.stage === activeStage;
       const matchesQuery =
         q === "" ||
@@ -36,7 +40,7 @@ export default function AdminBookingsPage() {
         b.vehicle.toLowerCase().includes(q);
       return matchesStage && matchesQuery;
     });
-  }, [activeStage, query]);
+  }, [bookings, activeStage, query]);
 
   const totalPages = Math.max(1, Math.ceil(filteredBookings.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -58,11 +62,6 @@ export default function AdminBookingsPage() {
     showToast(`Viewing ${booking.id} isn't built yet — coming soon.`, { type: "info" });
   };
 
-  // TODO: no new-booking flow exists yet
-  const handleNewBooking = () => {
-    showToast("New Booking isn't built yet — coming soon.", { type: "info" });
-  };
-
   return (
     <AdminLayout>
       <div className={styles.pageHeading}>
@@ -71,7 +70,7 @@ export default function AdminBookingsPage() {
 
       <div className={styles.toolbar}>
         <BookingFilterTabs tabs={tabs} active={activeStage} onChange={handleStageChange} />
-        <button type="button" className={styles.newBookingBtn} onClick={handleNewBooking}>
+        <button type="button" className={styles.newBookingBtn} onClick={() => navigate("/admin/bookings/new")}>
           <span className={styles.newBookingIcon}>+</span>
           New Booking
         </button>
