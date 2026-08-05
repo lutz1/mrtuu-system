@@ -1,0 +1,43 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.cleared {
+  background: #dcfce7;
+  color: #16803c;
+}
+
+.cleared .dot {
+  background: #16803c;
+}
+
+.sentToAdmin {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.sentToAdmin .dot {
+  background: #1d4ed8;
+}
+
+.returned {
+  background: #fef3c7;
+  color: #92620a;
+}
+
+.returned .dot {
+  background: #92620a;
+}
