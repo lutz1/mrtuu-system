@@ -1,24 +1,29 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DispatcherLayout from "../DispatcherLayout";
 import { useToast } from "../../../context/ToastContext";
 import styles from "./DispatcherProfilePage.module.css";
-
-// TODO: mock profile data — replace with real dispatcher account data
-// once the admin/dispatcher data layer exists. Nothing here persists
-// beyond this session.
-const INITIAL_PROFILE = {
-  fullName: "Selsite Tortskie",
-  email: "tortskie@gmail.com",
-  phone: "09957463523",
-  role: "Dispatcher",
-  memberSince: "May 10, 2026",
-};
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../../lib/firebase";
+import { useAuth } from "../../../context/AuthContext";
+import { useStaff } from "../../../context/StaffContext";
 
 function CameraIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 8.5a2 2 0 0 1 2-2h1.2l1-1.5h7.6l1 1.5H18a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <circle cx="12" cy="12.5" r="3.2" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M4 8.5a2 2 0 0 1 2-2h1.2l1-1.5h7.6l1 1.5H18a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8.5z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <circle
+        cx="12"
+        cy="12.5"
+        r="3.2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
@@ -26,8 +31,22 @@ function CameraIcon() {
 function MailIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M4.5 6.5l7.5 6 7.5-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <rect
+        x="3.5"
+        y="5.5"
+        width="17"
+        height="13"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M4.5 6.5l7.5 6 7.5-6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -35,7 +54,12 @@ function MailIcon() {
 function PhoneIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1.1-.9 2-2 2C10.7 19.5 4.5 13.3 4.5 6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path
+        d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1.1-.9 2-2 2C10.7 19.5 4.5 13.3 4.5 6c0-1.1.9-2 2-2z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -43,9 +67,22 @@ function PhoneIcon() {
 function CalendarIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" strokeWidth="1.6" />
+      <rect
+        x="3.5"
+        y="5"
+        width="17"
+        height="15"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
       <path d="M3.5 9.5h17" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M8 3v3.5M16 3v3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M8 3v3.5M16 3v3.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -53,9 +90,22 @@ function CalendarIcon() {
 function RoleIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3.5" y="5" width="17" height="14" rx="2" stroke="currentColor" strokeWidth="1.6" />
+      <rect
+        x="3.5"
+        y="5"
+        width="17"
+        height="14"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
       <circle cx="9" cy="11" r="2" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M6.5 15.5c.5-1.2 1.4-1.8 2.5-1.8s2 .6 2.5 1.8M14.5 10h3M14.5 13h3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path
+        d="M6.5 15.5c.5-1.2 1.4-1.8 2.5-1.8s2 .6 2.5 1.8M14.5 10h3M14.5 13h3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -63,68 +113,155 @@ function RoleIcon() {
 function LockIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="5" y="10.5" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" stroke="currentColor" strokeWidth="1.6" />
+      <rect
+        x="5"
+        y="10.5"
+        width="14"
+        height="9"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M8 10.5V8a4 4 0 0 1 8 0v2.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
     </svg>
   );
 }
 
+const ROLE_LABELS = { dispatcher: "Dispatcher" };
+
 export default function DispatcherProfilePage() {
+  const { user, refreshUser, changePassword } = useAuth();
+  const { staffProfile } = useStaff();
   const { showToast } = useToast();
-  const [profile, setProfile] = useState(INITIAL_PROFILE);
-  const [photoPreviewUrl, setPhotoPreviewUrl] = useState(null);
-  const [passwords, setPasswords] = useState({ current: "", next: "", confirm: "" });
+
+  const [fullName, setFullName] = useState(user?.displayName || "");
+  const [contactPhone, setContactPhone] = useState("");
+  const [passwords, setPasswords] = useState({
+    current: "",
+    next: "",
+    confirm: "",
+  });
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [saving, setSaving] = useState(false);
   const fileInputRef = useRef(null);
 
+  // Load the free-text contactPhone field from users/{uid} on mount.
   useEffect(() => {
-    return () => {
-      if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
-    };
-  }, [photoPreviewUrl]);
+    if (!user) return;
+    getDoc(doc(db, "users", user.uid))
+      .then((snap) => {
+        if (snap.exists()) setContactPhone(snap.data().contactPhone || "");
+      })
+      .catch((err) => console.error("Failed to load profile:", err));
+  }, [user]);
 
-  const handlePhotoSelect = (e) => {
+  useEffect(() => {
+    setFullName(user?.displayName || "");
+  }, [user?.displayName]);
+
+  const handlePhotoSelect = async (e) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-    if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
-    setPhotoPreviewUrl(URL.createObjectURL(file));
-  };
-
-  const updateProfileField = (field, value) => {
-    setProfile((prev) => ({ ...prev, [field]: value }));
+    if (!file || !user) return;
+    setUploadingPhoto(true);
+    try {
+      const storageRef = ref(storage, `profile-pictures/${user.uid}`);
+      await uploadBytes(storageRef, file);
+      const photoURL = await getDownloadURL(storageRef);
+      const { updateProfile } = await import("firebase/auth");
+      await updateProfile(user, { photoURL });
+      await setDoc(
+        doc(db, "users", user.uid),
+        { photoURL, lastLoginAt: serverTimestamp() },
+        { merge: true }
+      );
+      refreshUser();
+      showToast("Profile photo updated.", { type: "success" });
+    } catch (err) {
+      console.error(err);
+      showToast("Could not upload photo. Please try again.", { type: "error" });
+    } finally {
+      setUploadingPhoto(false);
+    }
   };
 
   const updatePasswordField = (field, value) => {
     setPasswords((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    if (passwords.next || passwords.confirm || passwords.current) {
-      if (passwords.next !== passwords.confirm) {
-        showToast("New password and confirmation don't match.", { type: "error" });
-        return;
-      }
+    if (!user) return;
+
+    const wantsPasswordChange =
+      passwords.next || passwords.confirm || passwords.current;
+    if (wantsPasswordChange && passwords.next !== passwords.confirm) {
+      showToast("New password and confirmation don't match.", {
+        type: "error",
+      });
+      return;
     }
-    // TODO: not wired to any backend — nothing here actually persists
-    showToast("Profile changes saved.", { type: "success" });
-    setPasswords({ current: "", next: "", confirm: "" });
+
+    setSaving(true);
+    try {
+      const { updateProfile } = await import("firebase/auth");
+      if (fullName !== user.displayName) {
+        await updateProfile(user, { displayName: fullName });
+        refreshUser();
+      }
+      await setDoc(
+        doc(db, "users", user.uid),
+        { contactPhone, lastLoginAt: serverTimestamp() },
+        { merge: true }
+      );
+
+      if (wantsPasswordChange) {
+        await changePassword(passwords.current, passwords.next);
+        setPasswords({ current: "", next: "", confirm: "" });
+      }
+
+      showToast("Profile changes saved.", { type: "success" });
+    } catch (err) {
+      console.error(err);
+      showToast(err.message || "Could not save changes.", { type: "error" });
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const initial = profile.fullName.trim().charAt(0).toUpperCase();
-  const displayFirstName = profile.fullName.split(" ")[0];
+  const roleLabel =
+    ROLE_LABELS[staffProfile?.role] || staffProfile?.role || "Dispatcher";
+  const initial = (user?.displayName || "D").trim().charAt(0).toUpperCase();
+  const displayFirstName = (user?.displayName || "Dispatcher").split(" ")[0];
+  const memberSince = user?.metadata?.creationTime
+    ? new Date(user.metadata.creationTime).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "—";
 
   return (
     <DispatcherLayout>
       <div className={styles.pageHeading}>
         <h1 className={styles.title}>Profile</h1>
-        <p className={styles.subtitle}>View and update your account information.</p>
+        <p className={styles.subtitle}>
+          View and update your account information.
+        </p>
       </div>
 
       <form className={styles.grid} onSubmit={handleSave}>
         <section className={styles.summaryCard}>
           <div className={styles.avatarWrap}>
-            {photoPreviewUrl ? (
-              <img src={photoPreviewUrl} alt={profile.fullName} className={styles.avatarImage} />
+            {user?.photoURL ? (
+              <img
+                src={user.photoURL}
+                alt={user.displayName}
+                className={styles.avatarImage}
+              />
             ) : (
               <span className={styles.avatarFallback}>{initial}</span>
             )}
@@ -133,6 +270,7 @@ export default function DispatcherProfilePage() {
               className={styles.cameraBtn}
               onClick={() => fileInputRef.current?.click()}
               aria-label="Change photo"
+              disabled={uploadingPhoto}
             >
               <CameraIcon />
             </button>
@@ -146,7 +284,7 @@ export default function DispatcherProfilePage() {
           </div>
 
           <h2 className={styles.displayName}>{displayFirstName}</h2>
-          <span className={styles.roleBadge}>{profile.role}</span>
+          <span className={styles.roleBadge}>{roleLabel}</span>
 
           <div className={styles.detailsList}>
             <div className={styles.detailRow}>
@@ -155,7 +293,7 @@ export default function DispatcherProfilePage() {
               </span>
               <div>
                 <p className={styles.detailLabel}>Email</p>
-                <p className={styles.detailValue}>{profile.email}</p>
+                <p className={styles.detailValue}>{user?.email}</p>
               </div>
             </div>
             <div className={styles.detailRow}>
@@ -164,7 +302,9 @@ export default function DispatcherProfilePage() {
               </span>
               <div>
                 <p className={styles.detailLabel}>Phone</p>
-                <p className={styles.detailValue}>{profile.phone}</p>
+                <p className={styles.detailValue}>
+                  {contactPhone || "Not set"}
+                </p>
               </div>
             </div>
             <div className={styles.detailRow}>
@@ -173,7 +313,7 @@ export default function DispatcherProfilePage() {
               </span>
               <div>
                 <p className={styles.detailLabel}>Member Since</p>
-                <p className={styles.detailValue}>{profile.memberSince}</p>
+                <p className={styles.detailValue}>{memberSince}</p>
               </div>
             </div>
             <div className={styles.detailRow}>
@@ -182,7 +322,7 @@ export default function DispatcherProfilePage() {
               </span>
               <div>
                 <p className={styles.detailLabel}>Role</p>
-                <p className={styles.detailValue}>{profile.role}</p>
+                <p className={styles.detailValue}>{roleLabel}</p>
               </div>
             </div>
           </div>
@@ -197,18 +337,16 @@ export default function DispatcherProfilePage() {
               <input
                 type="text"
                 className={styles.input}
-                value={profile.fullName}
-                onChange={(e) => updateProfileField("fullName", e.target.value)}
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
               />
             </div>
             <div className={styles.field}>
               <label className={styles.label}>Email Address</label>
-              <input
-                type="email"
-                className={styles.input}
-                value={profile.email}
-                onChange={(e) => updateProfileField("email", e.target.value)}
-              />
+              <div className={styles.lockedField}>
+                {user?.email}
+                <LockIcon />
+              </div>
             </div>
           </div>
 
@@ -218,14 +356,14 @@ export default function DispatcherProfilePage() {
               <input
                 type="text"
                 className={styles.input}
-                value={profile.phone}
-                onChange={(e) => updateProfileField("phone", e.target.value)}
+                value={contactPhone}
+                onChange={(e) => setContactPhone(e.target.value)}
               />
             </div>
             <div className={styles.field}>
               <label className={styles.label}>Role</label>
               <div className={styles.lockedField}>
-                {profile.role}
+                {roleLabel}
                 <LockIcon />
               </div>
             </div>
@@ -270,12 +408,26 @@ export default function DispatcherProfilePage() {
           </div>
 
           <div className={styles.actionsRow}>
-            <button type="submit" className={styles.saveBtn}>
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 5h11l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-                <path d="M8 5v5h7V5" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+            <button type="submit" className={styles.saveBtn} disabled={saving}>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 5h11l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8 5v5h7V5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinejoin="round"
+                />
               </svg>
-              Save Changes
+              {saving ? "Saving..." : "Save Changes"}
             </button>
           </div>
         </section>

@@ -11,5 +11,9 @@ export default function AdminRoute({ children }) {
   if (!staffProfile) {
     return <Navigate to="/login" replace />;
   }
+  // Dispatchers have a valid staffProfile but belong in /dispatcher/*, not /admin/*
+  if (staffProfile.role === "dispatcher") {
+    return <Navigate to="/dispatcher/dashboard" replace />;
+  }
   return children;
 }
