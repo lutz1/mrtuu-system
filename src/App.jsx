@@ -37,9 +37,7 @@ import ArchivedVehiclesPage from "./pages/admin/vehicle/ArchivedVehiclesPage";
 import { AdminBookingsProvider } from "./context/AdminBookingsContext";
 import AdminNewBookingPage from "./pages/admin/booking/newBooking/AdminNewBookingPage";
 
-import { DispatcherAuthProvider } from "./context/DispatcherAuthContext";
 import DispatcherRoute from "./context/DispatcherRoute";
-import DispatcherLoginPage from "./pages/dispatcher/DispatcherLoginPage";
 import DispatcherDashboardPage from "./pages/dispatcher/dashboard/DispatcherDashboardPage";
 import DispatcherInspectionPage from "./pages/dispatcher/inspection/DispatcherInspectionPage";
 import DispatcherHistoryPage from "./pages/dispatcher/history/DispatcherHistoryPage";
@@ -48,10 +46,9 @@ import DispatcherProfilePage from "./pages/dispatcher/profile/DispatcherProfileP
 function App() {
   return (
     <div className="app">
-    <ToastProvider>
-      <ThemeProvider>
-        <VehiclesProvider>
-          <DispatcherAuthProvider>
+      <ToastProvider>
+        <ThemeProvider>
+          <VehiclesProvider>
             <AdminVehiclesProvider>
               <AdminBookingsProvider>
                 <BrowserRouter>
@@ -59,7 +56,10 @@ function App() {
                     <StaffProvider>
                       <Routes>
                         <Route path="/" element={<RootRedirect />} />
-                        <Route path="/home" element={<Navigate to="/" replace />} />
+                        <Route
+                          path="/home"
+                          element={<Navigate to="/" replace />}
+                        />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<SignupPage />} />
                         <Route
@@ -239,69 +239,66 @@ function App() {
                           }
                         />
                         <Route
-                        path="/admin/vehicles/archived"
-                        element={
-                          <AdminRoute>
-                            <ArchivedVehiclesPage />
-                          </AdminRoute>
-                        }
-                      />
-                      <Route
-                        path="/admin/bookings/new"
-                        element={
-                          <AdminRoute>
-                            <AdminNewBookingPage />
-                          </AdminRoute>
-                        }
-                      />
-                      <Route 
-                        path="/dispatcher/login" 
-                        element={
-                        <DispatcherLoginPage />
-                        }
-                      />
-                      <Route 
-                        path="/dispatcher/dashboard" 
-                        element={
-                          <DispatcherRoute>
-                            <DispatcherDashboardPage />
-                          </DispatcherRoute>
-                        } 
-                      />
-                      <Route 
-                      path="/dispatcher/inspection" 
-                      element={
-                        <DispatcherRoute>
-                          <DispatcherInspectionPage />
-                        </DispatcherRoute>
-                        } 
-                      />
-                      <Route 
-                      path="/dispatcher/history" 
-                      element={
-                        <DispatcherRoute>
-                          <DispatcherHistoryPage />
-                        </DispatcherRoute>
-                        } 
-                      />
-                      <Route 
-                      path="/dispatcher/profile" 
-                      element={
-                        <DispatcherRoute>
-                          <DispatcherProfilePage />
-                        </DispatcherRoute>
-                        } 
-                      />
+                          path="/admin/vehicles/archived"
+                          element={
+                            <AdminRoute>
+                              <ArchivedVehiclesPage />
+                            </AdminRoute>
+                          }
+                        />
+                        <Route
+                          path="/admin/bookings/new"
+                          element={
+                            <AdminRoute>
+                              <AdminNewBookingPage />
+                            </AdminRoute>
+                          }
+                        />
+                        <Route
+                          path="/dispatcher/login"
+                          element={<Navigate to={"/login"} replace />}
+                        />
+                        <Route
+                          path="/dispatcher/dashboard"
+                          element={
+                            <DispatcherRoute>
+                              <DispatcherDashboardPage />
+                            </DispatcherRoute>
+                          }
+                        />
+                        <Route
+                          path="/dispatcher/inspection"
+                          element={
+                            <DispatcherRoute>
+                              <DispatcherInspectionPage />
+                            </DispatcherRoute>
+                          }
+                        />
+                        <Route
+                          path="/dispatcher/history"
+                          element={
+                            <DispatcherRoute>
+                              <DispatcherHistoryPage />
+                            </DispatcherRoute>
+                          }
+                        />
+                        <Route
+                          path="/dispatcher/profile"
+                          element={
+                            <DispatcherRoute>
+                              <DispatcherProfilePage />
+                            </DispatcherRoute>
+                          }
+                        />
                       </Routes>
                     </StaffProvider>
                   </AuthProvider>
                 </BrowserRouter>
               </AdminBookingsProvider>
             </AdminVehiclesProvider>
-          </DispatcherAuthProvider>
-        </VehiclesProvider>
-      </ThemeProvider>
-    </ToastProvider>
+          </VehiclesProvider>
+        </ThemeProvider>
+      </ToastProvider>
     </div>
   );
 }

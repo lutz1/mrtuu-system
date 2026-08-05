@@ -77,7 +77,10 @@ export default function LoginPage() {
     try {
       const staffSnap = await getDoc(doc(db, "lykas_staff", uid));
       if (staffSnap.exists() && staffSnap.data().active === true) {
-        navigate("/admin/dashboard");
+        const { role } = staffSnap.data();
+        navigate(
+          role === "dispatcher" ? "/dispatcher/dashboard" : "/admin/dashboard"
+        );
         return;
       }
     } catch (err) {

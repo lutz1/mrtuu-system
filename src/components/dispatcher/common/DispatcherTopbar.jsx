@@ -1,10 +1,22 @@
-import React from "react";
+import { useAuth } from "../../../context/AuthContext";
+import { useStaff } from "../../../context/StaffContext";
 import logo from "../../../assets/logo.png";
 import styles from "./DispatcherTopbar.module.css";
 
-// TODO: "Selsite" / "Dispatcher" are placeholders — replace once
-// DispatcherAuthContext carries a real identity/role.
+const ROLE_LABELS = {
+  dispatcher: "Dispatcher",
+};
+
 export default function DispatcherTopbar() {
+  const { user } = useAuth();
+  const { staffProfile } = useStaff();
+
+  const displayName =
+    user?.displayName || staffProfile?.displayName || "Dispatcher";
+  const roleLabel =
+    ROLE_LABELS[staffProfile?.role] || staffProfile?.role || "Dispatcher";
+  const initial = displayName.trim().charAt(0).toUpperCase() || "D";
+
   return (
     <header className={styles.topbar}>
       <div className={styles.brand}>
@@ -13,26 +25,59 @@ export default function DispatcherTopbar() {
       </div>
 
       <div className={styles.actions}>
-        <button type="button" className={styles.bellBtn} aria-label="Notifications">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button
+          type="button"
+          className={styles.bellBtn}
+          aria-label="Notifications"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M6 10a6 6 0 1 1 12 0c0 3.5 1 5 1.5 5.5H4.5C5 15 6 13.5 6 10z"
               stroke="currentColor"
               strokeWidth="1.7"
               strokeLinejoin="round"
             />
-            <path d="M9.5 18.5a2.5 2.5 0 0 0 5 0" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            <path
+              d="M9.5 18.5a2.5 2.5 0 0 0 5 0"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
 
         <button type="button" className={styles.userChip}>
-          <span className={styles.userAvatar}>S</span>
+          {user?.photoURL ? (
+            <img
+              src={user.photoURL}
+              alt={displayName}
+              className={styles.userAvatar}
+              style={{ objectFit: "cover" }}
+            />
+          ) : (
+            <span className={styles.userAvatar}>{initial}</span>
+          )}
           <span className={styles.userText}>
-            <span className={styles.userName}>Selsite</span>
-            <span className={styles.userRole}>Dispatcher</span>
+            <span className={styles.userName}>{displayName}</span>
+            <span className={styles.userRole}>{roleLabel}</span>
           </span>
-          <svg className={styles.chevron} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            className={styles.chevron}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 9l6 6 6-6"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       </div>
