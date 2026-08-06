@@ -1,0 +1,154 @@
+.pageHeading {
+  margin-bottom: 20px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #9ca3af;
+  margin: 0 0 10px;
+}
+
+.breadcrumbLink {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  color: #1a1a1a;
+}
+
+.breadcrumbSep {
+  color: #d1d5db;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0 0 20px;
+  color: #1a1a1a;
+}
+
+.stepLabel {
+  font-size: 13.5px;
+  color: #6b7280;
+  margin: 16px 0 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stepName {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.errorText {
+  background: #fdeceb;
+  color: #e0483e;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin: 0 0 16px;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.stepContent {
+  min-width: 0;
+}
+
+.stickyFooter {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cancelBtn {
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  color: #6b7280;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancelBtn:hover {
+  border-color: #9ca3af;
+  color: #1a1a1a;
+}
+
+.footerActions {
+  display: flex;
+  gap: 12px;
+}
+
+.backBtn {
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  color: #1a1a1a;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.backBtn:hover {
+  border-color: #9ca3af;
+}
+
+.nextBtn {
+  background: #1a1a1a;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nextBtn:hover {
+  background: #333333;
+}
+
+@media (max-width: 900px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .stickyFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .footerActions {
+    flex-direction: column-reverse;
+  }
+}

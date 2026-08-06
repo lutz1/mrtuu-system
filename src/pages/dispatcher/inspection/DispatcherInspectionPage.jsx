@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DispatcherLayout from "../DispatcherLayout";
 import InspectionQueueTable from "../../../components/dispatcher/inspection/InspectionQueueTable";
 import Pagination from "../../../components/admin/common/Pagination";
@@ -10,6 +11,7 @@ import styles from "./DispatcherInspectionPage.module.css";
 const PAGE_SIZE = 6;
 
 export default function DispatcherInspectionPage() {
+  const navigate = useNavigate();
   const { bookings } = useAdminBookings();
   const { showToast } = useToast();
   const [activeQueue, setActiveQueue] = useState("pickup");
@@ -46,9 +48,15 @@ export default function DispatcherInspectionPage() {
     setPage(1);
   };
 
-  // TODO: no inspection checklist screen exists yet
   const handleStartInspection = (booking) => {
-    showToast(`Inspection for ${booking.id} isn't built yet — coming soon.`, { type: "info" });
+    if (activeQueue === "pickup") {
+      navigate(`/dispatcher/inspection/${encodeURIComponent(booking.id)}`);
+      return;
+    }
+    // TODO: no return-inspection screen exists yet — this needs a
+    // different form (damage-since-pickup comparison), not the pickup
+    // wizard.
+    showToast(`Return inspection for ${booking.id} isn't built yet — coming soon.`, { type: "info" });
   };
 
   return (
@@ -89,7 +97,6 @@ export default function DispatcherInspectionPage() {
           />
         </div>
 
-        {/* TODO: wire to a real filter panel once filter criteria are defined */}
         <button type="button" className={styles.filterBtn}>
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />

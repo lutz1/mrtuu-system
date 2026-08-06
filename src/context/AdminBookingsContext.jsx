@@ -3,7 +3,8 @@ import { MOCK_BOOKINGS, BOOKING_STAGES } from "../data/admin/mockBookings";
 
 // TODO: TEMPORARY. Holds bookings in memory only — resets on page
 // refresh. Replace with real Firestore reads/writes once the admin data
-// layer exists; the addBooking shape here should carry over.
+// layer exists; the addBooking/updateBookingStage shape here should
+// carry over.
 const AdminBookingsContext = createContext(null);
 
 function generateBookingId(bookings) {
@@ -28,7 +29,13 @@ export function AdminBookingsProvider({ children }) {
     return newBooking;
   };
 
-  const value = { bookings, addBooking };
+  const updateBookingStage = (id, stage) => {
+    setBookings((prev) => prev.map((b) => (b.id === id ? { ...b, stage } : b)));
+  };
+
+  const getBookingById = (id) => bookings.find((b) => b.id === id);
+
+  const value = { bookings, addBooking, updateBookingStage, getBookingById };
 
   return <AdminBookingsContext.Provider value={value}>{children}</AdminBookingsContext.Provider>;
 }

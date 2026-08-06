@@ -1,0 +1,20 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  padding: 18px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.rowLabel {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+}

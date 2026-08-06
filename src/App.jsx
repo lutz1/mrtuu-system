@@ -42,6 +42,7 @@ import DispatcherDashboardPage from "./pages/dispatcher/dashboard/DispatcherDash
 import DispatcherInspectionPage from "./pages/dispatcher/inspection/DispatcherInspectionPage";
 import DispatcherHistoryPage from "./pages/dispatcher/history/DispatcherHistoryPage";
 import DispatcherProfilePage from "./pages/dispatcher/profile/DispatcherProfilePage";
+import DispatcherInspectionWizardPage from "./pages/dispatcher/inspection/DispatcherInspectionWizardPage";
 
 function App() {
   return (
@@ -287,6 +288,14 @@ function App() {
                           element={
                             <DispatcherRoute>
                               <DispatcherProfilePage />
+                            </DispatcherRoute>
+                          }
+                        />
+                        <Route
+                          path="/dispatcher/inspection/:bookingId"
+                          element={
+                            <DispatcherRoute>
+                              <DispatcherInspectionWizardPage />
                             </DispatcherRoute>
                           }
                         />

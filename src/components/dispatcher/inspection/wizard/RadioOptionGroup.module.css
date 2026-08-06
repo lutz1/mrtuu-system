@@ -1,0 +1,48 @@
+.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14.5px;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radioCircle {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 1.5px solid #d1d5db;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.radioInput:checked + .radioCircle {
+  border-color: #1a1a1a;
+}
+
+.radioInput:checked + .radioCircle::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: #1a1a1a;
+}
