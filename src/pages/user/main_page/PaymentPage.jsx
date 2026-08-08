@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import Navbar from "../../../components/user/frontpage/Navbar";
 import Footer from "../../../components/user/frontpage/Footer";
 import Loading from "../../../components/user/Loading";
-import { CARS } from "../../../data/cars";
 import styles from "./PaymentPage.module.css";
-
-
+import { useVehicles } from "../../../context/VehiclesContext";
+import { useAuth } from "../../../context/AuthContext";
+import { createBookingWithPayment } from "../../../services/bookingsService";
+import { useToast } from "../../../context/ToastContext";
 
 const PAYMENT_METHODS = [
   { id: "card", label: "Credit/Debit", type: "card" },
@@ -14,6 +15,14 @@ const PAYMENT_METHODS = [
   { id: "gcash2", label: "GCash", type: "wallet" },
   { id: "gcash3", label: "GCash", type: "wallet" },
 ];
+
+// PaymentPage's method ids are UI variants ("gcash1/2/3") — collapse to the
+// lykas_payments schema's method enum ("card" | "gcash" | "maya").
+function toPaymentMethodEnum(id) {
+  if (id === "card") return "card";
+  if (id.startsWith("gcash")) return "gcash";
+  return "gcash";
+}
 
 function formatDateShort(dateStr) {
   if (!dateStr) return "";
@@ -25,7 +34,10 @@ export default function PaymentPage() {
   const { id } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
-  const car = CARS.find((c) => String(c.id) === id);
+  const { getVehicleById } = useVehicles();
+  const { user } = useAuth();
+  const { showToast } = useToast();
+  const car = getVehicleById(id);
 
   const [selectedMethod, setSelectedMethod] = useState("card");
   const [saveCard, setSaveCard] = useState(false);
@@ -36,7 +48,8 @@ export default function PaymentPage() {
     cvc: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [error, setError] = useState("");
+
   if (!car) {
     return (
       <div className={styles.page}>
@@ -64,41 +77,77 @@ export default function PaymentPage() {
   const feesAndTaxes = state?.feesAndTaxes ?? 650;
   const addonsTotal = state?.addonsTotal ?? 0;
   const total = state?.total ?? subtotal + feesAndTaxes + addonsTotal;
+  const driver = state?.driver ?? {
+    fullName: "",
+    email: "",
+    phone: "",
+    licenseNo: "",
+  };
 
   const handleCardChange = (field, value) => {
     setCard((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handlePay = () => {
-  setIsLoading(true);
-  // Simulated delay — swap for the real PayMongo API call once the backend exists
-  setTimeout(() => {
-    const bookingRef = `LYKA-${Math.floor(1000 + Math.random() * 9000)}-${String.fromCharCode(
-      65 + Math.floor(Math.random() * 26)
-    )}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`;
+  const handlePay = async () => {
+    if (!user) {
+      setError("Please log in to complete your booking.");
+      return;
+    }
+    setError("");
+    setIsLoading(true);
 
-    navigate(`/payment-success/${car.id}`, {
-      state: {
-        bookingRef,
+    try {
+      const cardLast4 =
+        selectedMethod === "card" ? card.number.slice(-4) || "6769" : null;
+
+      // TODO: swap for the real PayMongo charge call, then only proceed to
+      // create the booking/payment docs once PayMongo confirms success.
+      const { bookingId, bookingRef } = await createBookingWithPayment({
+        uid: user.uid,
+        vehicleId: car.id,
+        driver,
+        location,
         pickupDate,
         returnDate,
         days,
-        location,
         dailyRate: car.price,
         subtotal,
-        feesAndTaxes,
-        addonsTotal,
+        insuranceFee: feesAndTaxes, // fees bucket kept as insurance+service combined for now
+        serviceFee: 0,
         total,
-        paymentMethod: selectedMethod,
-        cardLast4: selectedMethod === "card" ? card.number.slice(-4) || "6769" : null,
-      },
-    });
-  }, 1400);
-};
+        paymentMethod: toPaymentMethodEnum(selectedMethod),
+        cardLast4,
+      });
+
+      navigate(`/payment-success/${car.id}`, {
+        state: {
+          bookingId,
+          bookingRef,
+          pickupDate,
+          returnDate,
+          days,
+          location,
+          dailyRate: car.price,
+          subtotal,
+          feesAndTaxes,
+          addonsTotal,
+          total,
+          paymentMethod: selectedMethod,
+          cardLast4,
+        },
+      });
+    } catch (err) {
+      console.error("Failed to create booking:", err);
+      setError(err.message || "Payment failed. Please try again.");
+      showToast("Payment failed. Please try again.", { type: "error" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className={styles.page}>
-        {isLoading && <Loading message="Processing your payment..." />}
+      {isLoading && <Loading message="Processing your payment..." />}
       <div className={styles.stickyHeader}>
         <Navbar />
       </div>
@@ -110,7 +159,11 @@ export default function PaymentPage() {
             className={styles.backLink}
             onClick={() => navigate(-1)}
           >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M14 6l-6 6 6 6"
                 stroke="currentColor"
@@ -124,6 +177,12 @@ export default function PaymentPage() {
 
           <h1 className={styles.title}>Secure Checkout</h1>
 
+          {error && (
+            <p className={styles.termsNote} style={{ color: "#e0483e" }}>
+              {error}
+            </p>
+          )}
+
           <div className={styles.mainGrid}>
             <div className={styles.mainColumn}>
               <section className={styles.card}>
@@ -135,19 +194,47 @@ export default function PaymentPage() {
                       key={method.id}
                       type="button"
                       className={`${styles.methodBtn} ${
-                        selectedMethod === method.id ? styles.methodBtnActive : ""
+                        selectedMethod === method.id
+                          ? styles.methodBtnActive
+                          : ""
                       }`}
                       onClick={() => setSelectedMethod(method.id)}
                     >
                       <span className={styles.methodIcon}>
                         {method.type === "card" ? (
-                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" />
-                            <path d="M3 10.5h18" stroke="currentColor" strokeWidth="1.6" />
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              x="3"
+                              y="6"
+                              width="18"
+                              height="13"
+                              rx="2"
+                              stroke="currentColor"
+                              strokeWidth="1.6"
+                            />
+                            <path
+                              d="M3 10.5h18"
+                              stroke="currentColor"
+                              strokeWidth="1.6"
+                            />
                           </svg>
                         ) : (
-                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="9" stroke="#2E7CF6" strokeWidth="1.8" />
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="9"
+                              stroke="#2E7CF6"
+                              strokeWidth="1.8"
+                            />
                             <path
                               d="M8 12a4 4 0 0 1 4-4"
                               stroke="#2E7CF6"
@@ -182,12 +269,17 @@ export default function PaymentPage() {
                           className={styles.formInput}
                           placeholder="e.g. Selsite Tortskie"
                           value={card.name}
-                          onChange={(e) => handleCardChange("name", e.target.value)}
+                          onChange={(e) =>
+                            handleCardChange("name", e.target.value)
+                          }
                         />
                       </div>
 
                       <div className={styles.formField}>
-                        <label className={styles.formLabel} htmlFor="cardNumber">
+                        <label
+                          className={styles.formLabel}
+                          htmlFor="cardNumber"
+                        >
                           Card Number
                         </label>
                         <input
@@ -197,7 +289,9 @@ export default function PaymentPage() {
                           className={styles.formInput}
                           placeholder="0000 0000 0000 0000"
                           value={card.number}
-                          onChange={(e) => handleCardChange("number", e.target.value)}
+                          onChange={(e) =>
+                            handleCardChange("number", e.target.value)
+                          }
                         />
                       </div>
 
@@ -211,7 +305,9 @@ export default function PaymentPage() {
                           className={styles.formInput}
                           placeholder="MM / YY"
                           value={card.expiry}
-                          onChange={(e) => handleCardChange("expiry", e.target.value)}
+                          onChange={(e) =>
+                            handleCardChange("expiry", e.target.value)
+                          }
                         />
                       </div>
 
@@ -226,7 +322,9 @@ export default function PaymentPage() {
                           className={styles.formInput}
                           placeholder="123"
                           value={card.cvc}
-                          onChange={(e) => handleCardChange("cvc", e.target.value)}
+                          onChange={(e) =>
+                            handleCardChange("cvc", e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -237,7 +335,8 @@ export default function PaymentPage() {
                         checked={saveCard}
                         onChange={() => setSaveCard((prev) => !prev)}
                       />
-                      Save card details for future rentals securely via PayMongo Vault.
+                      Save card details for future rentals securely via PayMongo
+                      Vault.
                     </label>
                   </div>
                 )}
@@ -249,9 +348,18 @@ export default function PaymentPage() {
                 )}
               </section>
 
-              <button type="button" className={styles.payBtn} onClick={handlePay}>
+              <button
+                type="button"
+                className={styles.payBtn}
+                onClick={handlePay}
+                disabled={isLoading}
+              >
                 Pay ₱{total.toLocaleString()}.00 via PayMongo
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     d="M5 12h14M13 6l6 6-6 6"
                     stroke="currentColor"
@@ -262,13 +370,18 @@ export default function PaymentPage() {
                 </svg>
               </button>
               <p className={styles.termsNote}>
-                By clicking 'Pay', you agree to Lyka's Car Rental Terms of Service and Privacy Policy.
+                By clicking 'Pay', you agree to Lyka's Car Rental Terms of
+                Service and Privacy Policy.
               </p>
             </div>
 
             <div className={styles.sidebar}>
               <aside className={styles.summaryCard}>
-                <img src={car.images[0]} alt={car.name} className={styles.summaryImage} />
+                <img
+                  src={car.images[0]}
+                  alt={car.name}
+                  className={styles.summaryImage}
+                />
 
                 <div className={styles.summaryBody}>
                   <h3 className={styles.summaryCarName}>{car.name}</h3>
@@ -283,11 +396,14 @@ export default function PaymentPage() {
                     <div className={styles.summaryRow}>
                       <span className={styles.summaryLabel}>Dates</span>
                       <span className={styles.summaryValue}>
-                        {formatDateShort(pickupDate)} - {formatDateShort(returnDate)}
+                        {formatDateShort(pickupDate)} -{" "}
+                        {formatDateShort(returnDate)}
                       </span>
                     </div>
                     <div className={styles.summaryRow}>
-                      <span className={styles.summaryLabel}>Pick-up Location</span>
+                      <span className={styles.summaryLabel}>
+                        Pick-up Location
+                      </span>
                       <span className={styles.summaryValue}>{location}</span>
                     </div>
                   </div>
@@ -295,30 +411,53 @@ export default function PaymentPage() {
                   <div className={styles.summaryBreakdown}>
                     <div className={styles.summaryRow}>
                       <span className={styles.summaryLabel}>Rental Rate</span>
-                      <span className={styles.summaryValue}>₱{subtotal.toLocaleString()}</span>
+                      <span className={styles.summaryValue}>
+                        ₱{subtotal.toLocaleString()}
+                      </span>
                     </div>
                     <div className={styles.summaryRow}>
-                      <span className={styles.summaryLabel}>Fees &amp; Taxes</span>
-                      <span className={styles.summaryValue}>₱{feesAndTaxes.toLocaleString()}</span>
+                      <span className={styles.summaryLabel}>
+                        Fees &amp; Taxes
+                      </span>
+                      <span className={styles.summaryValue}>
+                        ₱{feesAndTaxes.toLocaleString()}
+                      </span>
                     </div>
                     {addonsTotal > 0 && (
                       <div className={styles.summaryRow}>
                         <span className={styles.summaryLabel}>Add-ons</span>
-                        <span className={styles.summaryValue}>₱{addonsTotal.toLocaleString()}</span>
+                        <span className={styles.summaryValue}>
+                          ₱{addonsTotal.toLocaleString()}
+                        </span>
                       </div>
                     )}
                   </div>
 
                   <div className={styles.summaryTotalRow}>
-                    <span className={styles.summaryTotalLabel}>Total Amount</span>
-                    <span className={styles.summaryTotalAmount}>₱{total.toLocaleString()}</span>
+                    <span className={styles.summaryTotalLabel}>
+                      Total Amount
+                    </span>
+                    <span className={styles.summaryTotalAmount}>
+                      ₱{total.toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </aside>
 
               <div className={styles.helpBox}>
-                <svg className={styles.helpIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+                <svg
+                  className={styles.helpIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                  />
                   <path
                     d="M9.5 9.2a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .8-1 1.5"
                     stroke="currentColor"
@@ -330,7 +469,8 @@ export default function PaymentPage() {
                 <div>
                   <p className={styles.helpTitle}>Need help?</p>
                   <p className={styles.helpText}>
-                    Call us 24/7 at 099999999 or Message on our FB Page: Lyka's Car Rental
+                    Call us 24/7 at 099999999 or Message on our FB Page: Lyka's
+                    Car Rental
                   </p>
                 </div>
               </div>

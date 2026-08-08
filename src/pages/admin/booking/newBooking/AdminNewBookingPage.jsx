@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AdminLayout from "../../dashboard/AdminLayout";
 import VehicleSelectionStep from "../../../../components/admin/booking/newBooking/VehicleSelectionStep";
@@ -37,7 +37,11 @@ function calcDays(pickupDate, returnDate) {
 function formatDateDisplay(dateStr) {
   if (!dateStr) return "";
   const d = new Date(dateStr + "T00:00:00");
-  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  return d.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 function formatTimeDisplay(timeStr) {
@@ -111,7 +115,7 @@ export default function AdminNewBookingPage() {
     navigate("/admin/bookings");
   };
 
-  const handleCreateBooking = () => {
+  const handleCreateBooking = async () => {
     const validationError = validate();
     if (validationError) {
       setError(validationError);
@@ -119,18 +123,32 @@ export default function AdminNewBookingPage() {
       return;
     }
 
-    const newBooking = addBooking({
-      customer: form.fullName.trim(),
-      phone: form.contactNumber.trim(),
-      vehicle: selectedVehicle.name,
-      plate: selectedVehicle.plate,
-      returnDate: formatDateDisplay(form.returnDate),
-      returnTime: formatTimeDisplay(form.returnTime),
-      source: "Walk-in",
-    });
+    try {
+      const newBooking = await addBooking({
+        customer: form.fullName.trim(),
+        phone: form.contactNumber.trim(),
+        email: form.email.trim(),
+        licenseNumber: form.licenseNumber.trim(),
+        vehicleId: selectedVehicle.id,
+        location: form.address.trim(),
+        pickupDate: form.pickupDate,
+        returnDate: form.returnDate,
+        pickupTime: form.pickupTime,
+        returnTime: form.returnTime,
+        days: numDays,
+        dailyRate: selectedVehicle.price,
+        total: totalAmount,
+      });
 
-    showToast(`Booking ${newBooking.id} created successfully.`, { type: "success" });
-    navigate("/admin/bookings");
+      showToast(`Booking ${newBooking.id} created successfully.`, {
+        type: "success",
+      });
+      navigate("/admin/bookings");
+    } catch (err) {
+      console.error("Failed to create booking:", err);
+      setError("Failed to create booking. Please try again.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -151,7 +169,9 @@ export default function AdminNewBookingPage() {
         </p>
       </div>
 
-      {error && <p className={`${fields.errorText} ${styles.pageError}`}>{error}</p>}
+      {error && (
+        <p className={`${fields.errorText} ${styles.pageError}`}>{error}</p>
+      )}
 
       {step === 1 ? (
         <VehicleSelectionStep onSelectVehicle={handleSelectVehicle} />
@@ -170,12 +190,22 @@ export default function AdminNewBookingPage() {
           />
 
           <div className={styles.stickyFooter}>
-            <span className={styles.footerNote}>Field marked with * are required.</span>
+            <span className={styles.footerNote}>
+              Field marked with * are required.
+            </span>
             <div className={styles.footerActions}>
-              <button type="button" className={styles.cancelBtn} onClick={handleCancel}>
+              <button
+                type="button"
+                className={styles.cancelBtn}
+                onClick={handleCancel}
+              >
                 Cancel
               </button>
-              <button type="button" className={styles.createBtn} onClick={handleCreateBooking}>
+              <button
+                type="button"
+                className={styles.createBtn}
+                onClick={handleCreateBooking}
+              >
                 Create Booking
               </button>
             </div>
