@@ -1,5 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import {
+  useParams,
+  useSearchParams,
+  useNavigate,
+  Link,
+} from "react-router-dom";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import DispatcherLayout from "../DispatcherLayout";
 import BookingInfoCard from "../../../components/dispatcher/inspection/wizard/BookingInfoCard";
 import InspectionStepIndicator from "../../../components/dispatcher/inspection/wizard/InspectionStepIndicator";
@@ -8,18 +14,42 @@ import FuelDocumentsStep from "../../../components/dispatcher/inspection/wizard/
 import VehicleConditionStep from "../../../components/dispatcher/inspection/wizard/VehicleConditionStep";
 import ReviewSubmitStep from "../../../components/dispatcher/inspection/wizard/ReviewSubmitStep";
 import { useAdminBookings } from "../../../context/AdminBookingsContext";
+import { useStaff } from "../../../context/StaffContext";
 import { useToast } from "../../../context/ToastContext";
-import { BOOKING_STAGES } from "../../../data/admin/mockBookings";
+import { storage } from "../../../lib/firebase";
 import styles from "./DispatcherInspectionWizardPage.module.css";
 
 const EMPTY_PHOTOS = { front: null, back: null, left: null, right: null };
-const EMPTY_DOCUMENTS = { orcr: "", insurance: "", officialReceipt: "", vehicleRegistration: "" };
-const DEFAULT_CONDITION = { exterior: "Good", interior: "Clean", tires: "Good", lights: "Working" };
+const EMPTY_DOCUMENTS = {
+  orcr: "",
+  insurance: "",
+  officialReceipt: "",
+  vehicleRegistration: "",
+};
+const DEFAULT_CONDITION = {
+  exterior: "Good",
+  interior: "Clean",
+  tires: "Good",
+  lights: "Working",
+};
+
+async function uploadChecklistPhoto(bookingId, phase, key, file) {
+  const storageRef = ref(
+    storage,
+    `inspection-photos/${bookingId}/${phase}/${key}-${Date.now()}`
+  );
+  await uploadBytes(storageRef, file);
+  return getDownloadURL(storageRef);
+}
 
 export default function DispatcherInspectionWizardPage() {
   const { bookingId } = useParams();
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get("mode") === "return" ? "return" : "pickup"; // pickup -> preRent, return -> postRent
   const navigate = useNavigate();
-  const { getBookingById, updateBookingStage } = useAdminBookings();
+  const { getBookingById, dispatchPreRent, dispatchPostRent } =
+    useAdminBookings();
+  const { staffProfile } = useStaff();
   const { showToast } = useToast();
 
   const booking = getBookingById(decodeURIComponent(bookingId));
@@ -32,6 +62,7 @@ export default function DispatcherInspectionWizardPage() {
   const [condition, setCondition] = useState(DEFAULT_CONDITION);
   const [remarks, setRemarks] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const photosRef = useRef(photos);
 
   useEffect(() => {
@@ -54,7 +85,9 @@ export default function DispatcherInspectionWizardPage() {
             Inspection
           </Link>
           <h1 className={styles.title}>Booking not found</h1>
-          <p className={styles.subtitle}>This booking may have been removed. Refreshing also resets mock data.</p>
+          <p className={styles.subtitle}>
+            This booking may not exist or hasn't finished loading yet.
+          </p>
         </div>
       </DispatcherLayout>
     );
@@ -68,7 +101,10 @@ export default function DispatcherInspectionWizardPage() {
     setError("");
     setPhotos((prev) => {
       if (prev[key]) URL.revokeObjectURL(prev[key].previewUrl);
-      return { ...prev, [key]: { previewUrl: URL.createObjectURL(file) } };
+      return {
+        ...prev,
+        [key]: { previewUrl: URL.createObjectURL(file), file },
+      };
     });
   };
 
@@ -94,11 +130,14 @@ export default function DispatcherInspectionWizardPage() {
         return "Please take all 4 vehicle photos and enter the odometer reading.";
       }
     }
-    if (step === 2) {
+    if (step === 2 && mode === "pickup") {
       const allDocs = Object.values(documents).every(Boolean);
       if (!fuelLevel || !allDocs) {
         return "Please select a fuel level and a status for every document.";
       }
+    }
+    if (step === 2 && mode === "return" && !fuelLevel) {
+      return "Please select a fuel level.";
     }
     return "";
   };
@@ -122,10 +161,55 @@ export default function DispatcherInspectionWizardPage() {
     navigate("/dispatcher/inspection");
   };
 
-  const handleSubmitClearance = () => {
-    updateBookingStage(booking.id, BOOKING_STAGES.ACTIVE);
-    showToast(`Inspection for ${booking.id} submitted — vehicle cleared for pickup.`, { type: "success" });
-    navigate("/dispatcher/inspection");
+  const handleSubmitClearance = async () => {
+    setIsSubmitting(true);
+    setError("");
+    try {
+      const phase = mode === "pickup" ? "preRent" : "postRent";
+      const uploadedPhotos = {};
+      for (const key of ["front", "back", "left", "right"]) {
+        uploadedPhotos[key] = await uploadChecklistPhoto(
+          booking.id,
+          phase,
+          key,
+          photos[key].file
+        );
+      }
+
+      if (mode === "pickup") {
+        await dispatchPreRent(booking.id, {
+          staffUid: staffProfile?.uid,
+          vehicleId: booking.vehicleId,
+          photos: uploadedPhotos,
+          fuelLevel,
+          odometerReading: odometer,
+          notes: remarks,
+        });
+        showToast(
+          `${booking.id} cleared for pickup — vehicle marked as rented.`,
+          { type: "success" }
+        );
+      } else {
+        await dispatchPostRent(booking.id, {
+          staffUid: staffProfile?.uid,
+          photos: uploadedPhotos,
+          fuelLevel,
+          odometerReading: odometer,
+          notes: remarks,
+        });
+        showToast(
+          `${booking.id} return checklist submitted — sent to admin for review.`,
+          { type: "success" }
+        );
+      }
+
+      navigate("/dispatcher/inspection");
+    } catch (err) {
+      console.error("Failed to submit checklist:", err);
+      setError("Failed to submit inspection. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -136,7 +220,9 @@ export default function DispatcherInspectionWizardPage() {
             Inspection
           </Link>
           <span className={styles.breadcrumbSep}>/</span>
-          <span>Start Inspection</span>
+          <span>
+            {mode === "pickup" ? "Pre-Rent Inspection" : "Post-Rent Inspection"}
+          </span>
         </p>
         <h1 className={styles.title}>Vehicle Inspection</h1>
 
@@ -146,7 +232,8 @@ export default function DispatcherInspectionWizardPage() {
           Step {step} of 4
           <span className={styles.stepName}>
             {step === 1 && "Vehicle Photos"}
-            {step === 2 && "Fuel & Documents"}
+            {step === 2 &&
+              (mode === "pickup" ? "Fuel & Documents" : "Fuel Level")}
             {step === 3 && "Vehicle Condition"}
             {step === 4 && "Review & Submit"}
           </span>
@@ -155,9 +242,7 @@ export default function DispatcherInspectionWizardPage() {
 
       {error && <p className={styles.errorText}>{error}</p>}
 
-      {/* Grid container holding left sidebar and right main content */}
       <div className={styles.body}>
-        {/* Render BookingInfoCard inside .body unconditionally so it stays on the left column in ALL steps */}
         <BookingInfoCard booking={booking} />
 
         <div className={styles.stepContent}>
@@ -178,7 +263,12 @@ export default function DispatcherInspectionWizardPage() {
               onDocumentChange={handleDocumentChange}
             />
           )}
-          {step === 3 && <VehicleConditionStep condition={condition} onConditionChange={handleConditionChange} />}
+          {step === 3 && (
+            <VehicleConditionStep
+              condition={condition}
+              onConditionChange={handleConditionChange}
+            />
+          )}
           {step === 4 && (
             <ReviewSubmitStep
               photos={photos}
@@ -194,22 +284,41 @@ export default function DispatcherInspectionWizardPage() {
       </div>
 
       <div className={styles.stickyFooter}>
-        <button type="button" className={styles.cancelBtn} onClick={handleCancel}>
+        <button
+          type="button"
+          className={styles.cancelBtn}
+          onClick={handleCancel}
+          disabled={isSubmitting}
+        >
           Cancel Inspection
         </button>
         <div className={styles.footerActions}>
           {step > 1 && (
-            <button type="button" className={styles.backBtn} onClick={handleBack}>
+            <button
+              type="button"
+              className={styles.backBtn}
+              onClick={handleBack}
+              disabled={isSubmitting}
+            >
               Back
             </button>
           )}
           {step < 4 ? (
-            <button type="button" className={styles.nextBtn} onClick={handleNext}>
+            <button
+              type="button"
+              className={styles.nextBtn}
+              onClick={handleNext}
+            >
               Next
             </button>
           ) : (
-            <button type="button" className={styles.nextBtn} onClick={handleSubmitClearance}>
-              Submit Clearance
+            <button
+              type="button"
+              className={styles.nextBtn}
+              onClick={handleSubmitClearance}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit Clearance"}
             </button>
           )}
         </div>
