@@ -1,0 +1,65 @@
+.photoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.odometerField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.odometerLabel {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.required {
+  color: #e0483e;
+}
+
+.odometerInputWrap {
+  position: relative;
+}
+
+.odometerInput {
+  width: 100%;
+  background: #f2f2f2;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 13px 50px 13px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a1a;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.odometerInput::placeholder {
+  color: #9ca3af;
+}
+
+.odometerInput:focus {
+  border-color: #e8a020;
+  background: #ffffff;
+}
+
+.odometerUnit {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13.5px;
+  color: #9ca3af;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .photoGrid {
+    grid-template-columns: 1fr;
+  }
+}

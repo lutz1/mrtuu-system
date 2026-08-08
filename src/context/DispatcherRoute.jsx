@@ -1,13 +1,21 @@
 import { Navigate } from "react-router-dom";
-import { useDispatcherAuth } from "./DispatcherAuthContext";
+import { useStaff } from "./StaffContext";
+import Loading from "../components/user/Loading";
 
-// TODO: TEMPORARY guard, checking only the dummy session flag.
+// Strict role guard: only active staff with role === "dispatcher" may pass.
+// Owners/staff/checklist_admins are bounced to /admin/dashboard instead of
+// silently being let in, since they DO have a valid staffProfile.
 export default function DispatcherRoute({ children }) {
-  const { isDispatcherLoggedIn } = useDispatcherAuth();
+  const { staffProfile, staffLoading } = useStaff();
 
-  if (!isDispatcherLoggedIn) {
-    return <Navigate to="/dispatcher/login" replace />;
+  if (staffLoading) {
+    return <Loading message="Checking dispatcher access..." />;
   }
-
+  if (!staffProfile) {
+    return <Navigate to="/login" replace />;
+  }
+  if (staffProfile.role !== "dispatcher") {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
   return children;
 }

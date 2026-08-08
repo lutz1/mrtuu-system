@@ -8,14 +8,16 @@ export default function RootRedirect() {
   const { isLoggedIn, authLoading } = useAuth();
   const { staffProfile, staffLoading } = useStaff();
 
-  // Wait for auth to resolve, and — only if logged in — wait for the
-  // staff lookup too, before deciding where to send them.
   if (authLoading || (isLoggedIn && staffLoading)) {
     return <Loading message="Loading..." />;
   }
 
   if (isLoggedIn && staffProfile) {
-    return <Navigate to="/admin/dashboard" replace />;
+    const target =
+      staffProfile.role === "dispatcher"
+        ? "/dispatcher/dashboard"
+        : "/admin/dashboard";
+    return <Navigate to={target} replace />;
   }
 
   return <LandingPage />;
