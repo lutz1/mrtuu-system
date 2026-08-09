@@ -1,0 +1,139 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.modalCard {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1000;
+  width: 280px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  font-family: inherit;
+}
+
+.modalHeader {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.pickerGrid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background-color: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.colLabel {
+  font-size: 0.725rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.selectInput {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.selectInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.separator {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 18px;
+}
+
+.periodToggle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.periodBtn {
+  padding: 4px 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.periodBtn.activePeriod {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cancelBtn,
+.applyBtn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  background: none;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.cancelBtn:hover {
+  background-color: #f1f5f9;
+}
+
+.applyBtn {
+  background-color: #2563eb;
+  border: none;
+  color: #ffffff;
+}
+
+.applyBtn:hover {
+  background-color: #1d4ed8;
+}
