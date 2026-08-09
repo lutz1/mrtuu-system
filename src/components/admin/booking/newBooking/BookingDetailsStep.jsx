@@ -1,8 +1,12 @@
 import React from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; // Default picker styles
+
 import UploadDropzone from "./UploadDropzone";
 import { ID_TYPES, PAYMENT_METHODS, PAYMENT_STATUSES } from "../../../../data/admin/newBookingOptions";
 import fields from "./FormFields.module.css";
 import summaryStyles from "./SelectedVehicleSummary.module.css";
+import CustomTimePicker from "../../common/CustomTimePicker";
 
 function VehiclePlaceholderImage() {
   return (
@@ -21,6 +25,10 @@ function VehiclePlaceholderImage() {
     </svg>
   );
 }
+
+// Helper functions to safely convert String <-> Date object
+const parseDateString = (dateStr) => (dateStr ? new Date(dateStr) : null);
+const formatDateString = (dateObj) => (dateObj ? dateObj.toISOString().split("T")[0] : "");
 
 export default function BookingDetailsStep({
   vehicle,
@@ -132,11 +140,13 @@ export default function BookingDetailsStep({
               <label className={fields.label}>
                 License Expiry Date <span className={fields.required}>*</span>
               </label>
-              <input
-                type="date"
+              <DatePicker
+                selected={parseDateString(form.licenseExpiry)}
+                onChange={(date) => updateField("licenseExpiry", formatDateString(date))}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Select expiry date"
                 className={fields.input}
-                value={form.licenseExpiry}
-                onChange={(e) => updateField("licenseExpiry", e.target.value)}
+                wrapperClassName={fields.datePickerWrapper}
               />
             </div>
           </div>
@@ -187,23 +197,27 @@ export default function BookingDetailsStep({
             <label className={fields.label}>
               Pickup Date <span className={fields.required}>*</span>
             </label>
-            <input
-              type="date"
+            <DatePicker
+              selected={parseDateString(form.pickupDate)}
+              onChange={(date) => updateField("pickupDate", formatDateString(date))}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Select pickup date"
               className={fields.input}
-              value={form.pickupDate}
-              onChange={(e) => updateField("pickupDate", e.target.value)}
+              wrapperClassName={fields.datePickerWrapper}
             />
           </div>
           <div className={fields.field}>
             <label className={fields.label}>
               Return Date <span className={fields.required}>*</span>
             </label>
-            <input
-              type="date"
+            <DatePicker
+              selected={parseDateString(form.returnDate)}
+              onChange={(date) => updateField("returnDate", formatDateString(date))}
+              minDate={parseDateString(form.pickupDate)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Select return date"
               className={fields.input}
-              min={form.pickupDate || undefined}
-              value={form.returnDate}
-              onChange={(e) => updateField("returnDate", e.target.value)}
+              wrapperClassName={fields.datePickerWrapper}
             />
           </div>
         </div>
@@ -212,22 +226,23 @@ export default function BookingDetailsStep({
             <label className={fields.label}>
               Pickup Time <span className={fields.required}>*</span>
             </label>
-            <input
-              type="time"
-              className={fields.input}
+            <CustomTimePicker
               value={form.pickupTime}
-              onChange={(e) => updateField("pickupTime", e.target.value)}
+              onChange={(val) => updateField("pickupTime", val)}
+              placeholder="Select pickup time"
+              inputClassName={fields.input}
             />
           </div>
+
           <div className={fields.field}>
             <label className={fields.label}>
               Return Time <span className={fields.required}>*</span>
             </label>
-            <input
-              type="time"
-              className={fields.input}
+            <CustomTimePicker
               value={form.returnTime}
-              onChange={(e) => updateField("returnTime", e.target.value)}
+              onChange={(val) => updateField("returnTime", val)}
+              placeholder="Select return time"
+              inputClassName={fields.input}
             />
           </div>
         </div>

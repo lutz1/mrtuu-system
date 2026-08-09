@@ -108,6 +108,11 @@
   margin: 0;
 }
 
+.datePickerWrapper {
+  width: 100%;
+  display: block;
+}
+
 @media (max-width: 800px) {
   .row {
     grid-template-columns: 1fr;
