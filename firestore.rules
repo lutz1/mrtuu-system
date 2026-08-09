@@ -25,5 +25,38 @@ service cloud.firestore {
       allow write: if request.auth != null &&
         get(/databases/$(database)/documents/lykas_staff/$(request.auth.uid)).data.permissions.hasAny(["manage_fleet"]);
     }
+   match /lykas_bookings/{bookingId} {
+      function isStaffWithAny(perms) {
+        return request.auth != null &&
+          get(/databases/$(database)/documents/lykas_staff/$(request.auth.uid)).data.permissions.hasAny(perms);
+      }
+
+      allow read: if request.auth != null && (
+        resource.data.uid == request.auth.uid ||
+        isStaffWithAny(["manage_fleet", "dispatch", "clearance_review"])
+      );
+
+      allow create: if request.auth != null && (
+        request.resource.data.uid == request.auth.uid ||
+        (request.resource.data.uid == null && isStaffWithAny(["manage_fleet"]))
+      );
+
+      // Customer can patch only their own existing booking (e.g. attaching paymentId
+      // right after creation in createBookingWithPayment). Staff can update any booking
+      // for lifecycle actions (clearance, dispatch, cancel).
+      allow update: if request.auth != null && (
+        resource.data.uid == request.auth.uid ||
+        isStaffWithAny(["manage_fleet", "clearance_review", "dispatch"])
+      );
+    }
+
+    match /lykas_payments/{paymentId} {
+      allow read: if request.auth != null && (
+        resource.data.uid == request.auth.uid ||
+        isStaffWithAny(["manage_fleet", "clearance_review", "dispatch"])
+      );
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+      // Payments are immutable after creation — no update/delete rule needed unless you add refunds later.
+    }
   }
 }
