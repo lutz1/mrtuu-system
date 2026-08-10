@@ -22,6 +22,8 @@ import {
   submitReturnReview,
   cancelBooking as cancelBookingService,
 } from "../services/bookingsService";
+import { useAuth } from "./AuthContext";
+import { useStaff } from "./StaffContext";
 
 const AdminBookingsContext = createContext(null);
 
@@ -73,6 +75,9 @@ function joinBooking(booking, vehiclesById) {
 }
 
 export function AdminBookingsProvider({ children }) {
+  const { user } = useAuth();
+  const { staffProfile } = useStaff();
+
   const [rawBookings, setRawBookings] = useState([]);
   const [vehiclesById, setVehiclesById] = useState(new Map());
   const [loading, setLoading] = useState(true);
@@ -117,49 +122,61 @@ export function AdminBookingsProvider({ children }) {
   // may not have a Firebase Auth account, so there's no `uid` here — this is
   // intentionally a separate, simpler path from the customer online-booking
   // flow in bookingsService.createBookingWithPayment.
-  const addBooking = useCallback(async (bookingData) => {
-    const docRef = await addDoc(collection(db, "lykas_bookings"), {
-      uid: null,
-      vehicleId: bookingData.vehicleId,
-      status: "confirmed",
-      location: bookingData.location || "",
-      pickupDate: bookingData.pickupDate || "",
-      returnDate: bookingData.returnDate || "",
-      pickupTime: bookingData.pickupTime || "",
-      returnTime: bookingData.returnTime || "",
-      days: bookingData.days || 1,
-      dailyRate: bookingData.dailyRate || 0,
-      total: bookingData.total || 0,
-      driver: {
-        fullName: bookingData.customer || "",
-        phone: bookingData.phone || "",
-        email: bookingData.email || "",
-        licenseNo: bookingData.licenseNumber || "",
-      },
-      source: "Walk-in",
-      paymentId: null,
-      dispatchedBy: null,
-      dispatchedAt: null,
-      returnedAt: null,
-      clearance: {
-        status: null,
-        checkedBy: null,
-        checkedAt: null,
-        licenseVerified: false,
-        notes: "",
-        rejectionReason: null,
-      },
-      dispatchChecklist: {
-        preRent: null,
-        postRent: null,
-        status: null,
-        reviewedBy: null,
-        reviewedAt: null,
-      },
-      createdAt: serverTimestamp(),
-    });
-    return { id: docRef.id, ...bookingData };
-  }, []);
+  //
+  // NOTE: unlike online bookings, walk-in documents are physically checked
+  // by the admin in person while filling this form out — there's no
+  // separate "review documents, then send to dispatcher" step for these.
+  // clearance is therefore approved at creation time, so the booking is
+  // immediately visible in the dispatcher's ready-for-pickup queue.
+const addBooking = useCallback(
+    async (bookingData) => {
+      const currentAdminUid = staffProfile?.uid || user?.uid || null;
+
+      const docRef = await addDoc(collection(db, "lykas_bookings"), {
+        uid: null,
+        vehicleId: bookingData.vehicleId,
+        status: "confirmed",
+        location: bookingData.location || "",
+        pickupDate: bookingData.pickupDate || "",
+        returnDate: bookingData.returnDate || "",
+        pickupTime: bookingData.pickupTime || "",
+        returnTime: bookingData.returnTime || "",
+        days: bookingData.days || 1,
+        dailyRate: bookingData.dailyRate || 0,
+        total: bookingData.total || 0,
+        driver: {
+          fullName: bookingData.customer || "",
+          phone: bookingData.phone || "",
+          email: bookingData.email || "",
+          licenseNo: bookingData.licenseNumber || "",
+        },
+        source: "Walk-in",
+        paymentId: null,
+        dispatchedBy: null,
+        dispatchedAt: null,
+        returnedAt: null,
+        // Walk-in documents are verified in-person: auto-clear so it goes directly to dispatcher inspection queue
+        clearance: {
+          status: "cleared",
+          checkedBy: currentAdminUid,
+          checkedAt: serverTimestamp(),
+          licenseVerified: true,
+          notes: "Walk-in booking — documents verified in person by admin.",
+          rejectionReason: null,
+        },
+        dispatchChecklist: {
+          preRent: null,
+          postRent: null,
+          status: null,
+          reviewedBy: null,
+          reviewedAt: null,
+        },
+        createdAt: serverTimestamp(),
+      });
+      return { id: docRef.id, ...bookingData };
+    },
+    [user, staffProfile]
+  );
 
   const getBookingById = useCallback(
     (id) => bookings.find((b) => b.id === id),

@@ -43,18 +43,19 @@ import DispatcherInspectionPage from "./pages/dispatcher/inspection/DispatcherIn
 import DispatcherHistoryPage from "./pages/dispatcher/history/DispatcherHistoryPage";
 import DispatcherProfilePage from "./pages/dispatcher/profile/DispatcherProfilePage";
 import DispatcherInspectionWizardPage from "./pages/dispatcher/inspection/DispatcherInspectionWizardPage";
+import AdminBookingDetailsPage from "./pages/admin/booking/details/AdminBookingDetailsPage";
 
 function App() {
   return (
     <div className="app">
       <ToastProvider>
         <ThemeProvider>
-          <VehiclesProvider>
-            <AdminVehiclesProvider>
-              <AdminBookingsProvider>
-                <BrowserRouter>
-                  <AuthProvider>
-                    <StaffProvider>
+          <BrowserRouter>
+            <AuthProvider>
+              <StaffProvider>
+                <VehiclesProvider>
+                  <AdminVehiclesProvider>
+                    <AdminBookingsProvider>
                       <Routes>
                         <Route path="/" element={<RootRedirect />} />
                         <Route
@@ -299,13 +300,21 @@ function App() {
                             </DispatcherRoute>
                           }
                         />
+                        <Route
+                          path="/admin/bookings/:id"
+                          element={
+                            <AdminRoute>
+                              <AdminBookingDetailsPage />
+                            </AdminRoute>
+                          }
+                        />
                       </Routes>
-                    </StaffProvider>
-                  </AuthProvider>
-                </BrowserRouter>
-              </AdminBookingsProvider>
-            </AdminVehiclesProvider>
-          </VehiclesProvider>
+                    </AdminBookingsProvider>
+                  </AdminVehiclesProvider>
+                </VehiclesProvider>
+              </StaffProvider>
+            </AuthProvider>
+          </BrowserRouter>
         </ThemeProvider>
       </ToastProvider>
     </div>
