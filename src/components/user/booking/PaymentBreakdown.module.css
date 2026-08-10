@@ -1,0 +1,98 @@
+.card {
+  background: var(--color-accent-tint, #fdf3df);
+  border: 1px solid var(--color-accent-light, #f4dfa8);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent-dark);
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-accent-dark);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.rowLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.rowSub {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.rowValue {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-accent-light, #f4dfa8);
+}
+
+.totalLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.totalValue {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.note {
+  display: flex;
+  gap: 10px;
+  background: var(--color-bg-surface);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.noteIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.noteText {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin: 0;
+}

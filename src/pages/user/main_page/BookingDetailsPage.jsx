@@ -10,6 +10,8 @@ import BookingSummarySidebar from "../../../components/user/booking/BookingSumma
 import HelpBox from "../../../components/user/HelpBox";
 import styles from "./BookingDetailsPage.module.css";
 import { useVehicles } from "../../../context/VehiclesContext";
+import PaymentBreakdown from "../../../components/user/booking/PaymentBreakdown";
+import ReviewAndPay from "../../../components/user/booking/ReviewAndPay";
 
 export default function BookingDetailsPage() {
   const { id } = useParams();
@@ -17,6 +19,10 @@ export default function BookingDetailsPage() {
   const navigate = useNavigate();
   const { getVehicleById } = useVehicles();
   const car = getVehicleById(id);
+
+  // -------------------------------------------------------------
+  // ALL HOOKS MUST STAY AT THE TOP BEFORE ANY CONDITIONAL RETURNS
+  // -------------------------------------------------------------
   const [selectedAddons, setSelectedAddons] = useState({});
   const [driver, setDriver] = useState({
     fullName: "",
@@ -24,7 +30,10 @@ export default function BookingDetailsPage() {
     phone: "",
     licenseNo: "",
   });
+  const [files, setFiles] = useState({ driversLicense: null, validId: null });
+  const [agreed, setAgreed] = useState(false);
 
+  // Fallback return if vehicle isn't found
   if (!car) {
     return (
       <div className={styles.page}>
@@ -44,7 +53,7 @@ export default function BookingDetailsPage() {
     );
   }
 
-  // Fallback values if someone lands here directly without booking state
+  // Fallback values if someone lands here directly without navigation state
   const days = state?.days ?? 3;
   const pickupDate = state?.pickupDate ?? "";
   const returnDate = state?.returnDate ?? "";
@@ -52,6 +61,10 @@ export default function BookingDetailsPage() {
   const subtotal = state?.subtotal ?? car.price * days;
   const feesAndTaxes =
     (state?.insuranceFee ?? 450) + (state?.serviceFee ?? 200);
+
+  const handleFileChange = (field, file) => {
+    setFiles((prev) => ({ ...prev, [field]: file }));
+  };
 
   const addonsTotal = ADDONS.reduce((sum, addon) => {
     return selectedAddons[addon.id] ? sum + addon.price * days : sum;
@@ -71,6 +84,7 @@ export default function BookingDetailsPage() {
     navigate(`/payment/${car.id}`, {
       state: {
         driver,
+        files,
         location,
         pickupDate,
         returnDate,
@@ -101,10 +115,22 @@ export default function BookingDetailsPage() {
 
           <div className={styles.mainGrid}>
             <div className={styles.mainColumn}>
-              <DriverInfoForm driver={driver} onChange={handleDriverChange} />
+              <DriverInfoForm
+                driver={driver}
+                onChange={handleDriverChange}
+                files={files}
+                onFileChange={handleFileChange}
+              />
               <AddonsList
                 selectedAddons={selectedAddons}
                 onToggle={toggleAddon}
+              />
+              <ReviewAndPay
+                total={total}
+                agreed={agreed}
+                onAgreeChange={setAgreed}
+                onPay={handleProceedToPayment}
+                disabled={!driver.fullName || !files.driversLicense || !files.validId}
               />
             </div>
 
@@ -121,11 +147,11 @@ export default function BookingDetailsPage() {
                 total={total}
                 onProceed={handleProceedToPayment}
               />
+              <PaymentBreakdown total={total} />
               <HelpBox />
             </div>
           </div>
         </div>
-
         <Footer />
       </div>
     </div>

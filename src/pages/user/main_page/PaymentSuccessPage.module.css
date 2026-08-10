@@ -26,16 +26,16 @@
   text-align: center;
 }
 
-/* Success icon */
+/* Status icon */
 
-.successIconWrap {
+.statusIconWrap {
   position: relative;
   width: 130px;
   height: 130px;
   margin: 0 auto 32px;
 }
 
-.checkCircle {
+.clockCircle {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -46,9 +46,9 @@
   margin: 15px auto 0;
 }
 
-.checkCircle svg {
-  width: 44px;
-  height: 44px;
+.clockCircle svg {
+  width: 46px;
+  height: 46px;
 }
 
 .starLeft,
@@ -167,27 +167,119 @@
   color: var(--color-text-primary);
 }
 
-.breakdown {
+/* Payment status rows */
+
+.paymentStatusList {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 4px 24px 0;
 }
 
-.breakdownRow {
+.paymentStatusRow {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.paymentStatusRow:has(.statusIconPaid) {
+  background: var(--color-success-bg, #eaf7ee);
+}
+
+.paymentStatusRow:has(.statusIconPending) {
+  background: var(--color-accent-tint, #fdf3df);
+}
+
+.statusIconCircle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--color-bg-surface);
+}
+
+.statusIconCircle svg {
+  width: 19px;
+  height: 19px;
+}
+
+.statusIconPaid {
+  color: var(--color-success, #2f9e52);
+}
+
+.statusIconPending {
+  color: var(--color-accent-dark);
+}
+
+.paymentStatusInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.paymentStatusLabel {
   font-size: 14px;
+  font-weight: 700;
   color: var(--color-text-primary);
 }
 
-.divider {
+.paymentStatusSub {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.paymentStatusRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.paymentStatusAmount {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.amountPaid {
+  color: var(--color-success, #2f9e52);
+}
+
+.amountPending {
+  color: var(--color-accent-dark);
+}
+
+.statusBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.badgePaid {
+  background: var(--color-success-tint, #d5f0dd);
+  color: var(--color-success, #2f9e52);
+}
+
+.badgePending {
+  background: var(--color-accent-light, #f4dfa8);
+  color: var(--color-accent-dark);
+}
+
+/* Total */
+
+.totalDivider {
   border-top: 2px dashed var(--color-accent);
   opacity: 0.35;
   margin: 18px 24px;
 }
 
-.totalRow {
+.totalAmountRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -195,46 +287,314 @@
 }
 
 .totalLabel {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 .totalAmount {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-accent);
 }
 
-.paymentMethodRow {
+/* Reminder box */
+
+.reminderBox {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--color-input-bg);
-  border-radius: 10px;
-  padding: 14px 18px;
-  margin: 0 24px;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--color-info-bg, #eef3fb);
+  margin: 0 24px 16px;
+  border-radius: 12px;
+  padding: 16px 18px;
 }
 
-.paymentMethodInfo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.reminderIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-info-text, #4f6ea8);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.reminderText {
+  flex: 1;
+}
+
+.reminderTitle {
   font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
-.paymentMethodInfo svg {
-  width: 20px;
-  height: 20px;
+.reminderBody {
+  font-size: 12.5px;
+  line-height: 1.6;
   color: var(--color-text-muted);
+  margin: 0;
+}
+
+.reminderIllustration {
+  width: 64px;
+  height: auto;
+  color: var(--color-info-text, #4f6ea8);
+  opacity: 0.6;
+  flex-shrink: 0;
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .reminderIllustration {
+    display: block;
+  }
+}
+
+/* Location box */
+
+.locationBox {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 24px 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.locationInfo {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+
+.locationPin {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.locationTitle {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--color-text-primary);
+}
+
+.locationAddress {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  margin: 0 0 6px;
+}
+
+.locationHours {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.locationHours svg {
+  width: 13px;
+  height: 13px;
   flex-shrink: 0;
 }
 
-.verifiedIcon {
-  width: 22px;
-  height: 22px;
+.mapPreview {
+  position: relative;
+  width: 130px;
+  height: 78px;
+  border-radius: 8px;
+  overflow: hidden;
   flex-shrink: 0;
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .mapPreview {
+    display: block;
+  }
+}
+
+.mapSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mapPinLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--color-bg-surface);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  box-shadow: var(--shadow-card);
+}
+
+.mapPinLabel svg {
+  width: 10px;
+  height: 10px;
+  color: var(--color-accent-dark);
+}
+
+/* Steps */
+
+.stepsSection {
+  padding: 4px 24px 24px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 20px;
+}
+
+.stepsTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--color-text-primary);
+}
+
+.stepsSubtitle {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  margin: 0 0 18px;
+}
+
+.stepsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.stepConnector {
+  height: 1.5px;
+  flex: 0 0 20px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-border) 0 4px,
+    transparent 4px 8px
+  );
+  margin-top: 20px;
+}
+
+.stepIconWrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-muted);
+}
+
+.stepIconWrap svg {
+  width: 19px;
+  height: 19px;
+}
+
+.stepIconWrap[data-variant="review"] {
+  background: var(--color-step-blue-bg, #e4ecfb);
+  color: var(--color-step-blue, #4a6fd4);
+}
+
+.stepIconWrap[data-variant="notify"] {
+  background: var(--color-accent-tint, #fdf3df);
+  color: var(--color-accent-dark);
+}
+
+.stepIconWrap[data-variant="pay"] {
+  background: var(--color-success-tint, #d5f0dd);
+  color: var(--color-success, #2f9e52);
+}
+
+.stepIconWrap[data-variant="dispatch"] {
+  background: var(--color-step-purple-bg, #ece3f9);
+  color: var(--color-step-purple, #8858d6);
+}
+
+.stepNumber {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--color-text-primary);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-bg-surface);
+}
+
+.stepLabel {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Secure row */
+
+.secureRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  background: var(--color-bg-muted);
+  margin: 0 24px;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.secureIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-success, #2f9e52);
+  flex-shrink: 0;
+}
+
+.secureText {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  flex: 1;
+  min-width: 180px;
+}
+
+.paidUsing {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.paidUsing strong {
+  color: var(--color-text-primary);
 }
 
 /* Action buttons */
@@ -342,5 +702,14 @@
   .downloadBtn,
   .homeBtn {
     justify-content: center;
+  }
+
+  .stepLabel {
+    font-size: 10.5px;
+  }
+
+  .locationBox {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
