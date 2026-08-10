@@ -1,10 +1,33 @@
 import React from "react";
 import styles from "./Pagination.module.css";
 
+function getPageList(page, totalPages) {
+  const delta = 1;
+  const pages = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= page - delta && i <= page + delta)) {
+      pages.push(i);
+    }
+  }
+
+  const withDots = [];
+  let prev = 0;
+  for (const p of pages) {
+    if (prev) {
+      if (p - prev === 2) withDots.push(prev + 1);
+      else if (p - prev > 2) withDots.push("...");
+    }
+    withDots.push(p);
+    prev = p;
+  }
+  return withDots;
+}
+
 export default function BookingPagination({ page, totalPages, totalItems, pageSize, onPageChange, itemLabel = "bookings" }) {
   const start = totalItems === 0 ? 0 : (page - 1) * pageSize + 1;
   const end = Math.min(page * pageSize, totalItems);
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = getPageList(page, totalPages);
 
   return (
     <div className={styles.wrap}>
@@ -25,16 +48,23 @@ export default function BookingPagination({ page, totalPages, totalItems, pageSi
           </svg>
         </button>
 
-        {pages.map((p) => (
-          <button
-            key={p}
-            type="button"
-            className={`${styles.pageBtn} ${p === page ? styles.pageBtnActive : ""}`}
-            onClick={() => onPageChange(p)}
-          >
-            {p}
-          </button>
-        ))}
+        {pages.map((p, i) =>
+          p === "..." ? (
+            <span key={`dots-${i}`} className={styles.ellipsis}>
+              &hellip;
+            </span>
+          ) : (
+            <button
+              key={p}
+              type="button"
+              className={`${styles.pageBtn} ${p === page ? styles.pageBtnActive : ""}`}
+              onClick={() => onPageChange(p)}
+              aria-current={p === page ? "page" : undefined}
+            >
+              {p}
+            </button>
+          )
+        )}
 
         <button
           type="button"

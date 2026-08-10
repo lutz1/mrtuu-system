@@ -80,3 +80,75 @@
   color: #9ca3af;
   font-size: 14px;
 }
+
+@media (max-width: 768px) {
+  .tableWrap {
+    background: none;
+    box-shadow: none;
+    overflow-x: visible;
+  }
+
+  .table {
+    min-width: 0;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    box-sizing: border-box;   /* ← add this */
+  }
+
+  .table tbody tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .table td {
+    padding: 8px 0;
+    border-bottom: 1px solid #f9fafb;
+  }
+
+  .table td:first-child {
+    padding-top: 0;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #9ca3af;
+    margin-bottom: 3px;
+  }
+
+  .actionsCell {
+    border-bottom: none !important;
+    padding-top: 14px !important;
+  }
+
+  .actionsCell::before {
+    display: none;
+  }
+
+ .startBtn {
+  width: 100%;
+  padding: 13px 22px;
+  box-sizing: border-box;   /* ← add this */
+  }
+}

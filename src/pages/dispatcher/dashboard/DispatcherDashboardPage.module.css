@@ -40,6 +40,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   margin-bottom: 16px;
 }
 
@@ -63,6 +64,7 @@
   color: #1a1a1a;
   cursor: pointer;
   font-family: inherit;
+  white-space: nowrap;
 }
 
 .viewAllBtn:hover {
@@ -72,6 +74,7 @@
 .viewAllBtn svg {
   width: 15px;
   height: 15px;
+  flex-shrink: 0;
 }
 
 .showingText {
@@ -83,6 +86,7 @@
 .sidebarCol {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 @media (max-width: 1300px) {
@@ -97,11 +101,41 @@
   }
 }
 
+@media (max-width: 768px) {
+  .pageHeading {
+    margin-bottom: 18px;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .subtitle {
+    font-size: 13.5px;
+  }
+  .forInspectionCard {
+    padding: 16px;
+    border-radius: 14px;
+  }
+  .forInspectionHeader {
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 480px) {
   .statsGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
   .title {
-    font-size: 26px;
+    font-size: 21px;
+  }
+  .forInspectionTitle {
+    font-size: 16px;
+  }
+  .viewAllBtn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .showingText {
+    font-size: 12px;
   }
 }

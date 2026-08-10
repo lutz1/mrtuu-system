@@ -66,6 +66,7 @@ export default function ArchivedVehiclesTable({ vehicles, onRestore }) {
         <tbody>
           {vehicles.map((v) => {
             const vType = v.carType || v.type;
+            const matchesType = type === "All Types" || vType === type;
             const thumbUrl = v.imageUrl || v.images?.[0];
 
             return (

@@ -96,12 +96,12 @@ export default function DispatcherHistoryPage() {
         </div>
 
         {/* TODO: wire to a real filter panel once filter criteria are defined */}
-        <button type="button" className={styles.filterBtn}>
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-          </svg>
-          Filter
-        </button>
+       <button type="button" className={styles.filterBtn}>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+        <span>Filter</span>
+      </button>
       </div>
 
       <HistoryTable entries={pageItems} onViewDetails={handleViewDetails} />

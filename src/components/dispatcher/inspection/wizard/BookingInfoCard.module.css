@@ -6,6 +6,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding stays INSIDE the card width */
 }
 
 .title {
@@ -32,4 +34,18 @@
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
+  word-break: break-word; /* Prevents long text from pushing card bounds */
+}
+
+/* Adjust card padding for smaller screens */
+@media (max-width: 600px) {
+  .card {
+    padding: 16px;
+    gap: 16px;
+    border-radius: 14px;
+  }
+  
+  .title {
+    font-size: 16px;
+  }
 }

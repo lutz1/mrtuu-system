@@ -102,15 +102,94 @@
 
 @media (max-width: 960px) {
   .sidebar {
-    position: static;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     max-height: none;
-  }
-  .nav {
+    overflow-y: visible;
+    border-radius: 18px 18px 0 0;
+    padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px));
     flex-direction: row;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between; /* Evenly distributes space across the container */
+    gap: 4px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    z-index: 40;
   }
+
+  .menuLabel,
+  .divider {
+    display: none;
+  }
+
+  .nav {
+    flex: 1;                  /* Takes up available space evenly */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .navItem {
+    flex: 1;                  /* Forces every nav tab to take equal width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 8px 4px;
+    border-radius: 10px;
+    font-size: 10.5px;
+    text-align: center;
+    white-space: nowrap;       /* Prevents text from wrapping awkwardly */
+  }
+
+  .navItemActive {
+    box-shadow: none;
+  }
+
+  .navIcon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .navIcon svg {
+    width: 100%;
+    height: 100%;
+    max-width: 22px;
+    max-height: 22px;
+  }
+
   .logoutBtn {
-    margin-top: 12px;
+    flex: 1;                  /* Matches the size of nav items */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    margin-top: 0;
+    padding: 8px 4px;
+    background: none;
+    font-size: 10.5px;
+    white-space: nowrap;
+  }
+
+  .logoutBtn:hover {
+    background: #fdeceb;
+    border-radius: 10px;
+  }
+
+  .logoutBtn svg {
+    width: 22px;              /* Standardized with .navIcon size */
+    height: 22px;
+    flex-shrink: 0;
   }
 }

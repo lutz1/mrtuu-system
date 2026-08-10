@@ -34,6 +34,7 @@
   align-items: center;
   justify-content: center;
   font-family: inherit;
+  flex-shrink: 0;
 }
 
 .navBtn svg {
@@ -55,4 +56,42 @@
   background: #e5e7eb;
   border-color: #e5e7eb;
   color: #1a1a1a;
+}
+
+.ellipsis {
+  width: 24px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .summary {
+    width: 100%;
+    text-align: center;
+    font-size: 12.5px;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .navBtn,
+  .pageBtn {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .ellipsis {
+    width: 18px;
+  }
 }

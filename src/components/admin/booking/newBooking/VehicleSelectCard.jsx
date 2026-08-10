@@ -48,11 +48,14 @@ function VehiclePlaceholderImage() {
 }
 
 export default function VehicleSelectCard({ vehicle, onSelect }) {
+
+  const thumbnail = vehicle.images?.[0] || vehicle.imageUrl;
+
   return (
     <div className={styles.card}>
       <div className={styles.imageWrap}>
-        {vehicle.imageUrl ? (
-          <img src={vehicle.imageUrl} alt={vehicle.name} className={styles.photo} />
+        {thumbnail ? (
+          <img src={thumbnail} alt={vehicle.name} className={styles.photo} />
         ) : (
           <VehiclePlaceholderImage />
         )}

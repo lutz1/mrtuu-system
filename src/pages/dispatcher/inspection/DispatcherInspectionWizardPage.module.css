@@ -9,6 +9,7 @@
   font-size: 13.5px;
   color: #9ca3af;
   margin: 0 0 10px;
+  flex-wrap: wrap;
 }
 
 .breadcrumbLink {
@@ -143,12 +144,46 @@
   }
 }
 
+@media (max-width: 768px) {
+  .title {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+  .stepName {
+    font-size: 17px;
+  }
+  .stickyFooter {
+    padding: 14px 16px;
+    border-radius: 14px 14px 0 0;
+  }
+}
+
 @media (max-width: 640px) {
   .stickyFooter {
     flex-direction: column;
     align-items: stretch;
   }
+  .cancelBtn {
+    order: 3;
+  }
   .footerActions {
     flex-direction: column-reverse;
+    width: 100%;
+  }
+  .backBtn,
+  .nextBtn,
+  .cancelBtn {
+    width: 100%;
+    padding: 13px 20px;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 380px) {
+  .breadcrumb {
+    font-size: 12.5px;
+  }
+  .title {
+    font-size: 19px;
   }
 }

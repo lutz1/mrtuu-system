@@ -25,28 +25,28 @@ export default function HistoryTable({ entries, onViewDetails }) {
         <tbody>
           {entries.map((e) => (
             <tr key={e.id}>
-              <td className={styles.bookingId}>{e.id}</td>
-              <td className={styles.primaryText}>{e.customer}</td>
-              <td>
+              <td className={styles.bookingId} data-label="Booking ID">{e.id}</td>
+              <td className={styles.primaryText} data-label="Customer">{e.customer}</td>
+              <td data-label="Vehicle">
                 <p className={styles.primaryText}>{e.vehicle}</p>
                 <p className={styles.secondaryText}>{e.plate}</p>
               </td>
-              <td>
+              <td data-label="Pickup Date">
                 <p className={styles.primaryText}>{e.pickupDate}</p>
                 <p className={styles.secondaryText}>{e.pickupTime}</p>
               </td>
-              <td>
+              <td data-label="Return Date">
                 <p className={styles.primaryText}>{e.returnDate}</p>
                 <p className={styles.secondaryText}>{e.returnTime}</p>
               </td>
-              <td>
+              <td data-label="Inspected On">
                 <p className={styles.primaryText}>{e.inspectedOn}</p>
                 <p className={styles.secondaryText}>{e.inspectedTime}</p>
               </td>
-              <td>
+              <td data-label="Status">
                 <InspectionStatusBadge status={e.status} />
               </td>
-              <td>
+              <td className={styles.actionsCell}>
                 {/* TODO: no inspection-details view exists yet */}
                 <button type="button" className={styles.viewBtn} onClick={() => onViewDetails(e)}>
                   View Details

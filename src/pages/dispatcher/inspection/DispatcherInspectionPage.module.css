@@ -14,6 +14,13 @@
   gap: 0;
   border-bottom: 1px solid #e5e7eb;
   margin-bottom: 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tabsRow::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
@@ -26,6 +33,8 @@
   cursor: pointer;
   font-family: inherit;
   border-radius: 10px 10px 0 0;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tabActive {
@@ -43,6 +52,7 @@
 .searchWrap {
   position: relative;
   flex: 1;
+  min-width: 0;
 }
 
 .searchIcon {
@@ -62,7 +72,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 16px 12px 42px;
-  font-size: 14px;
+  font-size: 16px;
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
@@ -91,6 +101,7 @@
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .filterBtn:hover {
@@ -100,6 +111,7 @@
 .filterBtn svg {
   width: 16px;
   height: 16px;
+  flex-shrink: 0;
 }
 
 .noticeBar {
@@ -118,4 +130,33 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 24px;
+  }
+  .tab {
+    padding: 12px 18px;
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 21px;
+  }
+  .searchRow {
+    gap: 8px;
+  }
+  .searchInput {
+    padding: 11px 14px 11px 38px;
+  }
+  .filterBtn {
+    padding: 11px 14px;
+  }
+  .noticeBar {
+    padding: 12px 14px;
+    font-size: 12.5px;
+  }
 }

@@ -80,3 +80,85 @@
   color: #9ca3af;
   font-size: 14px;
 }
+
+@media (max-width: 768px) {
+  .tableWrap {
+    background: transparent;
+    box-shadow: none;
+    overflow-x: visible;
+  }
+
+  /* Reset table rendering modes so blocks behave like true divs */
+  .table {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    border-collapse: separate; /* Prevents border-collapse sizing quirks */
+    border-spacing: 0;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  /* Turn rows into isolated, full-width cards */
+  .table tr {
+    display: block;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 16px 18px;
+    box-sizing: border-box;
+    margin-bottom: 0; /* Managed by .table tbody gap */
+  }
+
+  .table td {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    border-bottom: 1px solid #f9fafb;
+    white-space: normal;
+    box-sizing: border-box;
+  }
+
+  .table td:first-child {
+    padding-top: 0;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #9ca3af;
+    margin-bottom: 3px;
+  }
+
+  .actionsCell {
+    border-bottom: none !important;
+    padding-top: 14px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .actionsCell::before {
+    display: none;
+  }
+
+  .viewBtn {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
