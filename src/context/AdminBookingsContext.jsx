@@ -21,6 +21,7 @@ import {
   submitPostRentChecklist,
   submitReturnReview,
   cancelBooking as cancelBookingService,
+  flagBookingReturnRequested,
 } from "../services/bookingsService";
 import { useAuth } from "./AuthContext";
 import { useStaff } from "./StaffContext";
@@ -196,6 +197,7 @@ const addBooking = useCallback(
       dispatchPostRent: submitPostRentChecklist,
       reviewReturn: submitReturnReview,
       cancelBooking: cancelBookingService,
+      flagReturnRequested: flagBookingReturnRequested,
     }),
     [bookings, loading, addBooking, getBookingById]
   );
