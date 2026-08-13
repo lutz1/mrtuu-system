@@ -17,8 +17,6 @@ const PAYMENT_METHODS = [
   { id: "gcash3", label: "GCash", type: "wallet" },
 ];
 
-// PaymentPage's method ids are UI variants ("gcash1/2/3") — collapse to the
-// lykas_payments schema's method enum ("card" | "gcash" | "maya").
 function toPaymentMethodEnum(id) {
   if (id === "card") return "card";
   if (id.startsWith("gcash")) return "gcash";
@@ -85,6 +83,11 @@ export default function PaymentPage() {
     phone: "",
     licenseNo: "",
   };
+  // ✅ RETRIEVE UPLOADED FILES FROM ROUTE STATE
+  const files = state?.files ?? {
+    driversLicense: null,
+    validId: null,
+  };
 
   const handleCardChange = (field, value) => {
     setCard((prev) => ({ ...prev, [field]: value }));
@@ -102,20 +105,18 @@ export default function PaymentPage() {
       const cardLast4 =
         selectedMethod === "card" ? card.number.slice(-4) || "6769" : null;
 
-      // TODO: swap for the real PayMongo charge call (charging onlineAmount,
-      // not the full total), then only proceed to create the booking/payment
-      // docs once PayMongo confirms success.
       const { bookingId, bookingRef } = await createBookingWithPayment({
         uid: user.uid,
         vehicleId: car.id,
         driver,
+        files, // ✅ PASS FILES OBJECT HERE
         location,
         pickupDate,
         returnDate,
         days,
         dailyRate: car.price,
         subtotal,
-        insuranceFee: feesAndTaxes, // fees bucket kept as insurance+service combined for now
+        insuranceFee: feesAndTaxes,
         serviceFee: 0,
         total,
         amountPaidOnline: onlineAmount,

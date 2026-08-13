@@ -9,6 +9,7 @@
   color: #1a1a1a;
   text-decoration: none;
   margin-bottom: 16px;
+  transition: border-color 0.2s ease;
 }
 
 .backLink:hover {
@@ -60,20 +61,128 @@
   line-height: 1.5;
 }
 
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modalTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.modalCloseBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.modalCloseBtn:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.modalBody {
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9fafb;
+}
+
+.previewImage {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.modalFooter {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.openTabLink {
+  font-size: 0.875rem;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.openTabLink:hover {
+  text-decoration: underline;
+}
+
+/* Document Checklist Layout */
 .checklist {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 20px;
+}
+
+.checklistRowWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.checklistRowWrapper:hover {
+  border-color: #d1d5db;
 }
 
 .checklistRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-size: 14px;
+  font-weight: 600;
   color: #1a1a1a;
   cursor: pointer;
+  user-select: none;
 }
 
 .checklistRow input {
@@ -83,6 +192,38 @@
   cursor: pointer;
 }
 
+/* Document Action Buttons */
+.viewDocBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.viewDocBtn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  border-color: #1a1a1a;
+}
+
+.noDocBadge {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+  background: #e5e7eb;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* Remarks Input */
 .remarksInput {
   width: 100%;
   min-height: 90px;
@@ -106,6 +247,7 @@
   border-color: #e8a020;
 }
 
+/* Submit Action Button */
 .sendBtn {
   width: 100%;
   background: #1a1a1a;
@@ -117,6 +259,7 @@
   font-size: 14px;
   cursor: pointer;
   font-family: inherit;
+  transition: background 0.2s ease;
 }
 
 .sendBtn:hover:not(:disabled) {
