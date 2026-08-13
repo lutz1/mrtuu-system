@@ -4,12 +4,21 @@ import AdminLayout from "../dashboard/AdminLayout";
 import BookingFilterTabs from "../../../components/admin/booking/BookingFilterTabs";
 import BookingSearchBar from "../../../components/admin/booking/BookingSearchBar";
 import BookingsTable from "../../../components/admin/booking/BookingsTable";
+import BookingHistoryStats from "../../../components/admin/booking/history/BookingHistoryStats";
+import BookingHistoryTable from "../../../components/admin/booking/history/BookingHistoryTable";
 import Pagination from "../../../components/admin/common/Pagination";
 import ActiveBookingModal from "../../../components/admin/booking/active/ActiveBookingModal";
 import { useAdminBookings, BOOKING_STAGES } from "../../../context/AdminBookingsContext";
 import styles from "./AdminBookingsPage.module.css";
 
 const PAGE_SIZE = 6;
+
+function toDate(value) {
+  if (!value) return null;
+  if (typeof value.toDate === "function") return value.toDate(); // Firestore Timestamp
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
 
 export default function AdminBookingsPage() {
   const navigate = useNavigate();
@@ -21,6 +30,13 @@ export default function AdminBookingsPage() {
 
   const queueCount = bookings.filter((b) => b.stage === BOOKING_STAGES.QUEUE).length;
   const activeCount = bookings.filter((b) => b.stage === BOOKING_STAGES.ACTIVE).length;
+  const historyBookings = useMemo(() => bookings.filter((b) => b.stage === BOOKING_STAGES.HISTORY), [bookings]);
+
+  const now = new Date();
+  const thisMonthCount = historyBookings.filter((b) => {
+    const d = toDate(b.returnedAt) || toDate(b.createdAt);
+    return d && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
 
   const tabs = [
     { key: BOOKING_STAGES.QUEUE, label: `Booking Queue (${queueCount})` },
@@ -56,8 +72,6 @@ export default function AdminBookingsPage() {
     setPage(1);
   };
 
-  // Active Bookings gets the countdown/return modal; Queue and History
-  // still navigate to their own pages.
   const handleView = (booking) => {
     if (booking.stage === BOOKING_STAGES.ACTIVE) {
       setActiveBookingModal(booking);
@@ -65,6 +79,12 @@ export default function AdminBookingsPage() {
     }
     navigate(`/admin/bookings/${booking.id}`);
   };
+
+  const handleViewHistoryDetails = (booking) => {
+    navigate(`/admin/bookings/history/${booking.id}`);
+  };
+
+  const isHistory = activeStage === BOOKING_STAGES.HISTORY;
 
   return (
     <AdminLayout>
@@ -84,7 +104,13 @@ export default function AdminBookingsPage() {
         <BookingSearchBar value={query} onChange={handleQueryChange} />
       </div>
 
-      <BookingsTable bookings={pageItems} onView={handleView} />
+      {isHistory && <BookingHistoryStats total={historyBookings.length} thisMonth={thisMonthCount} />}
+
+      {isHistory ? (
+        <BookingHistoryTable bookings={pageItems} onViewDetails={handleViewHistoryDetails} />
+      ) : (
+        <BookingsTable bookings={pageItems} onView={handleView} />
+      )}
 
       <Pagination
         page={currentPage}

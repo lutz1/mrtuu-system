@@ -1,0 +1,91 @@
+.tableWrap {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.table thead tr {
+  background: #f0f1f3;
+}
+
+.table th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  padding: 18px 20px;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: top;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.bookingId {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+.primaryText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 2px;
+  white-space: nowrap;
+}
+
+.secondaryText {
+  font-size: 12.5px;
+  color: #9ca3af;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+.viewBtn {
+  background: #e5e7eb;
+  border: none;
+  color: #1a1a1a;
+  padding: 10px 20px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.viewBtn:hover {
+  background: #d1d5db;
+}
+
+.empty {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  padding: 60px 20px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
