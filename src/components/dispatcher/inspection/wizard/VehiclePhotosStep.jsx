@@ -23,7 +23,17 @@ export default function VehiclePhotosStep({
 }) {
   const isReturnMode = mode === "return";
   const pickupPhotos = preRentData?.photos || {};
-  const pickupOdometer = preRentData?.odometerReading || null;
+  const pickupOdometer = preRentData?.odometerReading
+    ? Number(preRentData.odometerReading)
+    : null;
+
+  const currentOdometerNum = odometer ? Number(odometer) : null;
+  const distanceDriven =
+    isReturnMode && pickupOdometer !== null && currentOdometerNum !== null
+      ? currentOdometerNum - pickupOdometer
+      : null;
+
+  const isInvalidOdometer = distanceDriven !== null && distanceDriven < 0;
 
   return (
     <div className={stepCard.card}>
@@ -85,13 +95,13 @@ export default function VehiclePhotosStep({
 
       {/* Odometer Section */}
       <div className={styles.odometerSection}>
-        {isReturnMode && pickupOdometer && (
+        {isReturnMode && pickupOdometer !== null && (
           <div className={styles.baselineInfoBox}>
             <span className={styles.baselineInfoLabel}>
               Pickup Odometer:
             </span>
             <span className={styles.baselineInfoValue}>
-              {Number(pickupOdometer).toLocaleString()} km
+              {pickupOdometer.toLocaleString()} km
             </span>
           </div>
         )}
@@ -105,7 +115,9 @@ export default function VehiclePhotosStep({
             <input
               type="number"
               min="0"
-              className={styles.odometerInput}
+              className={`${styles.odometerInput} ${
+                isInvalidOdometer ? styles.inputError : ""
+              }`}
               placeholder="Enter odometer reading"
               value={odometer}
               onChange={(e) => onOdometerChange(e.target.value)}
@@ -113,6 +125,22 @@ export default function VehiclePhotosStep({
             <span className={styles.odometerUnit}>km</span>
           </div>
         </div>
+
+        {/* Calculated Distance Driven Summary */}
+        {isReturnMode && distanceDriven !== null && !isInvalidOdometer && (
+          <div className={styles.distanceBadge}>
+            <span>Distance Driven During Rental:</span>
+            <strong>{distanceDriven.toLocaleString()} km</strong>
+          </div>
+        )}
+
+        {/* Warning if return mileage is less than pickup */}
+        {isInvalidOdometer && (
+          <div className={styles.odometerWarning}>
+            ⚠️ Return odometer reading cannot be less than the pickup reading (
+            {pickupOdometer.toLocaleString()} km).
+          </div>
+        )}
       </div>
     </div>
   );
