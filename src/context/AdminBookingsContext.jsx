@@ -26,17 +26,89 @@ import {
 import { useAuth } from "./AuthContext";
 import { useStaff } from "./StaffContext";
 
-const AdminBookingsContext = createContext(null);
-
+// 1. Move BOOKING_STAGES to the top before using it in mock data
 export const BOOKING_STAGES = {
   QUEUE: "queue", // confirmed + cleared, waiting for dispatcher pickup
   ACTIVE: "active", // ongoing (vehicle out)
   HISTORY: "history", // completed or cancelled
 };
 
+// 2. Mock Data for testing Booking History Tab
+const MOCK_HISTORY_BOOKINGS = [
+  {
+    id: "BK-HIST-001",
+    stage: BOOKING_STAGES.HISTORY,
+    status: "completed",
+    customer: "Jane Doe",
+    phone: "+63 917 123 4567",
+    vehicle: "Toyota Fortuner 2023",
+    plate: "ABC-1234",
+    vehicleTransmission: "Automatic",
+    vehicleFuelType: "Diesel",
+    source: "Online",
+    createdAt: "2026-08-01T10:00:00Z",
+    returnedAt: "2026-08-05T16:00:00Z",
+    pickupDateDisplay: "August 1, 2026",
+    pickupTime: "10:00 AM",
+    returnDateDisplay: "August 5, 2026",
+    returnTime: "04:00 PM",
+    days: 4,
+    dailyRate: 3500,
+    total: 14800,
+    addons: {
+      gps: 500,
+      childSeat: 300,
+    },
+    driver: {
+      fullName: "Jane Doe",
+      phone: "+63 917 123 4567",
+      email: "jane.doe@example.com",
+      licenseNo: "N01-12-345678",
+    },
+    clearance: {
+      checkedAt: "2026-08-01T09:30:00Z",
+    },
+    dispatchChecklist: {
+      preRent: {
+        odometerReading: 12400,
+        submittedAt: "2026-08-01T10:15:00Z",
+      },
+      postRent: {
+        odometerReading: 12850,
+        submittedAt: "2026-08-05T15:45:00Z",
+      },
+    },
+  },
+  {
+    id: "BK-HIST-002",
+    stage: BOOKING_STAGES.HISTORY,
+    status: "cancelled",
+    customer: "John Smith",
+    phone: "+63 918 987 6543",
+    vehicle: "Mitsubishi Montero Sport 2022",
+    plate: "XYZ-5678",
+    vehicleTransmission: "Automatic",
+    vehicleFuelType: "Diesel",
+    source: "Walk-in",
+    createdAt: "2026-08-03T11:00:00Z",
+    pickupDateDisplay: "August 4, 2026",
+    pickupTime: "09:00 AM",
+    returnDateDisplay: "August 6, 2026",
+    returnTime: "09:00 AM",
+    days: 2,
+    dailyRate: 3200,
+    total: 6400,
+    driver: {
+      fullName: "John Smith",
+      phone: "+63 918 987 6543",
+      email: "john.smith@example.com",
+    },
+  },
+];
+
+const AdminBookingsContext = createContext(null);
+
 // Derives a UI-friendly "stage" from the real status/clearance/dispatchChecklist
-// fields, so existing table components (which expect b.stage) keep working
-// without needing to understand the full state machine.
 function deriveStage(booking) {
   if (booking.status === "completed" || booking.status === "cancelled") {
     return BOOKING_STAGES.HISTORY;
@@ -44,7 +116,7 @@ function deriveStage(booking) {
   if (booking.status === "ongoing") {
     return BOOKING_STAGES.ACTIVE;
   }
-  return BOOKING_STAGES.QUEUE; // pending / confirmed (pre- and post-clearance)
+  return BOOKING_STAGES.QUEUE;
 }
 
 function formatDate(value) {
@@ -157,7 +229,6 @@ export function AdminBookingsProvider({ children }) {
         dispatchedBy: null,
         dispatchedAt: null,
         returnedAt: null,
-        // Walk-in documents are verified in-person: auto-clear so it goes directly to dispatcher inspection queue
         clearance: {
           status: "cleared",
           checkedBy: currentAdminUid,
@@ -191,8 +262,6 @@ export function AdminBookingsProvider({ children }) {
       loading,
       addBooking,
       getBookingById,
-      // Lifecycle actions — thin wrappers over bookingsService so consumers
-      // don't need to import both contexts.
       submitClearance: submitBookingClearance,
       dispatchPreRent: submitPreRentChecklist,
       dispatchPostRent: submitPostRentChecklist,

@@ -36,6 +36,7 @@ import { ToastProvider } from "./context/ToastContext";
 import ArchivedVehiclesPage from "./pages/admin/vehicle/ArchivedVehiclesPage";
 import { AdminBookingsProvider } from "./context/AdminBookingsContext";
 import AdminNewBookingPage from "./pages/admin/booking/newBooking/AdminNewBookingPage";
+import AdminBookingHistoryDetailsPage from "./pages/admin/booking/history/AdminBookingHistoryDetailsPage";
 
 import DispatcherRoute from "./context/DispatcherRoute";
 import DispatcherDashboardPage from "./pages/dispatcher/dashboard/DispatcherDashboardPage";
@@ -305,6 +306,14 @@ function App() {
                           element={
                             <AdminRoute>
                               <AdminBookingDetailsPage />
+                            </AdminRoute>
+                          }
+                        />
+                        <Route
+                          path="/admin/bookings/history/:id"
+                          element={
+                            <AdminRoute>
+                              <AdminBookingHistoryDetailsPage />
                             </AdminRoute>
                           }
                         />

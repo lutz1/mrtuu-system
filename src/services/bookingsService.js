@@ -1,14 +1,4 @@
 // src/services/bookingsService.js
-//
-// Single source of truth for the booking lifecycle:
-//   pending -> confirmed -> (clearance) -> cleared -> (dispatch preRent) -> ongoing
-//   -> (dispatch postRent) -> awaiting_return_review -> (clearance review) -> completed
-//
-// Used by: customer PaymentPage (create), AdminBookingsContext (list/clearance),
-// DispatcherInspectionWizardPage (preRent/postRent checklist).
-//
-// All vehicle-status side effects are written client-side here, matching the
-// existing AdminVehiclesContext pattern (no Cloud Functions in this codebase yet).
 
 import {
   collection,
@@ -18,7 +8,8 @@ import {
   getDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../lib/firebase";
 
 const BOOKINGS = "lykas_bookings";
 const PAYMENTS = "lykas_payments";
@@ -30,20 +21,25 @@ function genBookingRef() {
   return `LYKA-${n}-${letter()}${letter()}`;
 }
 
+/**
+ * Uploads a raw File object to Firebase Storage and returns its public download URL
+ */
+async function uploadDocFile(file, path) {
+  if (!file || !(file instanceof File)) return null;
+  const storageRef = ref(storage, `${path}/${Date.now()}_${file.name}`);
+  const snapshot = await uploadBytes(storageRef, file);
+  return await getDownloadURL(snapshot.ref);
+}
+
 /* ------------------------------------------------------------------ */
-/*  1. CUSTOMER — create booking + payment (PaymentPage "Pay" click)  */
+/*  1. CUSTOMER — create booking + payment                            */
 /* ------------------------------------------------------------------ */
 
-/**
- * Creates a lykas_bookings doc (status "pending") and a lykas_payments doc,
- * then marks both "confirmed"/"successful" once payment succeeds.
- * Vehicle stays "available" until dispatch (per architecture doc 4.1) —
- * this function does NOT touch lykas_vehicles.
- */
 export async function createBookingWithPayment({
   uid,
   vehicleId,
   driver, // { fullName, email, phone, licenseNo }
+  files = {}, // { driversLicense: File, validId: File }
   location,
   pickupDate,
   returnDate,
@@ -54,15 +50,36 @@ export async function createBookingWithPayment({
   insuranceFee = 0,
   serviceFee = 0,
   total,
-  paymentMethod, // "card" | "gcash" | "maya"
+  paymentMethod,
   cardLast4 = null,
 }) {
   if (!uid) throw new Error("Must be signed in to book.");
 
+  // 1. Upload driver documents to Firebase Storage
+  let driversLicenseUrl = null;
+  let validIdUrl = null;
+
+  try {
+    if (files.driversLicense) {
+      driversLicenseUrl = typeof files.driversLicense === "string"
+        ? files.driversLicense
+        : await uploadDocFile(files.driversLicense, `documents/${uid}/drivers_license`);
+    }
+
+    if (files.validId) {
+      validIdUrl = typeof files.validId === "string"
+        ? files.validId
+        : await uploadDocFile(files.validId, `documents/${uid}/valid_id`);
+    }
+  } catch (uploadErr) {
+    console.error("Error uploading driver documents:", uploadErr);
+  }
+
+  // 2. Create the booking document with valid image URLs
   const bookingRef = await addDoc(collection(db, BOOKINGS), {
     uid,
     vehicleId,
-    status: "confirmed", // payment succeeds synchronously in this flow
+    status: "confirmed",
     location,
     pickupDate,
     returnDate,
@@ -73,7 +90,15 @@ export async function createBookingWithPayment({
     insuranceFee,
     serviceFee,
     total,
-    driver,
+    driver: {
+      ...driver,
+      driversLicenseUrl,
+      validIdUrl,
+    },
+    documents: {
+      driversLicenseUrl,
+      validIdUrl,
+    },
     paymentId: null,
     dispatchedBy: null,
     dispatchedAt: null,
@@ -121,23 +146,12 @@ export async function createBookingWithPayment({
 }
 
 /* ------------------------------------------------------------------ */
-/*  2. ADMIN — Checklist Admin clearance (docs + standing vehicle check) */
+/*  2. ADMIN — Clearance                                              */
 /* ------------------------------------------------------------------ */
 
-/**
- * Clears or rejects a confirmed booking's documents/license check.
- * Does NOT touch the vehicle — vehicle roadworthiness is the standing
- * lykas_vehicles.clearance flow, referenced but not redone here.
- */
 export async function submitBookingClearance(
   bookingId,
-  {
-    staffUid,
-    approve, // boolean
-    licenseVerified,
-    notes = "",
-    rejectionReason = null,
-  }
+  { staffUid, approve, licenseVerified, notes = "", rejectionReason = null }
 ) {
   await updateDoc(doc(db, BOOKINGS, bookingId), {
     clearance: {
@@ -152,19 +166,12 @@ export async function submitBookingClearance(
 }
 
 /* ------------------------------------------------------------------ */
-/*  3. DISPATCHER — pre-rent checklist (pickup)                       */
+/*  3. DISPATCHER — Pre-rent inspection                               */
 /* ------------------------------------------------------------------ */
 
 export async function submitPreRentChecklist(
   bookingId,
-  {
-    staffUid,
-    vehicleId,
-    photos, // { front, back, left, right } — URLs (upload before calling this)
-    fuelLevel,
-    odometerReading,
-    notes = "",
-  }
+  { staffUid, vehicleId, photos, fuelLevel, odometerReading, notes = "" }
 ) {
   await updateDoc(doc(db, BOOKINGS, bookingId), {
     "dispatchChecklist.preRent": {
@@ -188,7 +195,7 @@ export async function submitPreRentChecklist(
 }
 
 /* ------------------------------------------------------------------ */
-/*  4. DISPATCHER — post-rent checklist (return)                      */
+/*  4. DISPATCHER — Post-rent inspection                              */
 /* ------------------------------------------------------------------ */
 
 export async function submitPostRentChecklist(
@@ -209,16 +216,12 @@ export async function submitPostRentChecklist(
 }
 
 /* ------------------------------------------------------------------ */
-/*  5. ADMIN — Checklist Admin return review / booking completion      */
+/*  5. ADMIN — Return review                                          */
 /* ------------------------------------------------------------------ */
 
 export async function submitReturnReview(
   bookingId,
-  {
-    staffUid,
-    vehicleId,
-    flaggedDamage = false, // true routes vehicle to "maintenance" instead of "pending_clearance"
-  }
+  { staffUid, vehicleId, flaggedDamage = false }
 ) {
   await updateDoc(doc(db, BOOKINGS, bookingId), {
     "dispatchChecklist.status": "return_reviewed",
@@ -235,10 +238,6 @@ export async function submitReturnReview(
   });
 }
 
-/* ------------------------------------------------------------------ */
-/*  6. Shared — cancellation                                          */
-/* ------------------------------------------------------------------ */
-
 export async function cancelBooking(bookingId) {
   await updateDoc(doc(db, BOOKINGS, bookingId), { status: "cancelled" });
 }
@@ -247,17 +246,6 @@ export async function getBooking(bookingId) {
   const snap = await getDoc(doc(db, BOOKINGS, bookingId));
   return snap.exists() ? { id: snap.id, ...snap.data() } : null;
 }
-
-/* ------------------------------------------------------------------ */
-/*  7. ADMIN — flag a booking as returned by the customer, pending     */
-/*     dispatcher return inspection. Distinct from                    */
-/*     submitPostRentChecklist (#4), which is the DISPATCHER's actual  */
-/*     inspection submission (photos, fuel, odometer). This is only   */
-/*     the "customer physically brought the unit back" flag from the  */
-/*     admin's Active Bookings modal — it does NOT change booking      */
-/*     .status, since that still needs the real dispatcher inspection  */
-/*     to complete the lifecycle.                                     */
-/* ------------------------------------------------------------------ */
 
 export async function flagBookingReturnRequested(bookingId, { staffUid } = {}) {
   await updateDoc(doc(db, BOOKINGS, bookingId), {
