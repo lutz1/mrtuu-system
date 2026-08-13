@@ -1,7 +1,43 @@
 import React from "react";
 import styles from "./DriverInfoForm.module.css";
 
-export default function DriverInfoForm({ driver, onChange }) {
+function UploadField({ id, label, file, onChange }) {
+  return (
+    <div className={styles.formField}>
+      <label className={styles.formLabel} htmlFor={id}>
+        {label} <span className={styles.required}>*</span>
+      </label>
+      <label htmlFor={id} className={styles.uploadBox}>
+        <input
+          id={id}
+          type="file"
+          accept=".jpg,.jpeg,.png"
+          className={styles.uploadInput}
+          onChange={(e) => onChange(e.target.files?.[0] ?? null)}
+        />
+        <svg className={styles.uploadIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        </svg>
+        <span className={styles.uploadText}>
+          {file ? file.name : (
+            <>
+              Click to upload <span className={styles.uploadTextMuted}>or drag and drop</span>
+            </>
+          )}
+        </span>
+        <span className={styles.uploadHint}>JPG and PNG (Max. 5MB)</span>
+      </label>
+    </div>
+  );
+}
+
+export default function DriverInfoForm({
+  driver = {},
+  onChange = () => {},
+  files = {}, // <-- Default fallback prevents crash if files is undefined
+  onFileChange = () => {}
+}) {
   return (
     <section className={styles.card}>
       <div className={styles.cardHeading}>
@@ -25,7 +61,7 @@ export default function DriverInfoForm({ driver, onChange }) {
             type="text"
             className={styles.formInput}
             placeholder="Selsite Tortskie"
-            value={driver.fullName}
+            value={driver?.fullName ?? ""}
             onChange={(e) => onChange("fullName", e.target.value)}
           />
         </div>
@@ -37,7 +73,7 @@ export default function DriverInfoForm({ driver, onChange }) {
             type="email"
             className={styles.formInput}
             placeholder="tortskie@gmail.com"
-            value={driver.email}
+            value={driver?.email ?? ""}
             onChange={(e) => onChange("email", e.target.value)}
           />
         </div>
@@ -49,7 +85,7 @@ export default function DriverInfoForm({ driver, onChange }) {
             type="tel"
             className={styles.formInput}
             placeholder="09957463523"
-            value={driver.phone}
+            value={driver?.phone ?? ""}
             onChange={(e) => onChange("phone", e.target.value)}
           />
         </div>
@@ -61,10 +97,23 @@ export default function DriverInfoForm({ driver, onChange }) {
             type="text"
             className={styles.formInput}
             placeholder="ABCD12344567"
-            value={driver.licenseNo}
+            value={driver?.licenseNo ?? ""}
             onChange={(e) => onChange("licenseNo", e.target.value)}
           />
         </div>
+
+        <UploadField
+          id="driversLicenseFile"
+          label="Upload Driver's License"
+          file={files?.driversLicense ?? null}
+          onChange={(file) => onFileChange("driversLicense", file)}
+        />
+        <UploadField
+          id="validIdFile"
+          label="Upload Valid ID"
+          file={files?.validId ?? null}
+          onChange={(file) => onFileChange("validId", file)}
+        />
       </div>
     </section>
   );

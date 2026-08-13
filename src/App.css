@@ -10,7 +10,7 @@
   --color-input-bg: #f2f2f2;
   --color-accent: #f0a93a;
   --color-accent-dark: #d9922a;
-   --color-accent-soft-bg: #fef1d9;
+  --color-accent-soft-bg: #fef1d9;
   --color-danger: #e0483e;
   --color-danger-soft-bg: #fdeceb;
   --color-text-secondary: #4b5563;
@@ -18,8 +18,22 @@
   --color-accent-pressed: #c17f1f;
   --status-ongoing: #e0a634;
   --status-neutral: #9ca3af;
-    --color-toggle-off: #d1d5db;
-    /* Persistent brand chrome for navbar (and landing sections that share its
+  --color-toggle-off: #d1d5db;
+
+  /* --- New Added Variables (Light Mode) --- */
+  --color-success: #10b981;
+  --color-success-bg: #ecfdf5;
+  --color-success-tint: #d1fae5;
+  --color-info-bg: #eff6ff;
+  --color-info-text: #1d4ed8;
+  --color-step-blue: #3b82f6;
+  --color-step-blue-bg: #eff6ff;
+  --color-step-purple: #8b5cf6;
+  --color-step-purple-bg: #f5f3ff;
+  --color-accent-tint: #fde68a;
+  --color-accent-light: #fbf0d9;
+
+  /* Persistent brand chrome for navbar (and landing sections that share its
      background, e.g. HowItWorksWrapper) — stays warm cream regardless of
      theme, same as --color-brand-dark stays dark regardless of theme. */
   --color-brand-cream: #fdf8ec;
@@ -52,6 +66,19 @@
   --color-accent-pressed: #c98f2c;
   --color-toggle-off: #4b4f56;
   --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.35);
+
+  /* --- New Added Variables (Dark Mode Overrides) --- */
+  --color-success: #34d399;
+  --color-success-bg: #064e3b;
+  --color-success-tint: #022c22;
+  --color-info-bg: #1e3a8a;
+  --color-info-text: #93c5fd;
+  --color-step-blue: #60a5fa;
+  --color-step-blue-bg: #172554;
+  --color-step-purple: #a78bfa;
+  --color-step-purple-bg: #2e1065;
+  --color-accent-tint: #4a371c;
+  --color-accent-light: #2e2619;
 }
 
 * {
@@ -68,4 +95,3 @@
     transition: none !important;
   }
 }
-

@@ -24,11 +24,19 @@ export default function DispatcherInspectionPage() {
       ),
     [bookings]
   );
-  // Return queue: vehicle is out (ongoing) and post-rent checklist not yet submitted.
+  // Return queue: vehicle is out (ongoing), the admin has explicitly
+  // confirmed the customer returned it (dispatchChecklist.returnRequested,
+  // set by ActiveBookingModal's "Confirm Returned" button), and the
+  // post-rent checklist hasn't been submitted yet. Completing the pickup
+  // inspection alone does NOT put a booking here — only the admin's
+  // explicit return confirmation does.
   const returnBookings = useMemo(
     () =>
       bookings.filter(
-        (b) => b.status === "ongoing" && !b.dispatchChecklist?.postRent
+        (b) =>
+          b.status === "ongoing" &&
+          b.dispatchChecklist?.returnRequested === true &&
+          !b.dispatchChecklist?.postRent
       ),
     [bookings]
   );

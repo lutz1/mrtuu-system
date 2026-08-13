@@ -5,6 +5,7 @@ import BookingFilterTabs from "../../../components/admin/booking/BookingFilterTa
 import BookingSearchBar from "../../../components/admin/booking/BookingSearchBar";
 import BookingsTable from "../../../components/admin/booking/BookingsTable";
 import Pagination from "../../../components/admin/common/Pagination";
+import ActiveBookingModal from "../../../components/admin/booking/active/ActiveBookingModal";
 import { useAdminBookings, BOOKING_STAGES } from "../../../context/AdminBookingsContext";
 import styles from "./AdminBookingsPage.module.css";
 
@@ -16,6 +17,7 @@ export default function AdminBookingsPage() {
   const [activeStage, setActiveStage] = useState(BOOKING_STAGES.QUEUE);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const [activeBookingModal, setActiveBookingModal] = useState(null);
 
   const queueCount = bookings.filter((b) => b.stage === BOOKING_STAGES.QUEUE).length;
   const activeCount = bookings.filter((b) => b.stage === BOOKING_STAGES.ACTIVE).length;
@@ -54,7 +56,13 @@ export default function AdminBookingsPage() {
     setPage(1);
   };
 
+  // Active Bookings gets the countdown/return modal; Queue and History
+  // still navigate to their own pages.
   const handleView = (booking) => {
+    if (booking.stage === BOOKING_STAGES.ACTIVE) {
+      setActiveBookingModal(booking);
+      return;
+    }
     navigate(`/admin/bookings/${booking.id}`);
   };
 
@@ -86,6 +94,10 @@ export default function AdminBookingsPage() {
         onPageChange={setPage}
         itemLabel="bookings"
       />
+
+      {activeBookingModal && (
+        <ActiveBookingModal booking={activeBookingModal} onClose={() => setActiveBookingModal(null)} />
+      )}
     </AdminLayout>
   );
 }

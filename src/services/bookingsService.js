@@ -247,3 +247,22 @@ export async function getBooking(bookingId) {
   const snap = await getDoc(doc(db, BOOKINGS, bookingId));
   return snap.exists() ? { id: snap.id, ...snap.data() } : null;
 }
+
+/* ------------------------------------------------------------------ */
+/*  7. ADMIN — flag a booking as returned by the customer, pending     */
+/*     dispatcher return inspection. Distinct from                    */
+/*     submitPostRentChecklist (#4), which is the DISPATCHER's actual  */
+/*     inspection submission (photos, fuel, odometer). This is only   */
+/*     the "customer physically brought the unit back" flag from the  */
+/*     admin's Active Bookings modal — it does NOT change booking      */
+/*     .status, since that still needs the real dispatcher inspection  */
+/*     to complete the lifecycle.                                     */
+/* ------------------------------------------------------------------ */
+
+export async function flagBookingReturnRequested(bookingId, { staffUid } = {}) {
+  await updateDoc(doc(db, BOOKINGS, bookingId), {
+    "dispatchChecklist.returnRequested": true,
+    "dispatchChecklist.returnRequestedBy": staffUid || null,
+    "dispatchChecklist.returnRequestedAt": serverTimestamp(),
+  });
+}

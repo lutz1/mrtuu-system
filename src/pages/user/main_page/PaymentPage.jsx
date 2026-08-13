@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import Navbar from "../../../components/user/frontpage/Navbar";
 import Footer from "../../../components/user/frontpage/Footer";
 import Loading from "../../../components/user/Loading";
+import PaymentBreakdown from "../../../components/user/booking/PaymentBreakdown";
 import styles from "./PaymentPage.module.css";
 import { useVehicles } from "../../../context/VehiclesContext";
 import { useAuth } from "../../../context/AuthContext";
@@ -77,6 +78,7 @@ export default function PaymentPage() {
   const feesAndTaxes = state?.feesAndTaxes ?? 650;
   const addonsTotal = state?.addonsTotal ?? 0;
   const total = state?.total ?? subtotal + feesAndTaxes + addonsTotal;
+  const onlineAmount = Math.round(total / 2);
   const driver = state?.driver ?? {
     fullName: "",
     email: "",
@@ -100,8 +102,9 @@ export default function PaymentPage() {
       const cardLast4 =
         selectedMethod === "card" ? card.number.slice(-4) || "6769" : null;
 
-      // TODO: swap for the real PayMongo charge call, then only proceed to
-      // create the booking/payment docs once PayMongo confirms success.
+      // TODO: swap for the real PayMongo charge call (charging onlineAmount,
+      // not the full total), then only proceed to create the booking/payment
+      // docs once PayMongo confirms success.
       const { bookingId, bookingRef } = await createBookingWithPayment({
         uid: user.uid,
         vehicleId: car.id,
@@ -115,6 +118,7 @@ export default function PaymentPage() {
         insuranceFee: feesAndTaxes, // fees bucket kept as insurance+service combined for now
         serviceFee: 0,
         total,
+        amountPaidOnline: onlineAmount,
         paymentMethod: toPaymentMethodEnum(selectedMethod),
         cardLast4,
       });
@@ -132,6 +136,7 @@ export default function PaymentPage() {
           feesAndTaxes,
           addonsTotal,
           total,
+          amountPaidOnline: onlineAmount,
           paymentMethod: selectedMethod,
           cardLast4,
         },
@@ -354,7 +359,7 @@ export default function PaymentPage() {
                 onClick={handlePay}
                 disabled={isLoading}
               >
-                Pay ₱{total.toLocaleString()}.00 via PayMongo
+                Pay ₱{onlineAmount.toLocaleString()}.00 via PayMongo
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -369,6 +374,10 @@ export default function PaymentPage() {
                   />
                 </svg>
               </button>
+              <p className={styles.termsNote}>
+                You're paying 50% now to confirm your booking. The remaining
+                50% is due at the Lykas front desk upon pickup.
+              </p>
               <p className={styles.termsNote}>
                 By clicking 'Pay', you agree to Lyka's Car Rental Terms of
                 Service and Privacy Policy.
@@ -443,6 +452,8 @@ export default function PaymentPage() {
                   </div>
                 </div>
               </aside>
+
+              <PaymentBreakdown total={total} />
 
               <div className={styles.helpBox}>
                 <svg

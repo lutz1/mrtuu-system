@@ -26,32 +26,63 @@ function PhotoPlaceholder() {
   );
 }
 
-const PHOTO_LABELS = { front: "Front View", back: "Back View", left: "Left Side View", right: "Right Side View" };
+const PHOTO_LABELS = {
+  front: "Front View",
+  back: "Back View",
+  left: "Left Side View",
+  right: "Right Side View",
+};
 const DOCUMENT_LABELS = {
   orcr: "OR/CR",
   insurance: "Insurance",
   officialReceipt: "Official Receipt",
   vehicleRegistration: "Vehicle Registration",
 };
-const CONDITION_LABELS = { exterior: "Exterior", interior: "Interior", tires: "Tires", lights: "Lights" };
+const CONDITION_LABELS = {
+  exterior: "Exterior",
+  interior: "Interior",
+  tires: "Tires",
+  lights: "Lights",
+};
 
-export default function ReviewSubmitStep({ photos = {}, odometer, fuelLevel, documents = {}, condition = {}, remarks, onRemarksChange }) {
+export default function ReviewSubmitStep({
+  mode = "pickup",
+  preRentData = null,
+  photos = {},
+  verifiedPhotos = {},
+  odometer,
+  fuelLiters,
+  isFullTank,
+  documents = {},
+  condition = {},
+  remarks,
+  onRemarksChange,
+}) {
   const uploadedCount = Object.values(photos).filter(Boolean).length;
+  const verifiedCount = Object.values(verifiedPhotos).filter(Boolean).length;
+  const fuelDisplay = isFullTank ? "Full Tank" : fuelLiters ? `${fuelLiters} L` : "—";
 
   return (
     <div className={styles.list}>
-      {/* 1. Vehicle Photos */}
+      {/* 1. Vehicle Photos & Checklists */}
       <section className={`${stepCard.card} ${styles.card}`}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>1. Vehicle Photos</h2>
-          <span className={styles.statusBadge}>{uploadedCount}/4 Uploaded</span>
+          <span className={styles.statusBadge}>
+            {uploadedCount}/4 Uploaded
+            {mode === "return" && ` (${verifiedCount}/4 Verified)`}
+          </span>
         </div>
 
         <div className={styles.photoGrid}>
           {Object.keys(PHOTO_LABELS).map((key) => (
             <div key={key} className={styles.photoBox}>
               {photos[key] ? (
-                <img src={photos[key].previewUrl || photos[key]} alt={PHOTO_LABELS[key]} className={styles.photoImage} />
+                <img
+                  src={photos[key].previewUrl || photos[key]}
+                  alt={PHOTO_LABELS[key]}
+                  className={styles.photoImage}
+                />
               ) : (
                 <PhotoPlaceholder />
               )}
@@ -61,14 +92,23 @@ export default function ReviewSubmitStep({ photos = {}, odometer, fuelLevel, doc
 
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Odometer Reading</span>
-          <span className={styles.summaryValue}>{odometer ? `${Number(odometer).toLocaleString()} km` : "—"}</span>
+          <span className={styles.summaryValue}>
+            {odometer ? `${Number(odometer).toLocaleString()} km` : "—"}
+            {mode === "return" && preRentData?.odometerReading && (
+              <span className={styles.subText}>
+                {" "}(Pickup: {Number(preRentData.odometerReading).toLocaleString()} km)
+              </span>
+            )}
+          </span>
         </div>
       </section>
 
       {/* 2. Fuel & Documents */}
       <section className={`${stepCard.card} ${styles.card}`}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>2. Fuel &amp; Documents</h2>
+          <h2 className={styles.sectionTitle}>
+            2. Fuel {mode === "pickup" && "& Documents"}
+          </h2>
           <span className={styles.statusBadge}>
             <span className={styles.badgeCheck}>✓</span> Completed
           </span>
@@ -76,22 +116,25 @@ export default function ReviewSubmitStep({ photos = {}, odometer, fuelLevel, doc
 
         <div className={styles.summaryRowNoBorder}>
           <span className={styles.summaryLabel}>Fuel Level</span>
-          <span className={styles.summaryValue}>{fuelLevel || "—"}</span>
+          <span className={styles.summaryValue}>{fuelDisplay}</span>
         </div>
 
-        {Object.keys(DOCUMENT_LABELS).map((key) => (
-          <div key={key} className={styles.checkRow}>
-            <span className={styles.summaryLabel}>{DOCUMENT_LABELS[key]}</span>
-            <span className={styles.checkValue}>
-              {documents[key] === "Present" && (
-                <span className={styles.checkIcon}>
-                  <CheckIcon />
-                </span>
-              )}
-              {documents[key] || "—"}
-            </span>
-          </div>
-        ))}
+        {mode === "pickup" &&
+          Object.keys(DOCUMENT_LABELS).map((key) => (
+            <div key={key} className={styles.checkRow}>
+              <span className={styles.summaryLabel}>
+                {DOCUMENT_LABELS[key]}
+              </span>
+              <span className={styles.checkValue}>
+                {documents[key] === "Present" && (
+                  <span className={styles.checkIcon}>
+                    <CheckIcon />
+                  </span>
+                )}
+                {documents[key] || "—"}
+              </span>
+            </div>
+          ))}
       </section>
 
       {/* 3. Vehicle Condition */}
@@ -100,7 +143,9 @@ export default function ReviewSubmitStep({ photos = {}, odometer, fuelLevel, doc
 
         {Object.keys(CONDITION_LABELS).map((key) => (
           <div key={key} className={styles.checkRow}>
-            <span className={styles.summaryLabel}>{CONDITION_LABELS[key]}</span>
+            <span className={styles.summaryLabel}>
+              {CONDITION_LABELS[key]}
+            </span>
             <span className={styles.checkValue}>
               {condition[key] && (
                 <span className={styles.checkIcon}>
@@ -118,7 +163,7 @@ export default function ReviewSubmitStep({ photos = {}, odometer, fuelLevel, doc
         <h2 className={styles.sectionTitle}>General Remarks</h2>
         <textarea
           className={styles.remarksInput}
-          placeholder="Vehicle is in good condition."
+          placeholder="Enter any additional notes or notes on vehicle condition..."
           value={remarks}
           onChange={(e) => onRemarksChange?.(e.target.value)}
         />

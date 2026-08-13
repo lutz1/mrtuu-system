@@ -20,6 +20,12 @@ import { storage } from "../../../lib/firebase";
 import styles from "./DispatcherInspectionWizardPage.module.css";
 
 const EMPTY_PHOTOS = { front: null, back: null, left: null, right: null };
+const INITIAL_VERIFIED_PHOTOS = {
+  front: false,
+  back: false,
+  left: false,
+  right: false,
+};
 const EMPTY_DOCUMENTS = {
   orcr: "",
   insurance: "",
@@ -53,11 +59,17 @@ export default function DispatcherInspectionWizardPage() {
   const { showToast } = useToast();
 
   const booking = getBookingById(decodeURIComponent(bookingId));
+  const preRentData = booking?.dispatchChecklist?.preRent || null;
 
   const [step, setStep] = useState(1);
   const [photos, setPhotos] = useState(EMPTY_PHOTOS);
+  const [verifiedPhotos, setVerifiedPhotos] = useState(INITIAL_VERIFIED_PHOTOS);
   const [odometer, setOdometer] = useState("");
-  const [fuelLevel, setFuelLevel] = useState("");
+  
+  // Refactored fuel state
+  const [fuelLiters, setFuelLiters] = useState("");
+  const [isFullTank, setIsFullTank] = useState(false);
+
   const [documents, setDocuments] = useState(EMPTY_DOCUMENTS);
   const [condition, setCondition] = useState(DEFAULT_CONDITION);
   const [remarks, setRemarks] = useState("");
@@ -72,7 +84,7 @@ export default function DispatcherInspectionWizardPage() {
   useEffect(() => {
     return () => {
       Object.values(photosRef.current).forEach((p) => {
-        if (p) URL.revokeObjectURL(p.previewUrl);
+        if (p && p.previewUrl) URL.revokeObjectURL(p.previewUrl);
       });
     };
   }, []);
@@ -100,7 +112,9 @@ export default function DispatcherInspectionWizardPage() {
     }
     setError("");
     setPhotos((prev) => {
-      if (prev[key]) URL.revokeObjectURL(prev[key].previewUrl);
+      if (prev[key] && prev[key].previewUrl) {
+        URL.revokeObjectURL(prev[key].previewUrl);
+      }
       return {
         ...prev,
         [key]: { previewUrl: URL.createObjectURL(file), file },
@@ -110,9 +124,15 @@ export default function DispatcherInspectionWizardPage() {
 
   const handlePhotoRemove = (key) => {
     setPhotos((prev) => {
-      if (prev[key]) URL.revokeObjectURL(prev[key].previewUrl);
+      if (prev[key] && prev[key].previewUrl) {
+        URL.revokeObjectURL(prev[key].previewUrl);
+      }
       return { ...prev, [key]: null };
     });
+  };
+
+  const handleVerifyPhoto = (key, isChecked) => {
+    setVerifiedPhotos((prev) => ({ ...prev, [key]: isChecked }));
   };
 
   const handleDocumentChange = (key, value) => {
@@ -127,17 +147,22 @@ export default function DispatcherInspectionWizardPage() {
     if (step === 1) {
       const allPhotos = Object.values(photos).every(Boolean);
       if (!allPhotos || !odometer) {
-        return "Please take all 4 vehicle photos and enter the odometer reading.";
+        return "Please upload all 4 vehicle photos and enter the odometer reading.";
       }
     }
-    if (step === 2 && mode === "pickup") {
-      const allDocs = Object.values(documents).every(Boolean);
-      if (!fuelLevel || !allDocs) {
-        return "Please select a fuel level and a status for every document.";
+
+    if (step === 2) {
+      const hasFuelInput = isFullTank || (fuelLiters && !isNaN(Number(fuelLiters)));
+      if (!hasFuelInput) {
+        return "Please enter fuel quantity in liters or check 'Vehicle has a Full Tank'.";
       }
-    }
-    if (step === 2 && mode === "return" && !fuelLevel) {
-      return "Please select a fuel level.";
+
+      if (mode === "pickup") {
+        const allDocs = Object.values(documents).every(Boolean);
+        if (!allDocs) {
+          return "Please select a status for every vehicle document.";
+        }
+      }
     }
     return "";
   };
@@ -167,22 +192,30 @@ export default function DispatcherInspectionWizardPage() {
     try {
       const phase = mode === "pickup" ? "preRent" : "postRent";
       const uploadedPhotos = {};
+
       for (const key of ["front", "back", "left", "right"]) {
-        uploadedPhotos[key] = await uploadChecklistPhoto(
-          booking.id,
-          phase,
-          key,
-          photos[key].file
-        );
+        if (photos[key]?.file) {
+          uploadedPhotos[key] = await uploadChecklistPhoto(
+            booking.id,
+            phase,
+            key,
+            photos[key].file
+          );
+        }
       }
+
+      // Format unified fuel display string
+      const formattedFuel = isFullTank ? "Full Tank" : `${fuelLiters} L`;
 
       if (mode === "pickup") {
         await dispatchPreRent(booking.id, {
           staffUid: staffProfile?.uid,
           vehicleId: booking.vehicleId,
           photos: uploadedPhotos,
-          fuelLevel,
+          fuelLevel: formattedFuel,
           odometerReading: odometer,
+          documents,
+          condition,
           notes: remarks,
         });
         showToast(
@@ -193,8 +226,10 @@ export default function DispatcherInspectionWizardPage() {
         await dispatchPostRent(booking.id, {
           staffUid: staffProfile?.uid,
           photos: uploadedPhotos,
-          fuelLevel,
+          verifiedPhotos,
+          fuelLevel: formattedFuel,
           odometerReading: odometer,
+          condition,
           notes: remarks,
         });
         showToast(
@@ -231,7 +266,7 @@ export default function DispatcherInspectionWizardPage() {
         <p className={styles.stepLabel}>
           Step {step} of 4
           <span className={styles.stepName}>
-            {step === 1 && "Vehicle Photos"}
+            {step === 1 && "Vehicle Photos & Odometer"}
             {step === 2 &&
               (mode === "pickup" ? "Fuel & Documents" : "Fuel Level")}
             {step === 3 && "Vehicle Condition"}
@@ -248,32 +283,47 @@ export default function DispatcherInspectionWizardPage() {
         <div className={styles.stepContent}>
           {step === 1 && (
             <VehiclePhotosStep
+              mode={mode}
+              preRentData={preRentData}
               photos={photos}
               onPhotoSelect={handlePhotoSelect}
               onPhotoRemove={handlePhotoRemove}
+              verifiedPhotos={verifiedPhotos}
+              onVerifyPhoto={handleVerifyPhoto}
               odometer={odometer}
               onOdometerChange={setOdometer}
             />
           )}
+
           {step === 2 && (
             <FuelDocumentsStep
-              fuelLevel={fuelLevel}
-              onFuelLevelChange={setFuelLevel}
+              mode={mode}
+              preRentData={preRentData}
+              fuelLiters={fuelLiters}
+              isFullTank={isFullTank}
+              onFuelLitersChange={setFuelLiters}
+              onFullTankToggle={setIsFullTank}
               documents={documents}
               onDocumentChange={handleDocumentChange}
             />
           )}
+
           {step === 3 && (
             <VehicleConditionStep
               condition={condition}
               onConditionChange={handleConditionChange}
             />
           )}
+
           {step === 4 && (
             <ReviewSubmitStep
+              mode={mode}
+              preRentData={preRentData}
               photos={photos}
+              verifiedPhotos={verifiedPhotos}
               odometer={odometer}
-              fuelLevel={fuelLevel}
+              fuelLiters={fuelLiters}
+              isFullTank={isFullTank}
               documents={documents}
               condition={condition}
               remarks={remarks}

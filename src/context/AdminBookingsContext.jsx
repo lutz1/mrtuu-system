@@ -21,6 +21,7 @@ import {
   submitPostRentChecklist,
   submitReturnReview,
   cancelBooking as cancelBookingService,
+  flagBookingReturnRequested,
 } from "../services/bookingsService";
 import { useAuth } from "./AuthContext";
 import { useStaff } from "./StaffContext";
@@ -197,6 +198,7 @@ export function AdminBookingsProvider({ children }) {
       dispatchPostRent: submitPostRentChecklist,
       reviewReturn: submitReturnReview,
       cancelBooking: cancelBookingService,
+      flagReturnRequested: flagBookingReturnRequested,
     }),
     [bookings, loading, addBooking, getBookingById]
   );

@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import PhotoSourceSheet from "./PhotoSourceSheet";
 import styles from "./PhotoSlot.module.css";
 
 function CameraIcon() {
@@ -11,7 +12,50 @@ function CameraIcon() {
 }
 
 export default function PhotoSlot({ label, photo, onSelect, onRemove }) {
-  const inputRef = useRef(null);
+  const cameraInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const handleFileChosen = (e) => {
+    const file = e.target.files?.[0];
+    if (file) onSelect(file);
+    e.target.value = "";
+  };
+
+  const openSheet = () => setIsSheetOpen(true);
+  const closeSheet = () => setIsSheetOpen(false);
+
+  const handleTakePhoto = () => {
+    closeSheet();
+    cameraInputRef.current?.click();
+  };
+
+  const handleChooseFile = () => {
+    closeSheet();
+    galleryInputRef.current?.click();
+  };
+
+  // These two hidden inputs live outside the `if (photo)` branch so they
+  // persist regardless of filled/empty state, and their refs stay stable.
+  const hiddenInputs = (
+    <>
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        className={styles.hiddenInput}
+        onChange={handleFileChosen}
+      />
+      <input
+        ref={galleryInputRef}
+        type="file"
+        accept="image/*"
+        className={styles.hiddenInput}
+        onChange={handleFileChosen}
+      />
+    </>
+  );
 
   if (photo) {
     return (
@@ -23,27 +67,27 @@ export default function PhotoSlot({ label, photo, onSelect, onRemove }) {
             <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
           </svg>
         </button>
+        {hiddenInputs}
       </div>
     );
   }
 
   return (
-    <label className={styles.slotEmpty}>
-      <CameraIcon />
-      <span className={styles.slotTitle}>{label}</span>
-      <span className={styles.slotHint}>Click to take photo</span>
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        className={styles.hiddenInput}
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (file) onSelect(file);
-          e.target.value = "";
-        }}
+    <>
+      <button type="button" className={styles.slotEmpty} onClick={openSheet}>
+        <CameraIcon />
+        <span className={styles.slotTitle}>{label}</span>
+        <span className={styles.slotHint}>Click to take photo</span>
+        {hiddenInputs}
+      </button>
+
+      <PhotoSourceSheet
+        isOpen={isSheetOpen}
+        onClose={closeSheet}
+        onTakePhoto={handleTakePhoto}
+        onChooseFile={handleChooseFile}
+        label={label}
       />
-    </label>
+    </>
   );
 }
