@@ -34,24 +34,6 @@ function calcDays(pickupDate, returnDate) {
   return diff > 0 ? diff : 1;
 }
 
-function formatDateDisplay(dateStr) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr + "T00:00:00");
-  return d.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
-function formatTimeDisplay(timeStr) {
-  if (!timeStr) return "";
-  const [h, m] = timeStr.split(":").map(Number);
-  const period = h >= 12 ? "PM" : "AM";
-  const hour12 = h % 12 === 0 ? 12 : h % 12;
-  return `${hour12}:${String(m).padStart(2, "0")} ${period}`;
-}
-
 export default function AdminNewBookingPage() {
   const navigate = useNavigate();
   const { addBooking } = useAdminBookings();
@@ -138,6 +120,7 @@ export default function AdminNewBookingPage() {
         days: numDays,
         dailyRate: selectedVehicle.price,
         total: totalAmount,
+        remarks: form.remarks.trim(),
       });
 
       showToast(`Booking ${newBooking.id} created successfully.`, {

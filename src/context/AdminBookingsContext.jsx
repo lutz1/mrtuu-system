@@ -128,7 +128,7 @@ export function AdminBookingsProvider({ children }) {
   // separate "review documents, then send to dispatcher" step for these.
   // clearance is therefore approved at creation time, so the booking is
   // immediately visible in the dispatcher's ready-for-pickup queue.
-const addBooking = useCallback(
+  const addBooking = useCallback(
     async (bookingData) => {
       const currentAdminUid = staffProfile?.uid || user?.uid || null;
 
@@ -152,6 +152,7 @@ const addBooking = useCallback(
         },
         source: "Walk-in",
         paymentId: null,
+        notes: bookingData.remarks || "",
         dispatchedBy: null,
         dispatchedAt: null,
         returnedAt: null,
