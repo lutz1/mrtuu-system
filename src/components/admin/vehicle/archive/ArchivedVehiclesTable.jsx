@@ -45,7 +45,7 @@ function formatDate(date) {
 }
 
 export default function ArchivedVehiclesTable({ vehicles, onRestore }) {
-  if (vehicles.length === 0) {
+  if (!vehicles || vehicles.length === 0) {
     return <div className={styles.empty}>No archived vehicles match your search or filters.</div>;
   }
 
@@ -66,7 +66,6 @@ export default function ArchivedVehiclesTable({ vehicles, onRestore }) {
         <tbody>
           {vehicles.map((v) => {
             const vType = v.carType || v.type;
-            const matchesType = type === "All Types" || vType === type;
             const thumbUrl = v.imageUrl || v.images?.[0];
 
             return (

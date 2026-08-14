@@ -1,14 +1,16 @@
+/* BookingHistoryTable.module.css */
 .tableWrap {
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 900px;
+  min-width: 850px;
 }
 
 .table thead tr {
@@ -88,4 +90,148 @@
   text-align: center;
   color: #9ca3af;
   font-size: 14px;
+}
+/* ==========================================================================
+   Mobile Styles (Fixed Layout & Status Overlap)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .tableWrap {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    overflow-x: visible;
+    display: flex;
+    justify-content: center;
+    padding: 0 8px; /* Safe padding for screen edges */
+  }
+
+  .table {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    max-width: 340px; /* Reduced card width to fit compact mobile viewports */
+  }
+
+  .table thead {
+    display: none; /* Hide desktop headers */
+  }
+
+  .table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .table td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 6px 0;
+    border-bottom: 1px dashed #f0f1f3;
+    white-space: normal;
+    word-break: break-word;
+    font-size: 13px;
+    min-height: 38px; /* Ensures cell height exists even if data is short */
+  }
+
+  /* Generated dynamic labels */
+  .table td:nth-child(1)::before {
+    content: "Booking ID";
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 2px;
+  }
+
+  .table td:nth-child(2)::before {
+    content: "Vehicle";
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 2px;
+  }
+
+  .table td:nth-child(3)::before {
+    content: "Rental Period";
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 2px;
+  }
+
+  .table td:nth-child(4)::before {
+    content: "Total Paid";
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 2px;
+  }
+
+  .table td:nth-child(5)::before {
+    content: "Status";
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 2px;
+  }
+
+  .table td:nth-child(6)::before {
+    content: "Actions";
+    display: none; /* Hide 'Actions' text label above the button */
+  }
+
+  /* Force action button row to separate cleanly at the bottom */
+  .table td:last-child {
+    border-bottom: none;
+    padding-top: 10px;
+    padding-bottom: 0;
+    width: 100%;
+  }
+
+  .bookingId,
+  .primaryText,
+  .secondaryText,
+  .amount {
+    white-space: normal;
+    word-break: break-word;
+    font-size: 13px;
+    margin: 0;
+  }
+
+  /* Ensure secondary text (subtitles like phone/dates) remain legible */
+  .secondaryText {
+    color: #9ca3af;
+    font-size: 11.5px;
+    margin-top: 1px;
+  }
+
+  .viewBtn {
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f1f3;
+  }
+
+  .empty {
+    padding: 30px 14px;
+    font-size: 13px;
+  }
 }

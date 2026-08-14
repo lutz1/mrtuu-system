@@ -1,3 +1,4 @@
+/* AdminLayout.module.css */
 .page {
   min-height: 100vh;
   background: #f0f1f3;
@@ -22,8 +23,16 @@
 @media (max-width: 960px) {
   .page {
     padding: 16px;
+    gap: 16px;
   }
   .body {
     flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 12px;
   }
 }

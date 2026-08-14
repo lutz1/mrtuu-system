@@ -1,14 +1,16 @@
+/* UserTable.module.css */
 .tableWrap {
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 880px;
+  min-width: 750px;
 }
 
 .table thead tr {
@@ -60,4 +62,15 @@
   text-align: center;
   color: #9ca3af;
   font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .table th,
+  .table td {
+    padding: 14px 16px;
+  }
+
+  .empty {
+    padding: 40px 16px;
+  }
 }

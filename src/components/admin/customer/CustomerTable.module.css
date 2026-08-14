@@ -1,14 +1,16 @@
+/* CustomerTable.module.css */
 .tableWrap {
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1000px;
+  min-width: 950px;
 }
 
 .table thead tr {
@@ -60,4 +62,108 @@
   text-align: center;
   color: #9ca3af;
   font-size: 14px;
+}
+
+/* ==========================================================================
+   Mobile Styles (Stacked Card Layout)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .tableWrap {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    overflow-x: visible;
+  }
+
+  .table {
+    display: block;
+    min-width: 0;
+  }
+
+  .table thead {
+    display: none; /* Hide header row on mobile */
+  }
+
+  .table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #f3f4f6;
+    white-space: normal;
+  }
+
+  .table td:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  /* Generated dynamic labels matching table headers */
+  .table td:nth-child(1)::before {
+    content: "Customer ID";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(2)::before {
+    content: "Name";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(3)::before {
+    content: "Email";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(4)::before {
+    content: "Phone";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(5)::before {
+    content: "Total Rentals";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(6)::before {
+    content: "Status";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(7)::before {
+    content: "Actions";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .empty {
+    padding: 40px 16px;
+  }
 }

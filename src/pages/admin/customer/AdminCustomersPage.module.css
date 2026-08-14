@@ -20,17 +20,29 @@
   margin-bottom: 20px;
 }
 
-@media (max-width: 1100px) {
+/* Tablet & Large Mobile Screen Optimizations */
+@media (max-width: 1024px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile & Small Screen Optimizations */
+@media (max-width: 640px) {
+  .pageHeading {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
   .statsGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .title {
-    font-size: 26px;
+
+  .filterWrap {
+    margin-bottom: 16px;
   }
 }

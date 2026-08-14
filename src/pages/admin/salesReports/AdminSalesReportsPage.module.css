@@ -1,3 +1,4 @@
+/* AdminSalesReportsPage.module.css */
 .pageHeading {
   margin-bottom: 24px;
 }
@@ -60,6 +61,7 @@
   margin: 0;
 }
 
+/* Tablet Layout Adaptations */
 @media (max-width: 1300px) {
   .statsGrid {
     grid-template-columns: repeat(3, 1fr);
@@ -68,7 +70,7 @@
     grid-template-columns: 1fr;
   }
   .bottomGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -81,11 +83,28 @@
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile Screen Adaptations */
+@media (max-width: 640px) {
+  .pageHeading {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
   .statsGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .title {
-    font-size: 26px;
+
+  .placeholder {
+    padding: 40px 16px;
   }
 }

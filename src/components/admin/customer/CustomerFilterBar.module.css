@@ -1,3 +1,4 @@
+/* CustomerFilterBar.module.css */
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -63,6 +64,7 @@
 .filterBtn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -88,6 +90,7 @@
 .exportBtn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   background: #e8a020;
   border: none;
@@ -114,5 +117,21 @@
 @media (max-width: 1200px) {
   .exportBtn {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchWrap,
+  .select,
+  .filterBtn,
+  .exportBtn {
+    width: 100%;
+    flex: none;
+    min-width: 0;
   }
 }

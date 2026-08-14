@@ -1,7 +1,6 @@
 .wrap {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 0;
   margin-bottom: 28px;
 }
@@ -63,8 +62,27 @@
   margin: 0 16px;
 }
 
-@media (max-width: 900px) {
+/* Horizontal Scroll Bar for Mobile */
+@media (max-width: 768px) {
   .wrap {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .wrap::-webkit-scrollbar {
     display: none;
+  }
+
+  .stepSubtitle {
+    display: none;
+  }
+
+  .connector {
+    min-width: 16px;
+    margin: 0 8px;
   }
 }

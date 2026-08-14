@@ -1,3 +1,4 @@
+/* ArchivedVehiclesPage.module.css */
 .pageHeading {
   margin-bottom: 20px;
 }
@@ -55,4 +56,28 @@
 
 .filterWrap {
   margin-bottom: 20px;
+}
+
+/* Mobile Screen Adaptations */
+@media (max-width: 640px) {
+  .pageHeading {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .breadcrumb {
+    font-size: 13px;
+  }
+
+  .infoCard {
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+
+  .filterWrap {
+    margin-bottom: 16px;
+  }
 }

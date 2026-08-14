@@ -1,3 +1,4 @@
+/* AdminVehiclesPage.module.css */
 .pageHeading {
   margin-bottom: 24px;
 }
@@ -42,6 +43,7 @@
   font-size: 14px;
 }
 
+/* Tablet Layout Adaptations */
 @media (max-width: 1300px) {
   .statsGrid {
     grid-template-columns: repeat(3, 1fr);
@@ -60,14 +62,31 @@
   }
 }
 
+/* Mobile Screen Adaptations */
 @media (max-width: 640px) {
+  .pageHeading {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 13.5px;
+  }
+
   .statsGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
+
   .grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
-  .title {
-    font-size: 26px;
+
+  .filterWrap {
+    margin-bottom: 16px;
   }
 }
