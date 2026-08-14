@@ -9,6 +9,7 @@
   font-size: 13.5px;
   color: #9ca3af;
   margin: 0 0 10px;
+  flex-wrap: wrap; /* Prevents text overflow on narrow viewports */
 }
 
 .breadcrumbLink {
@@ -35,6 +36,7 @@
   font-size: 14.5px;
   color: #6b7280;
   margin: 0;
+  line-height: 1.5;
 }
 
 .pageError {
@@ -54,7 +56,7 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  margin-top: 4px;
+  margin-top: 16px;
 }
 
 .footerNote {
@@ -77,6 +79,7 @@
   font-size: 14px;
   cursor: pointer;
   font-family: inherit;
+  transition: border-color 0.2s ease;
 }
 
 .cancelBtn:hover {
@@ -93,18 +96,54 @@
   font-size: 14px;
   cursor: pointer;
   font-family: inherit;
+  transition: background 0.2s ease;
 }
 
 .createBtn:hover {
   background: #333333;
 }
 
+/* Mobile & Tablet Responsive Enhancements */
+@media (max-width: 768px) {
+  .pageHeading {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 13.5px;
+  }
+
+  .stickyFooter {
+    padding: 14px 16px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .cancelBtn,
+  .createBtn {
+    padding: 14px 20px; /* Larger touch targets for mobile tapping */
+    width: 100%;
+    text-align: center;
+  }
+}
+
 @media (max-width: 640px) {
   .stickyFooter {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
+
+  .footerNote {
+    text-align: center;
+  }
+
   .footerActions {
-    flex-direction: column-reverse;
+    flex-direction: column-reverse; /* Places main action button on top */
+    width: 100%;
+    gap: 10px;
   }
 }

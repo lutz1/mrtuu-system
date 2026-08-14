@@ -23,16 +23,16 @@
   margin-bottom: 20px;
 }
 
-/* Default 2-column layout (Keeps existing forms safe) */
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* Modifier class for 3-column layouts (Used for Pricing) */
 .threeColumns {
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .label {
@@ -50,12 +50,13 @@
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
-  font-size: 14px;
+  font-size: 16px; /* 16px prevents iOS focus zoom */
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
   width: 100%;
   box-sizing: border-box;
+  min-height: 48px; /* Touch friendly height */
 }
 
 .input::placeholder {
@@ -68,7 +69,6 @@
   background: #ffffff;
 }
 
-/* Input Wrapper & Suffix (For "per hour" text inside input) */
 .inputWrapper {
   position: relative;
   display: flex;
@@ -77,7 +77,7 @@
 }
 
 .inputWrapper .input {
-  padding-right: 80px; /* Space so text doesn't overlap suffix */
+  padding-right: 80px;
 }
 
 .inputSuffix {
@@ -114,13 +114,25 @@
   margin: 0 0 20px;
 }
 
-@media (max-width: 900px) {
+/* Mobile Breakpoint Adjustments */
+@media (max-width: 768px) {
   .stepGrid {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 24px;
   }
+  
   .row,
   .threeColumns {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .stepTitle {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .field {
+    margin-bottom: 16px;
   }
 }

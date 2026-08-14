@@ -290,3 +290,68 @@
     grid-template-columns: 1fr;
   }
 }
+/* Responsive Styles for Mobile & Small Screens */
+@media (max-width: 768px) {
+  /* Layout adjustments */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .backLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    text-align: center;
+  }
+
+  /* Responsive Checklist Items */
+  .checklistRowWrapper {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .checklistRow {
+    flex: 1 1 100%;
+  }
+
+  .viewDocBtn,
+  .noDocBadge {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 14px; /* Larger touch target for mobile tap */
+  }
+
+  /* Mobile Modal Enhancements */
+  .modalOverlay {
+    padding: 0.75rem;
+  }
+
+  .modalContent {
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .previewImage {
+    max-height: 55vh;
+  }
+
+  .sendBtn {
+    padding: 15px; /* Minimum 44px tap target size */
+  }
+}

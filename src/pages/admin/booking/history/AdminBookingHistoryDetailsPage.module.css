@@ -336,3 +336,68 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Mobile & Small Screen Optimizations */
+@media (max-width: 768px) {
+  /* Action buttons stack full-width for easier tapping */
+  .topBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .topActions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .backBtn,
+  .reportBtn,
+  .printBtn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 12px 16px;
+  }
+
+  /* Header card layout adjustments */
+  .headerCard {
+    padding: 18px;
+    gap: 16px;
+  }
+
+  .headerCol:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .customerIcon {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  /* Structural cards spacing */
+  .card {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .breadcrumb {
+    flex-wrap: wrap;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .paymentTotalRow {
+    font-size: 15px;
+  }
+}

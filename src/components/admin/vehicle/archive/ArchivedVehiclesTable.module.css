@@ -115,3 +115,95 @@
   color: #9ca3af;
   font-size: 14px;
 }
+
+/* ==========================================================================
+   Mobile Styles (Stacked Card Layout)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .tableWrap {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    overflow-x: visible;
+  }
+
+  .table {
+    display: block;
+    min-width: 0;
+  }
+
+  .table thead {
+    display: none; /* Hide header row on mobile */
+  }
+
+  .table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #f3f4f6;
+    white-space: normal;
+  }
+
+  .table td:last-child {
+    border-bottom: none;
+    padding-top: 14px;
+    justify-content: flex-end;
+  }
+
+  /* Target table cells to display field labels on the left */
+  .table td:nth-child(2)::before {
+    content: "Plate Number";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(3)::before {
+    content: "Type";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(4)::before {
+    content: "Transmission";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(5)::before {
+    content: "Daily Rate";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .table td:nth-child(6)::before {
+    content: "Archived Date";
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .restoreBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

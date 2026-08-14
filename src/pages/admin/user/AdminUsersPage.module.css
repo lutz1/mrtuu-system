@@ -1,3 +1,4 @@
+/* AdminUsersPage.module.css */
 .pageHeading {
   margin-bottom: 24px;
 }
@@ -20,17 +21,29 @@
   margin-bottom: 20px;
 }
 
+/* Tablet & Large Mobile Layout */
 @media (max-width: 900px) {
   .statsGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile Screen Layout */
+@media (max-width: 640px) {
+  .pageHeading {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
   .statsGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .title {
-    font-size: 26px;
+
+  .filterWrap {
+    margin-bottom: 16px;
   }
 }

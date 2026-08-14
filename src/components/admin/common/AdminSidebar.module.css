@@ -1,17 +1,29 @@
 .sidebar {
   position: sticky;
   top: 24px;
+
   align-self: flex-start;
+
   width: 260px;
   max-height: calc(100vh - 48px);
+
+  box-sizing: border-box;
+
   overflow-y: auto;
+
   flex-shrink: 0;
+
   background: #ffffff;
+
   border-radius: 20px;
+
   padding: 24px 18px;
+
   display: flex;
   flex-direction: column;
+
   gap: 4px;
+
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -19,25 +31,35 @@
   font-size: 13px;
   color: #9ca3af;
   font-weight: 500;
+
   margin: 4px 0 12px 10px;
 }
 
 .nav {
   display: flex;
   flex-direction: column;
+
   gap: 4px;
 }
 
 .navItem {
   display: flex;
   align-items: center;
+
   gap: 12px;
+
   padding: 13px 16px;
+
   border-radius: 12px;
+
   font-size: 15px;
   font-weight: 600;
+
   color: #374151;
+
   text-decoration: none;
+
+  box-sizing: border-box;
 }
 
 .navItem:hover {
@@ -46,7 +68,9 @@
 
 .navItemActive {
   background: #e8a020;
+
   color: #ffffff;
+
   box-shadow: 0 4px 12px rgba(232, 160, 32, 0.35);
 }
 
@@ -57,9 +81,11 @@
 .navIcon {
   width: 21px;
   height: 21px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
 }
 
@@ -70,18 +96,30 @@
 
 .logoutBtn {
   margin-top: auto;
+
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   background: #fdeceb;
+
   border: none;
+
   color: #e0483e;
+
   padding: 13px 16px;
+
   border-radius: 12px;
+
   font-weight: 600;
   font-size: 15px;
+
   cursor: pointer;
+
   font-family: inherit;
+
+  box-sizing: border-box;
 }
 
 .logoutBtn:hover {
@@ -91,20 +129,129 @@
 .logoutBtn svg {
   width: 19px;
   height: 19px;
+
   flex-shrink: 0;
 }
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.closeBtn {
+  display: none;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
 
 @media (max-width: 960px) {
   .sidebar {
     position: static;
+
     width: 100%;
+    max-width: 100%;
+
     max-height: none;
+
+    box-sizing: border-box;
+
+    overflow: visible;
   }
+
   .nav {
     flex-direction: row;
     flex-wrap: wrap;
   }
+
   .logoutBtn {
     margin-top: 12px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR DRAWER
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: flex;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 280px;
+    height: 100vh;
+
+    max-height: none;
+
+    z-index: 2000;
+
+    box-sizing: border-box;
+
+    border-radius: 0 20px 20px 0;
+
+    padding: 24px 18px;
+
+    overflow-y: auto;
+
+    transform: translateX(-100%);
+
+    transition: transform 0.25s ease;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .closeBtn {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    margin-left: auto;
+    margin-bottom: 10px;
+
+    padding: 0;
+
+    background: #f0f1f3;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #374151;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+  }
+
+  .closeBtn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .navItem {
+    width: 100%;
+  }
+
+  .logoutBtn {
+    width: 100%;
+    margin-top: auto;
   }
 }

@@ -1,3 +1,4 @@
+/* AddVehicleModal.module.css */
 .backdrop {
   position: fixed;
   inset: 0;
@@ -69,6 +70,7 @@
   padding: 24px 32px;
   overflow-y: auto;
   flex: 1;
+  -webkit-overflow-scrolling: touch;
 }
 
 .stepCard {
@@ -129,19 +131,63 @@
   background: #333333;
 }
 
+.nextBtn:disabled,
+.backBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 @media (max-width: 640px) {
   .backdrop {
     padding: 0;
     align-items: flex-end;
   }
+
   .modal {
-    max-height: 92vh;
+    max-height: 95dvh;
     border-radius: 20px 20px 0 0;
   }
-  .header,
-  .body,
+
+  .header {
+    padding: 20px 20px 0;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .body {
+    padding: 16px 20px;
+  }
+
+  .stepCard {
+    padding: 18px 16px;
+  }
+
   .footer {
-    padding-left: 20px;
-    padding-right: 20px;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .draftText {
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .footerActions {
+    width: 100%;
+  }
+
+  .backBtn,
+  .nextBtn {
+    flex: 1;
+    text-align: center;
+    padding: 12px 16px;
   }
 }

@@ -1,38 +1,40 @@
+/* ArchivedVehiclesPage.module.css */
+
 .pageHeading {
   margin-bottom: 20px;
 }
 
 .title {
-  font-size: 32px;
+  font-size: var(--font-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .breadcrumb {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: #9ca3af;
+  font-size: var(--font-breadcrumb);
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .breadcrumbLink {
-  color: #9ca3af;
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
 .breadcrumbLink:hover {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .breadcrumbSep {
-  color: #d1d5db;
+  color: var(--color-border);
 }
 
 .infoCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 22px 24px;
@@ -40,15 +42,15 @@
 }
 
 .infoTitle {
-  font-size: 16px;
+  font-size: var(--font-card-title);
   font-weight: 800;
   margin: 0 0 8px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .infoText {
-  font-size: 13.5px;
-  color: #6b7280;
+  font-size: var(--font-supporting);
+  color: var(--color-text-muted);
   line-height: 1.6;
   margin: 0;
 }

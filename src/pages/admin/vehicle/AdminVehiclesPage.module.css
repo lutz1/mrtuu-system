@@ -1,17 +1,19 @@
+/* AdminVehiclesPage.module.css */
+
 .pageHeading {
   margin-bottom: 24px;
 }
 
 .title {
-  font-size: 34px;
+  font-size: var(--font-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 15px;
-  color: #6b7280;
+  font-size: var(--font-supporting);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -33,41 +35,80 @@
 }
 
 .empty {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 60px 20px;
   text-align: center;
-  color: #9ca3af;
-  font-size: 14px;
+  color: var(--color-text-light);
+  font-size: var(--font-table-text);
 }
+
+
+/* ==============================
+   TABLET
+   ============================== */
 
 @media (max-width: 1300px) {
   .statsGrid {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
+
 @media (max-width: 900px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+
+/* ==============================
+   MOBILE
+   ============================== */
+
 @media (max-width: 640px) {
+  .pageHeading {
+    margin-bottom: 16px;
+  }
+
+  /* Stats: 2 per row */
   .statsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
   }
+
+  /* Vehicle cards: 2 per row */
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
-  .title {
-    font-size: 26px;
+
+  .filterWrap {
+    margin-bottom: 16px;
+  }
+}
+
+
+/* ==============================
+   VERY SMALL PHONES
+   ============================== */
+
+@media (max-width: 380px) {
+  .statsGrid {
+    gap: 8px;
+  }
+
+  .grid {
+    gap: 8px;
   }
 }

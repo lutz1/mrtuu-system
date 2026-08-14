@@ -3,9 +3,16 @@ import CustomerStatusBadge from "./CustomerStatusBadge";
 import CustomerRowActions from "./CustomerRowActions";
 import styles from "./CustomerTable.module.css";
 
-export default function CustomerTable({ customers, onToggleVerification }) {
+export default function CustomerTable({
+  customers,
+  onToggleVerification,
+}) {
   if (customers.length === 0) {
-    return <div className={styles.empty}>No customers match your search or filters.</div>;
+    return (
+      <div className={styles.empty}>
+        No customers match your search or filters.
+      </div>
+    );
   }
 
   return (
@@ -20,23 +27,54 @@ export default function CustomerTable({ customers, onToggleVerification }) {
             <th>Driver's License</th>
             <th>Joined Date</th>
             <th>Status</th>
-            <th />
+            <th>Actions</th>
           </tr>
         </thead>
+
         <tbody>
           {customers.map((c) => (
             <tr key={c.id}>
-              <td className={styles.customerId}>{c.id}</td>
-              <td className={styles.name}>{c.name}</td>
-              <td className={styles.cell}>{c.phone}</td>
-              <td className={styles.cell}>{c.email}</td>
-              <td className={styles.cell}>{c.license}</td>
-              <td className={styles.cell}>{c.joinedDate}</td>
-              <td>
+              {/* Customer ID */}
+              <td className={styles.customerId}>
+                {c.id}
+              </td>
+
+              {/* Customer */}
+              <td className={styles.name}>
+                {c.name}
+              </td>
+
+              {/* Contact */}
+              <td className={styles.cell}>
+                {c.phone}
+              </td>
+
+              {/* Email */}
+              <td className={styles.cell}>
+                {c.email}
+              </td>
+
+              {/* Driver's License */}
+              <td className={styles.cell}>
+                {c.license}
+              </td>
+
+              {/* Joined Date */}
+              <td className={styles.cell}>
+                {c.joinedDate}
+              </td>
+
+              {/* Status */}
+              <td className={styles.statusCell}>
                 <CustomerStatusBadge status={c.status} />
               </td>
-              <td>
-                <CustomerRowActions customer={c} onToggleVerification={onToggleVerification} />
+
+              {/* Actions */}
+              <td className={styles.actionsCell}>
+                <CustomerRowActions
+                  customer={c}
+                  onToggleVerification={onToggleVerification}
+                />
               </td>
             </tr>
           ))}
