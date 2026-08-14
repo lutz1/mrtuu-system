@@ -8,7 +8,7 @@
   width: 36px;
   height: 36px;
   border-radius: 9px;
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
   border: none;
 
   display: flex;
@@ -16,19 +16,19 @@
   justify-content: center;
 
   cursor: pointer;
-  color: #6b7280;
+  color: var(--color-text-muted);
 
   position: relative;
   z-index: 51;
 }
 
 .trigger:hover {
-  background: #e5e7eb;
-  color: #1a1a1a;
+  background: var(--color-border);
+  color: var(--color-text-primary);
 }
 
 .trigger:active {
-  background: #dfe1e5;
+  background: var(--color-ref-dfe1e5);
 }
 
 .trigger svg {
@@ -48,8 +48,8 @@
 
   z-index: 1000;
 
-  background: #ffffff;
-  border: 1px solid #eceef1;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-soft);
   border-radius: 10px;
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
@@ -76,22 +76,22 @@
   font-size: var(--font-size-table-text);
   font-weight: 500;
 
-  color: #374151;
+  color: var(--color-text-secondary);
 
   cursor: pointer;
   font-family: inherit;
 }
 
 .menuItem:hover {
-  background: #f7f7f7;
+  background: var(--color-bg-hover);
 }
 
 .menuItemDanger {
-  color: #e0483e;
+  color: var(--color-danger);
 }
 
 .menuItemDanger:hover {
-  background: #fdeceb;
+  background: var(--color-bg-danger-soft);
 }
 
 

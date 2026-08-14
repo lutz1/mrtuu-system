@@ -59,13 +59,13 @@
 }
 
 .verified {
-  background: #dcfce7;
-  color: #16a34a;
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16a34a);
 }
 
 .unverified {
-  background: #fef3c7;
-  color: #b45309;
+  background: var(--color-ref-fef3c7);
+  color: var(--color-ref-b45309);
 }
 
 .value {

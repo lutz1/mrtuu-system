@@ -1,5 +1,5 @@
 .navbar {
-  background: #fdf8ec;
+  background: var(--color-ref-fdf8ec);
   padding: 18px 0;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
 }
@@ -43,7 +43,7 @@
 .logoText {
   font-weight: 700;
   font-size: var(--font-size-section-title);
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   white-space: nowrap;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .navLinks a {
-  color: #6b7280;
+  color: var(--color-text-muted);
   text-decoration: none;
   font-weight: 500;
   font-size: var(--font-size-navigation);
@@ -72,14 +72,14 @@
 }
 
 .navLinks a:hover {
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
 }
 
 /* Login Button */
 
 .loginBtn {
-  background: #f0a93a;
-  color: #1a1a1a;
+  background: var(--color-accent-alt);
+  color: var(--color-text-primary);
   padding: 10px 28px;
   border-radius: 6px;
   font-weight: 600;
@@ -90,7 +90,7 @@
 }
 
 .loginBtn:hover {
-  background: #d9922a;
+  background: var(--color-accent-alt-hover);
 }
 
 /* User */
@@ -108,7 +108,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #f0a93a;
+  background: var(--color-accent-alt);
   color: white;
   font-weight: 700;
   font-size: var(--font-size-section-title);
@@ -121,7 +121,7 @@
 .userName {
   font-size: var(--font-size-supporting);
   font-weight: 500;
-  color: #f0a93a;
+  color: var(--color-accent-alt);
   white-space: nowrap;
 }
 

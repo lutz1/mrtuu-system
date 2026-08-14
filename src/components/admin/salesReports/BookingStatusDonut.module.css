@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 22px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -10,7 +10,7 @@
   font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 16px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .chartRow {
@@ -34,7 +34,7 @@
   justify-content: center;
   font-size: var(--font-size-page-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   pointer-events: none;
 }
 
@@ -65,11 +65,11 @@
 
 .legendLabel {
   flex: 1;
-  color: #374151;
+  color: var(--color-text-secondary);
 }
 
 .legendValue {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   font-weight: 700;
   white-space: nowrap;
 }

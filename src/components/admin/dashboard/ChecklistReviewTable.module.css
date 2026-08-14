@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 22px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -16,23 +16,23 @@
   font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .viewAllBtn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 9px 18px;
   font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
   font-family: inherit;
 }
 
 .viewAllBtn:hover {
-  border-color: #f0a93a;
+  border-color: var(--color-accent-alt);
 }
 
 .tableWrap {
@@ -50,16 +50,16 @@
   font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #6b7280;
+  color: var(--color-text-muted);
   padding: 0 12px 12px;
-  border-bottom: 1px solid #eceef1;
+  border-bottom: 1px solid var(--color-border-soft);
 }
 
 .table td {
   padding: 16px 12px;
   font-size: var(--font-size-table-text);
-  color: #1a1a1a;
-  border-bottom: 1px solid #f3f4f6;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .table tr:last-child td {
@@ -67,13 +67,13 @@
 }
 
 .docComplete {
-  color: #22a35e;
+  color: var(--color-success);
   font-weight: 700;
 }
 
 .reviewBtn {
-  background: #f0a93a;
-  color: #1a1a1a;
+  background: var(--color-accent-alt);
+  color: var(--color-text-primary);
   border: none;
   padding: 9px 20px;
   border-radius: 8px;
@@ -84,5 +84,5 @@
 }
 
 .reviewBtn:hover {
-  background: #d9922a;
+  background: var(--color-accent-alt-hover);
 }

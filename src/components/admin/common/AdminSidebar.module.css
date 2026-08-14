@@ -13,7 +13,7 @@
 
   flex-shrink: 0;
 
-  background: #ffffff;
+  background: var(--color-bg-surface);
 
   border-radius: 20px;
 
@@ -29,7 +29,7 @@
 
 .menuLabel {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   font-weight: 500;
 
   margin: 4px 0 12px 10px;
@@ -55,7 +55,7 @@
   font-size: var(--font-size-navigation);
   font-weight: 600;
 
-  color: #374151;
+  color: var(--color-text-secondary);
 
   text-decoration: none;
 
@@ -63,19 +63,19 @@
 }
 
 .navItem:hover {
-  background: #f7f7f7;
+  background: var(--color-bg-hover);
 }
 
 .navItemActive {
-  background: #e8a020;
+  background: var(--color-accent);
 
-  color: #ffffff;
+  color: var(--color-bg-surface);
 
   box-shadow: 0 4px 12px rgba(232, 160, 32, 0.35);
 }
 
 .navItemActive:hover {
-  background: #e8a020;
+  background: var(--color-accent);
 }
 
 .navIcon {
@@ -102,11 +102,11 @@
 
   gap: 10px;
 
-  background: #fdeceb;
+  background: var(--color-bg-danger-soft);
 
   border: none;
 
-  color: #e0483e;
+  color: var(--color-danger);
 
   padding: 13px 16px;
 
@@ -123,7 +123,7 @@
 }
 
 .logoutBtn:hover {
-  background: #fbdcda;
+  background: var(--color-ref-fbdcda);
 }
 
 .logoutBtn svg {
@@ -223,13 +223,13 @@
 
     padding: 0;
 
-    background: #f0f1f3;
+    background: var(--color-bg-muted);
 
     border: none;
 
     border-radius: 8px;
 
-    color: #374151;
+    color: var(--color-text-secondary);
 
     cursor: pointer;
 

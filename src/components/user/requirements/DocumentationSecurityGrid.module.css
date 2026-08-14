@@ -5,7 +5,7 @@
 }
 
 .docCard {
-  background: #eef0f3;
+  background: var(--color-ref-eef0f3);
   border-radius: 20px;
   padding: 32px;
 }
@@ -14,7 +14,7 @@
   font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 24px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .docList {
@@ -24,7 +24,7 @@
 }
 
 .docTile {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 14px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -41,8 +41,8 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: #fef1d9;
-  color: #d9922a;
+  background: var(--color-ref-fef1d9);
+  color: var(--color-accent-alt-hover);
   margin-bottom: 14px;
 }
 
@@ -55,21 +55,21 @@
   font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .docTileText {
   font-size: var(--font-size-supporting);
-  color: #6b7280;
+  color: var(--color-text-muted);
   line-height: 1.5;
   margin: 0;
 }
 
 .securityCard {
-  background: #1a1a1a;
+  background: var(--color-text-primary);
   border-radius: 20px;
   padding: 32px;
-  color: #ffffff;
+  color: var(--color-bg-surface);
 }
 
 .securityTitle {
@@ -93,7 +93,7 @@
 .securityIcon {
   width: 22px;
   height: 22px;
-  color: #f0a93a;
+  color: var(--color-accent-alt);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -111,7 +111,7 @@
 
 .securityRowText {
   font-size: var(--font-size-supporting);
-  color: #b0b3b8;
+  color: var(--color-ref-b0b3b8);
   line-height: 1.5;
   margin: 0;
 }

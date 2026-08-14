@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 22px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -12,7 +12,7 @@
   font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 16px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .list {
@@ -27,7 +27,7 @@
   align-items: flex-start;
   gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .row:first-child {
@@ -44,13 +44,13 @@
   border-radius: 10px;
   flex-shrink: 0;
   background-image:
-    linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
-    linear-gradient(-45deg, #e5e7eb 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #e5e7eb 75%),
-    linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+    linear-gradient(45deg, var(--color-border) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-border) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-border) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-border) 75%);
   background-size: 10px 10px;
   background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
-  background-color: #f3f4f6;
+  background-color: var(--color-border-light);
 }
 
 .info {
@@ -60,26 +60,26 @@
 
 .bookingId {
   font-size: var(--font-size-caption);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0 0 2px;
 }
 
 .name {
   font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 2px;
 }
 
 .vehicle {
   font-size: var(--font-size-supporting);
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0 0 2px;
 }
 
 .date {
   font-size: var(--font-size-caption);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
 }
 
@@ -93,18 +93,18 @@
 }
 
 .statusNeutral {
-  background: #f0f1f3;
-  color: #4b5563;
+  background: var(--color-bg-muted);
+  color: var(--color-text-subtle);
 }
 
 .statusGold {
-  background: #f0a93a;
-  color: #1a1a1a;
+  background: var(--color-accent-alt);
+  color: var(--color-text-primary);
 }
 
 .statusGreen {
-  background: #22a35e;
-  color: #ffffff;
+  background: var(--color-success);
+  color: var(--color-bg-surface);
 }
 
 .viewAllLink {
@@ -114,10 +114,10 @@
   gap: 6px;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--color-border-light);
   font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   text-decoration: none;
 }
 

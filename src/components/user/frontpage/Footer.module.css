@@ -1,7 +1,7 @@
 .footer {
-  --dark: #1c1b19;
-  --gold: #f0a93a;
-  --text-on-dark-muted: #b9b6b0;
+  --dark: var(--color-ref-1c1b19);
+  --gold: var(--color-accent-alt);
+  --text-on-dark-muted: var(--color-ref-b9b6b0);
 
   background: var(--dark);
   padding: 64px 32px 24px;
@@ -40,7 +40,7 @@
 .logoTextLight {
   font-weight: 700;
   font-size: var(--font-size-section-title);
-  color: #ffffff;
+  color: var(--color-bg-surface);
 }
 
 .footerTagline {

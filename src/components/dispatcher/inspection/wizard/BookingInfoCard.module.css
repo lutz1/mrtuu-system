@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -14,7 +14,7 @@
   font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .field {
@@ -25,14 +25,14 @@
 
 .label {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .value {
   font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
   word-break: break-word; /* Prevents long text from pushing card bounds */
 }

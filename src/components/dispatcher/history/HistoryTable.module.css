@@ -1,5 +1,5 @@
 .tableWrap {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
@@ -12,21 +12,21 @@
 }
 
 .table thead tr {
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 }
 
 .table th {
   text-align: left;
   font-size: var(--font-size-supporting);
   font-weight: 700;
-  color: #374151;
+  color: var(--color-text-secondary);
   padding: 18px 20px;
   white-space: nowrap;
 }
 
 .table td {
   padding: 18px 20px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
   vertical-align: top;
   white-space: nowrap;
 }
@@ -38,26 +38,26 @@
 .bookingId {
   font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .primaryText {
   font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 2px;
 }
 
 .secondaryText {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .viewBtn {
-  background: #ffffff;
-  border: 1.5px solid #e8a020;
-  color: #e8a020;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-accent);
+  color: var(--color-accent);
   padding: 10px 18px;
   border-radius: 9px;
   font-weight: 700;
@@ -68,16 +68,16 @@
 }
 
 .viewBtn:hover {
-  background: #fef7ea;
+  background: var(--color-ref-fef7ea);
 }
 
 .empty {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 60px 20px;
   text-align: center;
-  color: #9ca3af;
+  color: var(--color-text-light);
   font-size: var(--font-size-table-text);
 }
 
@@ -112,7 +112,7 @@
   .table tr {
     display: block;
     width: 100%;
-    background: #ffffff;
+    background: var(--color-bg-surface);
     border-radius: 14px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
     padding: 16px 18px;
@@ -124,7 +124,7 @@
     display: block;
     width: 100%;
     padding: 8px 0;
-    border-bottom: 1px solid #f9fafb;
+    border-bottom: 1px solid var(--color-ref-f9fafb);
     white-space: normal;
     box-sizing: border-box;
   }
@@ -140,7 +140,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    color: #9ca3af;
+    color: var(--color-text-light);
     margin-bottom: 3px;
   }
 

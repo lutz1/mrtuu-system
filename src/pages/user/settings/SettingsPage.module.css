@@ -1,6 +1,6 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   background: var(--color-bg-page);
 }
 
@@ -86,7 +86,7 @@
 .pickupLabel {
   font-size: var(--font-size-table-text);
   font-weight: 500;
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
 }
 
 .toggleRow {

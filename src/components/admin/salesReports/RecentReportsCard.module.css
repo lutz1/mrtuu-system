@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 22px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -17,23 +17,23 @@
   font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .viewAllBtn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 8px 16px;
   font-size: var(--font-size-supporting);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
   font-family: inherit;
 }
 
 .viewAllBtn:hover {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .list {
@@ -50,7 +50,7 @@
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .row:last-child {
@@ -61,8 +61,8 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #fef1d9;
-  color: #d9922a;
+  background: var(--color-ref-fef1d9);
+  color: var(--color-accent-alt-hover);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,7 +82,7 @@
 .name {
   font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -91,7 +91,7 @@
 
 .date {
   font-size: var(--font-size-caption);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
 }
 
@@ -99,18 +99,18 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
   flex-shrink: 0;
 }
 
 .downloadBtn:hover {
-  background: #fef1d9;
+  background: var(--color-ref-fef1d9);
 }
 
 .downloadBtn svg {

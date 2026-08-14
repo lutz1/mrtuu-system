@@ -13,7 +13,7 @@
   width: 100%;
   max-width: 1120px;
   max-height: calc(100vh - 48px);
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   overflow-y: auto;
@@ -24,14 +24,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 26px 32px;
-  border-bottom: 1px solid #eceef1;
+  border-bottom: 1px solid var(--color-border-soft);
 }
 
 .title {
   font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .closeBtn {
@@ -40,7 +40,7 @@
   border-radius: 8px;
   background: none;
   border: none;
-  color: #9ca3af;
+  color: var(--color-text-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,8 +48,8 @@
 }
 
 .closeBtn:hover {
-  background: #f0f1f3;
-  color: #1a1a1a;
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
 }
 
 .closeBtn svg {
@@ -78,22 +78,22 @@
 
 .label {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .bookingId {
   font-size: var(--font-size-page-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 2px 0 4px;
 }
 
 .statusBadge {
   display: inline-flex;
   width: fit-content;
-  background: #dcfce7;
-  color: #16803c;
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16803c);
   font-size: var(--font-size-supporting);
   font-weight: 700;
   padding: 5px 14px;
@@ -103,7 +103,7 @@
 .value {
   font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 2px 0 0;
 }
 
@@ -112,7 +112,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #f8f9fa;
+  background: var(--color-bg-soft);
   border-radius: 12px;
   padding: 14px 10px;
 }
@@ -128,49 +128,49 @@
 .countdownNum {
   font-size: var(--font-size-section-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .countdownUnit {
   font-size: var(--font-size-caption);
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--color-text-light);
   letter-spacing: 0.03em;
 }
 
 .countdownColon {
   font-size: var(--font-size-section-title);
   font-weight: 700;
-  color: #d1d5db;
+  color: var(--color-border-medium);
 }
 
 .countdownUnavailable {
   font-size: var(--font-size-section-title);
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .startedText {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 4px 0 0;
   text-align: center;
 }
 
 .divider {
   height: 1px;
-  background: #eceef1;
+  background: var(--color-border-soft);
   margin: 10px 0;
 }
 
 .remainingValue {
   font-size: var(--font-size-section-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 2px 0 0;
 }
 
 .remainingOverdue {
-  color: #e0483e;
+  color: var(--color-danger);
 }
 
 .infoGrid {
@@ -180,7 +180,7 @@
 }
 
 .infoCard {
-  background: #f8f9fa;
+  background: var(--color-bg-soft);
   border-radius: 14px;
   padding: 22px;
 }
@@ -188,7 +188,7 @@
 .infoTitle {
   font-size: var(--font-size-navigation);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 18px;
 }
 
@@ -198,14 +198,14 @@
   gap: 12px;
   font-size: var(--font-size-navigation);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   padding: 10px 0;
 }
 
 .infoIcon {
   width: 20px;
   height: 20px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
@@ -217,7 +217,7 @@
 .vehicleName {
   font-size: var(--font-size-section-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 4px;
 }
 
@@ -226,9 +226,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #eceef1;
+  border-bottom: 1px solid var(--color-border-soft);
   font-size: var(--font-size-table-text);
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .rentalRow:last-child {
@@ -237,11 +237,11 @@
 
 .rentalValue {
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .notesCard {
-  background: #f8f9fa;
+  background: var(--color-bg-soft);
   border-radius: 14px;
   padding: 22px;
 }
@@ -249,19 +249,19 @@
 .notesTitle {
   font-size: var(--font-size-navigation);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 8px;
 }
 
 .notesText {
   font-size: var(--font-size-table-text);
-  color: #4b5563;
+  color: var(--color-text-subtle);
   margin: 0;
   line-height: 1.6;
 }
 
 .confirmCard {
-  background: #f8f9fa;
+  background: var(--color-bg-soft);
   border-radius: 14px;
   padding: 22px;
   display: flex;
@@ -274,21 +274,21 @@
 .confirmTitle {
   font-size: var(--font-size-navigation);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 6px;
 }
 
 .confirmText {
   font-size: var(--font-size-supporting);
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0;
   line-height: 1.5;
   max-width: 480px;
 }
 
 .confirmBtn {
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
   border: none;
   padding: 14px 30px;
   border-radius: 10px;
@@ -301,12 +301,12 @@
 }
 
 .confirmBtn:hover:not(:disabled) {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 .confirmBtn:disabled {
-  background: #e5e7eb;
-  color: #9ca3af;
+  background: var(--color-border);
+  color: var(--color-text-light);
   cursor: not-allowed;
 }
 

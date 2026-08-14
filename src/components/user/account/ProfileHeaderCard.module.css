@@ -16,7 +16,7 @@
   height: 84px;
   border-radius: 50%;
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-bg-surface);
   font-weight: 700;
   font-size: var(--font-size-page-title);
   display: flex;

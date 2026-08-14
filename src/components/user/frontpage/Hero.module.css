@@ -1,8 +1,8 @@
 .hero {
-  --gold: #f0a93a;
-  --gold-dark: #d9922a;
-  --text-dark: #1a1a1a;
-  --white: #ffffff;
+  --gold: var(--color-accent-alt);
+  --gold-dark: var(--color-accent-alt-hover);
+  --text-dark: var(--color-text-primary);
+  --white: var(--color-bg-surface);
 
   position: relative;
   min-height: 480px;
@@ -119,7 +119,7 @@
 }
 
 .secondaryBtn:hover {
-  background: #f0f0f0;
+  background: var(--color-ref-f0f0f0);
 }
 
 @media (max-width: 640px) {

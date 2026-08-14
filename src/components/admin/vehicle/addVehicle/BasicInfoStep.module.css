@@ -5,13 +5,13 @@
 }
 
 .photoSlotEmpty {
-  border: 1.5px dashed #d1d5db;
-  background: #fafafa;
+  border: 1.5px dashed var(--color-border-medium);
+  background: var(--color-ref-fafafa);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #c7cad0;
+  color: var(--color-ref-c7cad0);
   width: 100%;
   height: 100%;
   padding: 0;
@@ -20,8 +20,8 @@
 }
 
 .photoSlotEmpty:hover {
-  border-color: #e8a020;
-  color: #e8a020;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .photoSlotEmpty svg {
@@ -30,9 +30,9 @@
 }
 
 .photoSlotDragOver {
-  border-color: #e8a020;
-  background: #fff7ea;
-  color: #e8a020;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface)7ea;
+  color: var(--color-accent);
 }
 
 .photoSlotMain {
@@ -49,8 +49,8 @@
 }
 
 .thumbRowDragOver {
-  background: #fff7ea;
-  box-shadow: 0 0 0 2px #e8a020 inset;
+  background: var(--color-bg-surface)7ea;
+  box-shadow: 0 0 0 2px var(--color-accent) inset;
 }
 
 .thumbRow .photoSlot {
@@ -73,7 +73,7 @@
   border-radius: 50%;
   background: rgba(26, 26, 26, 0.75);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;

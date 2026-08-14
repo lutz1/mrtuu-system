@@ -30,7 +30,7 @@
 .infoBox {
   display: flex;
   gap: 12px;
-  background: var(--color-info-bg, #eef3fb);
+  background: var(--color-info-bg, var(--color-ref-eef3fb));
   border-radius: 10px;
   padding: 16px 18px;
 }
@@ -38,7 +38,7 @@
 .infoIcon {
   width: 18px;
   height: 18px;
-  color: var(--color-info-text, #4f6ea8);
+  color: var(--color-info-text, var(--color-ref-4f6ea8));
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -86,7 +86,7 @@
   justify-content: center;
   gap: 10px;
   background: var(--color-accent);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   border: none;
   padding: 16px;
   border-radius: 30px;

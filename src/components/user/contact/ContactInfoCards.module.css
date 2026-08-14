@@ -11,7 +11,7 @@
 }
 
 .quickCard {
-  background: #eef0f3;
+  background: var(--color-ref-eef0f3);
   border-radius: 18px;
   padding: 24px 16px;
   display: flex;
@@ -25,8 +25,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #ffffff;
-  color: #d9922a;
+  background: var(--color-bg-surface);
+  color: var(--color-accent-alt-hover);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,24 +41,24 @@
 .quickTitle {
   font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .quickValue {
   font-size: var(--font-size-supporting);
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .quickLink {
   font-size: var(--font-size-supporting);
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
   font-weight: 600;
   text-decoration: none;
   word-break: break-all;
 }
 
 .officeCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 18px;
   padding: 24px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -69,7 +69,7 @@
 .officeIcon {
   width: 22px;
   height: 22px;
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
   flex-shrink: 0;
   margin-top: 3px;
 }
@@ -83,12 +83,12 @@
   font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 8px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .officeAddress {
   font-size: var(--font-size-supporting);
-  color: #6b7280;
+  color: var(--color-text-muted);
   line-height: 1.6;
   margin: 0 0 10px;
 }
@@ -97,7 +97,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
   font-weight: 600;
   font-size: var(--font-size-supporting);
   text-decoration: none;
@@ -109,10 +109,10 @@
 }
 
 .connectCard {
-  background: #1a1a1a;
+  background: var(--color-text-primary);
   border-radius: 18px;
   padding: 24px;
-  color: #ffffff;
+  color: var(--color-bg-surface);
 }
 
 .connectTitle {
@@ -121,7 +121,7 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   margin: 0 0 18px;
-  color: #ffffff;
+  color: var(--color-bg-surface);
 }
 
 .connectLinks {
@@ -134,7 +134,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   font-size: var(--font-size-table-text);
   font-weight: 600;
   text-decoration: none;
@@ -144,8 +144,8 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #f0a93a;
-  color: #1a1a1a;
+  background: var(--color-accent-alt);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;

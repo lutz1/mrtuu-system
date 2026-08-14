@@ -1,11 +1,11 @@
 .searchBar {
-  --dark: #1c1b19;
-  --dark-soft: #2c2a27;
-  --gold: #f0a93a;
-  --gold-dark: #d9922a;
-  --text-dark: #1a1a1a;
-  --white: #ffffff;
-  --text-on-dark-muted: #b9b6b0;
+  --dark: var(--color-ref-1c1b19);
+  --dark-soft: var(--color-ref-2c2a27);
+  --gold: var(--color-accent-alt);
+  --gold-dark: var(--color-accent-alt-hover);
+  --text-dark: var(--color-text-primary);
+  --white: var(--color-bg-surface);
+  --text-on-dark-muted: var(--color-ref-b9b6b0);
 
   background: var(--dark);
   padding: 16px 20px;
@@ -68,7 +68,7 @@
 }
 
 .filterLabel {
-  color: #ffffff;
+  color: var(--color-bg-surface);
   font-weight: 600;
   font-size: var(--font-size-table-text);
   white-space: nowrap;
@@ -76,7 +76,7 @@
 
 .filterSelect {
   background: var(--dark-soft);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   border: none;
   border-radius: 999px;
   padding: 10px 16px;
@@ -138,8 +138,8 @@
 }
 
 .filterSelect option {
-  color: #ffffff;
-  background: #1a1a1a;
+  color: var(--color-bg-surface);
+  background: var(--color-text-primary);
 }
 
 
@@ -149,7 +149,7 @@
 }
 
 .filterToggleBtn:hover {
-  background: #3a3733;
+  background: var(--color-ref-3a3733);
 }
 
 /* Mobile filter overlay + panel */
@@ -165,7 +165,7 @@
 }
 
 .filterPanel {
-  background: #1c1b19;  /* solid, no transparency — was likely changed to an rgba with low opacity */
+  background: var(--color-ref-1c1b19);  /* solid, no transparency — was likely changed to an rgba with low opacity */
   width: 100%;
   max-height: 80vh;
   overflow-y: auto;
@@ -194,7 +194,7 @@
 }
 
 .filterPanelTitle {
-  color: #ffffff;
+  color: var(--color-bg-surface);
   font-weight: 700;
   font-size: var(--font-size-card-title);
 }

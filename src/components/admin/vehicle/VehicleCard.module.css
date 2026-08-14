@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -9,7 +9,7 @@
 
 .imageWrap {
   position: relative;
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 }
 
 .placeholderSvg {
@@ -36,12 +36,12 @@
   font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .plate {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0 0 10px;
 }
 
@@ -51,7 +51,7 @@
   gap: 14px;
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .specItem {
@@ -59,7 +59,7 @@
   align-items: center;
   gap: 5px;
   font-size: var(--font-size-supporting);
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .specItem svg {
@@ -71,14 +71,14 @@
 .price {
   font-size: var(--font-size-card-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 14px;
 }
 
 .priceUnit {
   font-size: var(--font-size-supporting);
   font-weight: 500;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .actions {
@@ -89,9 +89,9 @@
 
 .viewBtn {
   flex: 1;
-  background: #ffffff;
-  border: 1.5px solid #e8a020;
-  color: #e8a020;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-accent);
+  color: var(--color-accent);
   padding: 11px;
   border-radius: 9px;
   font-weight: 700;
@@ -101,13 +101,13 @@
 }
 
 .viewBtn:hover {
-  background: #fef7ea;
+  background: var(--color-ref-fef7ea);
 }
 
 .editBtn {
   flex: 1;
-  background: #e8a020;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-bg-surface);
   border: none;
   padding: 11px;
   border-radius: 9px;
@@ -118,15 +118,15 @@
 }
 
 .editBtn:hover {
-  background: #d18f1c;
+  background: var(--color-accent-hover);
 }
 
 .archiveBtn {
   flex: 0 0 auto;
   width: 42px;
-  background: #ffffff;
-  border: 1.5px solid #e5e7eb;
-  color: #6b7280;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-muted);
   padding: 11px;
   border-radius: 9px;
   cursor: pointer;
@@ -137,9 +137,9 @@
 }
 
 .archiveBtn:hover {
-  border-color: #e0483e;
-  color: #e0483e;
-  background: #fdeceb;
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  background: var(--color-bg-danger-soft);
 }
 
 .archiveBtn svg {

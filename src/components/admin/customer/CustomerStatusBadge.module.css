@@ -16,19 +16,19 @@
 }
 
 .verified {
-  background: #dcfce7;
-  color: #16803c;
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16803c);
 }
 
 .verified .dot {
-  background: #16803c;
+  background: var(--color-ref-16803c);
 }
 
 .unverified {
-  background: #fef3c7;
-  color: #92620a;
+  background: var(--color-ref-fef3c7);
+  color: var(--color-ref-92620a);
 }
 
 .unverified .dot {
-  background: #92620a;
+  background: var(--color-ref-92620a);
 }

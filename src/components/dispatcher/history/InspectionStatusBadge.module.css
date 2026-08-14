@@ -16,28 +16,28 @@
 }
 
 .cleared {
-  background: #dcfce7;
-  color: #16803c;
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16803c);
 }
 
 .cleared .dot {
-  background: #16803c;
+  background: var(--color-ref-16803c);
 }
 
 .sentToAdmin {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: var(--color-ref-dbeafe);
+  color: var(--color-ref-1d4ed8);
 }
 
 .sentToAdmin .dot {
-  background: #1d4ed8;
+  background: var(--color-ref-1d4ed8);
 }
 
 .returned {
-  background: #fef3c7;
-  color: #92620a;
+  background: var(--color-ref-fef3c7);
+  color: var(--color-ref-92620a);
 }
 
 .returned .dot {
-  background: #92620a;
+  background: var(--color-ref-92620a);
 }

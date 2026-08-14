@@ -1,6 +1,6 @@
 /* UserTable.module.css */
 .tableWrap {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
@@ -14,21 +14,21 @@
 }
 
 .table thead tr {
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 }
 
 .table th {
   text-align: left;
   font-size: var(--font-size-supporting);
   font-weight: 700;
-  color: #374151;
+  color: var(--color-text-secondary);
   padding: 18px 20px;
   white-space: nowrap;
 }
 
 .table td {
   padding: 18px 20px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
   vertical-align: middle;
   white-space: nowrap;
 }
@@ -40,27 +40,27 @@
 .userId {
   font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .name {
   font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .cell {
   font-size: var(--font-size-table-text);
-  color: #4b5563;
+  color: var(--color-text-subtle);
 }
 
 .empty {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 60px 20px;
   text-align: center;
-  color: #9ca3af;
+  color: var(--color-text-light);
   font-size: var(--font-size-table-text);
 }
 

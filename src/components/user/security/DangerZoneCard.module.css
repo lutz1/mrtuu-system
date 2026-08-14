@@ -48,7 +48,7 @@
 .deleteBtn {
   background: var(--color-danger);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 14px 26px;
   border-radius: 10px;
   font-weight: 600;

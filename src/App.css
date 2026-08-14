@@ -8,19 +8,32 @@
      ------------------------------------------------------------------------ */
   --color-bg-page: #f5f6f8;
   --color-bg-surface: #ffffff;
+  --color-bg-muted: #f0f1f3;
+  --color-bg-soft: #f8f9fa;
+  --color-bg-hover: #f7f7f7;
+  --color-bg-danger-soft: #fdeceb;
 
   --color-text-primary: #1a1a1a;
+  --color-text-strong: #111827;
   --color-text-secondary: #374151;
+  --color-text-subtle: #4b5563;
   --color-text-muted: #6b7280;
   --color-text-light: #9ca3af;
 
   --color-border: #e5e7eb;
+  --color-border-medium: #d1d5db;
+  --color-border-soft: #eceef1;
   --color-border-light: #f3f4f6;
 
   --color-input-bg: #ffffff;
 
   --color-accent: #e8a020;
+  --color-accent-alt: #f0a93a;
+  --color-accent-alt-hover: #d9922a;
   --color-accent-hover: #d18f1c;
+
+  --color-danger: #e0483e;
+  --color-success: #22a35e;
 
   /* ------------------------------------------------------------------------
      Typography

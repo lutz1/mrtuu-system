@@ -1,6 +1,6 @@
 .trustedPartner {
-  --cream: #fdf8ec;
-  --text-muted: #6b6b6b;
+  --cream: var(--color-ref-fdf8ec);
+  --text-muted: var(--color-ref-6b6b6b);
 
   background: var(--cream);
   padding: 0 32px 80px;
@@ -18,7 +18,7 @@
   font-weight: 700;
   line-height: 1.25;
   margin: 0 0 20px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .trustedDescription {

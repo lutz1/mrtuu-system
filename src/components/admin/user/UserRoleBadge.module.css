@@ -13,25 +13,25 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #7c3aed;
+  background: var(--color-ref-7c3aed);
 }
 
 .owner {
-  background: #ede9fe;
-  color: #6d28d9;
+  background: var(--color-ref-ede9fe);
+  color: var(--color-ref-6d28d9);
 }
 
 .staff {
-  background: #e0f2fe;
-  color: #0369a1;
+  background: var(--color-ref-e0f2fe);
+  color: var(--color-ref-0369a1);
 }
 
 .dispatcher {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: var(--color-ref-dbeafe);
+  color: var(--color-ref-1d4ed8);
 }
 
 .checklistAdmin {
-  background: #fef3c7;
-  color: #b45309;
+  background: var(--color-ref-fef3c7);
+  color: var(--color-ref-b45309);
 }

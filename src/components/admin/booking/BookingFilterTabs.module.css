@@ -11,7 +11,7 @@
 }
 
 .tab {
-  background: #e5e7eb;
+  background: var(--color-border);
   border: none;
   border-radius: 10px;
 
@@ -20,7 +20,7 @@
   font-size: var(--font-size-table-text);
   font-weight: 600;
 
-  color: #4b5563;
+  color: var(--color-text-subtle);
 
   cursor: pointer;
   font-family: inherit;
@@ -31,16 +31,16 @@
 }
 
 .tab:hover {
-  background: #d1d5db;
+  background: var(--color-border-medium);
 }
 
 .tabActive {
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
 }
 
 .tabActive:hover {
-  background: #1a1a1a;
+  background: var(--color-text-primary);
 }
 
 

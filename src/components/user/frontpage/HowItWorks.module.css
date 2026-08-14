@@ -1,9 +1,9 @@
 .howItWorksWrapper {
-  --cream: #fdf8ec;
-  --dark: #1c1b19;
-  --gold: #f0a93a;
-  --white: #ffffff;
-  --text-on-dark-muted: #b9b6b0;
+  --cream: var(--color-ref-fdf8ec);
+  --dark: var(--color-ref-1c1b19);
+  --gold: var(--color-accent-alt);
+  --white: var(--color-bg-surface);
+  --text-on-dark-muted: var(--color-ref-b9b6b0);
 
   background: var(--cream);
   padding: 0 32px 80px;

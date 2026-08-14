@@ -1,8 +1,8 @@
 .ctaBanner {
-  --gold: #f0a93a;
-  --gold-dark: #d9922a;
-  --text-dark: #1a1a1a;
-  --white: #ffffff;
+  --gold: var(--color-accent-alt);
+  --gold-dark: var(--color-accent-alt-hover);
+  --text-dark: var(--color-text-primary);
+  --white: var(--color-bg-surface);
 
   position: relative;
   min-height: 560px;
@@ -12,7 +12,7 @@
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
 
   margin: 0 0px;
-  --color-bg-surface: #ffffff;
+  --color-bg-surface: var(--color-bg-surface);
   /* No overflow:hidden or border-radius here anymore —
      those live on .ctaImageWrap instead, so .ctaFade can paint
      over the corners without being clipped along with the image. */
@@ -49,20 +49,20 @@
   background:
     radial-gradient(
       circle at bottom left,
-      #1c1b19 0%,
-      #1c1b19 0%,
+      var(--color-ref-1c1b19) 0%,
+      var(--color-ref-1c1b19) 0%,
       transparent 40%
     ),
     radial-gradient(
       circle at bottom right,
-      #1c1b19 0%,
-      #1c1b19 0%,
+      var(--color-ref-1c1b19) 0%,
+      var(--color-ref-1c1b19) 0%,
       transparent 40%
     ),
     linear-gradient(
       to top,
-      #1c1b19 0%,
-      #1c1b19 0%,
+      var(--color-ref-1c1b19) 0%,
+      var(--color-ref-1c1b19) 0%,
       transparent 40%
     );
 }

@@ -9,7 +9,7 @@
 
 .default {
   background: var(--color-brand-dark);
-  color: #ffffff;
+  color: var(--color-bg-surface);
 }
 
 .secondary {
@@ -33,7 +33,7 @@
 }
 
 .default .eyebrow {
-  color: #d1d5db;
+  color: var(--color-border-medium);
 }
 
 .secondary .eyebrow {
@@ -94,7 +94,7 @@
   border-radius: 8px;
   border: none;
   background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;

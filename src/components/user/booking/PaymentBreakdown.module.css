@@ -1,6 +1,6 @@
 .card {
-  background: var(--color-accent-tint, #fdf3df);
-  border: 1px solid var(--color-accent-light, #f4dfa8);
+  background: var(--color-accent-tint, var(--color-ref-fdf3df));
+  border: 1px solid var(--color-accent-light, var(--color-ref-f4dfa8));
   border-radius: 16px;
   padding: 20px;
   display: flex;
@@ -59,7 +59,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 12px;
-  border-top: 1px solid var(--color-accent-light, #f4dfa8);
+  border-top: 1px solid var(--color-accent-light, var(--color-ref-f4dfa8));
 }
 
 .totalLabel {

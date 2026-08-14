@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 20px 24px;
   margin-bottom: 16px;
@@ -14,7 +14,7 @@
   border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 }
 
 .thumbImage {
@@ -31,14 +31,14 @@
 
 .label {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0 0 4px;
 }
 
 .name {
   font-size: var(--font-size-section-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 10px;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .pill {
-  background: #f0f1f3;
-  color: #374151;
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
   font-size: var(--font-size-caption);
   font-weight: 600;
   padding: 5px 12px;
@@ -61,14 +61,14 @@
 .price {
   font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .changeBtn {
-  background: #e8a020;
+  background: var(--color-accent);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 12px 22px;
   border-radius: 10px;
   font-weight: 700;
@@ -80,7 +80,7 @@
 }
 
 .changeBtn:hover {
-  background: #d18f1c;
+  background: var(--color-accent-hover);
 }
 
 @media (max-width: 640px) {

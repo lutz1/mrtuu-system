@@ -9,13 +9,13 @@
   gap: 6px;
   font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #6b7280;
+  color: var(--color-text-muted);
   text-decoration: none;
   margin-bottom: 12px;
 }
 
 .backLink:hover {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .backLink svg {
@@ -27,17 +27,17 @@
   font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
   font-size: var(--font-size-table-text);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 28px;
@@ -48,8 +48,8 @@
 }
 
 .errorText {
-  background: #fdeceb;
-  color: #e0483e;
+  background: var(--color-bg-danger-soft);
+  color: var(--color-danger);
   font-size: var(--font-size-table-text);
   font-weight: 600;
   padding: 12px 14px;
@@ -72,29 +72,29 @@
 .label {
   font-size: var(--font-size-supporting);
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-secondary);
 }
 
 .input,
 .select {
-  background: #f2f2f2;
+  background: var(--color-input-bg);
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 12px 14px;
   font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
 }
 
 .input::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .input:focus,
 .select:focus {
-  border-color: #e8a020;
-  background: #ffffff;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
 }
 
 .select {
@@ -107,18 +107,18 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: #f8f9fa;
-  border: 1.5px dashed #d1d5db;
+  background: var(--color-bg-soft);
+  border: 1.5px dashed var(--color-border-medium);
   border-radius: 12px;
   padding: 32px 20px;
   cursor: pointer;
-  color: #9ca3af;
+  color: var(--color-text-light);
   text-align: center;
 }
 
 .uploadDropzone:hover {
-  border-color: #e8a020;
-  color: #d18f1c;
+  border-color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 .uploadDropzone svg {
@@ -130,12 +130,12 @@
 .uploadText {
   font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-secondary);
 }
 
 .uploadHint {
   font-size: var(--font-size-caption);
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .hiddenFileInput {
@@ -160,7 +160,7 @@
   bottom: 12px;
   right: 12px;
   background: rgba(26, 26, 26, 0.75);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   border: none;
   padding: 8px 14px;
   border-radius: 8px;
@@ -183,9 +183,9 @@
 .cancelBtn {
   flex: 1;
   text-align: center;
-  background: #ffffff;
-  border: 1.5px solid #e5e7eb;
-  color: #374151;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-secondary);
   padding: 13px;
   border-radius: 10px;
   font-weight: 700;
@@ -196,13 +196,13 @@
 }
 
 .cancelBtn:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .submitBtn {
   flex: 1;
-  background: #e8a020;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-bg-surface);
   border: none;
   padding: 13px;
   border-radius: 10px;
@@ -213,7 +213,7 @@
 }
 
 .submitBtn:hover {
-  background: #d18f1c;
+  background: var(--color-accent-hover);
 }
 
 .imageGrid {

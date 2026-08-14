@@ -14,7 +14,7 @@
   width: 100%;
   max-width: 1000px;
   max-height: calc(100vh - 48px);
-  background: #f8f9fa;
+  background: var(--color-bg-soft);
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -34,12 +34,12 @@
   font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
   font-size: var(--font-size-table-text);
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -47,18 +47,18 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #374151;
+  color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 
 .closeBtn:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .closeBtn svg {
@@ -74,7 +74,7 @@
 }
 
 .stepCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 28px;
 }
@@ -84,14 +84,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 32px;
-  background: #ffffff;
-  border-top: 1px solid #eceef1;
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border-soft);
   flex-shrink: 0;
 }
 
 .draftText {
   font-size: var(--font-size-table-text);
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .footerActions {
@@ -100,9 +100,9 @@
 }
 
 .backBtn {
-  background: #ffffff;
-  border: 1.5px solid #e5e7eb;
-  color: #1a1a1a;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-primary);
   padding: 12px 26px;
   border-radius: 10px;
   font-weight: 700;
@@ -112,12 +112,12 @@
 }
 
 .backBtn:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .nextBtn {
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
   border: none;
   padding: 12px 26px;
   border-radius: 10px;
@@ -128,7 +128,7 @@
 }
 
 .nextBtn:hover {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 .nextBtn:disabled,

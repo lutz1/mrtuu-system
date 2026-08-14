@@ -109,7 +109,7 @@
 
 .proceedBtn {
   background: var(--color-accent);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   border: none;
   padding: 15px;
   border-radius: 30px;

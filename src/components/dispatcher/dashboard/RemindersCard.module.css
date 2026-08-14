@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 22px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -17,13 +17,13 @@
   font-size: var(--font-size-card-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .bellIcon {
   width: 19px;
   height: 19px;
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .list {
@@ -42,8 +42,8 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: #f3f4f6;
-  color: #1a1a1a;
+  background: var(--color-border-light);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,13 +58,13 @@
 .itemTitle {
   font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 2px;
 }
 
 .itemText {
   font-size: var(--font-size-caption);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
   line-height: 1.4;
 }

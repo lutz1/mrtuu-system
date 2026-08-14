@@ -6,7 +6,7 @@
   font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .toolbar {
@@ -22,9 +22,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #e8a020;
+  background: var(--color-accent);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 12px 22px;
   border-radius: 10px;
   font-weight: 700;
@@ -36,7 +36,7 @@
 }
 
 .newBookingBtn:hover {
-  background: #d18f1c;
+  background: var(--color-accent-hover);
 }
 
 .newBookingIcon {

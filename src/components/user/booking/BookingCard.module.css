@@ -111,7 +111,7 @@
 .primaryBtn {
   background: var(--color-accent-dark);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;

@@ -1,13 +1,13 @@
 .page {
-  --cream: #fdf8ec;
-  --dark: #1c1b19;
-  --gold: #f0a93a;
-  --gold-dark: #d9922a;
-  --text-dark: #1a1a1a;
-  --text-muted: #8a8a8a;
-  --border: #e2e2e2;
-  --link-blue: #3f6fd1;
-  --input-bg: #f0f0f0;
+  --cream: var(--color-ref-fdf8ec);
+  --dark: var(--color-ref-1c1b19);
+  --gold: var(--color-accent-alt);
+  --gold-dark: var(--color-accent-alt-hover);
+  --text-dark: var(--color-text-primary);
+  --text-muted: var(--color-ref-8a8a8a);
+  --border: var(--color-ref-e2e2e2);
+  --link-blue: var(--color-ref-3f6fd1);
+  --input-bg: var(--color-ref-f0f0f0);
 
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
@@ -69,7 +69,7 @@
 }
 
 .brandLabel {
-  color: #ffffff;
+  color: var(--color-bg-surface);
   font-weight: 700;
   font-size: var(--font-size-section-title);
   margin: 0 0 8px;
@@ -85,7 +85,7 @@
 }
 
 .headlineGold {
-  background: linear-gradient(90deg, #f7d488, var(--gold));
+  background: linear-gradient(90deg, var(--color-ref-f7d488), var(--gold));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -105,7 +105,7 @@
 
 /* ===== Right panel ===== */
 .rightPanel {
-  background: #fbfbfb;
+  background: var(--color-ref-fbfbfb);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -236,7 +236,7 @@
 }
 
 .googleBtn {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   color: var(--text-dark);
   border: 1px solid var(--border);
   padding: 13px;
@@ -251,7 +251,7 @@
 }
 
 .googleBtn:hover {
-  background: #f7f7f7;
+  background: var(--color-bg-hover);
 }
 
 .terms {
@@ -290,9 +290,9 @@
 }
 
 .errorText {
-  background: #fdecea;
-  color: #b3261e;
-  border: 1px solid #f5c2bd;
+  background: var(--color-ref-fdecea);
+  color: var(--color-ref-b3261e);
+  border: 1px solid var(--color-ref-f5c2bd);
   border-radius: 8px;
   padding: 10px 14px;
   font-size: var(--font-size-supporting);

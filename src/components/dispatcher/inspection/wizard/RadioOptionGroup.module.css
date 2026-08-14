@@ -15,7 +15,7 @@
   align-items: center;
   gap: 10px;
   font-size: var(--font-size-navigation);
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
 }
 
@@ -30,13 +30,13 @@
   width: 19px;
   height: 19px;
   border-radius: 50%;
-  border: 1.5px solid #d1d5db;
+  border: 1.5px solid var(--color-border-medium);
   flex-shrink: 0;
   position: relative;
 }
 
 .radioInput:checked + .radioCircle {
-  border-color: #1a1a1a;
+  border-color: var(--color-text-primary);
 }
 
 .radioInput:checked + .radioCircle::after {
@@ -44,5 +44,5 @@
   position: absolute;
   inset: 3px;
   border-radius: 50%;
-  background: #1a1a1a;
+  background: var(--color-text-primary);
 }

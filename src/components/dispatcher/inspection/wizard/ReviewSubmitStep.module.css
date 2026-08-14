@@ -9,7 +9,7 @@
 
 .card {
   width: 100%;
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 12px;
   padding: 24px;
   box-sizing: border-box;
@@ -27,7 +27,7 @@
   font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 16px 0;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .sectionHeader .sectionTitle {
@@ -38,8 +38,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #e5e7eb;
-  color: #374151;
+  background: var(--color-border);
+  color: var(--color-text-secondary);
   font-size: var(--font-size-caption);
   font-weight: 600;
   padding: 4px 12px;
@@ -61,12 +61,12 @@
 .photoBox {
   height: 120px;
   border-radius: 8px;
-  border: 1.5px dashed #d1d5db;
-  background: #f9fafb;
+  border: 1.5px dashed var(--color-border-medium);
+  background: var(--color-ref-f9fafb);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #9ca3af;
+  color: var(--color-text-light);
   overflow: hidden;
 }
 
@@ -86,7 +86,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .summaryRowNoBorder {
@@ -105,14 +105,14 @@
 
 .summaryLabel {
   font-size: var(--font-size-table-text);
-  color: #4b5563;
+  color: var(--color-text-subtle);
   font-weight: 500;
 }
 
 .summaryValue {
   font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .checkValue {
@@ -121,7 +121,7 @@
   gap: 6px;
   font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .checkIcon {
@@ -140,23 +140,23 @@
 .remarksInput {
   width: 100%;
   min-height: 100px;
-  background: #f3f4f6;
+  background: var(--color-border-light);
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 14px 16px;
   font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #111827;
+  color: var(--color-text-strong);
   outline: none;
   resize: vertical;
   box-sizing: border-box;
 }
 
 .remarksInput::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .remarksInput:focus {
-  border-color: #d1d5db;
-  background: #ffffff;
+  border-color: var(--color-border-medium);
+  background: var(--color-bg-surface);
 }

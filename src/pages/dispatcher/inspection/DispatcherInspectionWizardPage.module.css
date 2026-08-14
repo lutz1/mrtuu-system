@@ -7,34 +7,34 @@
   align-items: center;
   gap: 8px;
   font-size: var(--font-size-table-text);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0 0 10px;
   flex-wrap: wrap;
 }
 
 .breadcrumbLink {
-  color: #9ca3af;
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
 .breadcrumbLink:hover {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .breadcrumbSep {
-  color: #d1d5db;
+  color: var(--color-border-medium);
 }
 
 .title {
   font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 20px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .stepLabel {
   font-size: var(--font-size-table-text);
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 16px 0 4px;
   display: flex;
   flex-direction: column;
@@ -44,12 +44,12 @@
 .stepName {
   font-size: var(--font-size-section-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .errorText {
-  background: #fdeceb;
-  color: #e0483e;
+  background: var(--color-bg-danger-soft);
+  color: var(--color-danger);
   font-size: var(--font-size-table-text);
   font-weight: 600;
   padding: 12px 14px;
@@ -73,7 +73,7 @@
   position: sticky;
   bottom: 0;
   z-index: 20;
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
   padding: 18px 24px;
@@ -85,9 +85,9 @@
 }
 
 .cancelBtn {
-  background: #ffffff;
-  border: 1.5px solid #e5e7eb;
-  color: #6b7280;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-muted);
   padding: 12px 24px;
   border-radius: 10px;
   font-weight: 600;
@@ -97,8 +97,8 @@
 }
 
 .cancelBtn:hover {
-  border-color: #9ca3af;
-  color: #1a1a1a;
+  border-color: var(--color-text-light);
+  color: var(--color-text-primary);
 }
 
 .footerActions {
@@ -107,9 +107,9 @@
 }
 
 .backBtn {
-  background: #ffffff;
-  border: 1.5px solid #e5e7eb;
-  color: #1a1a1a;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-primary);
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 700;
@@ -119,12 +119,12 @@
 }
 
 .backBtn:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .nextBtn {
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
   border: none;
   padding: 12px 28px;
   border-radius: 10px;
@@ -135,7 +135,7 @@
 }
 
 .nextBtn:hover {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 @media (max-width: 900px) {

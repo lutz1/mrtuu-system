@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -17,7 +17,7 @@
 
 .label {
   font-size: var(--font-size-navigation);
-  color: #374151;
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
@@ -25,8 +25,8 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: #f3f4f6;
-  color: #1a1a1a;
+  background: var(--color-border-light);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,12 +41,12 @@
 .value {
   font-size: var(--font-size-page-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .footnote {
   font-size: var(--font-size-supporting);
-  color: #9ca3af;
+  color: var(--color-text-light);
   margin: 0;
 }
