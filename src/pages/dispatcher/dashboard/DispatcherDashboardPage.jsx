@@ -8,7 +8,6 @@ import {
   useAdminBookings,
   BOOKING_STAGES,
 } from "../../../context/AdminBookingsContext";
-import { useToast } from "../../../context/ToastContext";
 import styles from "./DispatcherDashboardPage.module.css";
 
 function InspectionIcon() {
@@ -106,7 +105,6 @@ function ClearedIcon() {
 export default function DispatcherDashboardPage() {
   const navigate = useNavigate();
   const { bookings } = useAdminBookings();
-  const { showToast } = useToast();
 
   // Dispatcher's "For Inspection" queue = cleared bookings still waiting for
   // the pre-rent checklist (dispatchChecklist.preRent not yet submitted).
@@ -149,13 +147,19 @@ export default function DispatcherDashboardPage() {
         />
         <DispatcherStatCard
           icon={<PendingIcon />}
-          label="Pending Admin"
+          label="Completed This Week"
           value={
-            bookings.filter(
-              (b) => b.dispatchChecklist?.status === "awaiting_return_review"
-            ).length
+            bookings.filter((b) => {
+              if (b.status !== "completed" || !b.returnedAt) return false;
+              const d = b.returnedAt.toDate
+                ? b.returnedAt.toDate()
+                : new Date(b.returnedAt);
+              const weekAgo = new Date();
+              weekAgo.setDate(weekAgo.getDate() - 7);
+              return d >= weekAgo;
+            }).length
           }
-          footnote="Clearance sent, waiting for review"
+          footnote="Returns processed in the last 7 days"
         />
         <DispatcherStatCard
           icon={<ClearedIcon />}

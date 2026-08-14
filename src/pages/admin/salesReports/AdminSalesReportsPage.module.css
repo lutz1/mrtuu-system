@@ -59,7 +59,6 @@
   color: #9ca3af;
   margin: 0;
 }
-
 @media (max-width: 1300px) {
   .statsGrid {
     grid-template-columns: repeat(3, 1fr);
@@ -71,7 +70,6 @@
     grid-template-columns: 1fr 1fr;
   }
 }
-
 @media (max-width: 900px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);

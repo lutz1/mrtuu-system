@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import AdminLayout from "../../dashboard/AdminLayout";
 import { useAdminBookings } from "../../../../context/AdminBookingsContext";
@@ -15,15 +14,29 @@ function toDate(value) {
 function formatDateTime(value) {
   const d = toDate(value);
   if (!d) return "—";
-  const datePart = d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-  const timePart = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+  const datePart = d.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  const timePart = d.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
   return `${datePart} ${timePart}`;
 }
 
 function CheckIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 6L9 17L4 12" stroke="#d18f1c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M20 6L9 17L4 12"
+        stroke="#d18f1c"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -41,7 +54,9 @@ export default function AdminBookingHistoryDetailsPage() {
       <AdminLayout>
         <div className={styles.pageHeading}>
           <h1 className={styles.title}>Booking not found</h1>
-          <p className={styles.subtitle}>This booking may have been removed, or hasn't finished loading yet.</p>
+          <p className={styles.subtitle}>
+            This booking may have been removed, or hasn't finished loading yet.
+          </p>
         </div>
       </AdminLayout>
     );
@@ -64,41 +79,113 @@ export default function AdminBookingHistoryDetailsPage() {
 
   // TODO: no real report-generation or PDF export exists yet.
   const handleViewReport = () => {
-    showToast("Checklist / inspection report isn't built yet — coming soon.", { type: "info" });
+    showToast("Checklist / inspection report isn't built yet — coming soon.", {
+      type: "info",
+    });
   };
   const handlePrintReceipt = () => {
-    showToast("Print/download receipt isn't built yet — coming soon.", { type: "info" });
+    showToast("Print/download receipt isn't built yet — coming soon.", {
+      type: "info",
+    });
   };
 
   const timelineEvents = [
     { label: "Booking Created", by: "Admin", at: booking.createdAt },
-    booking.clearance?.checkedAt && { label: "Sent to Dispatcher", by: "Admin", at: booking.clearance.checkedAt },
-    preRent?.submittedAt && { label: "Vehicle Released", by: "Dispatcher", at: preRent.submittedAt },
-    postRent?.submittedAt && { label: "Vehicle Returned", by: "Dispatcher", at: postRent.submittedAt },
+    booking.clearance?.checkedAt && {
+      label: "Sent to Dispatcher",
+      by: "Admin",
+      at: booking.clearance.checkedAt,
+    },
+    preRent?.submittedAt && {
+      label: "Vehicle Released",
+      by: "Dispatcher",
+      at: preRent.submittedAt,
+    },
+    postRent?.submittedAt && {
+      label: "Vehicle Returned",
+      by: "Dispatcher",
+      at: postRent.submittedAt,
+    },
   ].filter(Boolean);
 
   return (
     <AdminLayout>
       <div className={styles.topBar}>
-        <button type="button" className={styles.backBtn} onClick={() => navigate(-1)}>
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <button
+          type="button"
+          className={styles.backBtn}
+          onClick={() => navigate(-1)}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 6l-6 6 6 6"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           Back
         </button>
 
         <div className={styles.topActions}>
-          <button type="button" className={styles.reportBtn} onClick={handleViewReport}>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="3.5" width="16" height="17" rx="2" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M8 8.5h8M8 12.5h8M8 16.5h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          <button
+            type="button"
+            className={styles.reportBtn}
+            onClick={handleViewReport}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="4"
+                y="3.5"
+                width="16"
+                height="17"
+                rx="2"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+              <path
+                d="M8 8.5h8M8 12.5h8M8 16.5h5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
             </svg>
             View Checklist / Inspection Report
           </button>
-          <button type="button" className={styles.printBtn} onClick={handlePrintReceipt}>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4.5" y="8.5" width="15" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M7 8.5V4.5h10v4M7 16.5v3h10v-3" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          <button
+            type="button"
+            className={styles.printBtn}
+            onClick={handlePrintReceipt}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="4.5"
+                y="8.5"
+                width="15"
+                height="8"
+                rx="1.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+              <path
+                d="M7 8.5V4.5h10v4M7 16.5v3h10v-3"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+              />
             </svg>
             Print / Download Receipt
           </button>
@@ -121,15 +208,32 @@ export default function AdminBookingHistoryDetailsPage() {
       <section className={styles.headerCard}>
         <div className={styles.headerCol}>
           <span className={styles.customerIcon}>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M4.5 20c1-3.8 4.2-6 7.5-6s6.5 2.2 7.5 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="8"
+                r="3.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+              <path
+                d="M4.5 20c1-3.8 4.2-6 7.5-6s6.5 2.2 7.5 6"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
             </svg>
           </span>
           <div>
             <p className={styles.customerName}>{booking.customer}</p>
             <p className={styles.customerLine}>{booking.phone}</p>
-            {booking.driver?.email && <p className={styles.customerLine}>{booking.driver.email}</p>}
+            {booking.driver?.email && (
+              <p className={styles.customerLine}>{booking.driver.email}</p>
+            )}
           </div>
         </div>
 
@@ -166,7 +270,8 @@ export default function AdminBookingHistoryDetailsPage() {
           <div className={styles.kv}>
             <span>Booking Period</span>
             <strong>
-              {booking.pickupDateDisplay} {booking.pickupTime} - {booking.returnDateDisplay} {booking.returnTime}
+              {booking.pickupDateDisplay} {booking.pickupTime} -{" "}
+              {booking.returnDateDisplay} {booking.returnTime}
             </strong>
           </div>
           <div className={styles.kv}>
@@ -189,7 +294,9 @@ export default function AdminBookingHistoryDetailsPage() {
             <div>
               <p className={styles.summaryLabel}>Pick-up Odometer</p>
               <p className={styles.summaryValue}>
-                {typeof pickupOdometer === "number" ? `${pickupOdometer.toLocaleString()} km` : "—"}
+                {typeof pickupOdometer === "number"
+                  ? `${pickupOdometer.toLocaleString()} km`
+                  : "—"}
               </p>
             </div>
             <div>
@@ -201,16 +308,26 @@ export default function AdminBookingHistoryDetailsPage() {
             <div>
               <p className={styles.summaryLabel}>Return Odometer</p>
               <p className={styles.summaryValue}>
-                {typeof returnOdometer === "number" ? `${returnOdometer.toLocaleString()} km` : "—"}
+                {typeof returnOdometer === "number"
+                  ? `${returnOdometer.toLocaleString()} km`
+                  : "—"}
               </p>
             </div>
             <div>
-              <p className={styles.summaryLabel}>Actual Return Date &amp; Time</p>
-              <p className={styles.summaryValue}>{formatDateTime(postRent?.submittedAt)}</p>
+              <p className={styles.summaryLabel}>
+                Actual Return Date &amp; Time
+              </p>
+              <p className={styles.summaryValue}>
+                {formatDateTime(postRent?.submittedAt)}
+              </p>
             </div>
             <div>
               <p className={styles.summaryLabel}>Total Distance</p>
-              <p className={styles.summaryValue}>{totalDistance !== null ? `${totalDistance.toLocaleString()} km` : "—"}</p>
+              <p className={styles.summaryValue}>
+                {totalDistance !== null
+                  ? `${totalDistance.toLocaleString()} km`
+                  : "—"}
+              </p>
             </div>
           </div>
         </section>
@@ -244,7 +361,13 @@ export default function AdminBookingHistoryDetailsPage() {
           <div className={styles.timeline}>
             {timelineEvents.map((event, i) => (
               <div key={event.label} className={styles.timelineItem}>
-                <span className={`${styles.timelineDot} ${i === timelineEvents.length - 1 ? styles.timelineDotActive : ""}`} />
+                <span
+                  className={`${styles.timelineDot} ${
+                    i === timelineEvents.length - 1
+                      ? styles.timelineDotActive
+                      : ""
+                  }`}
+                />
                 <div>
                   <p className={styles.timelineLabel}>{event.label}</p>
                   <p className={styles.timelineMeta}>
@@ -257,20 +380,58 @@ export default function AdminBookingHistoryDetailsPage() {
         </section>
 
         <section className={styles.card}>
-          <h2 className={styles.cardTitle}>Documents Returned</h2>
-          {/* TODO: UI-only placeholder — no per-booking "documents
-              returned" field exists on any booking doc. Always renders as
-              checked; not derived from real data. */}
-          <div className={styles.docList}>
-            {["Driver's License", "OR / CR", "Insurance", "Others"].map((label) => (
-              <div key={label} className={styles.docItem}>
-                <span className={styles.docCheck}>
-                  <CheckIcon />
-                </span>
-                {label}
-              </div>
-            ))}
-          </div>
+          <section className={styles.card}>
+            <h2 className={styles.cardTitle}>Documents on File</h2>
+            <div className={styles.docList}>
+              {[
+                {
+                  label: "Driver's License",
+                  present: !!(
+                    booking.documents?.driversLicenseUrl ||
+                    booking.driver?.driversLicenseUrl
+                  ),
+                },
+                {
+                  label: "Valid ID",
+                  present: !!(
+                    booking.documents?.validIdUrl || booking.driver?.validIdUrl
+                  ),
+                },
+                {
+                  label: "OR / CR",
+                  present: preRent?.documents?.orcr === "Present",
+                },
+                {
+                  label: "Insurance",
+                  present: preRent?.documents?.insurance === "Present",
+                },
+              ].map((doc) => (
+                <div key={doc.label} className={styles.docItem}>
+                  <span
+                    className={styles.docCheck}
+                    style={
+                      !doc.present
+                        ? {
+                            opacity: 0.35,
+                            borderColor: "#d1d5db",
+                            background: "#f3f4f6",
+                          }
+                        : undefined
+                    }
+                  >
+                    {doc.present ? <CheckIcon /> : "—"}
+                  </span>
+                  {doc.label}
+                  {!doc.present && (
+                    <span style={{ color: "#9ca3af", fontSize: 12 }}>
+                      {" "}
+                      (missing)
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
         </section>
       </div>
     </AdminLayout>

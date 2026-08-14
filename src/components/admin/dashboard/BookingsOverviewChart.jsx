@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import {
   BarChart,
   Bar,
@@ -7,24 +7,47 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import { useAdminBookings } from "../../../context/AdminBookingsContext";
 import styles from "./BookingsOverviewChart.module.css";
 
-// TODO: mock data — swap for real weekly bookings once available.
-const BOOKINGS_DATA = [
-  { day: "Mon", bookings: 55 },
-  { day: "Tue", bookings: 64 },
-  { day: "Wed", bookings: 76 },
-  { day: "Thu", bookings: 79 },
-  { day: "Fri", bookings: 70 },
-  { day: "Sat", bookings: 37 },
-];
+const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function toDate(value) {
+  if (!value) return null;
+  if (typeof value?.toDate === "function") return value.toDate();
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function startOfWeek() {
+  const now = new Date();
+  const day = now.getDay();
+  const start = new Date(now);
+  start.setDate(now.getDate() - day);
+  start.setHours(0, 0, 0, 0);
+  return start;
+}
 
 export default function BookingsOverviewChart() {
+  const { bookings } = useAdminBookings();
+
+  const bookingsData = useMemo(() => {
+    const weekStart = startOfWeek();
+    const counts = new Array(7).fill(0);
+
+    bookings.forEach((b) => {
+      const created = toDate(b.createdAt);
+      if (!created || created < weekStart) return;
+      counts[created.getDay()] += 1;
+    });
+
+    return DAY_LABELS.map((day, i) => ({ day, bookings: counts[i] }));
+  }, [bookings]);
+
   return (
     <section className={styles.card}>
       <div className={styles.headerRow}>
         <h2 className={styles.title}>Bookings Overview</h2>
-        {/* TODO: wire to a real range selector */}
         <button type="button" className={styles.rangeBtn}>
           This Week
           <svg
@@ -45,7 +68,7 @@ export default function BookingsOverviewChart() {
 
       <ResponsiveContainer width="100%" height={296}>
         <BarChart
-          data={BOOKINGS_DATA}
+          data={bookingsData}
           margin={{ top: 16, right: 12, left: -12, bottom: 0 }}
         >
           <CartesianGrid
@@ -60,8 +83,6 @@ export default function BookingsOverviewChart() {
             tick={{ fontSize: 13, fill: "#374151" }}
           />
           <YAxis
-            domain={[0, 100]}
-            ticks={[0, 20, 40, 60, 80, 100]}
             axisLine={false}
             tickLine={false}
             tick={{ fontSize: 13, fill: "#374151" }}
