@@ -1,16 +1,24 @@
-/* BookingsTable.module.css */
 .tableWrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
   background: #ffffff;
   border-radius: 16px;
+
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+
+  box-sizing: border-box;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
   min-width: 750px;
+
+  border-collapse: collapse;
 }
 
 .table thead tr {
@@ -19,16 +27,22 @@
 
 .table th {
   text-align: left;
+
   font-size: 13px;
   font-weight: 700;
+
   color: #374151;
+
   padding: 18px 20px;
+
   white-space: nowrap;
 }
 
 .table td {
   padding: 20px;
+
   border-bottom: 1px solid #f3f4f6;
+
   vertical-align: top;
 }
 
@@ -36,43 +50,84 @@
   border-bottom: none;
 }
 
+
+/* =========================================================
+   BOOKING ID
+   ========================================================= */
+
 .bookingId {
   font-size: 14px;
   font-weight: 700;
+
   color: #1a1a1a;
+
   white-space: nowrap;
 }
+
+
+/* =========================================================
+   TEXT
+   ========================================================= */
 
 .primaryText {
   font-size: 14px;
   font-weight: 600;
+
   color: #1a1a1a;
+
   margin: 0 0 2px;
+
+  white-space: nowrap;
 }
 
 .secondaryText {
   font-size: 12.5px;
+
   color: #9ca3af;
+
   margin: 0;
+
+  white-space: nowrap;
 }
 
 .cell {
   font-size: 13.5px;
+
   color: #4b5563;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+   ========================================================= */
+
+.actionCell {
   white-space: nowrap;
 }
 
 .viewBtn {
   width: 38px;
   height: 38px;
+
   border-radius: 8px;
+
   background: #f0f1f3;
+
   border: none;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
+
   color: #374151;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .viewBtn:hover {
@@ -85,118 +140,286 @@
   height: 18px;
 }
 
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
 .empty {
+  width: 100%;
+
   background: #ffffff;
+
   border-radius: 16px;
+
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
   padding: 60px 20px;
+
   text-align: center;
+
   color: #9ca3af;
+
   font-size: 14px;
+
+  box-sizing: border-box;
 }
 
-/* ==========================================================================
-   Mobile Styles (Stacked Card Layout)
-   ========================================================================== */
+
+/* =========================================================
+   MOBILE CARD LAYOUT
+   ========================================================= */
+
 @media (max-width: 768px) {
   .tableWrap {
     background: transparent;
+
     box-shadow: none;
+
     border-radius: 0;
+
     overflow-x: visible;
+
+    width: 100%;
   }
 
   .table {
     display: block;
+
+    width: 100%;
+
     min-width: 0;
   }
 
   .table thead {
-    display: none; /* Hide header row on mobile */
+    display: none;
   }
 
   .table tbody {
     display: flex;
+
     flex-direction: column;
-    gap: 16px;
+
+    gap: 14px;
+
+    width: 100%;
   }
 
   .table tbody tr {
     display: flex;
+
     flex-direction: column;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
     background: #ffffff;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+    border-radius: 14px;
+
+    padding: 14px 16px;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   }
 
   .table td {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px dashed #f3f4f6;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 8px 0;
+
+    border-bottom: 1px dashed #f0f1f3;
+
     white-space: normal;
+
+    min-width: 0;
   }
 
-  .table td:last-child {
-    border-bottom: none;
-    padding-top: 14px;
-    padding-bottom: 0;
-    justify-content: flex-end;
-  }
 
-  /* Generated dynamic labels matching table headers */
+  /* =======================================================
+     MOBILE LABELS
+     ======================================================= */
+
   .table td:nth-child(1)::before {
     content: "Booking ID";
-    font-size: 12px;
-    font-weight: 600;
+
+    font-size: 10.5px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
     color: #9ca3af;
+
+    margin-bottom: 3px;
   }
 
   .table td:nth-child(2)::before {
     content: "Customer";
-    font-size: 12px;
-    font-weight: 600;
+
+    font-size: 10.5px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
     color: #9ca3af;
+
+    margin-bottom: 3px;
   }
 
   .table td:nth-child(3)::before {
     content: "Vehicle";
-    font-size: 12px;
-    font-weight: 600;
+
+    font-size: 10.5px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
     color: #9ca3af;
+
+    margin-bottom: 3px;
   }
 
   .table td:nth-child(4)::before {
-    content: "Dates";
-    font-size: 12px;
-    font-weight: 600;
+    content: "Return Date";
+
+    font-size: 10.5px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
     color: #9ca3af;
+
+    margin-bottom: 3px;
   }
 
   .table td:nth-child(5)::before {
-    content: "Total Amount";
-    font-size: 12px;
-    font-weight: 600;
+    content: "Source";
+
+    font-size: 10.5px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
     color: #9ca3af;
+
+    margin-bottom: 3px;
   }
 
+
+  /* =======================================================
+     ACTIONS
+     ======================================================= */
+
+  .table td:nth-child(6) {
+    border-bottom: none;
+
+    padding-top: 12px;
+    padding-bottom: 0;
+
+    align-items: flex-end;
+  }
+
+  /* Hide "Actions" label on mobile */
   .table td:nth-child(6)::before {
-    content: "Status";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+    display: none;
   }
 
-  .table td:nth-child(7)::before {
-    content: "Actions";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+  .actionCell {
+    white-space: normal;
   }
+
+  .viewBtn {
+    width: 100%;
+    height: 38px;
+
+    border-radius: 8px;
+
+    background: #f0f1f3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  /* =======================================================
+     MOBILE TEXT
+     ======================================================= */
+
+  .bookingId,
+  .primaryText,
+  .secondaryText,
+  .cell {
+    white-space: normal;
+
+    word-break: break-word;
+
+    overflow-wrap: anywhere;
+  }
+
+  .bookingId {
+    font-size: 13px;
+  }
+
+  .primaryText {
+    font-size: 13px;
+
+    margin: 0 0 2px;
+  }
+
+  .secondaryText {
+    font-size: 11.5px;
+
+    margin: 0;
+  }
+
+  .cell {
+    font-size: 13px;
+  }
+
+
+  /* =======================================================
+     EMPTY
+     ======================================================= */
 
   .empty {
-    padding: 40px 16px;
+    padding: 35px 16px;
+
+    font-size: 13px;
+
+    border-radius: 14px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .table tbody {
+    gap: 12px;
+  }
+
+  .table tbody tr {
+    padding: 13px 14px;
+
+    border-radius: 13px;
+  }
+
+  .table td {
+    padding: 7px 0;
+  }
+
+  .viewBtn {
+    height: 36px;
   }
 }

@@ -20,14 +20,14 @@
   margin-bottom: 20px;
 }
 
-/* Tablet & Large Mobile Screen Optimizations */
+/* Tablet */
 @media (max-width: 1024px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Mobile & Small Screen Optimizations */
+/* Mobile */
 @media (max-width: 640px) {
   .pageHeading {
     margin-bottom: 16px;
@@ -38,11 +38,19 @@
   }
 
   .statsGrid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
   }
 
   .filterWrap {
     margin-bottom: 16px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .statsGrid {
+    gap: 8px;
   }
 }

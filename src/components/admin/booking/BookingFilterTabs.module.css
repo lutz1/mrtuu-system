@@ -1,21 +1,33 @@
-/* BookingFilterTabs.module.css */
 .tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
 }
 
 .tab {
   background: #e5e7eb;
   border: none;
   border-radius: 10px;
+
   padding: 11px 22px;
+
   font-size: 14px;
   font-weight: 600;
+
   color: #4b5563;
+
   cursor: pointer;
   font-family: inherit;
+
   white-space: nowrap;
+
+  flex-shrink: 0;
 }
 
 .tab:hover {
@@ -31,13 +43,30 @@
   background: #1a1a1a;
 }
 
-@media (max-width: 640px) {
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
   .tabs {
     flex-wrap: nowrap;
+
+    width: 100%;
+    max-width: 100%;
+
     overflow-x: auto;
-    padding-bottom: 4px;
+    overflow-y: hidden;
+
+    padding-bottom: 5px;
+
+    gap: 8px;
+
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+
+    /* Prevent the tabs from increasing page width */
+    overscroll-behavior-x: contain;
   }
 
   .tabs::-webkit-scrollbar {
@@ -47,6 +76,27 @@
   .tab {
     padding: 9px 16px;
     font-size: 13px;
-    flex-shrink: 0;
+
+    flex: 0 0 auto;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .tabs {
+    gap: 7px;
+    padding-bottom: 4px;
+  }
+
+  .tab {
+    padding: 9px 14px;
+
+    font-size: 12.5px;
+
+    border-radius: 9px;
   }
 }

@@ -146,3 +146,74 @@
   width: 16px;
   height: 16px;
 }
+@media (max-width: 640px) {
+  .card {
+    border-radius: 12px;
+  }
+
+  .placeholderSvg,
+  .photo {
+    height: 120px;
+  }
+
+  .body {
+    padding: 12px;
+    gap: 3px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .plate {
+    font-size: 11px;
+    margin-bottom: 7px;
+  }
+
+  .specs {
+    gap: 6px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+  }
+
+  .specItem {
+    gap: 3px;
+    font-size: 10px;
+  }
+
+  .specItem svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .price {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .priceUnit {
+    font-size: 10px;
+  }
+
+  .actions {
+    gap: 5px;
+  }
+
+  .viewBtn,
+  .editBtn {
+    padding: 8px 5px;
+    font-size: 11px;
+    border-radius: 7px;
+  }
+
+  .archiveBtn {
+    width: 34px;
+    padding: 8px;
+    border-radius: 7px;
+  }
+
+  .archiveBtn svg {
+    width: 14px;
+    height: 14px;
+  }
+}

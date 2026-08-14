@@ -10,20 +10,54 @@ const ROLE_LABELS = {
   dispatcher: "Dispatcher",
 };
 
-export default function AdminTopbar() {
+export default function AdminTopbar({ onMenuClick }) {
   const { user } = useAuth();
   const { staffProfile } = useStaff();
 
-  const displayName = user?.displayName || staffProfile?.displayName || "Admin";
+  const displayName =
+    user?.displayName || staffProfile?.displayName || "Admin";
+
   const roleLabel =
-    ROLE_LABELS[staffProfile?.role] || staffProfile?.role || "Admin";
-  const initial = displayName.trim().charAt(0).toUpperCase() || "A";
+    ROLE_LABELS[staffProfile?.role] ||
+    staffProfile?.role ||
+    "Admin";
+
+  const initial =
+    displayName.trim().charAt(0).toUpperCase() || "A";
 
   return (
     <header className={styles.topbar}>
+      {/* Mobile hamburger */}
+      <button
+        type="button"
+        className={styles.menuBtn}
+        onClick={onMenuClick}
+        aria-label="Open menu"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 6h16M4 12h16M4 18h16"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
+
       <div className={styles.brand}>
-        <img src={logo} alt="Lyka's Car Rental" className={styles.logo} />
-        <span className={styles.brandName}>Lyka's Car Rental</span>
+        <img
+          src={logo}
+          alt="Lyka's Car Rental"
+          className={styles.logo}
+        />
+
+        <span className={styles.brandName}>
+          Lyka's Car Rental
+        </span>
       </div>
 
       <div className={styles.actions}>
@@ -43,6 +77,7 @@ export default function AdminTopbar() {
               strokeWidth="1.7"
               strokeLinejoin="round"
             />
+
             <path
               d="M9.5 18.5a2.5 2.5 0 0 0 5 0"
               stroke="currentColor"
@@ -52,7 +87,10 @@ export default function AdminTopbar() {
           </svg>
         </button>
 
-        <button type="button" className={styles.userChip}>
+        <button
+          type="button"
+          className={styles.userChip}
+        >
           {user?.photoURL ? (
             <img
               src={user.photoURL}
@@ -61,12 +99,21 @@ export default function AdminTopbar() {
               style={{ objectFit: "cover" }}
             />
           ) : (
-            <span className={styles.userAvatar}>{initial}</span>
+            <span className={styles.userAvatar}>
+              {initial}
+            </span>
           )}
+
           <span className={styles.userText}>
-            <span className={styles.userName}>{displayName}</span>
-            <span className={styles.userRole}>{roleLabel}</span>
+            <span className={styles.userName}>
+              {displayName}
+            </span>
+
+            <span className={styles.userRole}>
+              {roleLabel}
+            </span>
           </span>
+
           <svg
             className={styles.chevron}
             viewBox="0 0 24 24"

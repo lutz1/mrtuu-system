@@ -8,7 +8,9 @@ export default function BookingFilterTabs({ tabs, active, onChange }) {
         <button
           key={tab.key}
           type="button"
-          className={`${styles.tab} ${active === tab.key ? styles.tabActive : ""}`}
+          className={`${styles.tab} ${
+            active === tab.key ? styles.tabActive : ""
+          }`}
           onClick={() => onChange(tab.key)}
         >
           {tab.label}

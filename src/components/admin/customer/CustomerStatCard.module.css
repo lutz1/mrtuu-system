@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
 }
 
 .iconCircle {
@@ -29,6 +30,7 @@
   font-size: 13.5px;
   color: #6b7280;
   margin: 0 0 2px;
+  white-space: nowrap;
 }
 
 .value {
@@ -36,4 +38,60 @@
   font-weight: 800;
   color: #1a1a1a;
   margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .card {
+    padding: 12px;
+    border-radius: 12px;
+    gap: 9px;
+  }
+
+  .iconCircle {
+    width: 34px;
+    height: 34px;
+  }
+
+  .iconCircle svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .label {
+    font-size: 10.5px;
+    margin-bottom: 1px;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .value {
+    font-size: 19px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .card {
+    padding: 10px;
+    gap: 7px;
+  }
+
+  .iconCircle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .iconCircle svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .label {
+    font-size: 9.5px;
+  }
+
+  .value {
+    font-size: 17px;
+  }
 }

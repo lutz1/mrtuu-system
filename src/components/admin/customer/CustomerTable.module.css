@@ -1,4 +1,5 @@
 /* CustomerTable.module.css */
+
 .tableWrap {
   background: #ffffff;
   border-radius: 16px;
@@ -64,104 +65,207 @@
   font-size: 14px;
 }
 
-/* ==========================================================================
-   Mobile Styles (Stacked Card Layout)
-   ========================================================================== */
+
+/* =========================================================
+   MOBILE CARD LAYOUT
+   ========================================================= */
+
 @media (max-width: 768px) {
   .tableWrap {
     background: transparent;
     box-shadow: none;
     border-radius: 0;
-    overflow-x: visible;
+    overflow: visible;
+    width: 100%;
   }
 
   .table {
     display: block;
+    width: 100%;
     min-width: 0;
   }
 
   .table thead {
-    display: none; /* Hide header row on mobile */
+    display: none;
   }
 
   .table tbody {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
+    width: 100%;
   }
 
+  /* =========================
+     MOBILE CARD
+     ========================= */
+
   .table tbody tr {
+    position: relative;
+
     display: flex;
     flex-direction: column;
+
+    width: 100%;
+    box-sizing: border-box;
+
     background: #ffffff;
     border-radius: 16px;
-    padding: 16px;
+
+    /* Extra space at the top for actions */
+    padding: 58px 18px 18px;
+
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   }
 
+  /* =========================
+     ACTION BUTTON
+     ========================= */
+
+  .table td:nth-child(8) {
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    width: 36px;
+    height: 36px;
+
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    z-index: 100;
+  }
+
+  .table td:nth-child(8)::before {
+    display: none;
+    content: none;
+  }
+
+  /* =========================
+     NORMAL CELLS
+     ========================= */
+
   .table td {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
     padding: 10px 0;
-    border-bottom: 1px dashed #f3f4f6;
+
+    border-bottom: 1px dashed #f0f1f3;
+
     white-space: normal;
+    text-align: right;
+  }
+
+  /* Customer ID starts BELOW the action button */
+  .table td:nth-child(1) {
+    padding-top: 0;
   }
 
   .table td:last-child {
     border-bottom: none;
-    padding-bottom: 0;
   }
 
-  /* Generated dynamic labels matching table headers */
+  /* =========================
+     LABELS
+     ========================= */
+
   .table td:nth-child(1)::before {
     content: "Customer ID";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
   }
 
   .table td:nth-child(2)::before {
-    content: "Name";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+    content: "Customer";
   }
 
   .table td:nth-child(3)::before {
-    content: "Email";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+    content: "Contact";
   }
 
   .table td:nth-child(4)::before {
-    content: "Phone";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+    content: "Email";
   }
 
   .table td:nth-child(5)::before {
-    content: "Total Rentals";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+    content: "Driver's License";
   }
 
   .table td:nth-child(6)::before {
-    content: "Status";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+    content: "Joined Date";
   }
 
   .table td:nth-child(7)::before {
-    content: "Actions";
-    font-size: 12px;
-    font-weight: 600;
-    color: #9ca3af;
+    content: "Status";
   }
+
+  .table td::before {
+    flex-shrink: 0;
+
+    margin-right: 16px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    color: #9ca3af;
+
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+
+    text-align: left;
+  }
+
+  /* =========================
+     VALUES
+     ========================= */
+
+  .customerId,
+  .name,
+  .cell {
+    min-width: 0;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    text-align: right;
+  }
+
+  .customerId {
+    font-size: 13.5px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .cell {
+    font-size: 13px;
+    color: #4b5563;
+  }
+
+  /* =========================
+     STATUS
+     ========================= */
+
+  .table td:nth-child(7) {
+    justify-content: space-between;
+  }
+
+  /* =========================
+     EMPTY
+     ========================= */
 
   .empty {
     padding: 40px 16px;

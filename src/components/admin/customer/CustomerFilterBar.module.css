@@ -1,4 +1,3 @@
-/* CustomerFilterBar.module.css */
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -120,18 +119,80 @@
   }
 }
 
+/* ==============================
+   MOBILE
+   ============================== */
+
 @media (max-width: 640px) {
   .row {
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
   }
 
-  .searchWrap,
-  .select,
+  /* Search takes the entire row */
+  .searchWrap {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .searchInput {
+    height: 44px;
+    font-size: 13px;
+    padding: 11px 12px 11px 38px;
+  }
+
+  .searchIcon {
+    left: 12px;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Status + Sort */
+  .select {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 9px 10px;
+    font-size: 12.5px;
+  }
+
+  /* Filter + Export */
   .filterBtn,
   .exportBtn {
     width: 100%;
-    flex: none;
     min-width: 0;
+    height: 42px;
+    padding: 9px 10px;
+    font-size: 12.5px;
+    margin-left: 0;
+  }
+
+  .filterBtn svg,
+  .exportBtn svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .row {
+    gap: 8px;
+  }
+
+  .searchInput {
+    height: 42px;
+    font-size: 12px;
+  }
+
+  .select,
+  .filterBtn,
+  .exportBtn {
+    height: 40px;
+    font-size: 11.5px;
+    padding: 8px;
   }
 }

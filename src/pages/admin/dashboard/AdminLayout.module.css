@@ -1,38 +1,129 @@
-/* AdminLayout.module.css */
 .page {
   min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+
   background: #f0f1f3;
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+
   padding: 24px;
+
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  overflow-x: hidden;
 }
 
 .body {
   display: flex;
-  gap: 20px;
   align-items: flex-start;
+  gap: 20px;
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
 }
 
 .content {
   flex: 1;
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
+
+  box-sizing: border-box;
 }
+
+
+/* =========================================================
+   MOBILE OVERLAY
+   ========================================================= */
+
+.overlay {
+  display: none;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
 
 @media (max-width: 960px) {
   .page {
     padding: 16px;
     gap: 16px;
   }
+
   .body {
-    flex-direction: column;
+    width: 100%;
     gap: 16px;
+  }
+
+  .content {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
-@media (max-width: 480px) {
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
   .page {
     padding: 12px;
+    gap: 12px;
+
+    overflow-x: hidden;
+  }
+
+  .body {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Dark background behind opened sidebar */
+  .overlay {
+    display: block;
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 1900;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
+  }
+
+  .overlayVisible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .page {
+    padding: 8px;
+    gap: 10px;
   }
 }
