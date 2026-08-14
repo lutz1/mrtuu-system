@@ -152,7 +152,7 @@
   color: #ffffff;
   padding: 6px 16px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
 }
 

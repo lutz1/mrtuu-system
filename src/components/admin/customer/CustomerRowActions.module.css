@@ -73,7 +73,7 @@
 
   border-radius: 7px;
 
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
 
   color: #374151;

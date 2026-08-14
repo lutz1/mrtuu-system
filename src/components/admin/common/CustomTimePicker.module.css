@@ -18,7 +18,7 @@
 }
 
 .modalHeader {
-  font-size: 0.9rem;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #1e293b;
   margin-bottom: 12px;
@@ -44,7 +44,7 @@
 }
 
 .colLabel {
-  font-size: 0.725rem;
+  font-size: var(--font-size-caption);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #64748b;
@@ -58,7 +58,7 @@
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   background-color: #ffffff;
-  font-size: 1rem;
+  font-size: var(--font-size-card-title);
   font-weight: 600;
   color: #0f172a;
   text-align: center;
@@ -72,7 +72,7 @@
 }
 
 .separator {
-  font-size: 1.25rem;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: #64748b;
   margin-top: 18px;
@@ -91,7 +91,7 @@
   border-radius: 4px;
   background-color: #ffffff;
   color: #475569;
-  font-size: 0.75rem;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -113,7 +113,7 @@
 .applyBtn {
   padding: 6px 14px;
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   cursor: pointer;
 }

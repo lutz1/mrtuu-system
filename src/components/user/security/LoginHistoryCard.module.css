@@ -6,14 +6,14 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-muted);
   margin: 0 0 20px;
 }
@@ -51,14 +51,14 @@
 }
 
 .sessionDevice {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   margin: 0 0 2px;
   color: var(--color-text-primary);
 }
 
 .sessionMeta {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -72,7 +72,7 @@
   background: none;
   border: none;
   color: var(--color-accent-dark);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
@@ -90,7 +90,7 @@
 }
 
 .logHeading {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -107,7 +107,7 @@
 .logRow {
   display: flex;
   justify-content: space-between;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-secondary);
 }
 

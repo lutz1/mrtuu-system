@@ -28,7 +28,7 @@
 }
 
 .menuLabel {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   font-weight: 500;
 
@@ -52,7 +52,7 @@
 
   border-radius: 12px;
 
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
 
   color: #374151;
@@ -113,7 +113,7 @@
   border-radius: 12px;
 
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
 
   cursor: pointer;
 

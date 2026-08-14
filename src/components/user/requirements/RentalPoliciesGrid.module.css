@@ -34,14 +34,14 @@
 }
 
 .cardTitle {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 10px;
   color: #1a1a1a;
 }
 
 .cardSubtitle {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #6b7280;
   line-height: 1.6;
   margin: 0 0 20px;
@@ -60,7 +60,7 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #1a1a1a;
   line-height: 1.6;
 }
@@ -80,14 +80,14 @@
 .requirementLabel {
   color: #d9922a;
   font-weight: 700;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   letter-spacing: 0.05em;
   margin-bottom: 10px;
   display: block;
 }
 
 .requirementText {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #1a1a1a;
   line-height: 1.6;
   margin: 0 0 24px;
@@ -101,7 +101,7 @@
   gap: 8px;
   color: #d9922a;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   text-decoration: none;
   margin-top: auto;
 }

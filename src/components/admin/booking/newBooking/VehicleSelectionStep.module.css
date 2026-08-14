@@ -1,5 +1,5 @@
 .sectionTitle {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   margin: 0 0 16px;
   color: #1a1a1a;
@@ -36,7 +36,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 16px 12px 42px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
@@ -57,7 +57,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 14px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: #374151;
   cursor: pointer;
@@ -81,7 +81,7 @@
   padding: 60px 20px;
   text-align: center;
   color: #9ca3af;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   margin-bottom: 20px;
 }
 

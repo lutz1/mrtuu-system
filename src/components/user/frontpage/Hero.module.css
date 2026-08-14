@@ -53,14 +53,14 @@
 }
 
 .heroTitle {
-  font-size: 44px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   line-height: 1.2;
   margin: 0 0 20px;
 }
 
 .heroSubtitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
   max-width: 560px;
@@ -81,7 +81,7 @@
   padding: 14px 32px;
   border-radius: 30px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   text-decoration: none;
   cursor: pointer;
   display: inline-flex;
@@ -102,7 +102,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
 }
 
 .secondaryBtn {
@@ -112,7 +112,7 @@
   padding: 14px 32px;
   border-radius: 30px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
@@ -138,17 +138,17 @@
   }
 
   .eyebrow {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     margin-bottom: 8px;
   }
 
   .heroTitle {
-    font-size: 30px;
+    font-size: var(--font-size-page-title);
     margin: 0 0 14px;
   }
 
   .heroSubtitle {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     line-height: 1.6;
     margin: 0 auto 24px;
   }
@@ -160,12 +160,12 @@
   .primaryBtn,
   .secondaryBtn {
     padding: 12px 22px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
   .btnArrow {
     width: 18px;
     height: 18px;
-    font-size: 10px;
+    font-size: var(--font-size-caption);
   }
 }

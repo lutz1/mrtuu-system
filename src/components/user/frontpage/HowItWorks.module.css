@@ -13,7 +13,7 @@
 .sectionTitleLight {
   color: var(--white);
   text-align: center;
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0 0 40px;
 }
@@ -53,14 +53,14 @@
 
 .stepTitle {
   color: var(--white);
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 6px;
 }
 
 .stepDescription {
   color: var(--text-on-dark-muted);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   line-height: 1.6;
   margin: 0;
 }

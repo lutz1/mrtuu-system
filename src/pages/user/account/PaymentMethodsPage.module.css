@@ -41,14 +41,14 @@
 }
 
 .pageTitle {
-  font-size: 26px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0;
   color: var(--color-text-primary);
 }
 
 .sectionTitle {
-  font-size: 19px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 16px;
   color: var(--color-text-primary);
@@ -92,7 +92,7 @@
   }
 
   .pageTitle {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
   }
 
   .cardsGrid {

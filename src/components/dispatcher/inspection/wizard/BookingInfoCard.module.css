@@ -11,7 +11,7 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0;
   color: #1a1a1a;
@@ -24,13 +24,13 @@
 }
 
 .label {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0;
 }
 
 .value {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
@@ -46,6 +46,6 @@
   }
   
   .title {
-    font-size: 16px;
+    font-size: var(--font-size-card-title);
   }
 }

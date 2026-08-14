@@ -30,7 +30,7 @@
 }
 
 .uploadText {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #374151;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .uploadHint {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: #9ca3af;
 }
 
@@ -79,7 +79,7 @@
 
 .fileName {
   flex: 1;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #1a1a1a;
   word-break: break-all;
 }
@@ -88,7 +88,7 @@
   background: none;
   border: none;
   color: #e0483e;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;

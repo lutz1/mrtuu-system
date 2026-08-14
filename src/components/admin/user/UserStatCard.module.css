@@ -26,13 +26,13 @@
 }
 
 .label {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #6b7280;
   margin: 0 0 2px;
 }
 
 .value {
-  font-size: 24px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0;

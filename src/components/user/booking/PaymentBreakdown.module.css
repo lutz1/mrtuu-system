@@ -22,7 +22,7 @@
 }
 
 .title {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0;
   color: var(--color-accent-dark);
@@ -36,19 +36,19 @@
 }
 
 .rowLabel {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: var(--color-text-primary);
 }
 
 .rowSub {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
   margin-top: 2px;
 }
 
 .rowValue {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: var(--color-text-primary);
   white-space: nowrap;
@@ -63,13 +63,13 @@
 }
 
 .totalLabel {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 .totalValue {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   color: var(--color-accent-dark);
 }
@@ -91,7 +91,7 @@
 }
 
 .noteText {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   line-height: 1.5;
   color: var(--color-text-muted);
   margin: 0;

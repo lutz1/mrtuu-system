@@ -33,12 +33,12 @@
   display: block;
   color: #d9922a;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   margin-bottom: 12px;
 }
 
 .title {
-  font-size: 48px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 16px;
@@ -46,7 +46,7 @@
 }
 
 .subtitle {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   color: #4b5563;
   max-width: 480px;
   line-height: 1.6;
@@ -63,17 +63,17 @@
   }
 
   .eyebrow {
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     margin-bottom: 8px;
   }
 
   .title {
-    font-size: 30px;
+    font-size: var(--font-size-page-title);
     margin: 0 0 12px;
   }
 
   .subtitle {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     line-height: 1.55;
     max-width: none;
   }

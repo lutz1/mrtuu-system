@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #9ca3af;
   margin: 0 0 10px;
   flex-wrap: wrap; /* Prevents text overflow on narrow viewports */
@@ -26,14 +26,14 @@
 }
 
 .title {
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 8px;
   color: #1a1a1a;
 }
 
 .subtitle {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   color: #6b7280;
   margin: 0;
   line-height: 1.5;
@@ -60,7 +60,7 @@
 }
 
 .footerNote {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
 }
 
@@ -76,7 +76,7 @@
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   transition: border-color 0.2s ease;
@@ -93,7 +93,7 @@
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   transition: background 0.2s ease;
@@ -110,11 +110,11 @@
   }
 
   .title {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
   }
 
   .subtitle {
-    font-size: 13.5px;
+    font-size: var(--font-size-table-text);
   }
 
   .stickyFooter {

@@ -31,14 +31,14 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
   color: #1a1a1a;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #6b7280;
   margin: 0;
 }
@@ -90,7 +90,7 @@
 }
 
 .draftText {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #9ca3af;
 }
 
@@ -106,7 +106,7 @@
   padding: 12px 26px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -122,7 +122,7 @@
   padding: 12px 26px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -153,11 +153,11 @@
   }
 
   .title {
-    font-size: 20px;
+    font-size: var(--font-size-section-title);
   }
 
   .subtitle {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
   .body {
@@ -177,7 +177,7 @@
 
   .draftText {
     text-align: center;
-    font-size: 12px;
+    font-size: var(--font-size-caption);
   }
 
   .footerActions {

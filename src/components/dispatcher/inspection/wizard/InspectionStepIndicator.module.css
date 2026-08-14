@@ -20,7 +20,7 @@
   border-radius: 50%;
   border: 1.5px solid #d1d5db;
   color: #9ca3af;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@
 }
 
 .label {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   color: #1a1a1a;
   white-space: nowrap;

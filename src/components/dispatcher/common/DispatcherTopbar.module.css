@@ -23,7 +23,7 @@
 }
 
 .brandName {
-  font-size: 19px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: #1a1a1a;
 }
@@ -68,7 +68,7 @@
   background: #f0a93a;
   color: #ffffff;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,13 +83,13 @@
 }
 
 .userName {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   color: #1a1a1a;
 }
 
 .userRole {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
 }
 

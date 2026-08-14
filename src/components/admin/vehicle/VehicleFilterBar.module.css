@@ -24,7 +24,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 14px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: #374151;
   cursor: pointer;
@@ -43,7 +43,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 18px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #374151;
   cursor: pointer;
@@ -76,7 +76,7 @@
   padding: 12px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -101,7 +101,7 @@
   padding: 12px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -112,7 +112,7 @@
 }
 
 .addIcon {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   line-height: 1;
 }
@@ -138,7 +138,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 16px 12px 42px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: #1a1a1a;
   outline: none;

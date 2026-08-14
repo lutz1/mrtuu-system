@@ -21,7 +21,7 @@
 }
 
 .message {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   color: #1a1a1a;
 }

@@ -17,7 +17,7 @@
 
   padding: 11px 22px;
 
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
 
   color: #4b5563;
@@ -75,7 +75,7 @@
 
   .tab {
     padding: 9px 16px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
 
     flex: 0 0 auto;
   }
@@ -95,7 +95,7 @@
   .tab {
     padding: 9px 14px;
 
-    font-size: 12.5px;
+    font-size: var(--font-size-supporting);
 
     border-radius: 9px;
   }

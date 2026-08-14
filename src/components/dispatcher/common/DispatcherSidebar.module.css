@@ -16,7 +16,7 @@
 }
 
 .menuLabel {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   font-weight: 500;
   margin: 4px 0 12px 10px;
@@ -34,7 +34,7 @@
   gap: 12px;
   padding: 13px 16px;
   border-radius: 12px;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   color: #374151;
   text-decoration: none;
@@ -85,7 +85,7 @@
   padding: 13px 16px;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   cursor: pointer;
   font-family: inherit;
 }
@@ -143,7 +143,7 @@
     gap: 2px;
     padding: 8px 4px;
     border-radius: 10px;
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     text-align: center;
     white-space: nowrap;       /* Prevents text from wrapping awkwardly */
   }
@@ -178,7 +178,7 @@
     margin-top: 0;
     padding: 8px 4px;
     background: none;
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     white-space: nowrap;
   }
 

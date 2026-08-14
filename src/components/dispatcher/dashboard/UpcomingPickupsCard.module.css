@@ -13,7 +13,7 @@
 }
 
 .title {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   margin: 0;
   color: #1a1a1a;
@@ -46,7 +46,7 @@
 }
 
 .time {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   color: #6b7280;
   white-space: nowrap;
@@ -60,14 +60,14 @@
 }
 
 .customer {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 2px;
 }
 
 .details {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: #9ca3af;
   margin: 0;
 }
@@ -75,7 +75,7 @@
 .todayTag {
   background: #f0f1f3;
   color: #4b5563;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 6px;
@@ -90,7 +90,7 @@
   background: none;
   border: none;
   color: #1a1a1a;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;

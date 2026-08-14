@@ -8,7 +8,7 @@
 }
 
 .summary {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #6b7280;
   margin: 0;
 }
@@ -27,7 +27,7 @@
   border: 1px solid #e5e7eb;
   background: #ffffff;
   color: #374151;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -62,7 +62,7 @@
   width: 24px;
   text-align: center;
   color: #9ca3af;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   flex-shrink: 0;
 }
 
@@ -75,7 +75,7 @@
   .summary {
     width: 100%;
     text-align: center;
-    font-size: 12.5px;
+    font-size: var(--font-size-supporting);
   }
 
   .controls {
@@ -88,7 +88,7 @@
   .pageBtn {
     width: 34px;
     height: 34px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
   .ellipsis {

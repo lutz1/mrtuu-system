@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #9ca3af;
   margin: 0 0 10px;
   flex-wrap: wrap;
@@ -26,14 +26,14 @@
 }
 
 .title {
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 20px;
   color: #1a1a1a;
 }
 
 .stepLabel {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #6b7280;
   margin: 16px 0 4px;
   display: flex;
@@ -42,7 +42,7 @@
 }
 
 .stepName {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -50,7 +50,7 @@
 .errorText {
   background: #fdeceb;
   color: #e0483e;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   padding: 12px 14px;
   border-radius: 8px;
@@ -91,7 +91,7 @@
   padding: 12px 24px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -113,7 +113,7 @@
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -129,7 +129,7 @@
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -146,11 +146,11 @@
 
 @media (max-width: 768px) {
   .title {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
     margin-bottom: 14px;
   }
   .stepName {
-    font-size: 17px;
+    font-size: var(--font-size-card-title);
   }
   .stickyFooter {
     padding: 14px 16px;
@@ -181,9 +181,9 @@
 
 @media (max-width: 380px) {
   .breadcrumb {
-    font-size: 12.5px;
+    font-size: var(--font-size-supporting);
   }
   .title {
-    font-size: 19px;
+    font-size: var(--font-size-section-title);
   }
 }

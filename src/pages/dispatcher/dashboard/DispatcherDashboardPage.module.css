@@ -3,14 +3,14 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
   color: #1a1a1a;
 }
 
 .subtitle {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   color: #6b7280;
   margin: 0;
 }
@@ -45,7 +45,7 @@
 }
 
 .forInspectionTitle {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0;
   color: #1a1a1a;
@@ -59,7 +59,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 9px;
   padding: 9px 16px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #1a1a1a;
   cursor: pointer;
@@ -78,7 +78,7 @@
 }
 
 .showingText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 14px 0 0;
 }
@@ -106,10 +106,10 @@
     margin-bottom: 18px;
   }
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
   .subtitle {
-    font-size: 13.5px;
+    font-size: var(--font-size-table-text);
   }
   .forInspectionCard {
     padding: 16px;
@@ -126,16 +126,16 @@
     gap: 12px;
   }
   .title {
-    font-size: 21px;
+    font-size: var(--font-size-section-title);
   }
   .forInspectionTitle {
-    font-size: 16px;
+    font-size: var(--font-size-card-title);
   }
   .viewAllBtn {
     padding: 8px 12px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
   .showingText {
-    font-size: 12px;
+    font-size: var(--font-size-caption);
   }
 }

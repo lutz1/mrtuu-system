@@ -28,13 +28,13 @@
 }
 
 .slotTitle {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: #1a1a1a;
 }
 
 .slotHint {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: #9ca3af;
 }
 
@@ -63,7 +63,7 @@
   right: 0;
   background: rgba(26, 26, 26, 0.75);
   color: #ffffff;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   padding: 8px 10px;
 }

@@ -37,7 +37,7 @@
   border-radius: 999px;
   padding: 12px 20px;
   color: var(--white);
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   outline: none;
   flex: 1 1 220px;
@@ -70,7 +70,7 @@
 .filterLabel {
   color: #ffffff;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   white-space: nowrap;
 }
 
@@ -80,7 +80,7 @@
   border: none;
   border-radius: 999px;
   padding: 10px 16px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-family: inherit;
   cursor: pointer;
   appearance: none;
@@ -196,7 +196,7 @@
 .filterPanelTitle {
   color: #ffffff;
   font-weight: 700;
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
 }
 
 .filterCloseBtn {
@@ -225,7 +225,7 @@
   padding: 14px;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   margin-top: 24px;
 }
@@ -251,7 +251,7 @@
     flex: 1 1 90px;
     min-width: 70px;
     padding: 8px 12px;
-    font-size: 12px;
+    font-size: var(--font-size-caption);
   }
   .filters {
     flex-wrap: nowrap;
@@ -265,12 +265,12 @@
     gap: 4px;
   }
   .filterLabel {
-    font-size: 11px;
+    font-size: var(--font-size-caption);
   }
   .filterSelect {
     width: auto;
     padding: 8px 20px 8px 10px;
-    font-size: 11px;
+    font-size: var(--font-size-caption);
     background-position: right 7px center;
     background-size: 8px 5px;
   }

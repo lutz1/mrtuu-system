@@ -83,7 +83,7 @@
 }
 
 .brandName {
-  font-size: 19px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
 
   color: #1a1a1a;
@@ -158,7 +158,7 @@
   color: #ffffff;
 
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
 
   display: flex;
   align-items: center;
@@ -179,7 +179,7 @@
 }
 
 .userName {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
 
   color: #1a1a1a;
@@ -188,7 +188,7 @@
 }
 
 .userRole {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
 
   color: #9ca3af;
 
@@ -273,6 +273,6 @@
     width: 38px;
     height: 38px;
 
-    font-size: 14px;
+    font-size: var(--font-size-table-text);
   }
 }

@@ -11,7 +11,7 @@
 }
 
 .docTitle {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 24px;
   color: #1a1a1a;
@@ -52,14 +52,14 @@
 }
 
 .docTileTitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0 0 6px;
   color: #1a1a1a;
 }
 
 .docTileText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
   line-height: 1.5;
   margin: 0;
@@ -73,7 +73,7 @@
 }
 
 .securityTitle {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 28px;
 }
@@ -104,13 +104,13 @@
 }
 
 .securityRowTitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0 0 4px;
 }
 
 .securityRowText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #b0b3b8;
   line-height: 1.5;
   margin: 0;

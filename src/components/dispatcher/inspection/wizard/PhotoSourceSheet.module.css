@@ -28,7 +28,7 @@
 }
 
 .title {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   color: #1a1a1a;
   text-align: center;
@@ -45,7 +45,7 @@
   border: 1px solid #eceef1;
   background: #fafafa;
   color: #1a1a1a;
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -75,7 +75,7 @@
   border: none;
   background: #f2f2f2;
   color: #1a1a1a;
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;

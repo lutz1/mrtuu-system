@@ -11,7 +11,7 @@
 }
 
 .heading {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: var(--color-text-primary);
   margin: 0;
@@ -25,7 +25,7 @@
 }
 
 .label {
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -55,14 +55,14 @@
   border: none;
   background: transparent;
   outline: none;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: var(--color-text-primary);
   width: 100%;
 }
 
 .dateDisplay {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-primary);
   pointer-events: none;
   white-space: nowrap;
@@ -96,7 +96,7 @@
 .priceRow {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-muted);
 }
 
@@ -109,13 +109,13 @@
 }
 
 .totalLabel {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 .totalAmount {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: var(--color-accent-dark);
 }
@@ -127,7 +127,7 @@
   padding: 14px;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   cursor: pointer;
   letter-spacing: 0.02em;
 }
@@ -138,7 +138,7 @@
 
 .noCard {
   text-align: center;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
   margin: -8px 0 0;
 }

@@ -16,7 +16,7 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #374151;
   font-weight: 500;
 }
@@ -39,7 +39,7 @@
 }
 
 .value {
-  font-size: 27px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0;
@@ -49,7 +49,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   margin: 0;
 }
 

@@ -38,7 +38,7 @@
   justify-content: center;
   color: #fff;
   font-weight: 700;
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
 }
 
 /* Desktop: dark overlay + "Edit" text on hover */
@@ -51,7 +51,7 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.55);
   color: #fff;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.15s ease;
@@ -90,7 +90,7 @@
 }
 
 .errorText {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-danger);
   margin: 0;
   max-width: 160px;

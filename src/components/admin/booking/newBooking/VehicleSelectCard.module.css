@@ -32,14 +32,14 @@
 }
 
 .name {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
   color: #1a1a1a;
 }
 
 .plate {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0 0 10px;
 }
@@ -57,7 +57,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
 }
 
@@ -68,14 +68,14 @@
 }
 
 .price {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0 0 14px;
 }
 
 .priceUnit {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 500;
   color: #6b7280;
 }
@@ -88,7 +88,7 @@
   padding: 12px;
   border-radius: 9px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   margin-top: auto;

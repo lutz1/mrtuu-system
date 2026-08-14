@@ -28,7 +28,7 @@
 .table th {
   text-align: left;
 
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
 
   color: #374151;
@@ -56,7 +56,7 @@
    ========================================================= */
 
 .bookingId {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
 
   color: #1a1a1a;
@@ -70,7 +70,7 @@
    ========================================================= */
 
 .primaryText {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
 
   color: #1a1a1a;
@@ -81,7 +81,7 @@
 }
 
 .secondaryText {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
 
   color: #9ca3af;
 
@@ -91,7 +91,7 @@
 }
 
 .cell {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
 
   color: #4b5563;
 
@@ -160,7 +160,7 @@
 
   color: #9ca3af;
 
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
 
   box-sizing: border-box;
 }
@@ -251,7 +251,7 @@
   .table td:nth-child(1)::before {
     content: "Booking ID";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
@@ -264,7 +264,7 @@
   .table td:nth-child(2)::before {
     content: "Customer";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
@@ -277,7 +277,7 @@
   .table td:nth-child(3)::before {
     content: "Vehicle";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
@@ -290,7 +290,7 @@
   .table td:nth-child(4)::before {
     content: "Return Date";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
@@ -303,7 +303,7 @@
   .table td:nth-child(5)::before {
     content: "Source";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
@@ -366,23 +366,23 @@
   }
 
   .bookingId {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
   .primaryText {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
 
     margin: 0 0 2px;
   }
 
   .secondaryText {
-    font-size: 11.5px;
+    font-size: var(--font-size-caption);
 
     margin: 0;
   }
 
   .cell {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
 
@@ -393,7 +393,7 @@
   .empty {
     padding: 35px 16px;
 
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
 
     border-radius: 14px;
   }

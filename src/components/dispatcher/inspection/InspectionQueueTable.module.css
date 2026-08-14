@@ -17,7 +17,7 @@
 
 .table th {
   text-align: left;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
   color: #374151;
   padding: 18px 20px;
@@ -35,21 +35,21 @@
 }
 
 .bookingId {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: #1a1a1a;
   white-space: nowrap;
 }
 
 .primaryText {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #1a1a1a;
   margin: 0 0 2px;
 }
 
 .secondaryText {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0;
 }
@@ -61,7 +61,7 @@
   padding: 11px 22px;
   border-radius: 9px;
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -78,7 +78,7 @@
   padding: 60px 20px;
   text-align: center;
   color: #9ca3af;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
 }
 
 @media (max-width: 768px) {
@@ -129,7 +129,7 @@
   .table td::before {
     content: attr(data-label);
     display: block;
-    font-size: 11px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.3px;

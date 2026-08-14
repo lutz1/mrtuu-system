@@ -16,7 +16,7 @@
 }
 
 .label {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   color: #374151;
   font-weight: 500;
 }
@@ -39,14 +39,14 @@
 }
 
 .value {
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0;
 }
 
 .footnote {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0;
 }

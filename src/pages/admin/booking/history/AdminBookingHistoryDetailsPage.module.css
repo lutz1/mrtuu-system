@@ -15,7 +15,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 11px 20px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #1a1a1a;
   cursor: pointer;
@@ -47,7 +47,7 @@
   padding: 11px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -72,7 +72,7 @@
   padding: 11px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -92,14 +92,14 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
   color: #1a1a1a;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #9ca3af;
   margin: 0;
 }
@@ -108,7 +108,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #9ca3af;
   margin: 0;
 }
@@ -167,14 +167,14 @@
 }
 
 .customerName {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0 0 4px;
 }
 
 .customerLine {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
   margin: 0;
 }
@@ -183,7 +183,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
 }
 
 .kv span {
@@ -209,7 +209,7 @@
 }
 
 .cardTitle {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   margin: 0 0 18px;
   color: #1a1a1a;
@@ -222,13 +222,13 @@
 }
 
 .summaryLabel {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0 0 3px;
 }
 
 .summaryValue {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
@@ -239,7 +239,7 @@
   justify-content: space-between;
   padding: 11px 0;
   border-bottom: 1px solid #f3f4f6;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #6b7280;
 }
 
@@ -247,7 +247,7 @@
   display: flex;
   justify-content: space-between;
   padding: 14px 0 0;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   color: #1a1a1a;
 }
@@ -279,14 +279,14 @@
 }
 
 .timelineLabel {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 2px;
 }
 
 .timelineMeta {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0;
 }
@@ -301,7 +301,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #1a1a1a;
 }
 
@@ -382,12 +382,12 @@
   }
 
   .title {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
   }
 
   .breadcrumb {
     flex-wrap: wrap;
-    font-size: 12.5px;
+    font-size: var(--font-size-supporting);
   }
 }
 
@@ -398,6 +398,6 @@
   }
 
   .paymentTotalRow {
-    font-size: 15px;
+    font-size: var(--font-size-navigation);
   }
 }

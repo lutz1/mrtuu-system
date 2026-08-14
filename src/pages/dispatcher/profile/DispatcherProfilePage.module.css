@@ -3,14 +3,14 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
   color: #1a1a1a;
 }
 
 .subtitle {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   color: #6b7280;
   margin: 0;
 }
@@ -55,7 +55,7 @@
   justify-content: center;
   background: #f0f1f3;
   color: #6b7280;
-  font-size: 42px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .displayName {
-  font-size: 24px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 10px;
   color: #1a1a1a;
@@ -98,7 +98,7 @@
 .roleBadge {
   background: #f0f1f3;
   color: #4b5563;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   padding: 6px 16px;
   border-radius: 8px;
@@ -135,14 +135,14 @@
 }
 
 .detailLabel {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 2px;
 }
 
 .detailValue {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
   margin: 0;
   word-break: break-word;
@@ -156,7 +156,7 @@
 }
 
 .sectionTitle {
-  font-size: 19px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0 0 20px;
   color: #1a1a1a;
@@ -176,7 +176,7 @@
 }
 
 .label {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #1a1a1a;
 }
 
@@ -185,7 +185,7 @@
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
-  font-size: 16px; /* prevents iOS zoom-on-focus */
+  font-size: var(--font-size-card-title); /* prevents iOS zoom-on-focus */
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
@@ -209,7 +209,7 @@
   background: #eceef1;
   border-radius: 10px;
   padding: 13px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #9ca3af;
   word-break: break-word;
 }
@@ -243,7 +243,7 @@
   padding: 13px 26px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -265,7 +265,7 @@
 
 @media (max-width: 768px) {
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
   .formCard,
   .summaryCard {

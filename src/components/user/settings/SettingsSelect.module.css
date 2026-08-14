@@ -5,7 +5,7 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
   color: var(--color-text-primary);
 }
@@ -21,7 +21,7 @@
   border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 14px 44px 14px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: var(--color-text-primary);
   cursor: pointer;

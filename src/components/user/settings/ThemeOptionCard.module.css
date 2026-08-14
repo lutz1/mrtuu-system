@@ -52,7 +52,7 @@
 }
 
 .label {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   
 }
@@ -68,6 +68,6 @@
   }
 
   .label {
-    font-size: 14px;
+    font-size: var(--font-size-table-text);
   }
 }

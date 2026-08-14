@@ -17,7 +17,7 @@
 
 .table th {
   text-align: left;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
   color: #374151;
   padding: 18px 20px;
@@ -64,20 +64,20 @@
 }
 
 .vehicleName {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
 }
 
 .vehicleMeta {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 2px 0 0;
 }
 
 .cell {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #4b5563;
 }
 
@@ -91,7 +91,7 @@
   padding: 10px 18px;
   border-radius: 9px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -113,7 +113,7 @@
   padding: 60px 20px;
   text-align: center;
   color: #9ca3af;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
 }
 
 /* ==========================================================================
@@ -169,35 +169,35 @@
   /* Target table cells to display field labels on the left */
   .table td:nth-child(2)::before {
     content: "Plate Number";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
     color: #9ca3af;
   }
 
   .table td:nth-child(3)::before {
     content: "Type";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
     color: #9ca3af;
   }
 
   .table td:nth-child(4)::before {
     content: "Transmission";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
     color: #9ca3af;
   }
 
   .table td:nth-child(5)::before {
     content: "Daily Rate";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
     color: #9ca3af;
   }
 
   .table td:nth-child(6)::before {
     content: "Archived Date";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
     color: #9ca3af;
   }

@@ -37,14 +37,14 @@
 }
 
 .carName {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0;
   color: var(--color-text-primary);
 }
 
 .price {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: var(--color-accent-dark);
   white-space: nowrap;
@@ -60,7 +60,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-secondary);
 }
 
@@ -83,7 +83,7 @@
   gap: 8px;
   background: var(--color-bg-muted);
   color: var(--color-text-secondary);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 500;
   padding: 8px 14px;
   border-radius: 8px;
@@ -95,7 +95,7 @@
 }
 
 .refundNote {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: var(--color-danger);
   margin: 0;
@@ -115,7 +115,7 @@
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -131,7 +131,7 @@
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -147,7 +147,7 @@
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -164,7 +164,7 @@
   padding: 13px 28px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }
@@ -198,7 +198,7 @@
   }
   .carName,
   .price {
-    font-size: 19px;
+    font-size: var(--font-size-section-title);
   }
   .actions {
     flex-direction: column;

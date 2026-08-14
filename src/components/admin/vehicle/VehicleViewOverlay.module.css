@@ -31,7 +31,7 @@
 }
 
 .headerTitle {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0;
   color: #111827;
@@ -48,7 +48,7 @@
   justify-content: center;
   cursor: pointer;
   color: #6b7280;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .cardTitle {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 16px;
   color: #111827;
@@ -138,7 +138,7 @@
   background: rgba(0, 0, 0, 0.25);
   border: none;
   color: #ffffff;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,7 +192,7 @@
 }
 
 .vehicleName {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0 0 8px;
   color: #111827;
@@ -203,7 +203,7 @@
   align-self: flex-start;
   background: #e5e7eb;
   color: #374151;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 6px;
@@ -220,7 +220,7 @@
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
 }
 
 .infoRow dt {
@@ -262,21 +262,21 @@
 }
 
 .statusLabel {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
 }
 
 .statusValueBadge {
   background: #e5e7eb;
   color: #374151;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 6px;
 }
 
 .statusValueBold {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
   color: #111827;
 }
@@ -299,7 +299,7 @@
   padding: 9px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   cursor: pointer;
 }
 
@@ -323,7 +323,7 @@
   padding: 9px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   cursor: pointer;
 }
 
@@ -355,7 +355,7 @@
   justify-content: space-between;
   padding: 8px 0;
   border-bottom: 1px solid #f3f4f6;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
 }
 
 .specLabel {
@@ -377,7 +377,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   color: #374151;
 }
@@ -390,13 +390,13 @@
 }
 
 .emptyText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0;
 }
 
 .descriptionText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
   line-height: 1.6;
   margin: 0;

@@ -13,7 +13,7 @@
 }
 
 .title {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
   color: #1a1a1a;
@@ -24,7 +24,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 9px 18px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #1a1a1a;
   cursor: pointer;
@@ -47,7 +47,7 @@
 
 .table th {
   text-align: left;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.02em;
   color: #6b7280;
@@ -57,7 +57,7 @@
 
 .table td {
   padding: 16px 12px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #1a1a1a;
   border-bottom: 1px solid #f3f4f6;
 }
@@ -78,7 +78,7 @@
   padding: 9px 20px;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }

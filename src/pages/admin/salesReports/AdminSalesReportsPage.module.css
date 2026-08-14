@@ -4,7 +4,7 @@
 }
 
 .title {
-  font-size: 34px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
   color: #1a1a1a;
@@ -49,14 +49,14 @@
 }
 
 .placeholderTitle {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 8px;
 }
 
 .placeholderText {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #9ca3af;
   margin: 0;
 }
@@ -90,7 +90,7 @@
   }
 
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
 
   .toolbar {

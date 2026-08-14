@@ -24,14 +24,14 @@
 }
 
 .title {
-  font-size: 42px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   color: #f5f0e6;
   margin: 0 0 16px;
 }
 
 .subtitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   color: #d1d5db;
   line-height: 1.6;
   margin: 0 0 32px;
@@ -52,7 +52,7 @@
   padding: 14px 32px;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   text-decoration: none;
   cursor: pointer;
 }
@@ -68,7 +68,7 @@
   padding: 14px 32px;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   text-decoration: none;
   cursor: pointer;
 }
@@ -79,7 +79,7 @@
 
 @media (max-width: 640px) {
   .title {
-    font-size: 30px;
+    font-size: var(--font-size-page-title);
   }
   .banner {
     min-height: 360px;

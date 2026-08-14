@@ -22,14 +22,14 @@
 }
 
 .rowLabel {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0;
 }
 
 .baselineBadge {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #15803d;
   background: #f0fdf4;
   border: 1px solid #bbf7d0;

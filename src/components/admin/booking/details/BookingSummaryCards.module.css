@@ -32,13 +32,13 @@
 }
 
 .label {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0 0 4px;
 }
 
 .primary {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 2px;
@@ -50,13 +50,13 @@
 }
 
 .secondary {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
   margin: 0;
 }
 
 .amount {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0 0 2px;

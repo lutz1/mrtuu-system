@@ -30,14 +30,14 @@
 }
 
 .title {
-  font-size: 34px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0 0 8px;
   color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -99,6 +99,6 @@
   }
 
   .title {
-    font-size: 26px;
+    font-size: var(--font-size-page-title);
   }
 }

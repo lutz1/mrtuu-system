@@ -28,7 +28,7 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
   color: #1a1a1a;
@@ -77,13 +77,13 @@
 }
 
 .label {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 0;
 }
 
 .bookingId {
-  font-size: 24px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 2px 0 4px;
@@ -94,14 +94,14 @@
   width: fit-content;
   background: #dcfce7;
   color: #16803c;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
   padding: 5px 14px;
   border-radius: 999px;
 }
 
 .value {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   color: #1a1a1a;
   margin: 2px 0 0;
@@ -126,31 +126,31 @@
 }
 
 .countdownNum {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   color: #1a1a1a;
 }
 
 .countdownUnit {
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   color: #9ca3af;
   letter-spacing: 0.03em;
 }
 
 .countdownColon {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: #d1d5db;
 }
 
 .countdownUnavailable {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   color: #9ca3af;
 }
 
 .startedText {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: #9ca3af;
   margin: 4px 0 0;
   text-align: center;
@@ -163,7 +163,7 @@
 }
 
 .remainingValue {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 2px 0 0;
@@ -186,7 +186,7 @@
 }
 
 .infoTitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0 0 18px;
@@ -196,7 +196,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   color: #1a1a1a;
   padding: 10px 0;
@@ -215,7 +215,7 @@
 }
 
 .vehicleName {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0 0 4px;
@@ -227,7 +227,7 @@
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #eceef1;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: #6b7280;
 }
 
@@ -247,14 +247,14 @@
 }
 
 .notesTitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0 0 8px;
 }
 
 .notesText {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #4b5563;
   margin: 0;
   line-height: 1.6;
@@ -272,14 +272,14 @@
 }
 
 .confirmTitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 800;
   color: #1a1a1a;
   margin: 0 0 6px;
 }
 
 .confirmText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: #6b7280;
   margin: 0;
   line-height: 1.5;
@@ -293,7 +293,7 @@
   padding: 14px 30px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;

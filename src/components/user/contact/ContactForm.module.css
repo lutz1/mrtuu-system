@@ -9,7 +9,7 @@
 }
 
 .title {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0;
   color: #1a1a1a;
@@ -28,7 +28,7 @@
 }
 
 .label {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 500;
   color: #1a1a1a;
 }
@@ -38,7 +38,7 @@
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
@@ -58,7 +58,7 @@
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
@@ -82,7 +82,7 @@
   padding: 15px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   cursor: pointer;
   font-family: inherit;
 }

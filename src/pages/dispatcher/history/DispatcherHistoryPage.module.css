@@ -3,14 +3,14 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
   color: #1a1a1a;
 }
 
 .subtitle {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   color: #6b7280;
   margin: 0;
 }
@@ -37,7 +37,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 11px 20px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #374151;
   cursor: pointer;
@@ -90,7 +90,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 16px 12px 42px;
-  font-size: 16px; /* 16px avoids iOS auto-zoom on focus */
+  font-size: var(--font-size-card-title); /* 16px avoids iOS auto-zoom on focus */
   font-family: inherit;
   color: #1a1a1a;
   outline: none;
@@ -113,7 +113,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 12px 18px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: #374151;
   cursor: pointer;
@@ -134,17 +134,17 @@
 
 @media (max-width: 768px) {
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
   .tab {
     padding: 9px 16px;
-    font-size: 13.5px;
+    font-size: var(--font-size-table-text);
   }
 }
 
 @media (max-width: 480px) {
   .title {
-    font-size: 21px;
+    font-size: var(--font-size-section-title);
   }
   .searchRow {
     gap: 8px;

@@ -14,7 +14,7 @@
 }
 
 .title {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
   color: #1a1a1a;
@@ -25,7 +25,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 8px 16px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   color: #1a1a1a;
   cursor: pointer;
@@ -43,7 +43,7 @@
 
 .table th {
   text-align: left;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
   color: #9ca3af;
   padding: 0 8px 12px;
@@ -52,7 +52,7 @@
 
 .table td {
   padding: 14px 8px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: #1a1a1a;
   border-bottom: 1px solid #f3f4f6;
 }

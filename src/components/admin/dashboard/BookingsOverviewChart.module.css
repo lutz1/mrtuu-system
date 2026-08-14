@@ -13,7 +13,7 @@
 }
 
 .title {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
   color: #1a1a1a;
@@ -27,7 +27,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 8px 14px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
   color: #374151;
   cursor: pointer;

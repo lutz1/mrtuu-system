@@ -4,7 +4,7 @@
 }
 
 .title {
-  font-size: 34px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
   color: #1a1a1a;
@@ -32,10 +32,6 @@
 @media (max-width: 640px) {
   .pageHeading {
     margin-bottom: 16px;
-  }
-
-  .title {
-    font-size: 24px;
   }
 
   .statsGrid {

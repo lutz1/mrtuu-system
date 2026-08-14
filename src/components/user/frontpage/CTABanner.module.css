@@ -88,14 +88,14 @@
 }
 
 .ctaTitle {
-  font-size: 38px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0 0 20px;
   line-height: 1.25;
 }
 
 .ctaSubtitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
   margin: 0 0 32px;
@@ -108,7 +108,7 @@
   padding: 14px 32px;
   border-radius: 30px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   cursor: pointer;
   text-decoration: none;
 }
@@ -132,23 +132,23 @@
   }
 
   .eyebrow {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     margin-bottom: 8px;
   }
 
   .ctaTitle {
-    font-size: 28px;
+    font-size: var(--font-size-page-title);
     margin: 0 0 12px;
   }
 
   .ctaSubtitle {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     line-height: 1.6;
     margin: 0 0 24px;
   }
 
   .primaryBtn {
     padding: 12px 26px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 }
