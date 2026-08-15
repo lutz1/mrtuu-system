@@ -97,6 +97,17 @@ export default function BookingDetailsPage() {
     });
   };
 
+  // Required before a customer can proceed: full name, email, license
+  // number, and both uploaded documents. Previously this only checked
+  // fullName + the two files, so email and licenseNo could reach
+  // Firestore blank even though the form collected them.
+  const isPayDisabled =
+    !driver.fullName ||
+    !driver.email ||
+    !driver.licenseNo ||
+    !files.driversLicense ||
+    !files.validId;
+
   return (
     <div className={styles.page}>
       <div className={styles.stickyHeader}>
@@ -130,7 +141,7 @@ export default function BookingDetailsPage() {
                 agreed={agreed}
                 onAgreeChange={setAgreed}
                 onPay={handleProceedToPayment}
-                disabled={!driver.fullName || !files.driversLicense || !files.validId}
+                disabled={isPayDisabled}
               />
             </div>
 
