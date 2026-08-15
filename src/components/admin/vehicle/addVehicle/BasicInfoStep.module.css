@@ -100,3 +100,99 @@
     gap: 8px;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/*                        DATALIST & INPUT ENHANCEMENTS                      */
+/* -------------------------------------------------------------------------- */
+
+/* Custom styling for the native dropdown arrow in Chrome/Safari/Edge */
+input[list]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+input[list]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                       CUSTOM DROPDOWN CONTAINER CSS                        */
+/* -------------------------------------------------------------------------- */
+
+.comboboxWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputWithArrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputWithArrow input {
+  padding-right: 32px;
+}
+
+.dropdownArrow {
+  position: absolute;
+  right: 12px;
+  font-size: 10px;
+  color: var(--color-ref-c7cad0, #8a8d93);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.arrowOpen {
+  transform: rotate(180deg);
+}
+
+/* THE DROPDOWN CONTAINER */
+.dropdownContainer {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--color-bg-surface, #ffffff);
+  border: 1px solid var(--color-border-medium, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Individual items in the dropdown */
+.dropdownItem {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--color-text-primary, #1a1a1a);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdownItem:hover {
+  background: var(--color-bg-hover, #f5f5f5);
+  color: var(--color-accent, #0066ff);
+}
+
+.dropdownItemSelected {
+  background: var(--color-bg-active, #eef4ff);
+  color: var(--color-accent, #0066ff);
+  font-weight: 500;
+}
+
+/* Custom scrollbar for the dropdown container */
+.dropdownContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdownContainer::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium, #cccccc);
+  border-radius: 3px;
+}
