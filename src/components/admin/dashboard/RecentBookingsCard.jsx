@@ -41,11 +41,16 @@ export default function RecentBookingsCard() {
 
   const recentBookings = useMemo(() => {
     return [...bookings]
-      .sort(
-        (a, b) =>
-          (toDate(b.createdAt)?.getTime() || 0) -
-          (toDate(a.createdAt)?.getTime() || 0)
-      )
+      .sort((a, b) => {
+        // A booking whose createdAt hasn't resolved from serverTimestamp()
+        // yet reads as null on the local optimistic snapshot. Treat that
+        // as "now" (Infinity) so a brand-new booking sorts to the top
+        // immediately instead of falling to the bottom until the next
+        // snapshot confirms the real timestamp.
+        const aTime = toDate(a.createdAt)?.getTime() ?? Infinity;
+        const bTime = toDate(b.createdAt)?.getTime() ?? Infinity;
+        return bTime - aTime;
+      })
       .slice(0, 5)
       .map((b) => ({
         id: b.id,
