@@ -239,15 +239,7 @@ export async function submitPreRentChecklist(
 
 export async function submitPostRentChecklist(
   bookingId,
-  {
-    staffUid,
-    vehicleId,
-    photos,
-    fuelLevel,
-    odometerReading,
-    notes = "",
-    flaggedDamage = false,
-  }
+  { staffUid, photos, fuelLevel, odometerReading, notes = "" }
 ) {
   await updateDoc(doc(db, BOOKINGS, bookingId), {
     "dispatchChecklist.postRent": {
@@ -258,18 +250,33 @@ export async function submitPostRentChecklist(
       submittedBy: staffUid,
       submittedAt: serverTimestamp(),
     },
-    "dispatchChecklist.status": "return_reviewed",
+    "dispatchChecklist.status": "pending_review",
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/*  4b. ADMIN — Return review (separate step, completes the booking)  */
+/* ------------------------------------------------------------------ */
+
+export async function submitReturnReview(
+  bookingId,
+  { staffUid, vehicleId, approve, flaggedDamage = false, notes = "" }
+) {
+  await updateDoc(doc(db, BOOKINGS, bookingId), {
+    "dispatchChecklist.status": approve ? "return_reviewed" : "return_rejected",
     "dispatchChecklist.reviewedBy": staffUid,
     "dispatchChecklist.reviewedAt": serverTimestamp(),
-    status: "completed",
-    returnedAt: serverTimestamp(),
+    "dispatchChecklist.reviewNotes": notes,
+    ...(approve ? { status: "completed", returnedAt: serverTimestamp() } : {}),
   });
 
-  await updateDoc(doc(db, VEHICLES, vehicleId), {
-    status: flaggedDamage ? "Under Maintenance" : "Available",
-    currentBookingId: null,
-    updatedAt: serverTimestamp(),
-  });
+  if (approve) {
+    await updateDoc(doc(db, VEHICLES, vehicleId), {
+      status: flaggedDamage ? "Under Maintenance" : "Available",
+      currentBookingId: null,
+      updatedAt: serverTimestamp(),
+    });
+  }
 }
 
 export async function cancelBooking(bookingId) {

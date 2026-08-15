@@ -12,7 +12,7 @@ import { useSalesReportsData } from "../../../context/useSalesReportsData";
 import { useRecentReports } from "../../../context/useRecentReports";
 import { useStaff } from "../../../context/StaffContext";
 import { useToast } from "../../../context/ToastContext";
-import { generateAndSaveReport } from "../../../services/reportsService";
+import { generateAndSaveReport } from "../../../services/resportsService";
 import styles from "./AdminSalesReportsPage.module.css";
 
 function RevenueIcon() {
