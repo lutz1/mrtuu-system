@@ -5,6 +5,7 @@ import {
   doc,
   addDoc,
   updateDoc,
+  setDoc,
   getDoc,
   serverTimestamp,
 } from "firebase/firestore";
@@ -14,6 +15,7 @@ import { db, storage } from "../lib/firebase";
 const BOOKINGS = "lykas_bookings";
 const PAYMENTS = "lykas_payments";
 const VEHICLES = "lykas_vehicles";
+const CUSTOMERS = "lykas_customers";
 
 function genBookingRef() {
   const n = Math.floor(1000 + Math.random() * 9000);
@@ -29,6 +31,30 @@ async function uploadDocFile(file, path) {
   const storageRef = ref(storage, `${path}/${Date.now()}_${file.name}`);
   const snapshot = await uploadBytes(storageRef, file);
   return await getDownloadURL(snapshot.ref);
+}
+
+/**
+ * Creates or updates the customer's lykas_customers/{uid} extension doc from
+ * the driver info supplied at booking time. Runs on every booking so the
+ * customer record stays fresh, but never overwrites licenseVerified once a
+ * staff member has set it (merge: true handles this since we simply never
+ * include that field here).
+ */
+async function upsertCustomerRecord(uid, driver) {
+  if (!uid) return;
+  const [firstName = "", ...rest] = (driver.fullName || "").trim().split(" ");
+  await setDoc(
+    doc(db, CUSTOMERS, uid),
+    {
+      uid,
+      firstName,
+      lastName: rest.join(" "),
+      phone: driver.phone || "",
+      driverLicenseNo: driver.licenseNo || "",
+      createdAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -61,21 +87,33 @@ export async function createBookingWithPayment({
 
   try {
     if (files.driversLicense) {
-      driversLicenseUrl = typeof files.driversLicense === "string"
-        ? files.driversLicense
-        : await uploadDocFile(files.driversLicense, `documents/${uid}/drivers_license`);
+      driversLicenseUrl =
+        typeof files.driversLicense === "string"
+          ? files.driversLicense
+          : await uploadDocFile(
+              files.driversLicense,
+              `documents/${uid}/drivers_license`
+            );
     }
 
     if (files.validId) {
-      validIdUrl = typeof files.validId === "string"
-        ? files.validId
-        : await uploadDocFile(files.validId, `documents/${uid}/valid_id`);
+      validIdUrl =
+        typeof files.validId === "string"
+          ? files.validId
+          : await uploadDocFile(files.validId, `documents/${uid}/valid_id`);
     }
   } catch (uploadErr) {
     console.error("Error uploading driver documents:", uploadErr);
   }
 
-  // 2. Create the booking document with valid image URLs
+  // 2. Keep the customer's lykas_customers/{uid} record in sync
+  try {
+    await upsertCustomerRecord(uid, driver);
+  } catch (customerErr) {
+    console.error("Error upserting customer record:", customerErr);
+  }
+
+  // 3. Create the booking document with valid image URLs
   const bookingRef = await addDoc(collection(db, BOOKINGS), {
     uid,
     vehicleId,
@@ -136,6 +174,7 @@ export async function createBookingWithPayment({
 
   await updateDoc(doc(db, BOOKINGS, bookingRef.id), {
     paymentId: paymentDoc.id,
+    bookingRef: bookingRefCode,
   });
 
   return {
@@ -188,14 +227,14 @@ export async function submitPreRentChecklist(
   });
 
   await updateDoc(doc(db, VEHICLES, vehicleId), {
-    status: "rented",
+    status: "On Rent",
     currentBookingId: bookingId,
     updatedAt: serverTimestamp(),
   });
 }
 
 /* ------------------------------------------------------------------ */
-/*  4. DISPATCHER — Post-rent inspection                              */
+/*  4. DISPATCHER — Post-rent inspection (auto-completes the booking) */
 /* ------------------------------------------------------------------ */
 
 export async function submitPostRentChecklist(
@@ -211,31 +250,33 @@ export async function submitPostRentChecklist(
       submittedBy: staffUid,
       submittedAt: serverTimestamp(),
     },
-    "dispatchChecklist.status": "awaiting_return_review",
+    "dispatchChecklist.status": "pending_review",
   });
 }
 
 /* ------------------------------------------------------------------ */
-/*  5. ADMIN — Return review                                          */
+/*  4b. ADMIN — Return review (separate step, completes the booking)  */
 /* ------------------------------------------------------------------ */
 
 export async function submitReturnReview(
   bookingId,
-  { staffUid, vehicleId, flaggedDamage = false }
+  { staffUid, vehicleId, approve, flaggedDamage = false, notes = "" }
 ) {
   await updateDoc(doc(db, BOOKINGS, bookingId), {
-    "dispatchChecklist.status": "return_reviewed",
+    "dispatchChecklist.status": approve ? "return_reviewed" : "return_rejected",
     "dispatchChecklist.reviewedBy": staffUid,
     "dispatchChecklist.reviewedAt": serverTimestamp(),
-    status: "completed",
-    returnedAt: serverTimestamp(),
+    "dispatchChecklist.reviewNotes": notes,
+    ...(approve ? { status: "completed", returnedAt: serverTimestamp() } : {}),
   });
 
-  await updateDoc(doc(db, VEHICLES, vehicleId), {
-    status: flaggedDamage ? "maintenance" : "pending_clearance",
-    currentBookingId: null,
-    updatedAt: serverTimestamp(),
-  });
+  if (approve) {
+    await updateDoc(doc(db, VEHICLES, vehicleId), {
+      status: flaggedDamage ? "Under Maintenance" : "Available",
+      currentBookingId: null,
+      updatedAt: serverTimestamp(),
+    });
+  }
 }
 
 export async function cancelBooking(bookingId) {

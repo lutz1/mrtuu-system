@@ -33,79 +33,6 @@ export const BOOKING_STAGES = {
   HISTORY: "history", // completed or cancelled
 };
 
-// 2. Mock Data for testing Booking History Tab
-const MOCK_HISTORY_BOOKINGS = [
-  {
-    id: "BK-HIST-001",
-    stage: BOOKING_STAGES.HISTORY,
-    status: "completed",
-    customer: "Jane Doe",
-    phone: "+63 917 123 4567",
-    vehicle: "Toyota Fortuner 2023",
-    plate: "ABC-1234",
-    vehicleTransmission: "Automatic",
-    vehicleFuelType: "Diesel",
-    source: "Online",
-    createdAt: "2026-08-01T10:00:00Z",
-    returnedAt: "2026-08-05T16:00:00Z",
-    pickupDateDisplay: "August 1, 2026",
-    pickupTime: "10:00 AM",
-    returnDateDisplay: "August 5, 2026",
-    returnTime: "04:00 PM",
-    days: 4,
-    dailyRate: 3500,
-    total: 14800,
-    addons: {
-      gps: 500,
-      childSeat: 300,
-    },
-    driver: {
-      fullName: "Jane Doe",
-      phone: "+63 917 123 4567",
-      email: "jane.doe@example.com",
-      licenseNo: "N01-12-345678",
-    },
-    clearance: {
-      checkedAt: "2026-08-01T09:30:00Z",
-    },
-    dispatchChecklist: {
-      preRent: {
-        odometerReading: 12400,
-        submittedAt: "2026-08-01T10:15:00Z",
-      },
-      postRent: {
-        odometerReading: 12850,
-        submittedAt: "2026-08-05T15:45:00Z",
-      },
-    },
-  },
-  {
-    id: "BK-HIST-002",
-    stage: BOOKING_STAGES.HISTORY,
-    status: "cancelled",
-    customer: "John Smith",
-    phone: "+63 918 987 6543",
-    vehicle: "Mitsubishi Montero Sport 2022",
-    plate: "XYZ-5678",
-    vehicleTransmission: "Automatic",
-    vehicleFuelType: "Diesel",
-    source: "Walk-in",
-    createdAt: "2026-08-03T11:00:00Z",
-    pickupDateDisplay: "August 4, 2026",
-    pickupTime: "09:00 AM",
-    returnDateDisplay: "August 6, 2026",
-    returnTime: "09:00 AM",
-    days: 2,
-    dailyRate: 3200,
-    total: 6400,
-    driver: {
-      fullName: "John Smith",
-      phone: "+63 918 987 6543",
-      email: "john.smith@example.com",
-    },
-  },
-];
-
 const AdminBookingsContext = createContext(null);
 
 // Derives a UI-friendly "stage" from the real status/clearance/dispatchChecklist
@@ -186,11 +113,21 @@ export function AdminBookingsProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  const bookings = useMemo(() => {
-    const realBookings = rawBookings.map((b) => joinBooking(b, vehiclesById));
-    return [...realBookings, ...MOCK_HISTORY_BOOKINGS];
-  }, [rawBookings, vehiclesById]);
+  const bookings = useMemo(
+    () => rawBookings.map((b) => joinBooking(b, vehiclesById)),
+    [rawBookings, vehiclesById]
+  );
 
+  // Admin walk-in booking creation (AdminNewBookingPage). Walk-in customers
+  // may not have a Firebase Auth account, so there's no `uid` here — this is
+  // intentionally a separate, simpler path from the customer online-booking
+  // flow in bookingsService.createBookingWithPayment.
+  //
+  // NOTE: unlike online bookings, walk-in documents are physically checked
+  // by the admin in person while filling this form out — there's no
+  // separate "review documents, then send to dispatcher" step for these.
+  // clearance is therefore approved at creation time, so the booking is
+  // immediately visible in the dispatcher's ready-for-pickup queue.
   const addBooking = useCallback(
     async (bookingData) => {
       const currentAdminUid = staffProfile?.uid || user?.uid || null;
@@ -215,6 +152,7 @@ export function AdminBookingsProvider({ children }) {
         },
         source: "Walk-in",
         paymentId: null,
+        notes: bookingData.remarks || "",
         dispatchedBy: null,
         dispatchedAt: null,
         returnedAt: null,

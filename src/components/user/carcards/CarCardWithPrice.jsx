@@ -3,17 +3,26 @@ import { IconTransmission, IconFuel, IconSeats, IconMileage } from "../icons";
 import styles from "./CarCardWithPrice.module.css";
 
 export default function CarCardWithPrice({ car }) {
+  if (!car) return null;
+
+  const imageSrc = car.images?.[0] || "/placeholder-car.png";
+  const price = Number(car.price) || 0;
+
   return (
     <article className={styles.carCard}>
       <div className={styles.carImageWrapper}>
-        <img className={styles.carImage} src={car.images[0]} alt={car.name} />
+        <img
+          className={styles.carImage}
+          src={imageSrc}
+          alt={car.name || "Vehicle"}
+        />
       </div>
       <div className={styles.carBody}>
         <div className={styles.carTitleRow}>
-          <h3 className={styles.carName}>{car.name}</h3>
+          <h3 className={styles.carName}>{car.name || "Unknown Vehicle"}</h3>
           <div className={styles.carPrice}>
             <span className={styles.priceAmount}>
-              ₱{car.price.toLocaleString()}
+              ₱{price.toLocaleString()}
             </span>
             <span className={styles.priceUnit}>per day</span>
           </div>

@@ -65,7 +65,7 @@ export default function DispatcherInspectionWizardPage() {
   const [photos, setPhotos] = useState(EMPTY_PHOTOS);
   const [verifiedPhotos, setVerifiedPhotos] = useState(INITIAL_VERIFIED_PHOTOS);
   const [odometer, setOdometer] = useState("");
-  
+
   // Refactored fuel state
   const [fuelLiters, setFuelLiters] = useState("");
   const [isFullTank, setIsFullTank] = useState(false);
@@ -152,7 +152,8 @@ export default function DispatcherInspectionWizardPage() {
     }
 
     if (step === 2) {
-      const hasFuelInput = isFullTank || (fuelLiters && !isNaN(Number(fuelLiters)));
+      const hasFuelInput =
+        isFullTank || (fuelLiters && !isNaN(Number(fuelLiters)));
       if (!hasFuelInput) {
         return "Please enter fuel quantity in liters or check 'Vehicle has a Full Tank'.";
       }
@@ -223,17 +224,24 @@ export default function DispatcherInspectionWizardPage() {
           { type: "success" }
         );
       } else {
+        // Flag damage if any condition field isn't the clean baseline value
+        const flaggedDamage = Object.values(condition).some(
+          (value) => !["Good", "Clean", "Working"].includes(value)
+        );
+
         await dispatchPostRent(booking.id, {
           staffUid: staffProfile?.uid,
+          vehicleId: booking.vehicleId,
           photos: uploadedPhotos,
           verifiedPhotos,
           fuelLevel: formattedFuel,
           odometerReading: odometer,
           condition,
           notes: remarks,
+          flaggedDamage,
         });
         showToast(
-          `${booking.id} return checklist submitted — sent to admin for review.`,
+          `${booking.id} completed — return processed and sent to history.`,
           { type: "success" }
         );
       }
