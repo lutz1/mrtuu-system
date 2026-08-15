@@ -1,0 +1,146 @@
+.pageHeading {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: var(--font-size-page-title);
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: var(--color-text-primary);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-breadcrumb);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.breadcrumbLink {
+  color: var(--color-text-light);
+  text-decoration: none;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-text-primary);
+}
+
+.breadcrumbSep {
+  color: var(--color-border-medium);
+}
+
+.infoBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fef7ea;
+  border: 1px solid var(--color-accent);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  color: var(--color-text-secondary);
+}
+
+.infoBanner svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.infoBanner p {
+  font-size: var(--font-size-table-text);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.searchWrap {
+  position: relative;
+  flex: 2 1 300px;
+  min-width: 240px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 17px;
+  height: 17px;
+  color: var(--color-text-light);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px 16px 12px 42px;
+  font-size: var(--font-size-input);
+  font-family: inherit;
+  color: var(--color-text-primary);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-light);
+}
+
+.searchInput:focus {
+  border-color: var(--color-accent);
+}
+
+.select {
+  flex: 1 1 160px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: var(--font-size-input);
+  font-family: inherit;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  outline: none;
+}
+
+.select:focus {
+  border-color: var(--color-accent);
+}
+
+.filterBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: var(--font-size-button);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.filterBtn:hover {
+  border-color: var(--color-accent);
+}
+
+.filterBtn svg {
+  width: 16px;
+  height: 16px;
+}

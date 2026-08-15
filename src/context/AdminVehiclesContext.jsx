@@ -11,6 +11,7 @@ import {
   doc,
   addDoc,
   updateDoc,
+  deleteDoc,
   onSnapshot,
   query,
   orderBy,
@@ -42,6 +43,9 @@ async function uploadVehicleImage(vehicleId, file, slotIndex) {
   return getDownloadURL(storageRef);
 }
 
+// Passes non-File entries (existing URL strings, or null for an empty
+// slot) straight through unchanged — this is what makes it safe to reuse
+// for both full 5-photo saves AND partial draft saves.
 async function resolveImageUrls(vehicleId, images) {
   return Promise.all(
     images.map((entry, i) =>
@@ -68,17 +72,20 @@ async function tryDeleteImageUrl(url) {
 /*                            FIRESTORE HELPERS                               */
 /* -------------------------------------------------------------------------- */
 
+// Full publish path — always requires exactly 5 images, always creates a
+// non-draft (draft: false) vehicle.
 async function addVehicle(vehicleData, images) {
   if (
     !images ||
     images.length !== REQUIRED_IMAGE_COUNT ||
-    images.some((f) => !f)
+    images.filter(Boolean).length < REQUIRED_IMAGE_COUNT
   ) {
     throw new Error(`Exactly ${REQUIRED_IMAGE_COUNT} images are required.`);
   }
 
   const docRef = await addDoc(collection(db, VEHICLES_COLLECTION), {
     ...vehicleData,
+    draft: false,
     archived: false,
     archivedAt: null,
     images: [],
@@ -91,7 +98,28 @@ async function addVehicle(vehicleData, images) {
     images: imageUrls,
   });
 
-  return { id: docRef.id, ...vehicleData, images: imageUrls };
+  return { id: docRef.id, ...vehicleData, images: imageUrls, draft: false };
+}
+
+// Draft path — no image-count requirement, images may be partial or
+// entirely absent. Always creates draft: true.
+async function saveDraftVehicle(vehicleData, images) {
+  const docRef = await addDoc(collection(db, VEHICLES_COLLECTION), {
+    ...vehicleData,
+    draft: true,
+    archived: false,
+    archivedAt: null,
+    images: [],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+
+  const imageUrls = images ? await resolveImageUrls(docRef.id, images) : [];
+  await updateDoc(doc(db, VEHICLES_COLLECTION, docRef.id), {
+    images: imageUrls,
+  });
+
+  return { id: docRef.id, ...vehicleData, images: imageUrls, draft: true };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -123,17 +151,27 @@ export function AdminVehiclesProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  // Handles both full-publish updates (requireFullImages: true, the
+  // default — unchanged behavior for every existing caller) AND
+  // draft-aware updates (requireFullImages: false, images may be
+  // partial/absent). `draft` in options lets a caller explicitly flip the
+  // draft flag (e.g. publishing a draft sets draft: false); omit it to
+  // leave whatever the doc already has untouched.
   const updateVehicle = useCallback(
-    async (id, vehicleData, images) => {
+    async (id, vehicleData, images, options = {}) => {
+      const { requireFullImages = true, draft } = options;
       const existing = allVehicles.find((v) => String(v.id) === String(id));
       const previousImages = existing?.images ?? [];
 
       let imageUrls = previousImages;
       if (images) {
-        if (images.length !== REQUIRED_IMAGE_COUNT || images.some((f) => !f)) {
-          throw new Error(
-            `Exactly ${REQUIRED_IMAGE_COUNT} images are required.`
-          );
+        if (requireFullImages) {
+          const filledCount = images.filter(Boolean).length;
+          if (images.length !== REQUIRED_IMAGE_COUNT || filledCount < REQUIRED_IMAGE_COUNT) {
+            throw new Error(
+              `Exactly ${REQUIRED_IMAGE_COUNT} images are required.`
+            );
+          }
         }
         imageUrls = await resolveImageUrls(id, images);
         previousImages.forEach((oldUrl, i) => {
@@ -141,11 +179,29 @@ export function AdminVehiclesProvider({ children }) {
         });
       }
 
-      await updateDoc(doc(db, VEHICLES_COLLECTION, id), {
+      const updatePayload = {
         ...vehicleData,
         images: imageUrls,
         updatedAt: serverTimestamp(),
-      });
+      };
+      if (typeof draft === "boolean") updatePayload.draft = draft;
+
+      await updateDoc(doc(db, VEHICLES_COLLECTION, id), updatePayload);
+    },
+    [allVehicles]
+  );
+
+  const saveDraft = useCallback(async (vehicleData, images) => {
+    return saveDraftVehicle(vehicleData, images);
+  }, []);
+
+  const deleteVehicleDraft = useCallback(
+    async (id) => {
+      const existing = allVehicles.find((v) => String(v.id) === String(id));
+      if (existing?.images?.length) {
+        await Promise.all(existing.images.filter(Boolean).map(tryDeleteImageUrl));
+      }
+      await deleteDoc(doc(db, VEHICLES_COLLECTION, id));
     },
     [allVehicles]
   );
@@ -171,14 +227,19 @@ export function AdminVehiclesProvider({ children }) {
     [allVehicles]
   );
 
-  // Derived arrays based on the real-time collection
+  // Showroom-visible vehicles now exclude both archived AND draft entries.
   const vehicles = useMemo(
-    () => allVehicles.filter((v) => !v.archived),
+    () => allVehicles.filter((v) => !v.archived && !v.draft),
     [allVehicles]
   );
-  
+
   const archivedVehicles = useMemo(
     () => allVehicles.filter((v) => v.archived),
+    [allVehicles]
+  );
+
+  const draftVehicles = useMemo(
+    () => allVehicles.filter((v) => v.draft),
     [allVehicles]
   );
 
@@ -186,22 +247,28 @@ export function AdminVehiclesProvider({ children }) {
     () => ({
       vehicles,
       archivedVehicles,
+      draftVehicles,
       loading,
       error,
       addVehicle,
+      saveDraft,
       updateVehicle,
       archiveVehicle,
       restoreVehicle,
+      deleteVehicleDraft,
       getVehicleById,
     }),
     [
       vehicles,
       archivedVehicles,
+      draftVehicles,
       loading,
       error,
+      saveDraft,
       updateVehicle,
       archiveVehicle,
       restoreVehicle,
+      deleteVehicleDraft,
       getVehicleById,
     ]
   );

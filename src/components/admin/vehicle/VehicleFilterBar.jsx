@@ -78,7 +78,6 @@ export default function VehicleFilterBar({
         </div>
 
         <div className={styles.actionsGroup}>
-          {/* TODO: no Drafts screen exists yet — placeholder action */}
           <button type="button" className={styles.darkBtn} onClick={onDrafts}>
             <svg
               viewBox="0 0 24 24"
