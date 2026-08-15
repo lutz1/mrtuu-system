@@ -37,6 +37,7 @@ import ArchivedVehiclesPage from "./pages/admin/vehicle/ArchivedVehiclesPage";
 import { AdminBookingsProvider } from "./context/AdminBookingsContext";
 import AdminNewBookingPage from "./pages/admin/booking/newBooking/AdminNewBookingPage";
 import AdminBookingHistoryDetailsPage from "./pages/admin/booking/history/AdminBookingHistoryDetailsPage";
+import AdminVehicleDraftsPage from "./pages/admin/vehicle/drafts/AdminVehicleDraftsPage";
 
 import DispatcherRoute from "./context/DispatcherRoute";
 import DispatcherDashboardPage from "./pages/dispatcher/dashboard/DispatcherDashboardPage";
@@ -316,6 +317,14 @@ function App() {
                             element={
                               <AdminRoute>
                                 <AdminBookingHistoryDetailsPage />
+                              </AdminRoute>
+                            }
+                          />
+                          <Route
+                            path="/admin/vehicles/drafts"
+                            element={
+                              <AdminRoute>
+                                <AdminVehicleDraftsPage />
                               </AdminRoute>
                             }
                           />

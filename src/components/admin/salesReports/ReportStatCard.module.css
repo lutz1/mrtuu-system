@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -16,8 +16,8 @@
 }
 
 .label {
-  font-size: 14px;
-  color: #374151;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
@@ -25,8 +25,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #f3f4f6;
-  color: #1a1a1a;
+  background: var(--color-border-light);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,9 +39,9 @@
 }
 
 .value {
-  font-size: 27px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
@@ -49,7 +49,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   margin: 0;
 }
 
@@ -60,9 +60,9 @@
 }
 
 .changeUp {
-  color: #22a35e;
+  color: var(--color-success);
 }
 
 .changeDown {
-  color: #e0483e;
+  color: var(--color-danger);
 }

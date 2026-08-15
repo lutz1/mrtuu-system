@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -13,8 +13,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #f0f1f3;
-  color: #1a1a1a;
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,16 +27,16 @@
 }
 
 .label {
-  font-size: 13.5px;
-  color: #6b7280;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-muted);
   margin: 0 0 2px;
   white-space: nowrap;
 }
 
 .value {
-  font-size: 24px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
@@ -59,14 +59,14 @@
   }
 
   .label {
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     margin-bottom: 1px;
     white-space: normal;
     line-height: 1.2;
   }
 
   .value {
-    font-size: 19px;
+    font-size: var(--font-size-section-title);
   }
 }
 
@@ -88,10 +88,10 @@
   }
 
   .label {
-    font-size: 9.5px;
+    font-size: var(--font-size-caption);
   }
 
   .value {
-    font-size: 17px;
+    font-size: var(--font-size-card-title);
   }
 }

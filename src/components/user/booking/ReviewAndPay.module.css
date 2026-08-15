@@ -22,7 +22,7 @@
 }
 
 .title {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0;
 }
@@ -30,7 +30,7 @@
 .infoBox {
   display: flex;
   gap: 12px;
-  background: var(--color-info-bg, #eef3fb);
+  background: var(--color-info-bg, var(--color-ref-eef3fb));
   border-radius: 10px;
   padding: 16px 18px;
 }
@@ -38,20 +38,20 @@
 .infoIcon {
   width: 18px;
   height: 18px;
-  color: var(--color-info-text, #4f6ea8);
+  color: var(--color-info-text, var(--color-ref-4f6ea8));
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .infoTitle {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   margin: 0 0 6px;
   color: var(--color-text-primary);
 }
 
 .infoText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   line-height: 1.5;
   color: var(--color-text-muted);
   margin: 0 0 4px;
@@ -61,7 +61,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-primary);
   cursor: pointer;
 }
@@ -86,12 +86,12 @@
   justify-content: center;
   gap: 10px;
   background: var(--color-accent);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   border: none;
   padding: 16px;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   cursor: pointer;
 }
 
@@ -111,7 +111,7 @@
 
 .secureNote {
   text-align: center;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
   margin: -8px 0 0;
 }

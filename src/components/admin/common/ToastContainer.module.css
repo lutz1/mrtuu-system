@@ -14,25 +14,25 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 12px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   padding: 14px 16px;
-  border-left: 4px solid #22a35e;
+  border-left: 4px solid var(--color-success);
   animation: slideIn 0.25s ease;
   pointer-events: auto;
 }
 
 .success {
-  border-left-color: #22a35e;
+  border-left-color: var(--color-success);
 }
 
 .error {
-  border-left-color: #e0483e;
+  border-left-color: var(--color-danger);
 }
 
 .info {
-  border-left-color: #374151;
+  border-left-color: var(--color-text-secondary);
 }
 
 .icon {
@@ -49,9 +49,9 @@
 
 .message {
   flex: 1;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   line-height: 1.4;
 }
 
@@ -59,13 +59,13 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #9ca3af;
+  color: var(--color-text-light);
   padding: 2px;
   flex-shrink: 0;
 }
 
 .closeBtn:hover {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .closeBtn svg {

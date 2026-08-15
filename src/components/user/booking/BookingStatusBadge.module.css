@@ -7,16 +7,16 @@
   gap: 6px;
   padding: 6px 14px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
-  color: #fff;
+  color: var(--color-bg-surface);
 }
 
 .dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--color-bg-surface);
 }
 
 .ongoing {

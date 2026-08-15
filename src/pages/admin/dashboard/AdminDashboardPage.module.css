@@ -4,15 +4,15 @@
 }
 
 .title {
-  font-size: 34px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 15px;
-  color: #6b7280;
+  font-size: var(--font-size-navigation);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -55,11 +55,11 @@
   }
 
   .title {
-    font-size: 26px;
+    font-size: var(--font-size-page-title);
   }
 
   .subtitle {
-    font-size: 13.5px;
+    font-size: var(--font-size-table-text);
   }
 
   .statsGrid {

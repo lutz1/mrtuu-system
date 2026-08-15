@@ -5,7 +5,7 @@
 
 .row {
   padding: 18px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .row:last-child {
@@ -22,17 +22,17 @@
 }
 
 .rowLabel {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .baselineBadge {
-  font-size: 12.5px;
-  color: #15803d;
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  font-size: var(--font-size-supporting);
+  color: var(--color-ref-15803d);
+  background: var(--color-ref-f0fdf4);
+  border: 1px solid var(--color-ref-bbf7d0);
   padding: 4px 10px;
   border-radius: 6px;
 }

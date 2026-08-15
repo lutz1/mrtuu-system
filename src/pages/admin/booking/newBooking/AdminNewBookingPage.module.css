@@ -6,35 +6,35 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13.5px;
-  color: #9ca3af;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-light);
   margin: 0 0 10px;
   flex-wrap: wrap; /* Prevents text overflow on narrow viewports */
 }
 
 .breadcrumbLink {
-  color: #9ca3af;
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
 .breadcrumbLink:hover {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .breadcrumbSep {
-  color: #d1d5db;
+  color: var(--color-border-medium);
 }
 
 .title {
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 8px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 14.5px;
-  color: #6b7280;
+  font-size: var(--font-size-navigation);
+  color: var(--color-text-muted);
   margin: 0;
   line-height: 1.5;
 }
@@ -47,7 +47,7 @@
   position: sticky;
   bottom: 0;
   z-index: 20;
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
   padding: 18px 24px;
@@ -60,8 +60,8 @@
 }
 
 .footerNote {
-  font-size: 13px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
 }
 
 .footerActions {
@@ -70,37 +70,37 @@
 }
 
 .cancelBtn {
-  background: #ffffff;
-  border: 1.5px solid #e5e7eb;
-  color: #1a1a1a;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-primary);
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   transition: border-color 0.2s ease;
 }
 
 .cancelBtn:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .createBtn {
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
   border: none;
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   transition: background 0.2s ease;
 }
 
 .createBtn:hover {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 /* Mobile & Tablet Responsive Enhancements */
@@ -110,11 +110,11 @@
   }
 
   .title {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
   }
 
   .subtitle {
-    font-size: 13.5px;
+    font-size: var(--font-size-table-text);
   }
 
   .stickyFooter {

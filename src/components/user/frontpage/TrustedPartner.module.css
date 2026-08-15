@@ -1,6 +1,6 @@
 .trustedPartner {
-  --cream: #fdf8ec;
-  --text-muted: #6b6b6b;
+  --cream: var(--color-ref-fdf8ec);
+  --text-muted: var(--color-ref-6b6b6b);
 
   background: var(--cream);
   padding: 0 32px 80px;
@@ -14,16 +14,16 @@
 }
 
 .trustedTitle {
-  font-size: 36px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   line-height: 1.25;
   margin: 0 0 20px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .trustedDescription {
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   line-height: 1.7;
   margin: 0;
 }
@@ -55,13 +55,13 @@
   }
 
   .trustedTitle {
-    font-size: 15px;
+    font-size: var(--font-size-navigation);
     line-height: 1.3;
     margin: 0 0 6px;
   }
 
   .trustedDescription {
-    font-size: 9px;
+    font-size: var(--font-size-caption);
     line-height: 1.4;
   }
 

@@ -3,7 +3,7 @@
   width: 100%;
   box-sizing: border-box;
 
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
 
   padding: 24px;

@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 22px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -13,16 +13,16 @@
 }
 
 .title {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .calendarIcon {
   width: 19px;
   height: 19px;
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .list {
@@ -37,7 +37,7 @@
   align-items: flex-start;
   gap: 12px;
   padding-bottom: 14px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .item:last-child {
@@ -46,9 +46,9 @@
 }
 
 .time {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
-  color: #6b7280;
+  color: var(--color-text-muted);
   white-space: nowrap;
   flex-shrink: 0;
   width: 52px;
@@ -60,22 +60,22 @@
 }
 
 .customer {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 2px;
 }
 
 .details {
-  font-size: 12px;
-  color: #9ca3af;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .todayTag {
-  background: #f0f1f3;
-  color: #4b5563;
-  font-size: 11px;
+  background: var(--color-bg-muted);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-caption);
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 6px;
@@ -89,8 +89,8 @@
   gap: 6px;
   background: none;
   border: none;
-  color: #1a1a1a;
-  font-size: 13.5px;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;

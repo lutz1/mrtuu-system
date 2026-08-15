@@ -8,8 +8,8 @@
 }
 
 .summary {
-  font-size: 13.5px;
-  color: #6b7280;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -24,10 +24,10 @@
   width: 38px;
   height: 38px;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  color: #374151;
-  font-size: 14px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -44,7 +44,7 @@
 
 .navBtn:hover:not(:disabled),
 .pageBtn:hover {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .navBtn:disabled {
@@ -53,16 +53,16 @@
 }
 
 .pageBtnActive {
-  background: #e5e7eb;
-  border-color: #e5e7eb;
-  color: #1a1a1a;
+  background: var(--color-border);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
 }
 
 .ellipsis {
   width: 24px;
   text-align: center;
-  color: #9ca3af;
-  font-size: 14px;
+  color: var(--color-text-light);
+  font-size: var(--font-size-table-text);
   flex-shrink: 0;
 }
 
@@ -75,7 +75,7 @@
   .summary {
     width: 100%;
     text-align: center;
-    font-size: 12.5px;
+    font-size: var(--font-size-supporting);
   }
 
   .controls {
@@ -88,7 +88,7 @@
   .pageBtn {
     width: 34px;
     height: 34px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
   .ellipsis {

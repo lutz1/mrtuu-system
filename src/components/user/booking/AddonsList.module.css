@@ -20,7 +20,7 @@
 }
 
 .cardTitle {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0;
 }
@@ -67,18 +67,18 @@
 }
 
 .addonName {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   color: var(--color-text-primary);
 }
 
 .addonDescription {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
 }
 
 .addonPrice {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: var(--color-text-primary);
   white-space: nowrap;

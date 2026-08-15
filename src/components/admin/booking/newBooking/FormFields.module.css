@@ -1,15 +1,15 @@
 .section {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 26px 28px;
   margin-bottom: 16px;
 }
 
 .sectionTitle {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   margin: 0 0 20px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .row {
@@ -36,24 +36,24 @@
 }
 
 .label {
-  font-size: 13.5px;
-  color: #1a1a1a;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-primary);
 }
 
 .required {
-  color: #e0483e;
+  color: var(--color-danger);
 }
 
 .input,
 .select,
 .textarea {
-  background: #f2f2f2;
+  background: var(--color-input-bg);
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
   width: 100%;
   box-sizing: border-box;
@@ -61,14 +61,14 @@
 
 .input::placeholder,
 .textarea::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .input:focus,
 .select:focus,
 .textarea:focus {
-  border-color: #e8a020;
-  background: #ffffff;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
 }
 
 .select {
@@ -86,22 +86,22 @@
 }
 
 .readOnlyInput {
-  background: #eceef1;
+  background: var(--color-border-soft);
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 13px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #4b5563;
+  color: var(--color-text-subtle);
   font-weight: 700;
   width: 100%;
   box-sizing: border-box;
 }
 
 .errorText {
-  background: #fdeceb;
-  color: #e0483e;
-  font-size: 13.5px;
+  background: var(--color-bg-danger-soft);
+  color: var(--color-danger);
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   padding: 12px 14px;
   border-radius: 8px;

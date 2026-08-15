@@ -21,7 +21,7 @@
 }
 
 .carName {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
   color: var(--color-text-primary);
@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
 }
 
@@ -58,7 +58,7 @@
   padding: 10px;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   width: 100%;
 }
 

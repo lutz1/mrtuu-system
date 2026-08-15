@@ -1,7 +1,7 @@
 .footer {
-  --dark: #1c1b19;
-  --gold: #f0a93a;
-  --text-on-dark-muted: #b9b6b0;
+  --dark: var(--color-ref-1c1b19);
+  --gold: var(--color-accent-alt);
+  --text-on-dark-muted: var(--color-ref-b9b6b0);
 
   background: var(--dark);
   padding: 64px 32px 24px;
@@ -39,13 +39,13 @@
 
 .logoTextLight {
   font-weight: 700;
-  font-size: 18px;
-  color: #ffffff;
+  font-size: var(--font-size-section-title);
+  color: var(--color-bg-surface);
 }
 
 .footerTagline {
   color: var(--text-on-dark-muted);
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   line-height: 1.6;
   margin: 0;
   max-width: 320px;
@@ -59,7 +59,7 @@
 
 .footerColumnTitle {
   color: var(--gold);
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0 0 16px;
 }
@@ -76,7 +76,7 @@
 .footerColumn a {
   color: var(--text-on-dark-muted);
   text-decoration: none;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -89,7 +89,7 @@
 .footerCopyright {
   text-align: center;
   color: var(--text-on-dark-muted);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 24px;
   margin: 0;
@@ -121,7 +121,7 @@
   }
 
   .footerColumnTitle {
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     margin: 0 0 10px;
   }
 
@@ -130,7 +130,7 @@
   }
 
   .footerColumn a {
-    font-size: 11px;
+    font-size: var(--font-size-caption);
     gap: 3px;
     line-height: 1.3;
   }

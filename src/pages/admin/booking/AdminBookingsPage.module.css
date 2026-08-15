@@ -3,10 +3,10 @@
 }
 
 .title {
-  font-size: 34px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .toolbar {
@@ -22,13 +22,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #e8a020;
+  background: var(--color-accent);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 12px 22px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -36,11 +36,11 @@
 }
 
 .newBookingBtn:hover {
-  background: #d18f1c;
+  background: var(--color-accent-hover);
 }
 
 .newBookingIcon {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   line-height: 1;
 }
@@ -56,7 +56,7 @@
   }
 
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
 
   .toolbar {
@@ -69,7 +69,7 @@
     width: 100%;
     justify-content: center;
     padding: 14px 20px;
-    font-size: 15px;
+    font-size: var(--font-size-navigation);
   }
 
   .searchWrap {

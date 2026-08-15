@@ -24,15 +24,15 @@
 }
 
 .title {
-  font-size: 42px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
-  color: #f5f0e6;
+  color: var(--color-ref-f5f0e6);
   margin: 0 0 16px;
 }
 
 .subtitle {
-  font-size: 15px;
-  color: #d1d5db;
+  font-size: var(--font-size-navigation);
+  color: var(--color-border-medium);
   line-height: 1.6;
   margin: 0 0 32px;
 }
@@ -46,40 +46,40 @@
 }
 
 .primaryBtn {
-  background: #f0a93a;
-  color: #1a1a1a;
+  background: var(--color-accent-alt);
+  color: var(--color-text-primary);
   border: none;
   padding: 14px 32px;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   text-decoration: none;
   cursor: pointer;
 }
 
 .primaryBtn:hover {
-  background: #d9922a;
+  background: var(--color-accent-alt-hover);
 }
 
 .secondaryBtn {
-  background: #2a2a2a;
-  color: #ffffff;
-  border: 1px solid #4b4b4b;
+  background: var(--color-ref-2a2a2a);
+  color: var(--color-bg-surface);
+  border: 1px solid var(--color-ref-4b4b4b);
   padding: 14px 32px;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   text-decoration: none;
   cursor: pointer;
 }
 
 .secondaryBtn:hover {
-  background: #3a3a3a;
+  background: var(--color-ref-3a3a3a);
 }
 
 @media (max-width: 640px) {
   .title {
-    font-size: 30px;
+    font-size: var(--font-size-page-title);
   }
   .banner {
     min-height: 360px;

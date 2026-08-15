@@ -44,14 +44,14 @@
 }
 
 .title {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0;
   color: var(--color-text-primary);
 }
 
 .badge {
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.03em;
   padding: 3px 10px;
@@ -59,25 +59,25 @@
 }
 
 .verified {
-  background: #dcfce7;
-  color: #16a34a;
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16a34a);
 }
 
 .unverified {
-  background: #fef3c7;
-  color: #b45309;
+  background: var(--color-ref-fef3c7);
+  color: var(--color-ref-b45309);
 }
 
 .value {
   margin: 4px 0 0;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-accent-dark);
   font-weight: 500;
   word-break: break-all;
 }
 
 .description {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-muted);
   margin: 0;
   line-height: 1.5;
@@ -90,7 +90,7 @@
   padding: 12px 20px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
 }

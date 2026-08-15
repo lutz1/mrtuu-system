@@ -9,8 +9,8 @@
   left: 0;
   z-index: 1000;
   width: 280px;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-ref-e2e8f0);
   border-radius: 12px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
   padding: 16px;
@@ -18,9 +18,9 @@
 }
 
 .modalHeader {
-  font-size: 0.9rem;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1e293b;
+  color: var(--color-ref-1e293b);
   margin-bottom: 12px;
   text-align: center;
 }
@@ -30,7 +30,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  background-color: #f8fafc;
+  background-color: var(--color-ref-f8fafc);
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 16px;
@@ -44,10 +44,10 @@
 }
 
 .colLabel {
-  font-size: 0.725rem;
+  font-size: var(--font-size-caption);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--color-ref-64748b);
   margin-bottom: 6px;
   font-weight: 600;
 }
@@ -55,26 +55,26 @@
 .selectInput {
   width: 100%;
   padding: 6px 8px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--color-ref-cbd5e1);
   border-radius: 6px;
-  background-color: #ffffff;
-  font-size: 1rem;
+  background-color: var(--color-bg-surface);
+  font-size: var(--font-size-card-title);
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-ref-0f172a);
   text-align: center;
   cursor: pointer;
   outline: none;
 }
 
 .selectInput:focus {
-  border-color: #2563eb;
+  border-color: var(--color-ref-2563eb);
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
 .separator {
-  font-size: 1.25rem;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
-  color: #64748b;
+  color: var(--color-ref-64748b);
   margin-top: 18px;
 }
 
@@ -87,20 +87,20 @@
 
 .periodBtn {
   padding: 4px 0;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--color-ref-cbd5e1);
   border-radius: 4px;
-  background-color: #ffffff;
-  color: #475569;
-  font-size: 0.75rem;
+  background-color: var(--color-bg-surface);
+  color: var(--color-ref-475569);
+  font-size: var(--font-size-caption);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .periodBtn.activePeriod {
-  background-color: #2563eb;
-  border-color: #2563eb;
-  color: #ffffff;
+  background-color: var(--color-ref-2563eb);
+  border-color: var(--color-ref-2563eb);
+  color: var(--color-bg-surface);
 }
 
 .actions {
@@ -113,27 +113,27 @@
 .applyBtn {
   padding: 6px 14px;
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   cursor: pointer;
 }
 
 .cancelBtn {
   background: none;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
+  border: 1px solid var(--color-ref-e2e8f0);
+  color: var(--color-ref-64748b);
 }
 
 .cancelBtn:hover {
-  background-color: #f1f5f9;
+  background-color: var(--color-ref-f1f5f9);
 }
 
 .applyBtn {
-  background-color: #2563eb;
+  background-color: var(--color-ref-2563eb);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
 }
 
 .applyBtn:hover {
-  background-color: #1d4ed8;
+  background-color: var(--color-ref-1d4ed8);
 }

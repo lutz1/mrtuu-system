@@ -3,7 +3,7 @@
   top: 12px;
   left: 12px;
   z-index: 1;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   padding: 6px 12px;
   border-radius: 8px;
@@ -11,21 +11,21 @@
 }
 
 .statusAvailable {
-  background: #e8a020;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-bg-surface);
 }
 
 .statusOnRent {
-  background: #e8a020;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-bg-surface);
 }
 
 .statusMaintenance {
-  background: #f0f1f3;
-  color: #4b5563;
+  background: var(--color-bg-muted);
+  color: var(--color-text-subtle);
 }
 
 .statusUnavailable {
-  background: #fdeceb;
-  color: #e0483e;
+  background: var(--color-bg-danger-soft);
+  color: var(--color-danger);
 }

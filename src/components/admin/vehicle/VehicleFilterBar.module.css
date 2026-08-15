@@ -20,39 +20,39 @@
 }
 
 .select {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 12px 14px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #374151;
+  color: var(--color-text-secondary);
   cursor: pointer;
   outline: none;
 }
 
 .select:focus {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .moreFiltersBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 12px 18px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-secondary);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .moreFiltersBtn:hover {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .moreFiltersBtn svg {
@@ -70,20 +70,20 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #1a1a1a;
+  background: var(--color-text-primary);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 12px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .darkBtn:hover {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 .darkBtn svg {
@@ -95,24 +95,24 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #e8a020;
+  background: var(--color-accent);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 12px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .addBtn:hover {
-  background: #d18f1c;
+  background: var(--color-accent-hover);
 }
 
 .addIcon {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   line-height: 1;
 }
@@ -128,29 +128,29 @@
   transform: translateY(-50%);
   width: 17px;
   height: 17px;
-  color: #9ca3af;
+  color: var(--color-text-light);
   pointer-events: none;
 }
 
 .searchInput {
   width: 100%;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 12px 16px 12px 42px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
   box-sizing: border-box;
 }
 
 .searchInput::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .searchInput:focus {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 @media (max-width: 900px) {

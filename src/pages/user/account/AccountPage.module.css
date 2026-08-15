@@ -57,7 +57,7 @@
   text-align: left;
   padding: 12px 14px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -70,7 +70,7 @@
 }
 
 .sidebarItemActive {
-  background: #fef1d9;
+  background: var(--color-ref-fef1d9);
   color: var(--color-accent-dark);
   font-weight: 600;
 }
@@ -104,15 +104,15 @@
   text-align: left;
   padding: 12px 14px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
-  color: #e0483e;
+  color: var(--color-danger);
   cursor: pointer;
   font-family: inherit;
 }
 
 .sidebarItemDanger:hover {
-  background: #fdeceb;
+  background: var(--color-bg-danger-soft);
 }
 
 .main {
@@ -122,7 +122,7 @@
 }
 
 .pageTitle {
-  font-size: 26px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0;
 }

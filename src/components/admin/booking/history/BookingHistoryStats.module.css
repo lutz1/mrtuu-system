@@ -6,7 +6,7 @@
 }
 
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 22px;
@@ -19,8 +19,8 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: #f0f1f3;
-  color: #1a1a1a;
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,15 +33,15 @@
 }
 
 .label {
-  font-size: 13.5px;
-  color: #6b7280;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-muted);
   margin: 0 0 4px;
 }
 
 .value {
-  font-size: 26px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 

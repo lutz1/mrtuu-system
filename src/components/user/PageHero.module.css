@@ -31,23 +31,23 @@
 
 .eyebrow {
   display: block;
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   margin-bottom: 12px;
 }
 
 .title {
-  font-size: 48px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 16px;
   max-width: 600px;
 }
 
 .subtitle {
-  font-size: 16px;
-  color: #4b5563;
+  font-size: var(--font-size-card-title);
+  color: var(--color-text-subtle);
   max-width: 480px;
   line-height: 1.6;
   margin: 0;
@@ -63,17 +63,17 @@
   }
 
   .eyebrow {
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     margin-bottom: 8px;
   }
 
   .title {
-    font-size: 30px;
+    font-size: var(--font-size-page-title);
     margin: 0 0 12px;
   }
 
   .subtitle {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     line-height: 1.55;
     max-width: none;
   }

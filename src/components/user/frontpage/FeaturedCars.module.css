@@ -1,7 +1,7 @@
 .featuredCars {
-  --dark: #1c1b19;
-  --white: #ffffff;
-  --text-on-dark-muted: #b9b6b0;
+  --dark: var(--color-ref-1c1b19);
+  --white: var(--color-bg-surface);
+  --text-on-dark-muted: var(--color-ref-b9b6b0);
 
   background: var(--dark);
   padding: 72px 32px;
@@ -11,7 +11,7 @@
 .sectionTitleLight {
   color: var(--white);
   text-align: center;
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0 0 40px;
 }
@@ -47,7 +47,7 @@
 .noResults {
   text-align: center;
   color: var(--text-on-dark-muted);
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   padding: 40px 0;
 }
 

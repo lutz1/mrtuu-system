@@ -4,10 +4,10 @@
 }
 
 .title {
-  font-size: 34px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .toolbar {
@@ -41,7 +41,7 @@
 }
 
 .placeholder {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 80px 20px;
@@ -49,15 +49,15 @@
 }
 
 .placeholderTitle {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 8px;
 }
 
 .placeholderText {
-  font-size: 14px;
-  color: #9ca3af;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-light);
   margin: 0;
 }
 
@@ -89,7 +89,7 @@
   }
 
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
 
   .toolbar {

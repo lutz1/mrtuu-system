@@ -5,13 +5,13 @@
 }
 
 .photoSlotEmpty {
-  border: 1.5px dashed #d1d5db;
-  background: #fafafa;
+  border: 1.5px dashed var(--color-border-medium);
+  background: var(--color-ref-fafafa);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #c7cad0;
+  color: var(--color-ref-c7cad0);
   width: 100%;
   height: 100%;
   padding: 0;
@@ -20,8 +20,8 @@
 }
 
 .photoSlotEmpty:hover {
-  border-color: #e8a020;
-  color: #e8a020;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .photoSlotEmpty svg {
@@ -30,9 +30,9 @@
 }
 
 .photoSlotDragOver {
-  border-color: #e8a020;
-  background: #fff7ea;
-  color: #e8a020;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface)7ea;
+  color: var(--color-accent);
 }
 
 .photoSlotMain {
@@ -49,8 +49,8 @@
 }
 
 .thumbRowDragOver {
-  background: #fff7ea;
-  box-shadow: 0 0 0 2px #e8a020 inset;
+  background: var(--color-bg-surface)7ea;
+  box-shadow: 0 0 0 2px var(--color-accent) inset;
 }
 
 .thumbRow .photoSlot {
@@ -73,7 +73,7 @@
   border-radius: 50%;
   background: rgba(26, 26, 26, 0.75);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,4 +99,100 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        DATALIST & INPUT ENHANCEMENTS                      */
+/* -------------------------------------------------------------------------- */
+
+/* Custom styling for the native dropdown arrow in Chrome/Safari/Edge */
+input[list]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+input[list]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                       CUSTOM DROPDOWN CONTAINER CSS                        */
+/* -------------------------------------------------------------------------- */
+
+.comboboxWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputWithArrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputWithArrow input {
+  padding-right: 32px;
+}
+
+.dropdownArrow {
+  position: absolute;
+  right: 12px;
+  font-size: 10px;
+  color: var(--color-ref-c7cad0, #8a8d93);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.arrowOpen {
+  transform: rotate(180deg);
+}
+
+/* THE DROPDOWN CONTAINER */
+.dropdownContainer {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--color-bg-surface, #ffffff);
+  border: 1px solid var(--color-border-medium, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Individual items in the dropdown */
+.dropdownItem {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--color-text-primary, #1a1a1a);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdownItem:hover {
+  background: var(--color-bg-hover, #f5f5f5);
+  color: var(--color-accent, #0066ff);
+}
+
+.dropdownItemSelected {
+  background: var(--color-bg-active, #eef4ff);
+  color: var(--color-accent, #0066ff);
+  font-weight: 500;
+}
+
+/* Custom scrollbar for the dropdown container */
+.dropdownContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdownContainer::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium, #cccccc);
+  border-radius: 3px;
 }

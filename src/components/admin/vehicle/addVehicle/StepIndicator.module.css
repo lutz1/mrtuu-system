@@ -16,9 +16,9 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  border: 1.5px solid #d1d5db;
-  color: #9ca3af;
-  font-size: 14px;
+  border: 1.5px solid var(--color-border-medium);
+  color: var(--color-text-light);
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -27,15 +27,15 @@
 }
 
 .circleActive {
-  background: #1a1a1a;
-  border-color: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-bg-surface);
 }
 
 .circleDone {
-  background: #ffffff;
-  border-color: #1a1a1a;
-  color: #1a1a1a;
+  background: var(--color-bg-surface);
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 .stepText {
@@ -44,21 +44,21 @@
 }
 
 .stepLabel {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .stepSubtitle {
-  font-size: 12px;
-  color: #9ca3af;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-light);
 }
 
 .connector {
   flex: 1;
   min-width: 24px;
   height: 1px;
-  background: #e5e7eb;
+  background: var(--color-border);
   margin: 0 16px;
 }
 

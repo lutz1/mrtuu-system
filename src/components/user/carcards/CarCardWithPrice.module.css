@@ -37,7 +37,7 @@
 }
 
 .carName {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0;
   color: var(--color-text-primary);
@@ -51,14 +51,14 @@
 .priceAmount {
   display: block;
   color: var(--color-accent-dark);
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
 }
 
 .priceUnit {
   display: block;
   color: var(--color-text-muted);
-  font-size: 12px;
+  font-size: var(--font-size-caption);
 }
 
 .carSpecs {
@@ -71,7 +71,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
 }
 
@@ -88,7 +88,7 @@
   padding: 12px;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   width: 100%;
   text-decoration: none;
@@ -125,15 +125,15 @@
   }
 
   .carName {
-    font-size: 14px;
+    font-size: var(--font-size-table-text);
   }
 
   .priceAmount {
-    font-size: 15px;
+    font-size: var(--font-size-navigation);
   }
 
   .priceUnit {
-    font-size: 10px;
+    font-size: var(--font-size-caption);
   }
 
   .carSpecs {
@@ -141,7 +141,7 @@
   }
 
   .specItem {
-    font-size: 10px;
+    font-size: var(--font-size-caption);
     gap: 3px;
   }
 
@@ -152,6 +152,6 @@
 
   .viewDetailsBtn {
     padding: 9px;
-    font-size: 12px;
+    font-size: var(--font-size-caption);
   }
 }

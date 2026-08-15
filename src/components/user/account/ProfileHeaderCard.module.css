@@ -16,9 +16,9 @@
   height: 84px;
   border-radius: 50%;
   background: var(--color-accent);
-  color: #fff;
+  color: var(--color-bg-surface);
   font-weight: 700;
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,13 +41,13 @@
 }
 
 .profileName {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 8px;
 }
 
 .profileLine {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-primary);
   margin: 0 0 2px;
 }
@@ -67,7 +67,7 @@
   color: var(--color-text-muted);
   padding: 10px 18px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;

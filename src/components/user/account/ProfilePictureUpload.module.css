@@ -36,9 +36,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--color-bg-surface);
   font-weight: 700;
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
 }
 
 /* Desktop: dark overlay + "Edit" text on hover */
@@ -50,8 +50,8 @@
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  font-size: 12px;
+  color: var(--color-bg-surface);
+  font-size: var(--font-size-caption);
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.15s ease;
@@ -73,11 +73,11 @@
   height: 26px;
   border-radius: 50%;
   background: var(--color-accent-dark);
-  border: 2px solid #ffffff;
+  border: 2px solid var(--color-bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--color-bg-surface);
 }
 
 .editBadge svg {
@@ -90,7 +90,7 @@
 }
 
 .errorText {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-danger);
   margin: 0;
   max-width: 160px;

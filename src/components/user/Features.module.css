@@ -3,7 +3,7 @@
 }
 
 .sectionHeading {
-  font-size: 24px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0 0 16px;
   color: var(--color-text-primary);
@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   color: var(--color-text-primary);
 }
 
@@ -38,7 +38,7 @@
   border: none;
   padding: 0;
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;

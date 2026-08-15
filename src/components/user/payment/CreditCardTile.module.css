@@ -9,7 +9,7 @@
 
 .default {
   background: var(--color-brand-dark);
-  color: #ffffff;
+  color: var(--color-bg-surface);
 }
 
 .secondary {
@@ -26,14 +26,14 @@
 
 .eyebrow {
   display: block;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   opacity: 0.65;
 }
 
 .default .eyebrow {
-  color: #d1d5db;
+  color: var(--color-border-medium);
 }
 
 .secondary .eyebrow {
@@ -42,7 +42,7 @@
 
 .label {
   margin: 4px 0 0;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 600;
 }
 
@@ -60,7 +60,7 @@
 
 .number {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 500;
   letter-spacing: 0.03em;
 }
@@ -78,7 +78,7 @@
 
 .expiry {
   margin: 4px 0 0;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
 }
 
@@ -94,7 +94,7 @@
   border-radius: 8px;
   border: none;
   background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,7 +137,7 @@
   background: none;
   border: none;
   color: var(--color-accent-dark);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;

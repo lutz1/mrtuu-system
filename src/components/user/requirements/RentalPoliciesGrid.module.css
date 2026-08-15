@@ -5,7 +5,7 @@
 }
 
 .ageCard {
-  background: #eef0f3;
+  background: var(--color-ref-eef0f3);
   border-radius: 20px;
   padding: 32px;
   display: flex;
@@ -26,7 +26,7 @@
 }
 
 .internationalCard {
-  background: #eef0f3;
+  background: var(--color-ref-eef0f3);
   border-radius: 20px;
   padding: 32px;
   display: flex;
@@ -34,15 +34,15 @@
 }
 
 .cardTitle {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 10px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .cardSubtitle {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-muted);
   line-height: 1.6;
   margin: 0 0 20px;
 }
@@ -60,8 +60,8 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  font-size: 14px;
-  color: #1a1a1a;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-primary);
   line-height: 1.6;
 }
 
@@ -78,30 +78,30 @@
 }
 
 .requirementLabel {
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
   font-weight: 700;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   letter-spacing: 0.05em;
   margin-bottom: 10px;
   display: block;
 }
 
 .requirementText {
-  font-size: 14px;
-  color: #1a1a1a;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-primary);
   line-height: 1.6;
   margin: 0 0 24px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #dcdfe4;
+  border-bottom: 1px solid var(--color-ref-dcdfe4);
 }
 
 .eligibleLink {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #d9922a;
+  color: var(--color-accent-alt-hover);
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   text-decoration: none;
   margin-top: auto;
 }

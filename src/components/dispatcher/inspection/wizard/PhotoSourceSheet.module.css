@@ -11,7 +11,7 @@
 .sheet {
   width: 100%;
   max-width: 420px;
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 20px 20px 0 0;
   padding: 12px 20px 24px;
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
@@ -23,14 +23,14 @@
   width: 36px;
   height: 4px;
   border-radius: 2px;
-  background: #e5e7eb;
+  background: var(--color-border);
   margin: 4px auto 14px;
 }
 
 .title {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   text-align: center;
   margin: 0 0 16px;
 }
@@ -42,10 +42,10 @@
   width: 100%;
   padding: 14px 16px;
   border-radius: 12px;
-  border: 1px solid #eceef1;
-  background: #fafafa;
-  color: #1a1a1a;
-  font-size: 14.5px;
+  border: 1px solid var(--color-border-soft);
+  background: var(--color-ref-fafafa);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -53,19 +53,19 @@
 }
 
 .option:hover {
-  border-color: #e8a020;
-  background: #fff7ea;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface)7ea;
 }
 
 .option svg {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .option:hover svg {
-  color: #e8a020;
+  color: var(--color-accent);
 }
 
 .cancelBtn {
@@ -73,9 +73,9 @@
   padding: 14px 16px;
   border-radius: 12px;
   border: none;
-  background: #f2f2f2;
-  color: #1a1a1a;
-  font-size: 14.5px;
+  background: var(--color-input-bg);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
@@ -83,7 +83,7 @@
 }
 
 .cancelBtn:hover {
-  background: #e5e7eb;
+  background: var(--color-border);
 }
 
 /* Desktop: centered modal instead of a bottom sheet */

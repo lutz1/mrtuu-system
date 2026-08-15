@@ -1,5 +1,5 @@
 .tableWrap {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
@@ -12,21 +12,21 @@
 }
 
 .table thead tr {
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 }
 
 .table th {
   text-align: left;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
-  color: #374151;
+  color: var(--color-text-secondary);
   padding: 18px 20px;
   white-space: nowrap;
 }
 
 .table td {
   padding: 16px 20px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
   vertical-align: middle;
   white-space: nowrap;
 }
@@ -64,41 +64,41 @@
 }
 
 .vehicleName {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .vehicleMeta {
-  font-size: 12.5px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
   margin: 2px 0 0;
 }
 
 .cell {
-  font-size: 13.5px;
-  color: #4b5563;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-subtle);
 }
 
 .restoreBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #1a1a1a;
+  background: var(--color-text-primary);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 10px 18px;
   border-radius: 9px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .restoreBtn:hover {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 .restoreBtn svg {
@@ -107,13 +107,13 @@
 }
 
 .empty {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 60px 20px;
   text-align: center;
-  color: #9ca3af;
-  font-size: 14px;
+  color: var(--color-text-light);
+  font-size: var(--font-size-table-text);
 }
 
 /* ==========================================================================
@@ -145,7 +145,7 @@
   .table tbody tr {
     display: flex;
     flex-direction: column;
-    background: #ffffff;
+    background: var(--color-bg-surface);
     border-radius: 16px;
     padding: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -156,7 +156,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px dashed #f3f4f6;
+    border-bottom: 1px dashed var(--color-border-light);
     white-space: normal;
   }
 
@@ -169,37 +169,37 @@
   /* Target table cells to display field labels on the left */
   .table td:nth-child(2)::before {
     content: "Plate Number";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
-    color: #9ca3af;
+    color: var(--color-text-light);
   }
 
   .table td:nth-child(3)::before {
     content: "Type";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
-    color: #9ca3af;
+    color: var(--color-text-light);
   }
 
   .table td:nth-child(4)::before {
     content: "Transmission";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
-    color: #9ca3af;
+    color: var(--color-text-light);
   }
 
   .table td:nth-child(5)::before {
     content: "Daily Rate";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
-    color: #9ca3af;
+    color: var(--color-text-light);
   }
 
   .table td:nth-child(6)::before {
     content: "Archived Date";
-    font-size: 12px;
+    font-size: var(--font-size-caption);
     font-weight: 600;
-    color: #9ca3af;
+    color: var(--color-text-light);
   }
 
   .restoreBtn {

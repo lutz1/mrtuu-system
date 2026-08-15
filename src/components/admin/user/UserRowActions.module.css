@@ -8,12 +8,12 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .trigger:hover {
-  background: #f0f1f3;
-  color: #1a1a1a;
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
 }
 
 .trigger svg {
@@ -24,8 +24,8 @@
 .menu {
   position: fixed;
   z-index: 1000;
-  background: #ffffff;
-  border: 1px solid #eceef1;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-soft);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   width: 180px; /* Use fixed width matching JS calculation instead of min-width */
@@ -40,28 +40,28 @@
   border: none;
   padding: 10px 12px;
   border-radius: 7px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
-  color: #374151;
+  color: var(--color-text-secondary);
   cursor: pointer;
   font-family: inherit;
 }
 
 .menuItem:hover {
-  background: #f7f7f7;
+  background: var(--color-bg-hover);
 }
 
 .menuItemDanger {
-  color: #e0483e;
+  color: var(--color-danger);
 }
 
 .menuItemDanger:hover {
-  background: #fdeceb;
+  background: var(--color-bg-danger-soft);
 }
 
 .selfNote {
   padding: 10px 12px;
-  font-size: 12px;
-  color: #9ca3af;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-light);
   margin: 0;
 }

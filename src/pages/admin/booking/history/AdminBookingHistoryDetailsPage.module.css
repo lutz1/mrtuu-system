@@ -11,19 +11,19 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 11px 20px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
   font-family: inherit;
 }
 
 .backBtn:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .backBtn svg {
@@ -41,20 +41,20 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1.5px solid #e8a020;
-  color: #d18f1c;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-accent);
+  color: var(--color-accent-hover);
   padding: 11px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .reportBtn:hover {
-  background: #fef7ea;
+  background: var(--color-ref-fef7ea);
 }
 
 .reportBtn svg {
@@ -66,20 +66,20 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
   border: none;
   padding: 11px 20px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .printBtn:hover {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 .printBtn svg {
@@ -92,15 +92,15 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #9ca3af;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-light);
   margin: 0;
 }
 
@@ -108,26 +108,26 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13.5px;
-  color: #9ca3af;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .breadcrumbLink {
-  color: #9ca3af;
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
 .breadcrumbLink:hover {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .breadcrumbSep {
-  color: #d1d5db;
+  color: var(--color-border-medium);
 }
 
 .headerCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 26px;
@@ -152,8 +152,8 @@
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: #f0f1f3;
-  color: #6b7280;
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,15 +167,15 @@
 }
 
 .customerName {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 4px;
 }
 
 .customerLine {
-  font-size: 13px;
-  color: #6b7280;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -183,15 +183,15 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
 }
 
 .kv span {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .kv strong {
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   font-weight: 700;
 }
 
@@ -202,17 +202,17 @@
 }
 
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 24px;
 }
 
 .cardTitle {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
   margin: 0 0 18px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .summaryGrid {
@@ -222,15 +222,15 @@
 }
 
 .summaryLabel {
-  font-size: 12.5px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
   margin: 0 0 3px;
 }
 
 .summaryValue {
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
@@ -238,18 +238,18 @@
   display: flex;
   justify-content: space-between;
   padding: 11px 0;
-  border-bottom: 1px solid #f3f4f6;
-  font-size: 14px;
-  color: #6b7280;
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-muted);
 }
 
 .paymentTotalRow {
   display: flex;
   justify-content: space-between;
   padding: 14px 0 0;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .timeline {
@@ -268,26 +268,26 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 2px solid #e8a020;
-  background: #ffffff;
+  border: 2px solid var(--color-accent);
+  background: var(--color-bg-surface);
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .timelineDotActive {
-  background: #e8a020;
+  background: var(--color-accent);
 }
 
 .timelineLabel {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin: 0 0 2px;
 }
 
 .timelineMeta {
-  font-size: 12.5px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
   margin: 0;
 }
 
@@ -301,16 +301,16 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
-  color: #1a1a1a;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-primary);
 }
 
 .docCheck {
   width: 22px;
   height: 22px;
-  border: 1.5px solid #e8a020;
+  border: 1.5px solid var(--color-accent);
   border-radius: 6px;
-  background: #fef7ea;
+  background: var(--color-ref-fef7ea);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -382,12 +382,12 @@
   }
 
   .title {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
   }
 
   .breadcrumb {
     flex-wrap: wrap;
-    font-size: 12.5px;
+    font-size: var(--font-size-supporting);
   }
 }
 
@@ -398,6 +398,6 @@
   }
 
   .paymentTotalRow {
-    font-size: 15px;
+    font-size: var(--font-size-navigation);
   }
 }

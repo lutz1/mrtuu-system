@@ -1,9 +1,9 @@
 .howItWorksWrapper {
-  --cream: #fdf8ec;
-  --dark: #1c1b19;
-  --gold: #f0a93a;
-  --white: #ffffff;
-  --text-on-dark-muted: #b9b6b0;
+  --cream: var(--color-ref-fdf8ec);
+  --dark: var(--color-ref-1c1b19);
+  --gold: var(--color-accent-alt);
+  --white: var(--color-bg-surface);
+  --text-on-dark-muted: var(--color-ref-b9b6b0);
 
   background: var(--cream);
   padding: 0 32px 80px;
@@ -13,7 +13,7 @@
 .sectionTitleLight {
   color: var(--white);
   text-align: center;
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0 0 40px;
 }
@@ -53,14 +53,14 @@
 
 .stepTitle {
   color: var(--white);
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 6px;
 }
 
 .stepDescription {
   color: var(--text-on-dark-muted);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   line-height: 1.6;
   margin: 0;
 }

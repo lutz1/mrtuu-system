@@ -2,7 +2,7 @@
   max-width: 1300px;
   margin: 0 auto;
   padding: 28px 32px 0;
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   color: var(--color-text-muted);
   display: flex;
   align-items: center;

@@ -4,7 +4,7 @@
 
   box-sizing: border-box;
 
-  background: #ffffff;
+  background: var(--color-bg-surface);
 
   border-radius: 20px;
 
@@ -35,13 +35,13 @@
 
   padding: 0;
 
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 
   border: none;
 
   border-radius: 10px;
 
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 
   cursor: pointer;
 
@@ -49,7 +49,7 @@
 }
 
 .menuBtn:hover {
-  background: #e5e7eb;
+  background: var(--color-border);
 }
 
 .menuBtn svg {
@@ -83,10 +83,10 @@
 }
 
 .brandName {
-  font-size: 19px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
 
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 
   white-space: nowrap;
 }
@@ -112,7 +112,7 @@
 
   cursor: pointer;
 
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 
   display: flex;
   align-items: center;
@@ -153,12 +153,12 @@
 
   border-radius: 50%;
 
-  background: #f0a93a;
+  background: var(--color-accent-alt);
 
-  color: #ffffff;
+  color: var(--color-bg-surface);
 
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
 
   display: flex;
   align-items: center;
@@ -179,18 +179,18 @@
 }
 
 .userName {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
 
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 
   white-space: nowrap;
 }
 
 .userRole {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
 
-  color: #9ca3af;
+  color: var(--color-text-light);
 
   white-space: nowrap;
 }
@@ -199,7 +199,7 @@
   width: 18px;
   height: 18px;
 
-  color: #6b7280;
+  color: var(--color-text-muted);
 
   margin-left: 2px;
 
@@ -273,6 +273,6 @@
     width: 38px;
     height: 38px;
 
-    font-size: 14px;
+    font-size: var(--font-size-table-text);
   }
 }

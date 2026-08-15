@@ -14,20 +14,20 @@
 }
 
 .provider {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   margin: 0;
   color: var(--color-text-primary);
 }
 
 .accountNumber {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-secondary);
   margin: 0;
 }
 
 .notConnected {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -36,7 +36,7 @@
   background: none;
   border: none;
   color: var(--color-accent-dark);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
@@ -51,7 +51,7 @@
   background: none;
   border: none;
   color: var(--color-accent-dark);
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
@@ -91,7 +91,7 @@
 }
 
 .addLabel {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
   color: var(--color-text-secondary);
 }

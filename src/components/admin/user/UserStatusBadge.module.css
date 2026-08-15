@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
   padding: 6px 12px;
   border-radius: 8px;
@@ -16,19 +16,19 @@
 }
 
 .active {
-  background: #dcfce7;
-  color: #16803c;
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16803c);
 }
 
 .active .dot {
-  background: #16803c;
+  background: var(--color-ref-16803c);
 }
 
 .inactive {
-  background: #f0f1f3;
-  color: #6b7280;
+  background: var(--color-bg-muted);
+  color: var(--color-text-muted);
 }
 
 .inactive .dot {
-  background: #9ca3af;
+  background: var(--color-text-light);
 }

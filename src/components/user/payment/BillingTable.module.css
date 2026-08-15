@@ -5,7 +5,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
 }
 
 .table thead tr {
@@ -31,28 +31,28 @@
   display: inline-block;
   padding: 5px 14px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
 }
 
 .successful {
-  background: #dcfce7;
-  color: #16a34a;
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16a34a);
 }
 
 .failed {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--color-ref-fee2e2);
+  color: var(--color-ref-dc2626);
 }
 
 .pending {
-  background: #fef3c7;
-  color: #b45309;
+  background: var(--color-ref-fef3c7);
+  color: var(--color-ref-b45309);
 }
 
 .empty {
   color: var(--color-text-muted);
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   padding: 20px 0;
 }
 
@@ -87,13 +87,13 @@
   }
 
   .billingDate {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     font-weight: 600;
     color: var(--color-text-secondary);
   }
 
   .billingDescription {
-    font-size: 14px;
+    font-size: var(--font-size-table-text);
     font-weight: 500;
     margin: 0 0 10px;
     color: var(--color-text-primary);
@@ -102,7 +102,7 @@
   .billingCardBottom {
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
     color: var(--color-text-muted);
   }
 

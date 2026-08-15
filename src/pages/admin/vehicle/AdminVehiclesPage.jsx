@@ -163,7 +163,7 @@ export default function AdminVehiclesPage() {
   };
 
   const handleDrafts = () => {
-    showToast("Drafts isn't built yet — coming soon.", { type: "info" });
+    navigate("/admin/vehicles/drafts");
   };
 
   const handleArchive = async (vehicle) => {
@@ -238,6 +238,7 @@ export default function AdminVehiclesPage() {
           onAddVehicle={() => setIsAddModalOpen(true)}
           onDrafts={handleDrafts}
           onArchive={() => navigate("/admin/vehicles/archived")}
+          onDrafts={handleDrafts}
         />
       </div>
 

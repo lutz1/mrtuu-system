@@ -14,14 +14,14 @@
 }
 
 .lightCard {
-  background: #ffffff;
-  border-color: #e5e7eb;
-  color: #1a1a1a;
+  background: var(--color-bg-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
 }
 
 .darkCard {
-  background: #1f2124;
-  color: #ffffff;
+  background: var(--color-ref-1f2124);
+  color: var(--color-bg-surface);
 }
 
 .selected.lightCard {
@@ -52,7 +52,7 @@
 }
 
 .label {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
   
 }
@@ -68,6 +68,6 @@
   }
 
   .label {
-    font-size: 14px;
+    font-size: var(--font-size-table-text);
   }
 }

@@ -13,7 +13,7 @@
   width: 100%;
   max-width: 1020px;
   max-height: calc(100vh - 48px);
-  background: #f4f5f7;
+  background: var(--color-ref-f4f5f7);
   border-radius: 16px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -31,30 +31,30 @@
 }
 
 .headerTitle {
-  font-size: 20px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .closeBtn {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #6b7280;
-  font-size: 13px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-supporting);
   font-weight: 600;
 }
 
 .closeBtn:hover {
-  background: #f3f4f6;
-  color: #111827;
+  background: var(--color-border-light);
+  color: var(--color-text-strong);
 }
 
 .body {
@@ -68,17 +68,17 @@
 
 /* Card Containers */
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 12px;
   padding: 20px 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .cardTitle {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 16px;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 /* Top Row Layout */
@@ -90,7 +90,7 @@
 }
 
 .identityCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 12px;
   padding: 20px;
   display: grid;
@@ -109,7 +109,7 @@
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  background: #f8f9fa;
+  background: var(--color-bg-soft);
   height: 200px;
   display: flex;
   align-items: center;
@@ -137,8 +137,8 @@
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.25);
   border: none;
-  color: #ffffff;
-  font-size: 16px;
+  color: var(--color-bg-surface);
+  font-size: var(--font-size-card-title);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,15 +168,15 @@
 .thumb {
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   padding: 0;
   cursor: pointer;
   aspect-ratio: 4 / 3;
-  background: #f9fafb;
+  background: var(--color-ref-f9fafb);
 }
 
 .thumbActive {
-  border-color: #111827;
+  border-color: var(--color-text-strong);
 }
 
 .thumbImage {
@@ -192,18 +192,18 @@
 }
 
 .vehicleName {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0 0 8px;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .statusBadge {
   display: inline-block;
   align-self: flex-start;
-  background: #e5e7eb;
-  color: #374151;
-  font-size: 11px;
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-caption);
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 6px;
@@ -220,23 +220,23 @@
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
 }
 
 .infoRow dt {
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-weight: 500;
 }
 
 .infoRow dd {
   margin: 0;
   font-weight: 700;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 /* Status Card */
 .statusCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 12px;
   padding: 20px;
   display: flex;
@@ -254,7 +254,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .statusRow:last-child {
@@ -262,23 +262,23 @@
 }
 
 .statusLabel {
-  font-size: 12.5px;
-  color: #6b7280;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-muted);
 }
 
 .statusValueBadge {
-  background: #e5e7eb;
-  color: #374151;
-  font-size: 11px;
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-caption);
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 6px;
 }
 
 .statusValueBold {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .statusActions {
@@ -293,18 +293,18 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  color: #374151;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-medium);
+  color: var(--color-text-secondary);
   padding: 9px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   cursor: pointer;
 }
 
 .editBtn:hover {
-  background: #f9fafb;
+  background: var(--color-ref-f9fafb);
 }
 
 .editBtn svg {
@@ -317,18 +317,18 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #d99b00;
+  background: var(--color-ref-d99b00);
   border: none;
-  color: #ffffff;
+  color: var(--color-bg-surface);
   padding: 9px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   cursor: pointer;
 }
 
 .archiveBtn:hover {
-  background: #c28b00;
+  background: var(--color-ref-c28b00);
 }
 
 .archiveBtn svg {
@@ -354,17 +354,17 @@
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #f3f4f6;
-  font-size: 12.5px;
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: var(--font-size-supporting);
 }
 
 .specLabel {
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .specValue {
   font-weight: 700;
-  color: #111827;
+  color: var(--color-text-strong);
 }
 
 .featuresGrid {
@@ -377,9 +377,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-secondary);
 }
 
 .featureIcon {
@@ -390,14 +390,14 @@
 }
 
 .emptyText {
-  font-size: 13px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
   margin: 0;
 }
 
 .descriptionText {
-  font-size: 13px;
-  color: #6b7280;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-muted);
   line-height: 1.6;
   margin: 0;
 }

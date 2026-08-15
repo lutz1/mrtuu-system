@@ -3,15 +3,15 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 14.5px;
-  color: #6b7280;
+  font-size: var(--font-size-navigation);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .forInspectionCard {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 22px;
@@ -45,30 +45,30 @@
 }
 
 .forInspectionTitle {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .viewAllBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 9px;
   padding: 9px 16px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .viewAllBtn:hover {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .viewAllBtn svg {
@@ -78,8 +78,8 @@
 }
 
 .showingText {
-  font-size: 13px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
   margin: 14px 0 0;
 }
 
@@ -106,10 +106,10 @@
     margin-bottom: 18px;
   }
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
   .subtitle {
-    font-size: 13.5px;
+    font-size: var(--font-size-table-text);
   }
   .forInspectionCard {
     padding: 16px;
@@ -126,16 +126,16 @@
     gap: 12px;
   }
   .title {
-    font-size: 21px;
+    font-size: var(--font-size-section-title);
   }
   .forInspectionTitle {
-    font-size: 16px;
+    font-size: var(--font-size-card-title);
   }
   .viewAllBtn {
     padding: 8px 12px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
   .showingText {
-    font-size: 12px;
+    font-size: var(--font-size-caption);
   }
 }

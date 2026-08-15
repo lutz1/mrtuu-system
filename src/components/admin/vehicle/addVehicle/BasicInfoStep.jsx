@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   VEHICLE_BRANDS,
   VEHICLE_TYPES,
@@ -36,17 +36,80 @@ function PhotoIcon() {
   );
 }
 
-// Pulls image files out of a drop event, ignoring non-images
 function extractImageFiles(dataTransfer) {
   const files = Array.from(dataTransfer?.files || []);
   return files.filter((f) => f.type.startsWith("image/"));
 }
 
 /**
- * Single-photo slot (used for the main/thumbnail photo).
- * Supports click-to-select (one file) and drag-and-drop (one file — if
- * multiple are dropped here, only the first is used).
+ * Custom Searchable Select / Combobox with a fully styleable dropdown container
  */
+function Combobox({ id, value, onChange, options, placeholder, className }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  const filteredOptions = options.filter((opt) =>
+    opt.toLowerCase().includes((value || "").toLowerCase())
+  );
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className={styles.comboboxWrapper} ref={containerRef}>
+      <div className={styles.inputWithArrow}>
+        <input
+          id={id}
+          type="text"
+          className={className}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => {
+            onChange(e.target.value);
+            setIsOpen(true);
+          }}
+          onFocus={() => setIsOpen(true)}
+          autoComplete="off"
+        />
+        <span
+          className={`${styles.dropdownArrow} ${isOpen ? styles.arrowOpen : ""}`}
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          ▼
+        </span>
+      </div>
+
+      {isOpen && filteredOptions.length > 0 && (
+        <ul className={styles.dropdownContainer}>
+          {filteredOptions.map((option) => (
+            <li
+              key={option}
+              className={`${styles.dropdownItem} ${
+                option.toLowerCase() === (value || "").toLowerCase()
+                  ? styles.dropdownItemSelected
+                  : ""
+              }`}
+              onClick={() => {
+                onChange(option);
+                setIsOpen(false);
+              }}
+            >
+              {option}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 function PhotoSlot({ photo, onSelect, onRemove, isMain }) {
   const inputRef = useRef(null);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -123,12 +186,6 @@ function PhotoSlot({ photo, onSelect, onRemove, isMain }) {
   );
 }
 
-/**
- * Group of up to 4 thumbnail slots (indices 1-4). Clicking any empty slot
- * opens a multi-select file dialog; dropping multiple files anywhere in the
- * group fills the empty slots in order. Selecting/dropping more files than
- * there are empty slots just fills what's available and ignores the rest.
- */
 function ThumbPhotoGroup({ photos, onPhotoSelect, onPhotoRemove }) {
   const inputRef = useRef(null);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -174,7 +231,6 @@ function ThumbPhotoGroup({ photos, onPhotoSelect, onPhotoRemove }) {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
-      {/* Shared hidden input, opened by any empty slot, allows picking up to 4 at once */}
       <input
         ref={inputRef}
         type="file"
@@ -236,7 +292,6 @@ export default function BasicInfoStep({
 }) {
   return (
     <div className={fields.stepGrid}>
-      {/* 1. Left Column: Basic Info Fields */}
       <div className={fields.column}>
         <h2 className={fields.stepTitle}>Basic Info</h2>
 
@@ -273,17 +328,14 @@ export default function BasicInfoStep({
             <label className={fields.label} htmlFor="brand">
               Brand <span className={fields.required}>*</span>
             </label>
-            <select
+            <Combobox
               id="brand"
-              className={fields.select}
+              className={fields.input}
+              placeholder="Type or select Brand"
               value={form.brand}
-              onChange={(e) => updateField("brand", e.target.value)}
-            >
-              <option value="">Select Brand</option>
-              {VEHICLE_BRANDS.map((b) => (
-                <option key={b}>{b}</option>
-              ))}
-            </select>
+              onChange={(val) => updateField("brand", val)}
+              options={VEHICLE_BRANDS}
+            />
           </div>
 
           <div className={fields.field}>
@@ -339,17 +391,14 @@ export default function BasicInfoStep({
             <label className={fields.label} htmlFor="color">
               Color
             </label>
-            <select
+            <Combobox
               id="color"
-              className={fields.select}
+              className={fields.input}
+              placeholder="Type or select Color"
               value={form.color}
-              onChange={(e) => updateField("color", e.target.value)}
-            >
-              <option value="">Select color</option>
-              {VEHICLE_COLORS.map((c) => (
-                <option key={c}>{c}</option>
-              ))}
-            </select>
+              onChange={(val) => updateField("color", val)}
+              options={VEHICLE_COLORS}
+            />
           </div>
         </div>
 
@@ -368,7 +417,6 @@ export default function BasicInfoStep({
         </div>
       </div>
 
-      {/* 2. Right Column: Photos Column */}
       <div className={fields.column}>
         <p className={fields.hint} style={{ marginBottom: "16px" }}>
           Tip: You can update all information later. Fields marked with * are

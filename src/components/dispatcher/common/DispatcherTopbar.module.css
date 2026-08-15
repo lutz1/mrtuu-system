@@ -1,5 +1,5 @@
 .topbar {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 20px;
   padding: 14px 28px;
   display: flex;
@@ -23,9 +23,9 @@
 }
 
 .brandName {
-  font-size: 19px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .actions {
@@ -38,7 +38,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,10 +65,10 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: #f0a93a;
-  color: #ffffff;
+  background: var(--color-accent-alt);
+  color: var(--color-bg-surface);
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,20 +83,20 @@
 }
 
 .userName {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .userRole {
-  font-size: 12.5px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
 }
 
 .chevron {
   width: 18px;
   height: 18px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin-left: 2px;
 }
 

@@ -70,14 +70,14 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   color: var(--color-accent);
   margin: 0 0 8px;
 }
 
 .subtitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   color: var(--color-text-muted);
   margin: 0 0 20px;
 }
@@ -87,7 +87,7 @@
   background: var(--color-bg-muted);
   border-radius: 30px;
   padding: 8px 20px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
   margin-bottom: 32px;
 }
@@ -124,14 +124,14 @@
 }
 
 .carName {
-  font-size: 19px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
 .carSpecsLine {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -155,14 +155,14 @@
 }
 
 .detailLabel {
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--color-text-muted);
 }
 
 .detailValue {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: var(--color-text-primary);
 }
@@ -185,11 +185,11 @@
 }
 
 .paymentStatusRow:has(.statusIconPaid) {
-  background: var(--color-success-bg, #eaf7ee);
+  background: var(--color-success-bg, var(--color-ref-eaf7ee));
 }
 
 .paymentStatusRow:has(.statusIconPending) {
-  background: var(--color-accent-tint, #fdf3df);
+  background: var(--color-accent-tint, var(--color-ref-fdf3df));
 }
 
 .statusIconCircle {
@@ -209,7 +209,7 @@
 }
 
 .statusIconPaid {
-  color: var(--color-success, #2f9e52);
+  color: var(--color-success, var(--color-ref-2f9e52));
 }
 
 .statusIconPending {
@@ -224,13 +224,13 @@
 }
 
 .paymentStatusLabel {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 .paymentStatusSub {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
 }
 
@@ -242,12 +242,12 @@
 }
 
 .paymentStatusAmount {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
 }
 
 .amountPaid {
-  color: var(--color-success, #2f9e52);
+  color: var(--color-success, var(--color-ref-2f9e52));
 }
 
 .amountPending {
@@ -255,19 +255,19 @@
 }
 
 .statusBadge {
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 20px;
 }
 
 .badgePaid {
-  background: var(--color-success-tint, #d5f0dd);
-  color: var(--color-success, #2f9e52);
+  background: var(--color-success-tint, var(--color-ref-d5f0dd));
+  color: var(--color-success, var(--color-ref-2f9e52));
 }
 
 .badgePending {
-  background: var(--color-accent-light, #f4dfa8);
+  background: var(--color-accent-light, var(--color-ref-f4dfa8));
   color: var(--color-accent-dark);
 }
 
@@ -287,13 +287,13 @@
 }
 
 .totalLabel {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 .totalAmount {
-  font-size: 22px;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: var(--color-accent);
 }
@@ -304,7 +304,7 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  background: var(--color-info-bg, #eef3fb);
+  background: var(--color-info-bg, var(--color-ref-eef3fb));
   margin: 0 24px 16px;
   border-radius: 12px;
   padding: 16px 18px;
@@ -313,7 +313,7 @@
 .reminderIcon {
   width: 18px;
   height: 18px;
-  color: var(--color-info-text, #4f6ea8);
+  color: var(--color-info-text, var(--color-ref-4f6ea8));
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -323,14 +323,14 @@
 }
 
 .reminderTitle {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
 .reminderBody {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   line-height: 1.6;
   color: var(--color-text-muted);
   margin: 0;
@@ -339,7 +339,7 @@
 .reminderIllustration {
   width: 64px;
   height: auto;
-  color: var(--color-info-text, #4f6ea8);
+  color: var(--color-info-text, var(--color-ref-4f6ea8));
   opacity: 0.6;
   flex-shrink: 0;
   display: none;
@@ -378,14 +378,14 @@
 }
 
 .locationTitle {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
 .locationAddress {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
   margin: 0 0 6px;
 }
@@ -394,7 +394,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -438,7 +438,7 @@
   background: var(--color-bg-surface);
   border-radius: 6px;
   padding: 2px 6px;
-  font-size: 9px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   color: var(--color-text-primary);
   white-space: nowrap;
@@ -460,14 +460,14 @@
 }
 
 .stepsTitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
 .stepsSubtitle {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
   margin: 0 0 18px;
 }
@@ -516,23 +516,23 @@
 }
 
 .stepIconWrap[data-variant="review"] {
-  background: var(--color-step-blue-bg, #e4ecfb);
-  color: var(--color-step-blue, #4a6fd4);
+  background: var(--color-step-blue-bg, var(--color-ref-e4ecfb));
+  color: var(--color-step-blue, var(--color-ref-4a6fd4));
 }
 
 .stepIconWrap[data-variant="notify"] {
-  background: var(--color-accent-tint, #fdf3df);
+  background: var(--color-accent-tint, var(--color-ref-fdf3df));
   color: var(--color-accent-dark);
 }
 
 .stepIconWrap[data-variant="pay"] {
-  background: var(--color-success-tint, #d5f0dd);
-  color: var(--color-success, #2f9e52);
+  background: var(--color-success-tint, var(--color-ref-d5f0dd));
+  color: var(--color-success, var(--color-ref-2f9e52));
 }
 
 .stepIconWrap[data-variant="dispatch"] {
-  background: var(--color-step-purple-bg, #ece3f9);
-  color: var(--color-step-purple, #8858d6);
+  background: var(--color-step-purple-bg, var(--color-ref-ece3f9));
+  color: var(--color-step-purple, var(--color-ref-8858d6));
 }
 
 .stepNumber {
@@ -543,8 +543,8 @@
   height: 17px;
   border-radius: 50%;
   background: var(--color-text-primary);
-  color: #ffffff;
-  font-size: 9px;
+  color: var(--color-bg-surface);
+  font-size: var(--font-size-caption);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -553,7 +553,7 @@
 }
 
 .stepLabel {
-  font-size: 11.5px;
+  font-size: var(--font-size-caption);
   line-height: 1.5;
   color: var(--color-text-muted);
   margin: 0;
@@ -575,12 +575,12 @@
 .secureIcon {
   width: 18px;
   height: 18px;
-  color: var(--color-success, #2f9e52);
+  color: var(--color-success, var(--color-ref-2f9e52));
   flex-shrink: 0;
 }
 
 .secureText {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
   line-height: 1.5;
   flex: 1;
@@ -588,7 +588,7 @@
 }
 
 .paidUsing {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-text-muted);
   white-space: nowrap;
 }
@@ -615,7 +615,7 @@
   padding: 14px 28px;
   border-radius: 30px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
@@ -629,7 +629,7 @@
 
 .downloadBtn {
   background: var(--color-accent);
-  color: #ffffff;
+  color: var(--color-bg-surface);
   border: none;
 }
 
@@ -648,7 +648,7 @@
 }
 
 .helpText {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-primary);
   line-height: 1.8;
 }
@@ -692,7 +692,7 @@
   }
 
   .title {
-    font-size: 26px;
+    font-size: var(--font-size-page-title);
   }
 
   .actionsRow {
@@ -705,7 +705,7 @@
   }
 
   .stepLabel {
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
   }
 
   .locationBox {

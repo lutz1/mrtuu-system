@@ -6,52 +6,52 @@
 }
 
 .pill {
-  background: #ffffff;
-  border: 1.5px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: 999px;
   padding: 11px 22px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
-  color: #6b7280;
+  color: var(--color-text-muted);
   cursor: pointer;
   font-family: inherit;
 }
 
 .pill:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .pillActive {
-  background: #1a1a1a;
-  border-color: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-bg-surface);
 }
 
 .addPill {
-  background: #ffffff;
-  border: 1.5px dashed #d1d5db;
+  background: var(--color-bg-surface);
+  border: 1.5px dashed var(--color-border-medium);
   border-radius: 999px;
   padding: 11px 22px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
-  color: #9ca3af;
+  color: var(--color-text-light);
   cursor: pointer;
   font-family: inherit;
 }
 
 .addPill:hover {
-  border-color: #e8a020;
-  color: #e8a020;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .customInput {
-  background: #ffffff;
-  border: 1.5px solid #e8a020;
+  background: var(--color-bg-surface);
+  border: 1.5px solid var(--color-accent);
   border-radius: 999px;
   padding: 11px 20px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
   width: 160px;
 }
@@ -59,25 +59,25 @@
 .textarea {
   width: 100%;
   min-height: 180px;
-  background: #f2f2f2;
+  background: var(--color-input-bg);
   border: 1px solid transparent;
   border-radius: 10px;
   padding: 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
   resize: vertical;
   box-sizing: border-box;
 }
 
 .textarea::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .textarea:focus {
-  border-color: #e8a020;
-  background: #ffffff;
+  border-color: var(--color-accent);
+  background: var(--color-bg-surface);
 }
 /* FeaturesStep.module.css Additions */
 @media (max-width: 600px) {
@@ -88,7 +88,7 @@
 
   .pill, .addPill {
     padding: 9px 16px;
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
   .customInput {

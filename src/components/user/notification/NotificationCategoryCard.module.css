@@ -29,14 +29,14 @@
 }
 
 .title {
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
 .description {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -63,7 +63,7 @@
 }
 
 .channelLabel {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
   color: var(--color-text-primary);
 }
@@ -100,9 +100,9 @@
     height: 38px;
   }
   .title {
-    font-size: 15px;
+    font-size: var(--font-size-navigation);
   }
   .description {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 }

@@ -1,6 +1,6 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   background: var(--color-bg-page);
 }
 
@@ -41,7 +41,7 @@
 }
 
 .pageTitle {
-  font-size: 26px;
+  font-size: var(--font-size-page-title);
   font-weight: 700;
   margin: 0;
   color: var(--color-text-primary)
@@ -82,7 +82,7 @@
   }
 
   .pageTitle {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
   }
 
   .main {

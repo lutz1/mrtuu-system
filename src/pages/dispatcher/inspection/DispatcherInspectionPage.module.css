@@ -3,16 +3,16 @@
 }
 
 .title {
-  font-size: 32px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .tabsRow {
   display: flex;
   gap: 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: 20px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -27,9 +27,9 @@
   background: none;
   border: none;
   padding: 14px 24px;
-  font-size: 14.5px;
+  font-size: var(--font-size-navigation);
   font-weight: 600;
-  color: #6b7280;
+  color: var(--color-text-muted);
   cursor: pointer;
   font-family: inherit;
   border-radius: 10px 10px 0 0;
@@ -38,8 +38,8 @@
 }
 
 .tabActive {
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
 }
 
 .searchRow {
@@ -62,42 +62,42 @@
   transform: translateY(-50%);
   width: 17px;
   height: 17px;
-  color: #9ca3af;
+  color: var(--color-text-light);
   pointer-events: none;
 }
 
 .searchInput {
   width: 100%;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 12px 16px 12px 42px;
-  font-size: 16px;
+  font-size: var(--font-size-card-title);
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
   box-sizing: border-box;
 }
 
 .searchInput::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .searchInput:focus {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .filterBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 12px 18px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-secondary);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
@@ -105,7 +105,7 @@
 }
 
 .filterBtn:hover {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .filterBtn svg {
@@ -118,11 +118,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f0f1f3;
-  color: #4b5563;
+  background: var(--color-bg-muted);
+  color: var(--color-text-subtle);
   border-radius: 10px;
   padding: 14px 18px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   margin-bottom: 16px;
 }
 
@@ -134,17 +134,17 @@
 
 @media (max-width: 768px) {
   .title {
-    font-size: 24px;
+    font-size: var(--font-size-page-title);
   }
   .tab {
     padding: 12px 18px;
-    font-size: 13.5px;
+    font-size: var(--font-size-table-text);
   }
 }
 
 @media (max-width: 480px) {
   .title {
-    font-size: 21px;
+    font-size: var(--font-size-section-title);
   }
   .searchRow {
     gap: 8px;
@@ -157,6 +157,6 @@
   }
   .noticeBar {
     padding: 12px 14px;
-    font-size: 12.5px;
+    font-size: var(--font-size-supporting);
   }
 }

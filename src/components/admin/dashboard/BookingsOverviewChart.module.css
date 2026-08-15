@@ -1,5 +1,5 @@
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -13,23 +13,23 @@
 }
 
 .title {
-  font-size: 17px;
+  font-size: var(--font-size-card-title);
   font-weight: 700;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .rangeBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 8px 14px;
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
   font-weight: 500;
-  color: #374151;
+  color: var(--color-text-secondary);
   cursor: pointer;
   font-family: inherit;
 }

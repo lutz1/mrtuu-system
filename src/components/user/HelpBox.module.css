@@ -14,14 +14,14 @@
 }
 
 .helpTitle {
-  font-size: 15px;
+  font-size: var(--font-size-navigation);
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--color-text-primary);
 }
 
 .helpText {
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   color: var(--color-text-muted);
   margin: 0;
   line-height: 1.6;

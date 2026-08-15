@@ -3,7 +3,7 @@
   max-width: 100%;
   min-width: 0;
 
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
 
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
@@ -22,16 +22,16 @@
 }
 
 .table thead tr {
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 }
 
 .table th {
   text-align: left;
 
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 700;
 
-  color: #374151;
+  color: var(--color-text-secondary);
 
   padding: 18px 20px;
 
@@ -41,7 +41,7 @@
 .table td {
   padding: 20px;
 
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-border-light);
 
   vertical-align: top;
 }
@@ -56,10 +56,10 @@
    ========================================================= */
 
 .bookingId {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 700;
 
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 
   white-space: nowrap;
 }
@@ -70,10 +70,10 @@
    ========================================================= */
 
 .primaryText {
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
 
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 
   margin: 0 0 2px;
 
@@ -81,9 +81,9 @@
 }
 
 .secondaryText {
-  font-size: 12.5px;
+  font-size: var(--font-size-supporting);
 
-  color: #9ca3af;
+  color: var(--color-text-light);
 
   margin: 0;
 
@@ -91,9 +91,9 @@
 }
 
 .cell {
-  font-size: 13.5px;
+  font-size: var(--font-size-table-text);
 
-  color: #4b5563;
+  color: var(--color-text-subtle);
 
   white-space: nowrap;
 }
@@ -113,7 +113,7 @@
 
   border-radius: 8px;
 
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
 
   border: none;
 
@@ -123,7 +123,7 @@
 
   cursor: pointer;
 
-  color: #374151;
+  color: var(--color-text-secondary);
 
   transition:
     background 0.15s ease,
@@ -131,8 +131,8 @@
 }
 
 .viewBtn:hover {
-  background: #e8a020;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-bg-surface);
 }
 
 .viewBtn svg {
@@ -148,7 +148,7 @@
 .empty {
   width: 100%;
 
-  background: #ffffff;
+  background: var(--color-bg-surface);
 
   border-radius: 16px;
 
@@ -158,9 +158,9 @@
 
   text-align: center;
 
-  color: #9ca3af;
+  color: var(--color-text-light);
 
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
 
   box-sizing: border-box;
 }
@@ -214,7 +214,7 @@
 
     box-sizing: border-box;
 
-    background: #ffffff;
+    background: var(--color-bg-surface);
 
     border-radius: 14px;
 
@@ -236,7 +236,7 @@
 
     padding: 8px 0;
 
-    border-bottom: 1px dashed #f0f1f3;
+    border-bottom: 1px dashed var(--color-bg-muted);
 
     white-space: normal;
 
@@ -251,12 +251,12 @@
   .table td:nth-child(1)::before {
     content: "Booking ID";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
 
-    color: #9ca3af;
+    color: var(--color-text-light);
 
     margin-bottom: 3px;
   }
@@ -264,12 +264,12 @@
   .table td:nth-child(2)::before {
     content: "Customer";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
 
-    color: #9ca3af;
+    color: var(--color-text-light);
 
     margin-bottom: 3px;
   }
@@ -277,12 +277,12 @@
   .table td:nth-child(3)::before {
     content: "Vehicle";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
 
-    color: #9ca3af;
+    color: var(--color-text-light);
 
     margin-bottom: 3px;
   }
@@ -290,12 +290,12 @@
   .table td:nth-child(4)::before {
     content: "Return Date";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
 
-    color: #9ca3af;
+    color: var(--color-text-light);
 
     margin-bottom: 3px;
   }
@@ -303,12 +303,12 @@
   .table td:nth-child(5)::before {
     content: "Source";
 
-    font-size: 10.5px;
+    font-size: var(--font-size-caption);
     font-weight: 700;
 
     text-transform: uppercase;
 
-    color: #9ca3af;
+    color: var(--color-text-light);
 
     margin-bottom: 3px;
   }
@@ -342,7 +342,7 @@
 
     border-radius: 8px;
 
-    background: #f0f1f3;
+    background: var(--color-bg-muted);
 
     display: flex;
     align-items: center;
@@ -366,23 +366,23 @@
   }
 
   .bookingId {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
   .primaryText {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
 
     margin: 0 0 2px;
   }
 
   .secondaryText {
-    font-size: 11.5px;
+    font-size: var(--font-size-caption);
 
     margin: 0;
   }
 
   .cell {
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
   }
 
 
@@ -393,7 +393,7 @@
   .empty {
     padding: 35px 16px;
 
-    font-size: 13px;
+    font-size: var(--font-size-supporting);
 
     border-radius: 14px;
   }

@@ -5,28 +5,28 @@
 }
 
 .tab {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 11px 20px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #374151;
+  color: var(--color-text-secondary);
   cursor: pointer;
   font-family: inherit;
   white-space: nowrap;
 }
 
 .tab:hover {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 .tabActive {
-  background: #e8a020;
-  border-color: #e8a020;
-  color: #ffffff;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg-surface);
 }
 
 .tabActive:hover {
-  background: #e8a020;
+  background: var(--color-accent);
 }

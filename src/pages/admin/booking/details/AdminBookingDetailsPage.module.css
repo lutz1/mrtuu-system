@@ -1,19 +1,19 @@
 .backLink {
   display: inline-block;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 11px 22px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   text-decoration: none;
   margin-bottom: 16px;
   transition: border-color 0.2s ease;
 }
 
 .backLink:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-text-light);
 }
 
 .pageHeading {
@@ -21,15 +21,15 @@
 }
 
 .title {
-  font-size: 30px;
+  font-size: var(--font-size-page-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #9ca3af;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-light);
   margin: 0;
 }
 
@@ -41,22 +41,22 @@
 }
 
 .card {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   padding: 26px;
 }
 
 .cardTitle {
-  font-size: 18px;
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   margin: 0 0 6px;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .cardSubtitle {
-  font-size: 13px;
-  color: #9ca3af;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-light);
   margin: 0 0 18px;
   line-height: 1.5;
 }
@@ -75,7 +75,7 @@
 }
 
 .modalContent {
-  background-color: #ffffff;
+  background-color: var(--color-bg-surface);
   border-radius: 12px;
   max-width: 800px;
   width: 100%;
@@ -91,21 +91,21 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .modalTitle {
-  font-size: 1.125rem;
+  font-size: var(--font-size-section-title);
   font-weight: 600;
-  color: #111827;
+  color: var(--color-text-strong);
   margin: 0;
 }
 
 .modalCloseBtn {
   background: transparent;
   border: none;
-  font-size: 1.25rem;
-  color: #6b7280;
+  font-size: var(--font-size-section-title);
+  color: var(--color-text-muted);
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
@@ -113,8 +113,8 @@
 }
 
 .modalCloseBtn:hover {
-  background-color: #f3f4f6;
-  color: #111827;
+  background-color: var(--color-border-light);
+  color: var(--color-text-strong);
 }
 
 .modalBody {
@@ -123,7 +123,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9fafb;
+  background-color: var(--color-ref-f9fafb);
 }
 
 .previewImage {
@@ -135,14 +135,14 @@
 
 .modalFooter {
   padding: 0.75rem 1.25rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: flex-end;
 }
 
 .openTabLink {
-  font-size: 0.875rem;
-  color: #2563eb;
+  font-size: var(--font-size-table-text);
+  color: var(--color-ref-2563eb);
   text-decoration: none;
   font-weight: 500;
 }
@@ -164,23 +164,23 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 14px;
-  background: #f8f9fa;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   transition: border-color 0.2s ease;
 }
 
 .checklistRowWrapper:hover {
-  border-color: #d1d5db;
+  border-color: var(--color-border-medium);
 }
 
 .checklistRow {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   cursor: pointer;
   user-select: none;
 }
@@ -188,7 +188,7 @@
 .checklistRow input {
   width: 18px;
   height: 18px;
-  accent-color: #1a1a1a;
+  accent-color: var(--color-text-primary);
   cursor: pointer;
 }
 
@@ -198,27 +198,27 @@
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
-  font-size: 13px;
+  font-size: var(--font-size-supporting);
   font-weight: 600;
-  color: #1a1a1a;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-medium);
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .viewDocBtn:hover {
-  background: #1a1a1a;
-  color: #ffffff;
-  border-color: #1a1a1a;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
+  border-color: var(--color-text-primary);
 }
 
 .noDocBadge {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 500;
-  color: #9ca3af;
-  background: #e5e7eb;
+  color: var(--color-text-light);
+  background: var(--color-border);
   padding: 4px 10px;
   border-radius: 6px;
 }
@@ -227,61 +227,61 @@
 .remarksInput {
   width: 100%;
   min-height: 90px;
-  background: #f8f9fa;
-  border: 1px solid #e5e7eb;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 14px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   font-family: inherit;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   outline: none;
   resize: vertical;
   box-sizing: border-box;
 }
 
 .remarksInput::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-light);
 }
 
 .remarksInput:focus {
-  border-color: #e8a020;
+  border-color: var(--color-accent);
 }
 
 /* Submit Action Button */
 .sendBtn {
   width: 100%;
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--color-text-primary);
+  color: var(--color-bg-surface);
   border: none;
   padding: 13px;
   border-radius: 10px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-size-table-text);
   cursor: pointer;
   font-family: inherit;
   transition: background 0.2s ease;
 }
 
 .sendBtn:hover:not(:disabled) {
-  background: #333333;
+  background: var(--color-ref-333333);
 }
 
 .sendBtn:disabled {
-  background: #e5e7eb;
-  color: #9ca3af;
+  background: var(--color-border);
+  color: var(--color-text-light);
   cursor: not-allowed;
 }
 
 .clearedText {
-  font-size: 14px;
-  color: #4b5563;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-subtle);
   margin: 0 0 8px;
   line-height: 1.6;
 }
 
 .remarksReadout {
-  font-size: 13.5px;
-  color: #9ca3af;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-light);
   margin: 0;
 }
 
@@ -304,7 +304,7 @@
   }
 
   .title {
-    font-size: 22px;
+    font-size: var(--font-size-section-title);
   }
 
   .backLink {

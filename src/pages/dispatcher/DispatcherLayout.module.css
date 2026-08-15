@@ -10,7 +10,7 @@
   width: 100%;             /* Ensures page never exceeds viewport */
   max-width: 100vw;        /* Strict cap on viewport width */
   box-sizing: border-box;  /* CRITICAL: includes padding in width calculations */
-  background: #f0f1f3;
+  background: var(--color-bg-muted);
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   padding: 24px;
   display: flex;
