@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
+import { useVehicles } from "../../../context/VehiclesContext";
 import Navbar from "../../../components/user/frontpage/Navbar";
 import SearchFilterBar from "../../../components/user/SearchFilterBar";
 import Hero from "../../../components/user/frontpage/Hero";
@@ -9,11 +10,11 @@ import HowItWorks from "../../../components/user/frontpage/HowItWorks";
 import TrustedPartner from "../../../components/user/frontpage/TrustedPartner";
 import CTABanner from "../../../components/user/frontpage/CTABanner";
 import Footer from "../../../components/user/frontpage/Footer";
-import { CARS } from "../../../data/cars";
 import styles from "./LandingPage.module.css";
 
 export default function LandingPage() {
   const { isLoggedIn } = useAuth();
+  const { vehicles } = useVehicles();
 
   const [filters, setFilters] = useState({
     query: "",
@@ -27,7 +28,7 @@ export default function LandingPage() {
     setFilters((prev) => ({ ...prev, [field]: value }));
   };
 
-  const filteredCars = CARS.filter((car) => {
+  const filteredCars = vehicles.filter((car) => {
     const matchesQuery = car.name
       .toLowerCase()
       .includes(filters.query.trim().toLowerCase());
@@ -63,7 +64,7 @@ export default function LandingPage() {
 
       <div className={styles.pageContent}>
         <Hero />
-        <FeaturedCars cars={isLoggedIn ? filteredCars : CARS} />
+        <FeaturedCars cars={isLoggedIn ? filteredCars : vehicles} />
         <WhyRentWithUs />
         <HowItWorks />
         <TrustedPartner />
