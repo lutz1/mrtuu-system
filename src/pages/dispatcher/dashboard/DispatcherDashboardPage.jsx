@@ -102,6 +102,25 @@ function ClearedIcon() {
   );
 }
 
+// Firestore Timestamps expose .toDate(). A pending serverTimestamp() write
+// resolves to null on the local optimistic snapshot before the server
+// confirms it, so guard for that instead of feeding null into `new Date()`
+// (which produces an Invalid Date and silently fails every comparison).
+function toDate(value) {
+  if (!value) return null;
+  if (typeof value?.toDate === "function") return value.toDate();
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function isSameDay(a, b) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
 export default function DispatcherDashboardPage() {
   const navigate = useNavigate();
   const { bookings } = useAdminBookings();
@@ -116,6 +135,39 @@ export default function DispatcherDashboardPage() {
   );
   const previewBookings = pickupBookings.slice(0, 5);
   const upcomingPickups = pickupBookings.slice(0, 2);
+
+  const completedBookings = bookings.filter((b) => b.status === "completed");
+
+  // "Completed Today" — returnedAt falls on today's calendar date.
+  // A booking whose returnedAt is still a pending write (null on the local
+  // snapshot) is counted optimistically, since it was just completed.
+  const completedTodayCount = completedBookings.filter((b) => {
+    const d = toDate(b.returnedAt);
+    if (!d) return true;
+    return isSameDay(d, new Date());
+  }).length;
+
+  // "Completed This Week" — returnedAt within the last 7 days. Same pending
+  // write guard as above.
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  const completedThisWeekCount = completedBookings.filter((b) => {
+    const d = toDate(b.returnedAt);
+    if (!d) return true;
+    return d >= weekAgo;
+  }).length;
+
+  // "Total Cleared" — bookings this dispatcher/team has cleared this
+  // calendar month, based on clearance.checkedAt.
+  const now = new Date();
+  const totalClearedThisMonth = bookings.filter((b) => {
+    if (b.clearance?.status !== "cleared") return false;
+    const d = toDate(b.clearance.checkedAt);
+    if (!d) return true;
+    return (
+      d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()
+    );
+  }).length;
 
   const handleStartInspection = (booking) => {
     navigate(`/dispatcher/inspection/${encodeURIComponent(booking.id)}`);
@@ -135,36 +187,22 @@ export default function DispatcherDashboardPage() {
           value={pickupBookings.length}
           footnote="Bookings waiting for inspection"
         />
-        {/* NOTE: these three still need real aggregate queries (completed
-            today / awaiting_return_review count / cleared this month) —
-            left as placeholders since they need date-range queries not
-            wired yet. */}
         <DispatcherStatCard
           icon={<CompletedIcon />}
           label="Completed Today"
-          value="—"
+          value={completedTodayCount}
           footnote="Inspection completed today"
         />
         <DispatcherStatCard
           icon={<PendingIcon />}
           label="Completed This Week"
-          value={
-            bookings.filter((b) => {
-              if (b.status !== "completed" || !b.returnedAt) return false;
-              const d = b.returnedAt.toDate
-                ? b.returnedAt.toDate()
-                : new Date(b.returnedAt);
-              const weekAgo = new Date();
-              weekAgo.setDate(weekAgo.getDate() - 7);
-              return d >= weekAgo;
-            }).length
-          }
+          value={completedThisWeekCount}
           footnote="Returns processed in the last 7 days"
         />
         <DispatcherStatCard
           icon={<ClearedIcon />}
           label="Total Cleared"
-          value="—"
+          value={totalClearedThisMonth}
           footnote="This Month"
         />
       </div>
