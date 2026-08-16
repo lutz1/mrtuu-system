@@ -25,6 +25,15 @@
   gap: 4px;
 
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  transition: width 0.22s ease, padding 0.22s ease;
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 4px 0 12px 10px;
 }
 
 .menuLabel {
@@ -32,7 +41,36 @@
   color: var(--color-text-light);
   font-weight: 500;
 
-  margin: 4px 0 12px 10px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.collapseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+
+  margin-right: 6px;
+
+  background: var(--color-bg-muted);
+  border: none;
+  border-radius: 8px;
+
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.collapseBtn:hover {
+  background: var(--color-bg-hover);
+}
+
+.collapseBtn svg {
+  width: 15px;
+  height: 15px;
 }
 
 .nav {
@@ -60,6 +98,9 @@
   text-decoration: none;
 
   box-sizing: border-box;
+
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .navItem:hover {
@@ -120,6 +161,9 @@
   font-family: inherit;
 
   box-sizing: border-box;
+
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .logoutBtn:hover {
@@ -140,6 +184,32 @@
 
 .closeBtn {
   display: none;
+}
+
+
+/* =========================================================
+   COLLAPSED (folded) STATE — desktop only
+   ========================================================= */
+
+.sidebarCollapsed {
+  width: 76px;
+  padding: 24px 12px;
+}
+
+.sidebarCollapsed .sidebarHeader {
+  justify-content: center;
+  margin: 4px 0 12px 0;
+}
+
+.sidebarCollapsed .collapseBtn {
+  margin-right: 0;
+}
+
+.sidebarCollapsed .navItem,
+.sidebarCollapsed .logoutBtn {
+  justify-content: center;
+  gap: 0;
+  padding: 13px 0;
 }
 
 
@@ -168,6 +238,15 @@
 
   .logoutBtn {
     margin-top: 12px;
+  }
+
+  .collapseBtn {
+    display: none;
+  }
+
+  .sidebarCollapsed {
+    width: 100%;
+    padding: 24px 18px;
   }
 }
 
