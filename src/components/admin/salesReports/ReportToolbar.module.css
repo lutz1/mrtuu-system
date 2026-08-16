@@ -63,3 +63,74 @@
   width: 16px;
   height: 16px;
 }
+
+/* =========================================================
+   DATE FILTER DROPDOWN — append to ReportToolbar.module.css
+   ========================================================= */
+
+.dateWrapper {
+  position: relative;
+}
+
+.chevron {
+  transition: transform 0.15s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+
+  min-width: 180px;
+
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+
+  background: var(--color-bg-surface);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dropdownItem {
+  width: 100%;
+
+  text-align: left;
+
+  padding: 10px 12px;
+
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: var(--font-size-navigation);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: var(--color-bg-hover);
+}
+
+.dropdownItemActive {
+  background: var(--color-accent);
+  color: var(--color-bg-surface);
+  font-weight: 600;
+}
+
+.dropdownItemActive:hover {
+  background: var(--color-accent);
+}

@@ -11,20 +11,26 @@ function toDate(value) {
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
-function isSameDay(a, b) {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
-}
-
 function daysAgo(n) {
   const d = new Date();
   d.setDate(d.getDate() - n);
   d.setHours(0, 0, 0, 0);
   return d;
 }
+
+export const PERIOD_OPTIONS = [
+  { value: "7d", label: "Last 7 Days" },
+  { value: "30d", label: "Last 30 Days" },
+];
+
+const PERIOD_CONFIG = {
+  "7d": { label: "Last 7 Days", comparisonLabel: "vs prior 7 days", days: 7 },
+  "30d": {
+    label: "Last 30 Days",
+    comparisonLabel: "vs prior 30 days",
+    days: 30,
+  },
+};
 
 const STATUS_COLORS = {
   confirmed: "#3b82f6",
@@ -39,7 +45,7 @@ const STATUS_LABELS = {
   cancelled: "Cancelled",
 };
 
-export function useSalesReportsData() {
+export function useSalesReportsData(period = "7d") {
   const { bookings } = useAdminBookings();
   const { customers } = useCustomers();
   const [payments, setPayments] = useState([]);
@@ -61,35 +67,16 @@ export function useSalesReportsData() {
   }, []);
 
   return useMemo(() => {
+    const config = PERIOD_CONFIG[period] || PERIOD_CONFIG["7d"];
+    const days = config.days;
+
     const successfulPayments = payments.filter(
       (p) => p.status === "successful"
     );
 
-    // Last 7 days trend (today included, oldest first)
-    const last7 = Array.from({ length: 7 }, (_, i) => daysAgo(6 - i));
-    const dayLabel = (d) =>
-      d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-    const revenueTrend = last7.map((day) => {
-      const revenue = successfulPayments.reduce((sum, p) => {
-        const created = toDate(p.createdAt);
-        return created && isSameDay(created, day) ? sum + (p.amount || 0) : sum;
-      }, 0);
-      return { date: dayLabel(day), revenue };
-    });
-
-    const bookingsTrend = last7.map((day) => {
-      const count = bookings.reduce((sum, b) => {
-        const created = toDate(b.createdAt);
-        return created && isSameDay(created, day) ? sum + 1 : sum;
-      }, 0);
-      return { date: dayLabel(day), bookings: count };
-    });
-
-    // Overview stats (this period = last 7 days vs prior 7 days)
-    const periodStart = daysAgo(6);
-    const priorStart = daysAgo(13);
-    const priorEnd = daysAgo(7);
+    const periodStart = daysAgo(days - 1);
+    const priorStart = daysAgo(days * 2 - 1);
+    const priorEnd = periodStart;
 
     const sumRevenueBetween = (start, end) =>
       successfulPayments.reduce((sum, p) => {
@@ -111,9 +98,11 @@ export function useSalesReportsData() {
     const priorRevenue = sumRevenueBetween(priorStart, priorEnd);
     const currentBookingsCount = countBookingsBetween(periodStart);
     const priorBookingsCount = countBookingsBetween(priorStart, priorEnd);
+
     const carsRented = bookings.filter(
       (b) => b.status === "ongoing" || b.status === "completed"
     ).length;
+
     const newCustomers = customers.filter((c) => {
       const d = c.joinedAt?.toDate
         ? c.joinedAt.toDate()
@@ -122,7 +111,8 @@ export function useSalesReportsData() {
         : null;
       return d && d >= periodStart;
     }).length;
-    const avgDailyRevenue = Math.round(currentRevenue / 7);
+
+    const avgDailyRevenue = Math.round(currentRevenue / days);
 
     function pctChange(current, prior) {
       if (!prior) return current > 0 ? "+100%" : "0%";
@@ -168,7 +158,7 @@ export function useSalesReportsData() {
       },
     ];
 
-    // Revenue by vehicle
+    // Revenue by vehicle (all-time top vehicles)
     const revenueByVehicleMap = new Map();
     bookings.forEach((b) => {
       if (b.status !== "completed" && b.status !== "ongoing") return;
@@ -202,14 +192,13 @@ export function useSalesReportsData() {
 
     return {
       loading,
-      periodLabel: "Last 7 Days",
-      comparisonLabel: "vs prior 7 days",
+      period,
+      periodLabel: config.label,
+      comparisonLabel: config.comparisonLabel,
       overviewStats,
-      revenueTrend,
-      bookingsTrend,
       revenueByVehicle,
       bookingStatusBreakdown,
       totalBookings,
     };
-  }, [bookings, customers, payments, loading]);
+  }, [bookings, customers, payments, loading, period]);
 }

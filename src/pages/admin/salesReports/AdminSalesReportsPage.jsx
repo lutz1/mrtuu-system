@@ -8,7 +8,10 @@ import BookingsVolumeChart from "../../../components/admin/salesReports/Bookings
 import RevenueByVehicleTable from "../../../components/admin/salesReports/RevenueByVehicleTable";
 import BookingStatusDonut from "../../../components/admin/salesReports/BookingStatusDonut";
 import RecentReportsCard from "../../../components/admin/salesReports/RecentReportsCard";
-import { useSalesReportsData } from "../../../context/useSalesReportsData";
+import {
+  useSalesReportsData,
+  PERIOD_OPTIONS,
+} from "../../../context/useSalesReportsData";
 import { useRecentReports } from "../../../context/useRecentReports";
 import { useStaff } from "../../../context/StaffContext";
 import { useToast } from "../../../context/ToastContext";
@@ -122,7 +125,8 @@ const STAT_ICONS = {
 export default function AdminSalesReportsPage() {
   const [activeTab, setActiveTab] = useState("Overview");
   const [isExporting, setIsExporting] = useState(false);
-  const reportData = useSalesReportsData();
+  const [period, setPeriod] = useState("7d");
+  const reportData = useSalesReportsData(period);
   const { reports: recentReports, loading: reportsLoading } =
     useRecentReports();
   const { staffProfile } = useStaff();
@@ -133,8 +137,6 @@ export default function AdminSalesReportsPage() {
     periodLabel,
     comparisonLabel,
     overviewStats,
-    revenueTrend,
-    bookingsTrend,
     revenueByVehicle,
     bookingStatusBreakdown,
     totalBookings,
@@ -175,7 +177,10 @@ export default function AdminSalesReportsPage() {
       <div className={styles.toolbar}>
         <ReportTabs active={activeTab} onChange={setActiveTab} />
         <ReportToolbar
+          period={period}
           periodLabel={periodLabel || "Last 7 Days"}
+          periodOptions={PERIOD_OPTIONS}
+          onPeriodChange={setPeriod}
           onExport={handleExport}
           exportLabel={isExporting ? "Generating..." : "Export Report"}
         />
@@ -203,8 +208,8 @@ export default function AdminSalesReportsPage() {
             </div>
 
             <div className={styles.chartsGrid}>
-              <RevenueTrendChart data={revenueTrend} />
-              <BookingsVolumeChart data={bookingsTrend} />
+              <RevenueTrendChart />
+              <BookingsVolumeChart />
             </div>
 
             <div className={styles.bottomGrid}>

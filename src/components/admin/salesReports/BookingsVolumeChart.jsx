@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -7,9 +8,29 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
+import { useBookingsTrend, GRANULARITY_OPTIONS } from "../../../context/useTrendData";
 import styles from "./BookingsVolumeChart.module.css";
 
-export default function BookingsVolumeChart({ data }) {
+export default function BookingsVolumeChart() {
+  const [granularity, setGranularity] = useState("daily");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const wrapperRef = useRef(null);
+  const { data } = useBookingsTrend(granularity);
+
+  const activeLabel =
+    GRANULARITY_OPTIONS.find((o) => o.value === granularity)?.label || "Daily";
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    function handleClickOutside(e) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen]);
+
   const ceiling = Math.max(10, ...data.map((d) => d.bookings)) + 5;
   const chartData = data.map((d) => ({
     ...d,
@@ -20,22 +41,55 @@ export default function BookingsVolumeChart({ data }) {
     <section className={styles.card}>
       <div className={styles.headerRow}>
         <h2 className={styles.title}>Bookings Overview</h2>
-        <button type="button" className={styles.rangeBtn}>
-          Daily
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+
+        <div className={styles.rangeWrapper} ref={wrapperRef}>
+          <button
+            type="button"
+            className={styles.rangeBtn}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-haspopup="listbox"
+            aria-expanded={menuOpen}
           >
-            <path
-              d="M6 9l6 6 6-6"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+            {activeLabel}
+            <svg
+              className={`${styles.chevron} ${menuOpen ? styles.chevronOpen : ""}`}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 9l6 6 6-6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+
+          {menuOpen && (
+            <ul className={styles.dropdownMenu} role="listbox">
+              {GRANULARITY_OPTIONS.map((opt) => (
+                <li key={opt.value}>
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={opt.value === granularity}
+                    className={`${styles.dropdownItem} ${
+                      opt.value === granularity ? styles.dropdownItemActive : ""
+                    }`}
+                    onClick={() => {
+                      setGranularity(opt.value);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       <ResponsiveContainer width="100%" height={280}>
