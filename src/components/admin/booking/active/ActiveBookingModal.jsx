@@ -111,8 +111,8 @@ export default function ActiveBookingModal({ booking, onClose }) {
   };
 
   return (
-    <div className={styles.backdrop} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.backdrop}>
+      <div className={styles.modal} >
         <div className={styles.header}>
           <h2 className={styles.title}>Booking Details</h2>
           <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
