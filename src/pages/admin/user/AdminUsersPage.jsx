@@ -3,9 +3,11 @@ import AdminLayout from "../dashboard/AdminLayout";
 import UserStatCard from "../../../components/admin/user/UserStatCard";
 import UserFilterBar from "../../../components/admin/user/UserFilterBar";
 import UserTable from "../../../components/admin/user/UserTable";
+import ViewUserModal from "../../../components/admin/user/ViewUserModal";
 import Pagination from "../../../components/admin/common/Pagination";
 import { useStaffDirectory } from "../../../context/useStaffDirectory";
 import { useStaff } from "../../../context/StaffContext";
+import AddUserPage from "./AddUserPage";
 import styles from "./AdminUsersPage.module.css";
 
 const PAGE_SIZE = 10;
@@ -78,10 +80,16 @@ export default function AdminUsersPage() {
   const [status, setStatus] = useState("All Status");
   const [page, setPage] = useState(1);
 
-  // TODO: frontend to provide the actual Add/Edit Staff modal component.
-  // These flags + handler functions below are wired and ready to hook up —
-  // swap the console.log calls for real modal open/submit once it exists.
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  // Add User is rendered as a full page in place of the list (matches the
+  // "Back to Users" mockup) rather than a dialog. If your app uses a router
+  // and would rather give this its own route (e.g. /admin/users/add), swap
+  // `isAddPageOpen` for a `navigate(...)` call in handleOpenAdd instead.
+  const [isAddPageOpen, setIsAddPageOpen] = useState(false);
+
+  // View User modal (opened via the eye icon in the table).
+  const [viewingStaff, setViewingStaff] = useState(null);
+
+  // TODO: frontend to provide the real Edit Staff modal component.
   const [editingStaff, setEditingStaff] = useState(null);
 
   const filteredUsers = useMemo(() => {
@@ -127,14 +135,24 @@ export default function AdminUsersPage() {
       await deleteStaff(staffMember.uid);
     } catch (err) {
       console.error("Failed to delete staff member:", err);
+      throw err;
     }
   };
 
   const handleOpenAdd = () => {
-    // TODO: open real "Add Staff" modal once it exists.
-    // Expected submit shape: addStaffByEmail(email, role, permissions)
-    console.log("Open Add Staff modal — pending frontend component");
-    setIsAddModalOpen(true);
+    setIsAddPageOpen(true);
+  };
+
+  const handleAddSubmit = async ({ email, role, ...profile }) => {
+    // addStaffByEmail(email, role, permissions) — the extra profile fields
+    // (fullName, phone, username, password) are passed through as the third
+    // argument; adjust this call to match what addStaffByEmail actually expects.
+    await addStaffByEmail(email, role, profile);
+    setIsAddPageOpen(false);
+  };
+
+  const handleOpenView = (staffMember) => {
+    setViewingStaff(staffMember);
   };
 
   const handleOpenEdit = (staffMember) => {
@@ -152,6 +170,17 @@ export default function AdminUsersPage() {
   const dispatcherCount = staffList.filter(
     (u) => u.role === "dispatcher"
   ).length;
+
+  if (isAddPageOpen) {
+    return (
+      <AdminLayout>
+        <AddUserPage
+          onBack={() => setIsAddPageOpen(false)}
+          onSubmit={handleAddSubmit}
+        />
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
@@ -192,7 +221,7 @@ export default function AdminUsersPage() {
           users={pageItems}
           currentUid={staffProfile?.uid}
           currentRole={staffProfile?.role}
-          onEdit={handleOpenEdit}
+          onView={handleOpenView}
           onToggleStatus={handleToggleStatus}
           onDelete={handleDelete}
         />
@@ -207,7 +236,14 @@ export default function AdminUsersPage() {
         itemLabel="users"
       />
 
-      {/* TODO: <AddStaffModal open={isAddModalOpen} onClose={...} onSubmit={addStaffByEmail} /> */}
+      <ViewUserModal
+        open={!!viewingStaff}
+        user={viewingStaff}
+        onClose={() => setViewingStaff(null)}
+        onDelete={handleDelete}
+        canDelete={staffProfile?.role === "owner"}
+      />
+
       {/* TODO: <EditStaffModal staff={editingStaff} onClose={...} onSubmit={updateStaff} /> */}
     </AdminLayout>
   );

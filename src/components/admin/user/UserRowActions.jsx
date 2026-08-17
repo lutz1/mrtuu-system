@@ -12,11 +12,25 @@ function DotsIcon() {
   );
 }
 
+function EyeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M2.5 12S5.8 5.5 12 5.5 21.5 12 21.5 12 18.2 18.5 12 18.5 2.5 12 2.5 12Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
 export default function UserRowActions({
   user,
   isSelf,
   canDelete,
-  onEdit,
+  onView,
   onToggleStatus,
   onDelete,
 }) {
@@ -81,7 +95,17 @@ export default function UserRowActions({
   const isActive = user.active;
 
   return (
-    <>
+    <div className={styles.actions}>
+      <button
+        type="button"
+        className={styles.trigger}
+        onClick={() => onView?.(user)}
+        aria-label={`View ${user.name}`}
+        title="View"
+      >
+        <EyeIcon />
+      </button>
+
       <button
         ref={triggerRef}
         type="button"
@@ -136,6 +160,6 @@ export default function UserRowActions({
           </div>,
           document.body
         )}
-    </>
+    </div>
   );
 }

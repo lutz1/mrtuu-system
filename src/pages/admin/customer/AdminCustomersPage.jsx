@@ -3,6 +3,7 @@ import AdminLayout from "../dashboard/AdminLayout";
 import CustomerStatCard from "../../../components/admin/customer/CustomerStatCard";
 import CustomerFilterBar from "../../../components/admin/customer/CustomerFilterBar";
 import CustomerTable from "../../../components/admin/customer/CustomerTable";
+import ViewCustomerModal from "../../../components/admin/customer/ViewCustomerModal";
 import Pagination from "../../../components/admin/common/Pagination";
 import { useCustomers } from "../../../context/CustomersContext";
 import styles from "./AdminCustomersPage.module.css";
@@ -108,6 +109,9 @@ export default function AdminCustomersPage() {
   const [sort, setSort] = useState("All");
   const [page, setPage] = useState(1);
 
+  // View Customer modal (opened via the eye icon in the table).
+  const [viewingCustomer, setViewingCustomer] = useState(null);
+
   const filteredCustomers = useMemo(() => {
     const q = query.trim().toLowerCase();
     let result = customers.filter((c) => {
@@ -146,6 +150,10 @@ export default function AdminCustomersPage() {
 
   const handleToggleVerification = (uid) => {
     toggleVerification(uid);
+  };
+
+  const handleOpenView = (customer) => {
+    setViewingCustomer(customer);
   };
 
   // TODO: wire to a real CSV/PDF export once available
@@ -203,6 +211,7 @@ export default function AdminCustomersPage() {
       ) : (
         <CustomerTable
           customers={pageItems}
+          onView={handleOpenView}
           onToggleVerification={handleToggleVerification}
         />
       )}
@@ -214,6 +223,12 @@ export default function AdminCustomersPage() {
         pageSize={PAGE_SIZE}
         onPageChange={setPage}
         itemLabel="customers"
+      />
+
+      <ViewCustomerModal
+        open={!!viewingCustomer}
+        customer={viewingCustomer}
+        onClose={() => setViewingCustomer(null)}
       />
     </AdminLayout>
   );

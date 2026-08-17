@@ -7,7 +7,7 @@ export default function UserTable({
   users,
   currentUid,
   currentRole,
-  onEdit,
+  onView,
   onToggleStatus,
   onDelete,
 }) {
@@ -45,7 +45,7 @@ export default function UserTable({
                   user={u}
                   isSelf={u.uid === currentUid}
                   canDelete={currentRole === "owner"}
-                  onEdit={onEdit}
+                  onView={onView}
                   onToggleStatus={onToggleStatus}
                   onDelete={onDelete}
                 />
