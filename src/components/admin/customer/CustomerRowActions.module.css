@@ -1,3 +1,32 @@
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Eye / View button — matches the amber-outlined icon button in the reference */
+.viewButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--color-bg-surface, #fff);
+  border: 1px solid var(--color-primary, #d8a036);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  color: var(--color-primary, #d8a036);
+}
+.viewButton:hover {
+  background: var(--color-primary-soft, #fbf1dc);
+}
+.viewButton svg {
+  width: 18px;
+  height: 18px;
+}
+
 .wrap {
   position: relative;
   display: inline-flex;
@@ -100,12 +129,17 @@
    ========================= */
 
 @media (max-width: 768px) {
+  .actions {
+    gap: 6px;
+  }
+
   .wrap {
     display: inline-flex;
     position: relative;
     z-index: 100;
   }
 
+  .viewButton,
   .trigger {
     width: 36px;
     height: 36px;

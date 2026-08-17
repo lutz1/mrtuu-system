@@ -1,0 +1,219 @@
+/* ViewCustomerModal.module.css */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 28, 24, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.dialog {
+  width: 100%;
+  max-width: 640px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--color-bg-surface, #fff);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  padding: 28px 32px 24px;
+  outline: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border-light, #ece9e3);
+}
+.title {
+  margin: 0;
+  font-size: var(--font-size-section-title, 20px);
+  font-weight: 700;
+  color: var(--color-text-primary, #1f1e1b);
+}
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--color-text-subtle, #7a7871);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 0;
+}
+.closeButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 0;
+}
+.avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 3px solid var(--color-primary, #d8a036);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-muted, #f3f3f2);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-text-secondary, #55534d);
+  flex-shrink: 0;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.name {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-primary, #1f1e1b);
+}
+.customerId {
+  margin: 0 0 8px;
+  font-size: var(--font-size-table-text, 14px);
+  color: var(--color-text-subtle, #7a7871);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.verified {
+  background: var(--color-success-bg, #e3f7e9);
+  color: var(--color-success, #2f9e52);
+}
+.unverified {
+  background: var(--color-warning-bg, #fdf3d0);
+  color: var(--color-warning, #b8860b);
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-border-light, #ece9e3);
+  margin: 0;
+}
+
+.section {
+  padding: 22px 0;
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.sectionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: var(--color-bg-muted, #f3f3f2);
+  color: var(--color-text-secondary, #55534d);
+}
+.sectionIcon svg {
+  width: 18px;
+  height: 18px;
+}
+.sectionTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary, #1f1e1b);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px 20px;
+}
+.gridThree {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px 20px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.detailLabel {
+  font-size: 13px;
+  color: var(--color-text-subtle, #7a7871);
+}
+.detailValue {
+  font-size: var(--font-size-table-text, 14px);
+  color: var(--color-text-primary, #1f1e1b);
+}
+.detailValueStrong {
+  font-size: var(--font-size-table-text, 14px);
+  font-weight: 700;
+  color: var(--color-text-primary, #1f1e1b);
+}
+.detailValueBig {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-primary, #1f1e1b);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-light, #ece9e3);
+}
+
+.closeAction {
+  padding: 12px 26px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-light, #ddd9d0);
+  background: var(--color-bg-surface, #fff);
+  color: var(--color-text-primary, #1f1e1b);
+  font-weight: 600;
+  font-size: var(--font-size-table-text, 14px);
+  cursor: pointer;
+}
+.closeAction:hover {
+  background: var(--color-bg-muted, #f3f3f2);
+}
+
+@media (max-width: 640px) {
+  .dialog {
+    padding: 22px 18px 18px;
+    max-height: 92vh;
+  }
+  .grid,
+  .gridThree {
+    grid-template-columns: 1fr 1fr;
+  }
+  .actions button {
+    width: 100%;
+  }
+}

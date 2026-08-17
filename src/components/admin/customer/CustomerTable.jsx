@@ -5,6 +5,7 @@ import styles from "./CustomerTable.module.css";
 
 export default function CustomerTable({
   customers,
+  onView,
   onToggleVerification,
 }) {
   if (customers.length === 0) {
@@ -73,6 +74,7 @@ export default function CustomerTable({
               <td className={styles.actionsCell}>
                 <CustomerRowActions
                   customer={c}
+                  onView={onView}
                   onToggleVerification={onToggleVerification}
                 />
               </td>

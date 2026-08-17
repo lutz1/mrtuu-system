@@ -11,7 +11,25 @@ function DotsIcon() {
   );
 }
 
-export default function CustomerRowActions({ customer, onToggleVerification }) {
+function EyeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M2.5 12S5.8 5.5 12 5.5 21.5 12 21.5 12 18.2 18.5 12 18.5 2.5 12 2.5 12Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+export default function CustomerRowActions({
+  customer,
+  onView,
+  onToggleVerification,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef(null);
 
@@ -36,38 +54,50 @@ export default function CustomerRowActions({ customer, onToggleVerification }) {
   const isVerified = customer.status === "Verified";
 
   return (
-    <div className={styles.wrap} ref={rootRef}>
+    <div className={styles.actions} ref={rootRef}>
       <button
         type="button"
-        className={styles.trigger}
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-label={`Actions for ${customer.name}`}
+        className={styles.viewButton}
+        onClick={() => onView?.(customer)}
+        aria-label={`View ${customer.name}`}
+        title="View"
       >
-        <DotsIcon />
+        <EyeIcon />
       </button>
 
-      {isOpen && (
-        <div className={styles.menu}>
-          {/* TODO: link to a real customer-profile view once it exists */}
-          <button type="button" className={styles.menuItem} onClick={() => setIsOpen(false)}>
-            View Profile
-          </button>
-          <button
-            type="button"
-            className={styles.menuItem}
-            onClick={() => {
-              onToggleVerification(customer.id);
-              setIsOpen(false);
-            }}
-          >
-            {isVerified ? "Mark as Unverified" : "Mark as Verified"}
-          </button>
-          {/* TODO: wire to a real deactivate/suspend flow once it exists */}
-          <button type="button" className={`${styles.menuItem} ${styles.menuItemDanger}`} onClick={() => setIsOpen(false)}>
-            Deactivate Customer
-          </button>
-        </div>
-      )}
+      <div className={styles.wrap}>
+        <button
+          type="button"
+          className={styles.trigger}
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label={`More actions for ${customer.name}`}
+        >
+          <DotsIcon />
+        </button>
+
+        {isOpen && (
+          <div className={styles.menu}>
+            <button
+              type="button"
+              className={styles.menuItem}
+              onClick={() => {
+                onToggleVerification(customer.id);
+                setIsOpen(false);
+              }}
+            >
+              {isVerified ? "Mark as Unverified" : "Mark as Verified"}
+            </button>
+            {/* TODO: wire to a real deactivate/suspend flow once it exists */}
+            <button
+              type="button"
+              className={`${styles.menuItem} ${styles.menuItemDanger}`}
+              onClick={() => setIsOpen(false)}
+            >
+              Deactivate Customer
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
