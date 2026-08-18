@@ -35,8 +35,8 @@ export default function PhotoSlot({ label, photo, onSelect, onRemove }) {
     galleryInputRef.current?.click();
   };
 
-  // These two hidden inputs live outside the `if (photo)` branch so they
-  // persist regardless of filled/empty state, and their refs stay stable.
+  // These hidden inputs are rendered as siblings (not nested inside a
+  // <button>), since <input> isn't valid content inside <button>.
   const hiddenInputs = (
     <>
       <input
@@ -59,16 +59,23 @@ export default function PhotoSlot({ label, photo, onSelect, onRemove }) {
 
   if (photo) {
     return (
-      <div className={styles.slotFilled}>
-        <img src={photo.previewUrl} alt={label} className={styles.image} />
-        <span className={styles.filledLabel}>{label}</span>
-        <button type="button" className={styles.removeBtn} onClick={onRemove} aria-label={`Remove ${label} photo`}>
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-          </svg>
-        </button>
+      <>
+        <div className={styles.slotFilled}>
+          <img src={photo.previewUrl} alt={label} className={styles.image} />
+          <span className={styles.filledLabel}>{label}</span>
+          <button
+            type="button"
+            className={styles.removeBtn}
+            onClick={onRemove}
+            aria-label={`Remove ${label} photo`}
+          >
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
         {hiddenInputs}
-      </div>
+      </>
     );
   }
 
@@ -78,8 +85,8 @@ export default function PhotoSlot({ label, photo, onSelect, onRemove }) {
         <CameraIcon />
         <span className={styles.slotTitle}>{label}</span>
         <span className={styles.slotHint}>Click to take photo</span>
-        {hiddenInputs}
       </button>
+      {hiddenInputs}
 
       <PhotoSourceSheet
         isOpen={isSheetOpen}
