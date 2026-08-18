@@ -14,7 +14,7 @@ import {
 import { db } from "../lib/firebase";
 import { useStaff } from "./StaffContext";
 
-const DEFAULT_PERMISSIONS = {
+export const DEFAULT_PERMISSIONS = {
   owner: [
     "manage_fleet",
     "dispatch",
@@ -22,7 +22,7 @@ const DEFAULT_PERMISSIONS = {
     "view_reports",
     "manage_staff",
   ],
-  staff: ["manage_fleet", "view_reports"],
+  staff: ["manage_fleet", "view_reports", "clearance_review"],
   dispatcher: ["dispatch"],
   checklist_admin: ["clearance_review"],
 };
@@ -31,7 +31,9 @@ const DEFAULT_PERMISSIONS = {
 async function updateStaff(uid, { role, permissions }) {
   await updateDoc(doc(db, "lykas_staff", uid), {
     role,
-    permissions: permissions ?? DEFAULT_PERMISSIONS[role] ?? [],
+    permissions: Array.isArray(permissions)
+      ? permissions
+      : DEFAULT_PERMISSIONS[role] ?? [],
     updatedAt: serverTimestamp(),
   });
 }
@@ -72,6 +74,11 @@ export function useStaffDirectory() {
   }, []);
 
   // Stays in the hook — needs staffProfile.uid for createdBy.
+  // `permissions`, if passed, must already be an array of permission
+  // strings (e.g. ["manage_fleet", "view_reports"]). Anything else
+  // (undefined, an object, a string) falls back to the role default.
+  // Only fields that belong on the lykas_staff schema are ever written
+  // here — no incidental form fields like phone/username/password.
   const addStaffByEmail = async (email, role, permissions) => {
     const normalizedEmail = email.trim().toLowerCase();
     const lookupSnap = await getDoc(doc(db, "user_lookup", normalizedEmail));
@@ -86,12 +93,16 @@ export function useStaffDirectory() {
     const userSnap = await getDoc(doc(db, "users", uid));
     const userData = userSnap.exists() ? userSnap.data() : {};
 
+    const resolvedPermissions = Array.isArray(permissions)
+      ? permissions
+      : DEFAULT_PERMISSIONS[role] ?? [];
+
     await setDoc(doc(db, "lykas_staff", uid), {
       uid,
       displayName: userData.displayName || null,
       email: normalizedEmail,
       role,
-      permissions: permissions ?? DEFAULT_PERMISSIONS[role] ?? [],
+      permissions: resolvedPermissions,
       active: true,
       createdAt: serverTimestamp(),
       createdBy: staffProfile?.uid ?? null,

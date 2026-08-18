@@ -143,11 +143,16 @@ export default function AdminUsersPage() {
     setIsAddPageOpen(true);
   };
 
-  const handleAddSubmit = async ({ email, role, ...profile }) => {
-    // addStaffByEmail(email, role, permissions) — the extra profile fields
-    // (fullName, phone, username, password) are passed through as the third
-    // argument; adjust this call to match what addStaffByEmail actually expects.
-    await addStaffByEmail(email, role, profile);
+  // AddUserPage collects fullName/phone/username/password for the account
+  // creation flow, but the lykas_staff schema only stores uid, displayName,
+  // email, role, permissions, active, createdAt/By, updatedAt. Only email
+  // and role are relevant here — permissions falls back to the role's
+  // default set inside addStaffByEmail. Do NOT forward the rest of the
+  // form fields as "permissions" — that was the bug that corrupted staff
+  // docs with fields like fullName/phone/username/password instead of a
+  // permissions array.
+  const handleAddSubmit = async ({ email, role }) => {
+    await addStaffByEmail(email, role);
     setIsAddPageOpen(false);
   };
 

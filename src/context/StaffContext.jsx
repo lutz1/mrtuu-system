@@ -44,7 +44,8 @@ export function StaffProvider({ children }) {
 
   const value = useMemo(() => {
     const hasPermission = (permission) =>
-      !!staffProfile?.permissions?.includes(permission);
+      Array.isArray(staffProfile?.permissions) &&
+      staffProfile.permissions.includes(permission);
     return { staffProfile, staffLoading, hasPermission };
   }, [staffProfile, staffLoading]);
 
