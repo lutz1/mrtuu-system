@@ -1,16 +1,9 @@
+/* ==========================================================================
+   LOGIN PAGE
+   ========================================================================== */
 
 .page {
-  --cream: var(--color-ref-fdf8ec);
-  --dark: var(--color-ref-1c1b19);
-  --gold: var(--color-accent-alt);
-  --gold-dark: var(--color-accent-alt-hover);
-  --text-dark: var(--color-text-primary);
-  --text-muted: var(--color-ref-8a8a8a);
-  --border: var(--color-ref-e2e2e2);
-  --link-blue: var(--color-ref-3f6fd1);
-  --input-bg: var(--color-ref-f0f0f0);
-
-  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-family-base);
   min-height: 100vh;
   height: 100vh;
   overflow: hidden;
@@ -23,11 +16,20 @@
   box-sizing: border-box;
 }
 
+
+/* ==========================================================================
+   TEXT
+   ========================================================================== */
+
 .gold {
-  color: var(--gold);
+  color: var(--color-accent-alt);
 }
 
-/* ===== Left panel ===== */
+
+/* ==========================================================================
+   LEFT PANEL
+   ========================================================================== */
+
 .leftPanel {
   position: relative;
   overflow: hidden;
@@ -50,7 +52,12 @@
 .leftOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.15) 40%, rgba(0, 0, 0, 0.35) 100%);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
   z-index: 0;
 }
 
@@ -71,7 +78,7 @@
 }
 
 .brandLabel {
-  color: var(--color-bg-surface);
+  color: var(--color-text-on-dark);
   font-weight: 700;
   font-size: var(--font-size-section-title);
   margin: 0 0 8px;
@@ -87,27 +94,36 @@
 }
 
 .headlineGold {
-  background: linear-gradient(90deg, var(--color-ref-f7d488), var(--gold));
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-light),
+    var(--color-gold)
+  );
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
 .headlineCream {
-  color: var(--cream);
+  color: var(--color-cream);
 }
 
 .legalText {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--color-text-on-dark-muted);
   font-size: var(--font-size-caption);
   line-height: 1.6;
   max-width: 560px;
   margin: 0;
 }
 
-/* ===== Right panel ===== */
+
+/* ==========================================================================
+   RIGHT PANEL
+   ========================================================================== */
+
 .rightPanel {
-  background: var(--color-ref-fbfbfb);
+  background: var(--color-bg-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,9 +142,14 @@
 .formTitle {
   font-size: var(--font-size-page-title);
   font-weight: 700;
-  color: var(--text-dark);
+  color: var(--color-text-primary);
   margin: 0 0 4px;
 }
+
+
+/* ==========================================================================
+   INPUT
+   ========================================================================== */
 
 .inputWrapper {
   display: flex;
@@ -137,13 +158,12 @@
   border: none;
   border-radius: 26px;
   padding: 13px 22px;
-  background: var(--input-bg);
+  background: var(--color-input-bg);
 }
 
 .inputWrapper:focus-within {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--color-accent-alt);
 }
-
 
 .toggleBtn {
   background: transparent;
@@ -155,9 +175,8 @@
   flex-shrink: 0;
 }
 
-
 .toggleBtn:hover .toggleIcon {
-  color: var(--text-dark);
+  color: var(--color-text-primary);
 }
 
 .input {
@@ -166,17 +185,26 @@
   font-size: var(--font-size-navigation);
   font-family: inherit;
   width: 100%;
-  color: var(--text-dark);
+  color: var(--color-text-primary);
   background: transparent;
 }
 
 .input::placeholder {
-  color: var(--text-muted);
+  color: var(--color-text-muted);
 }
 
+
+/* ==========================================================================
+   LOGIN BUTTON
+   ========================================================================== */
+
 .loginBtn {
-  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
-  color: var(--text-dark);
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-alt),
+    var(--color-accent-alt-hover)
+  );
+  color: var(--color-text-primary);
   border: none;
   padding: 15px;
   border-radius: 26px;
@@ -204,11 +232,16 @@
   opacity: 0.7;
 }
 
+
+/* ==========================================================================
+   LOADING SPINNER
+   ========================================================================== */
+
 .spinner {
   width: 16px;
   height: 16px;
   border: 2px solid rgba(0, 0, 0, 0.25);
-  border-top-color: var(--text-dark);
+  border-top-color: var(--color-text-primary);
   border-radius: 50%;
   display: inline-block;
   animation: spin 0.7s linear infinite;
@@ -220,6 +253,11 @@
   }
 }
 
+
+/* ==========================================================================
+   DIVIDER
+   ========================================================================== */
+
 .divider {
   display: flex;
   align-items: center;
@@ -229,19 +267,24 @@
 .dividerLine {
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: var(--color-border);
 }
 
 .dividerText {
   font-size: var(--font-size-caption);
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   font-weight: 600;
 }
 
+
+/* ==========================================================================
+   GOOGLE BUTTON
+   ========================================================================== */
+
 .googleBtn {
   background: var(--color-bg-surface);
-  color: var(--text-dark);
-  border: 1px solid var(--border);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
   padding: 13px;
   border-radius: 26px;
   font-weight: 700;
@@ -258,16 +301,20 @@
 }
 
 
+/* ==========================================================================
+   TERMS
+   ========================================================================== */
+
 .terms {
   text-align: center;
   font-size: var(--font-size-caption);
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   line-height: 1.6;
   margin: 2px 0 0;
 }
 
 .terms a {
-  color: var(--link-blue);
+  color: var(--color-link);
   text-decoration: none;
   font-weight: 600;
 }
@@ -277,15 +324,19 @@
 }
 
 
+/* ==========================================================================
+   SIGN UP
+   ========================================================================== */
+
 .signupPrompt {
   text-align: center;
   font-size: var(--font-size-table-text);
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .signupPrompt a {
-  color: var(--gold);
+  color: var(--color-accent-alt);
   font-weight: 700;
   text-decoration: none;
 }
@@ -294,10 +345,15 @@
   text-decoration: underline;
 }
 
+
+/* ==========================================================================
+   ERROR
+   ========================================================================== */
+
 .errorText {
-  background: var(--color-ref-fdecea);
-  color: var(--color-ref-b3261e);
-  border: 1px solid var(--color-ref-f5c2bd);
+  background: var(--color-bg-danger-soft);
+  color: var(--color-danger-text);
+  border: 1px solid var(--color-danger-border);
   border-radius: 8px;
   padding: 10px 14px;
   font-size: var(--font-size-supporting);
@@ -305,7 +361,11 @@
   margin: 0;
 }
 
-/* ===== Responsive: tablets / stacked layout ===== */
+
+/* ==========================================================================
+   RESPONSIVE: TABLETS / STACKED LAYOUT
+   ========================================================================== */
+
 @media (max-width: 900px) {
   .page {
     grid-template-columns: 1fr;
@@ -332,7 +392,11 @@
   }
 }
 
-/* ===== Responsive: phones ===== */
+
+/* ==========================================================================
+   RESPONSIVE: PHONES
+   ========================================================================== */
+
 @media (max-width: 480px) {
   .leftPanel {
     min-height: 320px;
