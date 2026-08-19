@@ -76,13 +76,27 @@ function joinBooking(booking, vehiclesById) {
 
 export function AdminBookingsProvider({ children }) {
   const { user } = useAuth();
-  const { staffProfile } = useStaff();
+  const { staffProfile, staffLoading } = useStaff();
 
   const [rawBookings, setRawBookings] = useState([]);
   const [vehiclesById, setVehiclesById] = useState(new Map());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // lykas_bookings reads require staff permissions in firestore.rules
+    // (own uid OR isStaffWithAny([...])) — and a collection-wide list
+    // query like this one can't be scoped to "own uid" per-doc, so it's
+    // denied outright for non-staff. This provider is mounted globally in
+    // App.jsx, so a plain customer would otherwise fire this query on
+    // every page and get "Missing or insufficient permissions". Only
+    // subscribe once we know the signed-in user is active staff.
+    if (staffLoading) return;
+    if (!staffProfile) {
+      setRawBookings([]);
+      setLoading(false);
+      return;
+    }
+
     const q = query(
       collection(db, "lykas_bookings"),
       orderBy("createdAt", "desc")
@@ -99,9 +113,11 @@ export function AdminBookingsProvider({ children }) {
       }
     );
     return unsubscribe;
-  }, []);
+  }, [staffProfile, staffLoading]);
 
   useEffect(() => {
+    // lykas_vehicles is public-read, so this one is safe to run for
+    // everyone — kept unguarded on purpose.
     const unsubscribe = onSnapshot(
       collection(db, "lykas_vehicles"),
       (snapshot) => {

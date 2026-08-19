@@ -15,6 +15,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../lib/firebase";
+import { useStaff } from "./StaffContext";
 
 const CustomersContext = createContext(null);
 
@@ -54,10 +55,24 @@ function toCustomer(docSnap) {
 }
 
 export function CustomersProvider({ children }) {
+  const { staffProfile, staffLoading } = useStaff();
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // lykas_customers reads are staff-gated in firestore.rules (see
+    // firestore.rules: allow read if own uid OR isStaffWithAny([...])).
+    // This provider is mounted globally in App.jsx, so a plain customer
+    // would otherwise fire this collection-wide query and get
+    // "Missing or insufficient permissions" on every page load. Only
+    // subscribe once we know the signed-in user is active staff.
+    if (staffLoading) return;
+    if (!staffProfile) {
+      setCustomers([]);
+      setLoading(false);
+      return;
+    }
+
     const q = query(
       collection(db, "lykas_customers"),
       orderBy("createdAt", "desc")
@@ -74,7 +89,7 @@ export function CustomersProvider({ children }) {
       }
     );
     return unsubscribe;
-  }, []);
+  }, [staffProfile, staffLoading]);
 
   const toggleVerification = useCallback(
     async (uid) => {
