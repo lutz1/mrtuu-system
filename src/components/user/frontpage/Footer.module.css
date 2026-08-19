@@ -1,11 +1,11 @@
 .footer {
-  --dark: var(--color-ref-1c1b19);
+  --dark: var(--color-brand-dark);
   --gold: var(--color-accent-alt);
-  --text-on-dark-muted: var(--color-ref-b9b6b0);
+  --text-on-dark-muted: rgba(255, 255, 255, 0.65);
 
   background: var(--dark);
   padding: 64px 32px 24px;
-  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-family-base);
 }
 
 .footerInner {
@@ -40,7 +40,7 @@
 .logoTextLight {
   font-weight: 700;
   font-size: var(--font-size-section-title);
-  color: var(--color-bg-surface);
+  color: #ffffff;
 }
 
 .footerTagline {
@@ -80,6 +80,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.footerColumn a:hover {
+  color: #ffffff;
 }
 
 .footerChevron {
@@ -115,7 +120,6 @@
     max-width: none;
   }
 
-  /* Stay 3-across instead of stacking — just tighten everything to fit */
   .footerColumns {
     gap: 12px;
   }

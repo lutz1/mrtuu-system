@@ -10,6 +10,7 @@
 
 .sectionTitleLight {
   color: var(--white);
+  color: var(--color-on-dark-light);
   text-align: center;
   font-size: var(--font-size-page-title);
   font-weight: 700;

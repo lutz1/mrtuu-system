@@ -1,17 +1,17 @@
 .howItWorksWrapper {
-  --cream: var(--color-ref-fdf8ec);
-  --dark: var(--color-ref-1c1b19);
   --gold: var(--color-accent-alt);
+  --dark: var(--color-brand-dark);
   --white: var(--color-bg-surface);
-  --text-on-dark-muted: var(--color-ref-b9b6b0);
+  --text-on-dark-muted: rgba(255, 255, 255, 0.65);
 
-  background: var(--cream);
+  background: var(--color-cream);
   padding: 0 32px 80px;
-  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-family-base);
 }
 
 .sectionTitleLight {
   color: var(--white);
+  color: var(--color-on-dark-light);
   text-align: center;
   font-size: var(--font-size-page-title);
   font-weight: 700;
@@ -54,6 +54,7 @@
 .stepTitle {
   color: var(--white);
   font-size: var(--font-size-card-title);
+  color: var(--color-on-dark-light);
   font-weight: 700;
   margin: 0 0 6px;
 }
@@ -72,16 +73,18 @@
 }
 
 @media (max-width: 640px) {
+  .howItWorksWrapper {
+    padding: 0 16px 64px;
+  }
+
   .howItWorks {
     padding: 40px 24px;
   }
 }
 
 /* ============================================================
-   Themed variant — applied only when the user is logged in.
-   Only the outer page-level cream changes; the inner .howItWorks
-   panel is already a fixed-dark design chip (like the CTA banner
-   and Payment & Security card) and stays exactly as-is either way.
+   Themed variant — outer background follows current theme.
+   Inner panel intentionally stays dark.
    ============================================================ */
 
 .howItWorksWrapperThemed {

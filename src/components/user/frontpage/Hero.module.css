@@ -1,7 +1,7 @@
 .hero {
   --gold: var(--color-accent-alt);
   --gold-dark: var(--color-accent-alt-hover);
-  --text-dark: var(--color-text-primary);
+  --text-dark: var(--color-text-strong);
   --white: var(--color-bg-surface);
 
   position: relative;
@@ -9,27 +9,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  overflow: hidden; /* keeps the oversized image layer from spilling outside the hero */
+  font-family: var(--font-family-base);
+  overflow: hidden;
   padding-top: 160px;
 }
 
-/* Separate background layer, intentionally larger than the container
-   so scaling it down reveals more of the original photo — a "zoom out" */
 .heroImage {
   position: absolute;
-  inset: -8%; /* makes this layer 8% bigger than the hero on every side */
+  inset: -8%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transform: scale(0.92); /* scales it back down, revealing more of the photo */
+  transform: scale(0.92);
   transform-origin: center;
 }
 
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.35));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.35)
+  );
 }
 
 .heroContent {
@@ -119,7 +121,7 @@
 }
 
 .secondaryBtn:hover {
-  background: var(--color-ref-f0f0f0);
+  background: var(--color-bg-hover);
 }
 
 @media (max-width: 640px) {
