@@ -8,6 +8,9 @@ import BookingsVolumeChart from "../../../components/admin/salesReports/Bookings
 import RevenueByVehicleTable from "../../../components/admin/salesReports/RevenueByVehicleTable";
 import BookingStatusDonut from "../../../components/admin/salesReports/BookingStatusDonut";
 import RecentReportsCard from "../../../components/admin/salesReports/RecentReportsCard";
+import SalesReportTab from "../../../components/admin/salesReports/SalesReportTab";
+import BookingsReportTab from "../../../components/admin/salesReports/BookingsReportTab";
+import VehicleReportTab from "../../../components/admin/salesReports/VehicleReportTab";
 import {
   useSalesReportsData,
   PERIOD_OPTIONS,
@@ -168,6 +171,79 @@ export default function AdminSalesReportsPage() {
     window.open(report.downloadUrl, "_blank", "noopener,noreferrer");
   };
 
+  const renderTabContent = () => {
+    if (activeTab === "Overview") {
+      if (loading) {
+        return (
+          <div className={styles.placeholder}>
+            <p className={styles.placeholderTitle}>Loading reports…</p>
+          </div>
+        );
+      }
+      return (
+        <>
+          <div className={styles.statsGrid}>
+            {overviewStats.map((stat) => (
+              <ReportStatCard
+                key={stat.key}
+                icon={STAT_ICONS[stat.key]}
+                label={stat.label}
+                value={stat.value}
+                change={stat.change}
+                direction={stat.direction}
+                comparisonLabel={comparisonLabel}
+              />
+            ))}
+          </div>
+
+          <div className={styles.chartsGrid}>
+            <RevenueTrendChart />
+            <BookingsVolumeChart />
+          </div>
+
+          <div className={styles.bottomGrid}>
+            <RevenueByVehicleTable rows={revenueByVehicle} />
+            <BookingStatusDonut
+              data={bookingStatusBreakdown}
+              total={totalBookings}
+            />
+            <RecentReportsCard
+              reports={reportsLoading ? [] : recentReports}
+              onDownload={handleDownloadReport}
+            />
+          </div>
+        </>
+      );
+    }
+
+    // NOTE: these three tabs currently render mock/static data for fast UI
+    // iteration. Swap in real hooks (e.g. useSalesReportData(period), etc.)
+    // once the backend endpoints are ready.
+    if (activeTab === "Sales Report") {
+      return <SalesReportTab />;
+    }
+
+    if (activeTab === "Bookings Report") {
+      return <BookingsReportTab />;
+    }
+
+    if (activeTab === "Vehicle Report") {
+      return <VehicleReportTab />;
+    }
+
+    return (
+      <div className={styles.placeholder}>
+        <p className={styles.placeholderTitle}>
+          {activeTab} is not built yet
+        </p>
+        <p className={styles.placeholderText}>
+          This tab will show a dedicated {activeTab.toLowerCase()} once it's
+          designed.
+        </p>
+      </div>
+    );
+  };
+
   return (
     <AdminLayout>
       <div className={styles.pageHeading}>
@@ -186,56 +262,7 @@ export default function AdminSalesReportsPage() {
         />
       </div>
 
-      {activeTab === "Overview" ? (
-        loading ? (
-          <div className={styles.placeholder}>
-            <p className={styles.placeholderTitle}>Loading reports…</p>
-          </div>
-        ) : (
-          <>
-            <div className={styles.statsGrid}>
-              {overviewStats.map((stat) => (
-                <ReportStatCard
-                  key={stat.key}
-                  icon={STAT_ICONS[stat.key]}
-                  label={stat.label}
-                  value={stat.value}
-                  change={stat.change}
-                  direction={stat.direction}
-                  comparisonLabel={comparisonLabel}
-                />
-              ))}
-            </div>
-
-            <div className={styles.chartsGrid}>
-              <RevenueTrendChart />
-              <BookingsVolumeChart />
-            </div>
-
-            <div className={styles.bottomGrid}>
-              <RevenueByVehicleTable rows={revenueByVehicle} />
-              <BookingStatusDonut
-                data={bookingStatusBreakdown}
-                total={totalBookings}
-              />
-              <RecentReportsCard
-                reports={reportsLoading ? [] : recentReports}
-                onDownload={handleDownloadReport}
-              />
-            </div>
-          </>
-        )
-      ) : (
-        <div className={styles.placeholder}>
-          <p className={styles.placeholderTitle}>
-            {activeTab} is not built yet
-          </p>
-          <p className={styles.placeholderText}>
-            This tab will show a dedicated {activeTab.toLowerCase()} once it's
-            designed.
-          </p>
-        </div>
-      )}
+      {renderTabContent()}
     </AdminLayout>
   );
 }

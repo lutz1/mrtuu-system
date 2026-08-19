@@ -1,0 +1,25 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: var(--font-size-status, 12px);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.success {
+  background: #e4f7ec;
+  color: var(--color-success, #22a35e);
+}
+
+.neutral {
+  background: var(--color-bg-muted, #f0f1f3);
+  color: var(--color-text-muted, #6b7280);
+}
+
+.muted {
+  background: var(--color-border-light, #f3f4f6);
+  color: var(--color-text-light, #9ca3af);
+}

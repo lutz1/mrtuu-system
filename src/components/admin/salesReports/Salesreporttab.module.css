@@ -1,0 +1,179 @@
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+}
+
+.cardHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.cardTitle {
+  font-size: var(--font-size-section-title);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-width: 280px;
+}
+
+.searchBox svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-light);
+  flex-shrink: 0;
+}
+
+.searchBox input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--font-size-input);
+  color: var(--color-text-primary);
+  width: 100%;
+}
+
+.filterBtn {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: var(--font-size-button);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  background: var(--color-bg-hover);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead tr {
+  background: var(--color-bg-muted);
+}
+
+.table th {
+  text-align: left;
+  font-size: var(--font-size-table-header);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 12px 14px;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 14px;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border-soft);
+  white-space: nowrap;
+}
+
+.vehicleCell {
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicleName {
+  font-weight: 600;
+}
+
+.vehiclePlate {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-light);
+}
+
+.emptyRow {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: 32px 14px !important;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+}
+
+.actionBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.actionBtn:hover {
+  background: var(--color-accent);
+  color: var(--color-text-on-dark);
+}
+
+.footerNote {
+  margin-top: 16px;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-light);
+}
+
+@media (max-width: 1300px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  .searchBox {
+    min-width: 0;
+  }
+  .cardHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .searchRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
