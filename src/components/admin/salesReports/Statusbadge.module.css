@@ -10,7 +10,7 @@
 }
 
 .success {
-  background: #e4f7ec;
+  background: var(--color-success-soft-bg, #dcfce7);
   color: var(--color-success, #22a35e);
 }
 

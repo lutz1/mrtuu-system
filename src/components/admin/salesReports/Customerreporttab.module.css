@@ -1,0 +1,242 @@
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: var(--color-bg-surface);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card, 0 2px 12px rgba(0, 0, 0, 0.05));
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  flex: 1 1 280px;
+  min-width: 220px;
+}
+
+.searchBox svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-light);
+  flex-shrink: 0;
+}
+
+.searchBox input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--font-size-input);
+  color: var(--color-text-primary);
+  width: 100%;
+}
+
+.select {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: var(--font-size-input);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  min-width: 170px;
+}
+
+.filterBtn {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: var(--font-size-button);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.filterBtn:hover {
+  background: var(--color-bg-hover);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead tr {
+  background: var(--color-bg-muted);
+}
+
+.table th {
+  text-align: left;
+  font-size: var(--font-size-table-header);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 12px 14px;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 14px;
+  font-size: var(--font-size-table-text);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border-soft);
+  white-space: nowrap;
+}
+
+.idCell {
+  font-weight: 700;
+}
+
+.nameCell {
+  font-weight: 600;
+}
+
+.emptyRow {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: 32px 14px !important;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+}
+
+.actionBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.actionBtn:hover {
+  background: var(--color-accent);
+  color: var(--color-text-on-dark, #fff);
+}
+
+.widgetTitle {
+  font-size: var(--font-size-card-title);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 16px;
+}
+
+.donutRow {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.donutSvg {
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+}
+
+.donutTotal {
+  font-size: 18px;
+  font-weight: 700;
+  fill: var(--color-text-primary);
+  transform: rotate(90deg);
+  transform-origin: 50px 55px;
+}
+
+.statusBlocks {
+  display: flex;
+  flex: 1;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.statusBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statusLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-supporting);
+  color: var(--color-text-muted);
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusValue {
+  font-size: var(--font-size-kpi);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.statusPercent {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-light);
+}
+
+@media (max-width: 1300px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  .filtersRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .select {
+    width: 100%;
+  }
+  .donutRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .statusBlocks {
+    gap: 20px;
+  }
+}

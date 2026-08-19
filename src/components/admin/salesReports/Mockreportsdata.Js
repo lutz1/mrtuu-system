@@ -138,3 +138,69 @@ export const TOP_VEHICLES_BY_REVENUE = [
 export const VEHICLE_TOTAL_REVENUE = "₱191,300";
 
 export const PAGE_SIZE = 5;
+
+// ---------------------------------------------------------------------------
+// Customer Report
+// ---------------------------------------------------------------------------
+
+const CUSTOMER_TYPES = ["Regular", "Regular", "Regular", "Regular", "New"];
+
+export const CUSTOMER_REPORT_ROWS = Array.from({ length: 18 }, (_, i) => {
+  const name = CUSTOMERS[i % CUSTOMERS.length];
+  const contactSuffix = String(1000 + i * 37).slice(-4);
+  return {
+    id: `CUS-${String(i + 1).padStart(3, "0")}`,
+    customerId: `CUS-${String(i + 1).padStart(3, "0")}`,
+    customer: name,
+    contact: `09${45 + (i % 9)}${" "}${567 + i} ${contactSuffix}`,
+    email: i === 0 ? "juandelacruz@gmail.com" : "@gmail.com",
+    totalBookings: 8 - Math.floor(i / 3),
+    lastBooking: "January 10, 2067",
+    customerType: CUSTOMER_TYPES[i % CUSTOMER_TYPES.length],
+  };
+});
+
+export const CUSTOMER_REPORT_STATS = [
+  { key: "totalCustomers", label: "Total Customers", value: "86" },
+  { key: "newCustomers", label: "New Customers", value: "12" },
+  { key: "repeatCustomers", label: "Repeat Customers", value: "74" },
+];
+
+export const CUSTOMER_BOOKING_STATUS = [
+  { label: "Completed", value: 24, percent: "57.1%", color: "#6C8CF5" },
+  { label: "Active", value: 18, percent: "42.9%", color: "#33C481" },
+  { label: "Cancelled", value: 2, percent: "4.8%", color: "#F2A93B" },
+];
+
+export const CUSTOMER_BOOKING_TOTAL = 154;
+
+// ---------------------------------------------------------------------------
+// Payment Report
+// ---------------------------------------------------------------------------
+
+const PAYMENT_DESCRIPTIONS = ["50% Online Payment (Deposit)", "50% Front Desk Payment"];
+const PAYMENT_METHODS = ["Online", "Front Desk"];
+const PAYMENT_STATUSES = ["Paid", "Paid", "Paid", "Paid", "Paid", "Paid", "Pending", "Pending"];
+
+export const PAYMENT_REPORT_ROWS = Array.from({ length: 22 }, (_, i) => {
+  const vehicle = VEHICLES[i % VEHICLES.length];
+  const isOnline = i % 2 === 0;
+  return {
+    id: `PMT-${1000 + i}`,
+    date: buildDate(Math.floor(i / 2)),
+    bookingId: `#BK-${1024 + Math.floor(i / 2)}`,
+    customer: CUSTOMERS[Math.floor(i / 2) % CUSTOMERS.length],
+    description: isOnline ? PAYMENT_DESCRIPTIONS[0] : PAYMENT_DESCRIPTIONS[1],
+    method: isOnline ? PAYMENT_METHODS[0] : PAYMENT_METHODS[1],
+    amount: 3500,
+    status: PAYMENT_STATUSES[i % PAYMENT_STATUSES.length],
+    reference: "OR-2026-0812-0001",
+  };
+});
+
+export const PAYMENT_REPORT_STATS = [
+  { key: "totalCollected", label: "Total Payments Collected", value: "₱148,600", change: "20.0%", direction: "up" },
+  { key: "onlinePayments", label: "Online Payments", value: "₱74,300", change: "12.5%", direction: "up" },
+  { key: "frontDeskPayments", label: "Front Desk Payments", value: "₱74,300", change: "8.2%", direction: "up" },
+  { key: "pendingPayments", label: "Pending Payments", value: "₱12,450", change: "5.6%", direction: "down" },
+];

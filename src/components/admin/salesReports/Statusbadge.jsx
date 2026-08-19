@@ -5,8 +5,10 @@ import styles from "./StatusBadge.module.css";
 const VARIANTS = {
   Active: styles.success,
   Rented: styles.success,
+  Paid: styles.success,
   Available: styles.neutral,
   Completed: styles.neutral,
+  Pending: styles.neutral,
   Cancelled: styles.muted,
   Maintenance: styles.muted,
 };
