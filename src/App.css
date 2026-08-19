@@ -58,6 +58,12 @@
   --color-danger-border: #f5c2bd;
   --color-success: #22a35e;
 
+  /* Colors */
+  --color-dark: #1c1b19;
+  --color-dark-soft: #2c2a27;
+  --color-dark-hover: #3a3733;
+  --color-dark-muted: #b9b6b0;
+
   /* ------------------------------------------------------------------------
      Typography
      Desktop: 1920px / 1440px

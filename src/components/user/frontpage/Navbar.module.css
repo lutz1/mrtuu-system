@@ -1,7 +1,7 @@
 .navbar {
-  background: var(--color-ref-fdf8ec);
+  background: var(--color-cream);
   padding: 18px 0;
-  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-family-base);
 }
 
 .userAvatarImage {
@@ -16,13 +16,15 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 32px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Logo */
+
+/* ==========================================================================
+   LOGO
+   ========================================================================== */
 
 .logo {
   display: flex;
@@ -47,7 +49,10 @@
   white-space: nowrap;
 }
 
-/* Right Section */
+
+/* ==========================================================================
+   RIGHT SECTION
+   ========================================================================== */
 
 .rightSection {
   display: flex;
@@ -55,7 +60,10 @@
   gap: 40px;
 }
 
-/* Navigation */
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
 
 .navLinks {
   display: flex;
@@ -75,7 +83,10 @@
   color: var(--color-accent-alt-hover);
 }
 
-/* Login Button */
+
+/* ==========================================================================
+   LOGIN BUTTON
+   ========================================================================== */
 
 .loginBtn {
   background: var(--color-accent-alt);
@@ -93,7 +104,10 @@
   background: var(--color-accent-alt-hover);
 }
 
-/* User */
+
+/* ==========================================================================
+   USER
+   ========================================================================== */
 
 .userMenu {
   display: flex;
@@ -109,10 +123,9 @@
   height: 44px;
   border-radius: 50%;
   background: var(--color-accent-alt);
-  color: white;
+  color: var(--color-text-on-dark);
   font-weight: 700;
   font-size: var(--font-size-section-title);
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,13 +138,11 @@
   white-space: nowrap;
 }
 
-/* ============================================================
-   Themed variant — applied only when the user is logged in
-   (isLoggedIn from AuthContext). Logged-out visitors always see
-   the fixed cream navbar above, regardless of stored theme
-   preference. Only properties that actually differ between
-   light/dark tokens are overridden here.
-   ============================================================ */
+
+/* ==========================================================================
+   THEMED VARIANT
+   Applied only when the user is logged in.
+   ========================================================================== */
 
 .navbarThemed {
   background: var(--color-bg-surface);
@@ -146,12 +157,14 @@
 }
 
 .navbarThemed .navLinks a:hover {
-  color: var(--color-accent-dark);
+  color: var(--color-accent-alt-hover);
 }
 
-/* Responsive */
 
-/* Tablet / larger phones — shrink logo, keep everything visible */
+/* ==========================================================================
+   RESPONSIVE — TABLET / LARGER PHONES
+   ========================================================================== */
+
 @media (max-width: 640px) {
   .navInner {
     padding: 0 16px;
@@ -199,7 +212,11 @@
   }
 }
 
-/* Small phones — logo mark only, drop the username to keep one row */
+
+/* ==========================================================================
+   RESPONSIVE — SMALL PHONES
+   ========================================================================== */
+
 @media (max-width: 480px) {
   .logoText {
     display: none;

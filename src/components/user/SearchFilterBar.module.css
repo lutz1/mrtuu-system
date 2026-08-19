@@ -1,13 +1,9 @@
-.searchBar {
-  --dark: var(--color-ref-1c1b19);
-  --dark-soft: var(--color-ref-2c2a27);
-  --gold: var(--color-accent-alt);
-  --gold-dark: var(--color-accent-alt-hover);
-  --text-dark: var(--color-text-primary);
-  --white: var(--color-bg-surface);
-  --text-on-dark-muted: var(--color-ref-b9b6b0);
+/* ==========================================================================
+   SEARCH BAR
+   ========================================================================== */
 
-  background: var(--dark);
+.searchBar {
+  background: var(--color-text-on-dark, #1c1b19);
   padding: 16px 20px;
   border-radius: 16px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
@@ -16,7 +12,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 20px;
-  font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+
+  font-family: var(--font-family-base);
 
   position: relative;
   z-index: 10;
@@ -29,14 +26,17 @@
   margin-bottom: 0;
 }
 
-/* Search Input */
+
+/* ==========================================================================
+   SEARCH INPUT
+   ========================================================================== */
 
 .searchInput {
-  background: var(--dark-soft);
+  background: var(--color-text-strong);
   border: none;
   border-radius: 999px;
   padding: 12px 20px;
-  color: var(--white);
+  color: var(--color-bg-surface);
   font-size: var(--font-size-table-text);
   font-family: inherit;
   outline: none;
@@ -45,10 +45,13 @@
 }
 
 .searchInput::placeholder {
-  color: var(--text-on-dark-muted);
+  color: var(--color-text-light);
 }
 
-/* Filters (shared field styling — used both inline and inside the mobile panel) */
+
+/* ==========================================================================
+   FILTERS
+   ========================================================================== */
 
 .filters {
   display: flex;
@@ -58,7 +61,7 @@
 }
 
 .filtersDesktop {
-  display: contents; /* on desktop, behaves as if .filters' children were direct children of .searchBar */
+  display: contents;
 }
 
 .filterItem {
@@ -68,14 +71,14 @@
 }
 
 .filterLabel {
-  color: var(--color-bg-surface);
+  color: var(--color-text-primary);
   font-weight: 600;
   font-size: var(--font-size-table-text);
   white-space: nowrap;
 }
 
 .filterSelect {
-  background: var(--dark-soft);
+  background: var(--color-text-strong);
   color: var(--color-bg-surface);
   border: none;
   border-radius: 999px;
@@ -85,56 +88,17 @@
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
+
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1L5 5L9 1' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
   background-repeat: no-repeat;
   background-position: right 14px center;
+
   padding-right: 30px;
 }
 
 .filterSelect:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--gold);
-}
-
-/* Search Button */
-
-.searchBtn {
-  background: var(--gold);
-  border: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.searchBtn:hover {
-  background: var(--gold-dark);
-}
-
-.searchBtnIcon {
-  width: 18px;
-  height: 18px;
-  color: var(--text-dark);
-}
-
-/* Mobile filter toggle button — hidden by default, shown only on mobile */
-
-.filterToggleBtn {
-  display: none;
-  background: var(--dark-soft);
-  border: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
-  color: var(--white);
+  box-shadow: 0 0 0 2px var(--color-accent-alt);
 }
 
 .filterSelect option {
@@ -143,48 +107,121 @@
 }
 
 
+/* ==========================================================================
+   SEARCH BUTTON
+   ========================================================================== */
+
+.searchBtn {
+  background: var(--color-accent-alt);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.searchBtn:hover {
+  background: var(--color-accent-alt-hover);
+}
+
+.searchBtnIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-primary);
+}
+
+
+/* ==========================================================================
+   MOBILE FILTER TOGGLE
+   ========================================================================== */
+
+.filterToggleBtn {
+  display: none;
+  background: var(--color-text-strong);
+  border: none;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  flex-shrink: 0;
+
+  color: var(--color-bg-surface);
+}
+
 .filterToggleBtn svg {
   width: 20px;
   height: 20px;
 }
 
 .filterToggleBtn:hover {
-  background: var(--color-ref-3a3733);
+  background: var(--color-text-secondary);
 }
 
-/* Mobile filter overlay + panel */
+
+/* ==========================================================================
+   MOBILE FILTER OVERLAY
+   ========================================================================== */
 
 .filterOverlay {
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(0, 0, 0, 0.6); /* the backdrop outside the panel — fine to keep semi-transparent */
+
+  background: rgba(0, 0, 0, 0.6);
+
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 
+
+/* ==========================================================================
+   MOBILE FILTER PANEL
+   ========================================================================== */
+
 .filterPanel {
-  background: var(--color-ref-1c1b19);  /* solid, no transparency — was likely changed to an rgba with low opacity */
+  background: var(--color-text-on-dark, #1c1b19);
+
   width: 100%;
   max-height: 80vh;
   overflow-y: auto;
+
   border-radius: 20px 20px 0 0;
   padding: 20px;
+
   box-sizing: border-box;
+
   animation: slideUp 0.25s ease;
+
   position: relative;
-  z-index: 1; /* sits above the overlay backdrop, ensuring nothing behind bleeds through */
+  z-index: 1;
 }
 
 @keyframes slideUp {
   from {
     transform: translateY(100%);
   }
+
   to {
     transform: translateY(0);
   }
 }
+
+
+/* ==========================================================================
+   FILTER PANEL HEADER
+   ========================================================================== */
 
 .filterPanelHeader {
   display: flex;
@@ -200,16 +237,19 @@
 }
 
 .filterCloseBtn {
-  background: var(--dark-soft);
+  background: var(--color-text-strong);
   border: none;
+
   width: 36px;
   height: 36px;
   border-radius: 50%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
-  color: var(--white);
+  color: var(--color-bg-surface);
 }
 
 .filterCloseBtn svg {
@@ -217,69 +257,93 @@
   height: 16px;
 }
 
+
+/* ==========================================================================
+   APPLY FILTERS BUTTON
+   ========================================================================== */
+
 .applyFiltersBtn {
   width: 100%;
-  background: var(--gold);
-  color: var(--text-dark);
+
+  background: var(--color-accent-alt);
+  color: var(--color-text-primary);
+
   border: none;
   padding: 14px;
   border-radius: 12px;
+
   font-weight: 700;
   font-size: var(--font-size-table-text);
+
   cursor: pointer;
   margin-top: 24px;
 }
 
 .applyFiltersBtn:hover {
-  background: var(--gold-dark);
+  background: var(--color-accent-alt-hover);
 }
 
-/* Responsive */
 
-/* Tablet view */
+/* ==========================================================================
+   RESPONSIVE — TABLET
+   ========================================================================== */
+
 @media (max-width: 960px) {
   .searchBar {
     width: calc(100vw - 40px);
     margin-left: calc(-50vw + 50% + 20px);
     margin-right: calc(-50vw + 50% + 20px);
+
     padding: 10px 12px;
+
     flex-wrap: nowrap;
     align-items: center;
     gap: 8px;
   }
+
   .searchInput {
     flex: 1 1 90px;
     min-width: 70px;
+
     padding: 8px 12px;
     font-size: var(--font-size-caption);
   }
+
   .filters {
     flex-wrap: nowrap;
     gap: 6px;
     flex-shrink: 0;
     align-items: center;
   }
+
   .filterItem {
     flex: 0 1 auto;
     min-width: 0;
     gap: 4px;
   }
+
   .filterLabel {
     font-size: var(--font-size-caption);
   }
+
   .filterSelect {
     width: auto;
+
     padding: 8px 20px 8px 10px;
+
     font-size: var(--font-size-caption);
+
     background-position: right 7px center;
     background-size: 8px 5px;
   }
+
   .searchBtn {
     width: 36px;
     height: 36px;
     border-radius: 10px;
     flex-shrink: 0;
   }
+
   .searchBtnIcon {
     width: 15px;
     height: 15px;
@@ -287,12 +351,17 @@
 }
 
 
-/* Mobile view */
+/* ==========================================================================
+   RESPONSIVE — MOBILE
+   ========================================================================== */
+
 @media (max-width: 640px) {
   .searchBar {
     width: calc(100vw - 24px);
+
     margin-left: calc(-50vw + 50% + 12px);
     margin-right: calc(-50vw + 50% + 12px);
+
     margin-top: 16px;
   }
 
@@ -300,7 +369,7 @@
     flex: 1 1 auto;
   }
 
-  /* Hide inline filters on mobile — replaced by the toggle button */
+  /* Hide inline filters on mobile */
   .filtersDesktop {
     display: none;
   }
@@ -309,17 +378,19 @@
     display: flex;
   }
 
-  /* Inside the mobile panel, filters stack vertically full-width */
+  /* Stack filters inside mobile panel */
   .filterPanel .filters {
     flex-direction: column;
     gap: 14px;
   }
+
   .filterPanel .filterItem {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
     gap: 6px;
   }
+
   .filterPanel .filterSelect {
     width: 100%;
   }
