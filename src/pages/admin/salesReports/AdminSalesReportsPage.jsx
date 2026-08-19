@@ -11,6 +11,8 @@ import RecentReportsCard from "../../../components/admin/salesReports/RecentRepo
 import SalesReportTab from "../../../components/admin/salesReports/SalesReportTab";
 import BookingsReportTab from "../../../components/admin/salesReports/BookingsReportTab";
 import VehicleReportTab from "../../../components/admin/salesReports/VehicleReportTab";
+import CustomerReportTab from "../../../components/admin/salesReports/CustomerReportTab";
+import PaymentReportTab from "../../../components/admin/salesReports/PaymentReportTab";
 import {
   useSalesReportsData,
   PERIOD_OPTIONS,
@@ -229,6 +231,14 @@ export default function AdminSalesReportsPage() {
 
     if (activeTab === "Vehicle Report") {
       return <VehicleReportTab />;
+    }
+
+    if (activeTab === "Customer Report") {
+      return <CustomerReportTab />;
+    }
+
+    if (activeTab === "Payment Report") {
+      return <PaymentReportTab />;
     }
 
     return (
