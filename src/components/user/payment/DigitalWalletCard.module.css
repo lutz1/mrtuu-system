@@ -1,45 +1,83 @@
+/* ==========================================================================
+   CONNECTED ACCOUNT CARD
+   ========================================================================== */
+
 .card {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: 14px;
+
   padding: 32px 20px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 10px;
+
   text-align: center;
+
   min-height: 190px;
   justify-content: center;
+
   box-shadow: var(--shadow-card);
 }
+
+
+/* ==========================================================================
+   PROVIDER
+   ========================================================================== */
 
 .provider {
   font-size: var(--font-size-navigation);
   font-weight: 600;
+
   margin: 0;
+
   color: var(--color-text-primary);
 }
+
+
+/* ==========================================================================
+   ACCOUNT NUMBER
+   ========================================================================== */
 
 .accountNumber {
   font-size: var(--font-size-table-text);
   color: var(--color-text-secondary);
+
   margin: 0;
 }
+
+
+/* ==========================================================================
+   NOT CONNECTED
+   ========================================================================== */
 
 .notConnected {
   font-size: var(--font-size-table-text);
   color: var(--color-text-muted);
+
   margin: 0;
 }
+
+
+/* ==========================================================================
+   LINK BUTTON
+   ========================================================================== */
 
 .linkBtn {
   background: none;
   border: none;
-  color: var(--color-accent-dark);
+
+  color: var(--color-accent-alt-hover);
+
   font-size: var(--font-size-supporting);
   font-weight: 600;
+
   cursor: pointer;
   font-family: inherit;
+
   margin-top: 6px;
 }
 
@@ -47,41 +85,68 @@
   text-decoration: underline;
 }
 
+
+/* ==========================================================================
+   UNDERLINED LINK BUTTON
+   ========================================================================== */
+
 .linkBtnUnderline {
   background: none;
   border: none;
-  color: var(--color-accent-dark);
+
+  color: var(--color-accent-alt-hover);
+
   font-size: var(--font-size-supporting);
   font-weight: 600;
+
   cursor: pointer;
   font-family: inherit;
+
   text-decoration: underline;
+
   margin-top: 6px;
 }
 
+
+/* ==========================================================================
+   ADD CARD
+   ========================================================================== */
+
 .addCard {
   background: var(--color-bg-muted);
+
   border: 1.5px dashed var(--color-border);
   border-radius: 14px;
+
   padding: 32px 20px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 10px;
+
   min-height: 190px;
   justify-content: center;
+
   cursor: pointer;
   font-family: inherit;
 }
 
 .addCard:hover {
-  background: var(--color-bg-muted-hover);
-  border-color: var(--color-accent-dark);
+  background: var(--color-bg-hover);
+  border-color: var(--color-accent-alt-hover);
 }
+
+
+/* ==========================================================================
+   ADD ICON
+   ========================================================================== */
 
 .addIcon {
   width: 30px;
   height: 30px;
+
   color: var(--color-text-muted);
 }
 
@@ -90,11 +155,22 @@
   height: 100%;
 }
 
+
+/* ==========================================================================
+   ADD LABEL
+   ========================================================================== */
+
 .addLabel {
   font-size: var(--font-size-table-text);
   font-weight: 600;
+
   color: var(--color-text-secondary);
 }
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 640px) {
   .card,

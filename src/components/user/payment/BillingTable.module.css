@@ -1,3 +1,7 @@
+/* ==========================================================================
+   TABLE
+   ========================================================================== */
+
 .tableWrap {
   overflow-x: auto;
 }
@@ -8,6 +12,11 @@
   font-size: var(--font-size-table-text);
 }
 
+
+/* ==========================================================================
+   TABLE HEADER
+   ========================================================================== */
+
 .table thead tr {
   background: var(--color-bg-muted);
 }
@@ -16,39 +25,70 @@
   text-align: left;
   font-weight: 700;
   color: var(--color-text-secondary);
+
   padding: 16px 20px;
+
   white-space: nowrap;
 }
+
+
+/* ==========================================================================
+   TABLE BODY
+   ========================================================================== */
 
 .table td {
   padding: 18px 20px;
+
   border-top: 1px solid var(--color-border);
+
   color: var(--color-text-primary);
+
   white-space: nowrap;
 }
 
+
+/* ==========================================================================
+   STATUS
+   ========================================================================== */
+
 .statusPill {
   display: inline-block;
+
   padding: 5px 14px;
   border-radius: 20px;
+
   font-size: var(--font-size-caption);
   font-weight: 600;
 }
 
+
+/* Successful */
+
 .successful {
-  background: var(--color-ref-dcfce7);
-  color: var(--color-ref-16a34a);
+  background: #dcfce7;
+  color: #16a34a;
 }
+
+
+/* Failed */
 
 .failed {
-  background: var(--color-ref-fee2e2);
-  color: var(--color-ref-dc2626);
+  background: #fee2e2;
+  color: #dc2626;
 }
 
+
+/* Pending */
+
 .pending {
-  background: var(--color-ref-fef3c7);
-  color: var(--color-ref-b45309);
+  background: #fef3c7;
+  color: #b45309;
 }
+
+
+/* ==========================================================================
+   EMPTY STATE
+   ========================================================================== */
 
 .empty {
   color: var(--color-text-muted);
@@ -56,9 +96,19 @@
   padding: 20px 0;
 }
 
+
+/* ==========================================================================
+   MOBILE CARD LIST
+   ========================================================================== */
+
 .cardList {
   display: none;
 }
+
+
+/* ==========================================================================
+   RESPONSIVE — MOBILE
+   ========================================================================== */
 
 @media (max-width: 640px) {
   .tableWrap {
@@ -73,9 +123,12 @@
 
   .billingCard {
     background: var(--color-bg-surface);
+
     border: 1px solid var(--color-border);
     border-radius: 12px;
+
     padding: 16px;
+
     box-shadow: var(--shadow-card);
   }
 
@@ -83,6 +136,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-bottom: 8px;
   }
 
@@ -95,13 +149,16 @@
   .billingDescription {
     font-size: var(--font-size-table-text);
     font-weight: 500;
+
     margin: 0 0 10px;
+
     color: var(--color-text-primary);
   }
 
   .billingCardBottom {
     display: flex;
     justify-content: space-between;
+
     font-size: var(--font-size-supporting);
     color: var(--color-text-muted);
   }

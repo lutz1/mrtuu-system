@@ -1,9 +1,18 @@
+/* ==========================================================================
+   CARD
+   ========================================================================== */
+
 .card {
   background: var(--color-bg-surface);
   border-radius: 16px;
   padding: 28px;
   box-shadow: var(--shadow-card);
 }
+
+
+/* ==========================================================================
+   CARD HEADER
+   ========================================================================== */
 
 .cardHeaderRow {
   display: flex;
@@ -18,17 +27,26 @@
   margin: 0;
 }
 
+
+/* ==========================================================================
+   EDIT BUTTON
+   ========================================================================== */
+
 .editBtn {
   display: flex;
   align-items: center;
   gap: 8px;
+
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-muted);
+
   padding: 10px 18px;
   border-radius: 8px;
+
   font-size: var(--font-size-supporting);
   font-weight: 600;
+
   cursor: pointer;
   font-family: inherit;
   flex-shrink: 0;
@@ -41,8 +59,13 @@
 
 .editBtn:hover {
   border-color: var(--color-accent);
-  color: var(--color-accent-dark);
+  color: var(--color-accent-alt-hover);
 }
+
+
+/* ==========================================================================
+   FIELD GRID
+   ========================================================================== */
 
 .fieldGrid {
   display: grid;
@@ -67,13 +90,21 @@
   color: var(--color-text-primary);
 }
 
+
+/* ==========================================================================
+   FIELD INPUT
+   ========================================================================== */
+
 .fieldInput {
   background: var(--color-input-bg);
   border: 1px solid var(--color-border);
   border-radius: 8px;
+
   padding: 10px 12px;
+
   font-size: var(--font-size-table-text);
   font-family: inherit;
+
   color: var(--color-text-primary);
   outline: none;
 }
@@ -83,23 +114,38 @@
   background: var(--color-bg-surface);
 }
 
+
+/* ==========================================================================
+   EDIT ACTIONS
+   ========================================================================== */
+
 .editActions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+
   margin-top: 24px;
   padding-top: 20px;
+
   border-top: 1px solid var(--color-border);
 }
+
+
+/* ==========================================================================
+   CANCEL BUTTON
+   ========================================================================== */
 
 .cancelBtn {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-muted);
+
   padding: 10px 20px;
   border-radius: 8px;
+
   font-weight: 600;
   font-size: var(--font-size-supporting);
+
   cursor: pointer;
   font-family: inherit;
 }
@@ -108,21 +154,34 @@
   background: var(--color-bg-muted);
 }
 
+
+/* ==========================================================================
+   SAVE BUTTON
+   ========================================================================== */
+
 .saveBtn {
   background: var(--color-accent);
   border: none;
   color: var(--color-bg-surface);
+
   padding: 10px 20px;
   border-radius: 8px;
+
   font-weight: 600;
   font-size: var(--font-size-supporting);
+
   cursor: pointer;
   font-family: inherit;
 }
 
 .saveBtn:hover {
-  background: var(--color-accent-dark);
+  background: var(--color-accent-alt-hover);
 }
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 960px) {
   .fieldGrid {

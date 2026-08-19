@@ -1,13 +1,24 @@
+/* ==========================================================================
+   GALLERY
+   ========================================================================== */
+
 .gallery {
   max-width: 1300px;
   margin: 0 auto 32px;
+
   display: grid;
   grid-template-columns: 1.6fr 1fr;
   gap: 16px;
+
   background: var(--color-bg-surface);
   border-radius: 12px;
   padding: 16px;
 }
+
+
+/* ==========================================================================
+   MAIN IMAGE
+   ========================================================================== */
 
 .galleryMain {
   border-radius: 8px;
@@ -29,9 +40,15 @@
   width: 100%;
   height: 100%;
   min-height: 360px;
+
   object-fit: cover;
   display: block;
 }
+
+
+/* ==========================================================================
+   THUMBNAILS
+   ========================================================================== */
 
 .galleryThumbs {
   display: grid;
@@ -52,8 +69,10 @@
   width: 100%;
   height: 100%;
   min-height: 165px;
+
   object-fit: cover;
   display: block;
+
   transition: transform 0.2s ease;
 }
 
@@ -61,18 +80,23 @@
   transform: scale(1.04);
 }
 
-/* Lightbox — intentionally theme-independent, like the CTA banners and
-   dark search bar. A fullscreen photo viewer stays dark regardless of
-   site theme, so nothing below reads from theme tokens. */
+
+/* ==========================================================================
+   LIGHTBOX
+   Intentionally independent from the application theme.
+   ========================================================================== */
 
 .lightboxOverlay {
   position: fixed;
   inset: 0;
   z-index: 2000;
+
   background: rgba(10, 10, 10, 0.92);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding: 40px;
   cursor: zoom-out;
 }
@@ -80,24 +104,36 @@
 .lightboxImage {
   max-width: 90vw;
   max-height: 85vh;
+
   object-fit: contain;
   border-radius: 8px;
+
   cursor: default;
 }
+
+
+/* ==========================================================================
+   LIGHTBOX CLOSE BUTTON
+   ========================================================================== */
 
 .lightboxClose {
   position: absolute;
   top: 24px;
   right: 24px;
+
   width: 44px;
   height: 44px;
   border-radius: 50%;
+
   background: rgba(255, 255, 255, 0.1);
   border: none;
+
   color: var(--color-bg-surface);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
 }
 
@@ -110,19 +146,29 @@
   height: 20px;
 }
 
+
+/* ==========================================================================
+   LIGHTBOX NAVIGATION
+   ========================================================================== */
+
 .lightboxNav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+
   width: 48px;
   height: 48px;
   border-radius: 50%;
+
   background: rgba(255, 255, 255, 0.1);
   border: none;
+
   color: var(--color-bg-surface);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
 }
 
@@ -143,42 +189,66 @@
   right: 24px;
 }
 
+
+/* ==========================================================================
+   LIGHTBOX COUNTER
+   ========================================================================== */
+
 .lightboxCounter {
   position: absolute;
   bottom: 24px;
   left: 50%;
+
   transform: translateX(-50%);
+
   background: rgba(255, 255, 255, 0.1);
   color: var(--color-bg-surface);
+
   padding: 6px 16px;
   border-radius: 20px;
+
   font-size: var(--font-size-supporting);
   font-weight: 600;
 }
+
+
+/* ==========================================================================
+   RESPONSIVE — TABLET
+   ========================================================================== */
 
 @media (max-width: 960px) {
   .gallery {
     grid-template-columns: 1fr;
   }
+
   .galleryMainImage {
     min-height: 280px;
   }
+
   .galleryThumbImage {
     min-height: 130px;
   }
 }
 
+
+/* ==========================================================================
+   RESPONSIVE — MOBILE
+   ========================================================================== */
+
 @media (max-width: 640px) {
   .lightboxOverlay {
     padding: 16px;
   }
+
   .lightboxNav {
     width: 40px;
     height: 40px;
   }
+
   .lightboxNavPrev {
     left: 8px;
   }
+
   .lightboxNavNext {
     right: 8px;
   }

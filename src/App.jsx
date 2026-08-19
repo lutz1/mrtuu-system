@@ -21,6 +21,7 @@ import SettingsPage from "./pages/user/settings/SettingsPage";
 import RequirementsPage from "./pages/user/requirements/RequirementsPage";
 import ContactPage from "./pages/user/contact/ContactPage";
 import { ThemeProvider } from "./context/ThemeContext";
+import { CustomerBookingsProvider } from "./context/CustomerBookingsContext";
 
 import AdminRoute from "./context/AdminRoute";
 import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
@@ -60,6 +61,7 @@ function App() {
                   <AdminVehiclesProvider>
                     <AdminBookingsProvider>
                       <CustomersProvider>
+                        <CustomerBookingsProvider>
                         <Routes>
                           <Route path="/" element={<RootRedirect />} />
                           <Route
@@ -329,6 +331,7 @@ function App() {
                             }
                           />
                         </Routes>
+                        </CustomerBookingsProvider>
                       </CustomersProvider>
                     </AdminBookingsProvider>
                   </AdminVehiclesProvider>

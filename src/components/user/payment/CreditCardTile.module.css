@@ -1,22 +1,44 @@
+/* ==========================================================================
+   PAYMENT METHOD TILE
+   ========================================================================== */
+
 .tile {
   border-radius: 16px;
   padding: 24px 26px;
+
   display: flex;
   flex-direction: column;
   gap: 28px;
+
   min-height: 200px;
 }
 
+
+/* ==========================================================================
+   DEFAULT TILE
+   ========================================================================== */
+
 .default {
-  background: var(--color-brand-dark);
+  background: var(--color-text-strong);
   color: var(--color-bg-surface);
 }
+
+
+/* ==========================================================================
+   SECONDARY TILE
+   ========================================================================== */
 
 .secondary {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
+
   color: var(--color-text-primary);
 }
+
+
+/* ==========================================================================
+   TOP ROW
+   ========================================================================== */
 
 .topRow {
   display: flex;
@@ -24,11 +46,18 @@
   align-items: flex-start;
 }
 
+
+/* ==========================================================================
+   EYEBROW
+   ========================================================================== */
+
 .eyebrow {
   display: block;
+
   font-size: var(--font-size-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+
   opacity: 0.65;
 }
 
@@ -37,18 +66,30 @@
 }
 
 .secondary .eyebrow {
-  color: var(--color-accent-dark);
+  color: var(--color-accent-alt-hover);
 }
+
+
+/* ==========================================================================
+   LABEL
+   ========================================================================== */
 
 .label {
   margin: 4px 0 0;
+
   font-size: var(--font-size-card-title);
   font-weight: 600;
 }
 
+
+/* ==========================================================================
+   ICON
+   ========================================================================== */
+
 .icon {
   width: 26px;
   height: 26px;
+
   flex-shrink: 0;
   opacity: 0.85;
 }
@@ -58,10 +99,17 @@
   height: 100%;
 }
 
+
+/* ==========================================================================
+   NUMBER
+   ========================================================================== */
+
 .number {
   margin: 0;
+
   font-size: var(--font-size-card-title);
   font-weight: 500;
+
   letter-spacing: 0.03em;
 }
 
@@ -69,18 +117,30 @@
   letter-spacing: 3px;
 }
 
+
+/* ==========================================================================
+   BOTTOM ROW
+   ========================================================================== */
+
 .bottomRow {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+
   margin-top: auto;
 }
 
 .expiry {
   margin: 4px 0 0;
+
   font-size: var(--font-size-table-text);
   font-weight: 600;
 }
+
+
+/* ==========================================================================
+   ACTIONS
+   ========================================================================== */
 
 .actions {
   display: flex;
@@ -88,16 +148,25 @@
   gap: 10px;
 }
 
+
+/* ==========================================================================
+   DARK TILE BUTTON
+   ========================================================================== */
+
 .iconBtn {
   width: 34px;
   height: 34px;
+
   border-radius: 8px;
   border: none;
+
   background: rgba(255, 255, 255, 0.12);
   color: var(--color-bg-surface);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
 }
 
@@ -110,21 +179,30 @@
   height: 16px;
 }
 
+
+/* ==========================================================================
+   LIGHT TILE BUTTON
+   ========================================================================== */
+
 .iconBtnLight {
   width: 34px;
   height: 34px;
+
   border-radius: 8px;
   border: none;
+
   background: var(--color-bg-muted);
   color: var(--color-text-muted);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
 }
 
 .iconBtnLight:hover {
-  background: var(--color-bg-muted-hover);
+  background: var(--color-bg-hover);
   color: var(--color-text-primary);
 }
 
@@ -133,20 +211,34 @@
   height: 16px;
 }
 
+
+/* ==========================================================================
+   SET DEFAULT BUTTON
+   ========================================================================== */
+
 .setDefaultBtn {
   background: none;
   border: none;
-  color: var(--color-accent-dark);
+
+  color: var(--color-accent-alt-hover);
+
   font-size: var(--font-size-supporting);
   font-weight: 600;
+
   cursor: pointer;
   font-family: inherit;
+
   padding: 0;
 }
 
 .setDefaultBtn:hover {
   text-decoration: underline;
 }
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 640px) {
   .tile {

@@ -1,11 +1,14 @@
 .card {
-  background: var(--color-danger-soft-bg);
+  background: var(--color-bg-danger-soft);
   border: 1px solid var(--color-danger);
   border-radius: 16px;
+
   padding: 24px 26px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   gap: 20px;
   flex-wrap: wrap;
 }
@@ -13,7 +16,9 @@
 .content {
   display: flex;
   align-items: flex-start;
+
   gap: 14px;
+
   flex: 1;
   min-width: 260px;
 }
@@ -21,7 +26,9 @@
 .icon {
   width: 24px;
   height: 24px;
+
   color: var(--color-danger);
+
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -34,27 +41,39 @@
 .title {
   font-size: var(--font-size-card-title);
   font-weight: 700;
+
   margin: 0 0 4px;
+
   color: var(--color-danger);
 }
 
 .description {
   font-size: var(--font-size-table-text);
+
   color: var(--color-text-secondary);
+
   margin: 0;
+
   line-height: 1.5;
 }
 
 .deleteBtn {
   background: var(--color-danger);
+
   border: none;
+
   color: var(--color-bg-surface);
+
   padding: 14px 26px;
+
   border-radius: 10px;
+
   font-weight: 600;
   font-size: var(--font-size-table-text);
+
   cursor: pointer;
   font-family: inherit;
+
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -66,6 +85,7 @@
 @media (max-width: 640px) {
   .card {
     padding: 20px;
+
     flex-direction: column;
     align-items: stretch;
   }

@@ -1,17 +1,26 @@
 .card {
   width: 100%;
   aspect-ratio: 1 / 0.85;
+
   border-radius: 14px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   gap: 14px;
+
   cursor: pointer;
   font-family: inherit;
+
   border: 2px solid transparent;
-  
 }
+
+
+/* ==========================================================================
+   LIGHT CARD
+   ========================================================================== */
 
 .lightCard {
   background: var(--color-bg-surface);
@@ -19,19 +28,35 @@
   color: var(--color-text-primary);
 }
 
+
+/* ==========================================================================
+   DARK CARD
+   ========================================================================== */
+
 .darkCard {
-  background: var(--color-ref-1f2124);
+  background: var(--color-text-strong);
   color: var(--color-bg-surface);
 }
 
+
+/* ==========================================================================
+   SELECTED STATE
+   ========================================================================== */
+
 .selected.lightCard {
-  border-color: var(--color-accent-dark);
+  border-color: var(--color-accent-alt-hover);
 }
 
 .selected.darkCard {
-  border-color: var(--color-accent-dark);
-  box-shadow: 0 0 0 1px var(--color-accent-dark);
+  border-color: var(--color-accent-alt-hover);
+
+  box-shadow: 0 0 0 1px var(--color-accent-alt-hover);
 }
+
+
+/* ==========================================================================
+   ICON
+   ========================================================================== */
 
 .icon {
   width: 30px;
@@ -39,7 +64,7 @@
 }
 
 .lightCard .icon {
-  color: var(--color-accent-dark);
+  color: var(--color-accent-alt-hover);
 }
 
 .darkCard .icon {
@@ -51,11 +76,20 @@
   height: 100%;
 }
 
+
+/* ==========================================================================
+   LABEL
+   ========================================================================== */
+
 .label {
   font-size: var(--font-size-navigation);
   font-weight: 600;
-  
 }
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 640px) {
   .card {

@@ -4,18 +4,16 @@
 
 :root {
   /* ------------------------------------------------------------------------
-     Colors
+     Light Theme
      ------------------------------------------------------------------------ */
 
-  /* Background */
   --color-bg-page: #f5f6f8;
   --color-bg-surface: #ffffff;
   --color-bg-muted: #f0f1f3;
   --color-bg-soft: #f8f9fa;
   --color-bg-hover: #f7f7f7;
-  --color-bg-danger-soft: #fdeceb;
+  --color-bg-muted-hover: #e8e9eb;
 
-  /* Text */
   --color-text-primary: #1a1a1a;
   --color-text-strong: #111827;
   --color-text-secondary: #374151;
@@ -23,129 +21,214 @@
   --color-text-muted: #6b7280;
   --color-text-light: #9ca3af;
 
-  /* Text on dark backgrounds */
-  --color-text-on-dark: #ffffff;
-  --color-text-on-dark-muted: rgba(255, 255, 255, 0.55);
-
-  /* Borders */
   --color-border: #e5e7eb;
   --color-border-medium: #d1d5db;
   --color-border-soft: #eceef1;
   --color-border-light: #f3f4f6;
 
-  /* Inputs */
   --color-input-bg: #ffffff;
 
-  /* Accent / Gold */
+  /* Brand */
+  --color-brand-dark: #1c1b19;
+  --color-brand-dark-soft: #2c2a27;
+
+  /* Gold */
   --color-accent: #e8a020;
   --color-accent-alt: #f0a93a;
-  --color-accent-alt-hover: #d9922a;
+  --color-accent-dark: #d9922a;
   --color-accent-hover: #d18f1c;
+  --color-accent-pressed: #bd7e18;
+  --color-accent-soft-bg: #fff4dc;
 
-  /* Gold gradient */
+  /* Gold / gradient compatibility */
+  --color-gold: #f0a93a;
   --color-gold-light: #f7d488;
-  --color-gold: #e8a020;
 
-  /* Cream */
+  /* Login / landing page */
   --color-cream: #fdf8ec;
-
-  /* Links */
-  --color-link: #3f6fd1;
-
-  /* Status */
-  --color-danger: #e0483e;
-  --color-danger-text: #b3261e;
-  --color-danger-border: #f5c2bd;
-  --color-success: #22a35e;
-
-  /* Colors */
   --color-dark: #1c1b19;
-  --color-dark-soft: #2c2a27;
-  --color-dark-hover: #3a3733;
-  --color-dark-muted: #b9b6b0;
+
+  /* Danger */
+  --color-danger: #e0483e;
+  --color-danger-soft-bg: #fdeceb;
+
+  /* Success */
+  --color-success: #22a35e;
+  --color-success-soft-bg: #dcfce7;
+
+  /* Shadows */
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  /* ------------------------------------------------------------------------
+     Legacy / Reference Variables
+     ------------------------------------------------------------------------ */
+
+  --color-ref-fdf8ec: #fdf8ec;
+  --color-ref-1c1b19: #1c1b19;
+  --color-ref-2c2a27: #2c2a27;
+  --color-ref-8a8a8a: #8a8a8a;
+  --color-ref-e2e2e2: #e2e2e2;
+  --color-ref-3f6fd1: #3f6fd1;
+  --color-ref-f0f0f0: #f0f0f0;
+
+  --color-ref-fbfbfb: #fbfbfb;
+
+  --color-ref-fdecea: #fdecea;
+  --color-ref-b3261e: #b3261e;
+  --color-ref-f5c2bd: #f5c2bd;
+
+  --color-ref-f7d488: #f7d488;
+
+  --color-ref-dcfce7: #dcfce7;
+  --color-ref-16a34a: #16a34a;
+
+  --color-ref-fee2e2: #fee2e2;
+  --color-ref-dc2626: #dc2626;
+
+  --color-ref-fef3c7: #fef3c7;
+  --color-ref-b45309: #b45309;
+
+  --color-ref-1f2124: #1f2124;
+
 
   /* ------------------------------------------------------------------------
      Typography
-     Desktop: 1920px / 1440px
      ------------------------------------------------------------------------ */
 
   --font-family-base: "Poppins", "Segoe UI", system-ui, sans-serif;
 
-  /* Page */
   --font-size-page-title: 32px;
   --font-size-section-title: 20px;
-
-  /* Navigation */
   --font-size-navigation: 16px;
 
-  /* Tables */
   --font-size-table-header: 14px;
   --font-size-table-text: 14px;
 
-  /* Buttons */
   --font-size-button: 14px;
 
-  /* Supporting text */
   --font-size-supporting: 13px;
   --font-size-caption: 12px;
 
-  /* Numbers / KPI */
   --font-size-kpi: 30px;
-
-  /* Cards */
   --font-size-card-title: 16px;
 
-  /* Inputs */
   --font-size-input: 14px;
   --font-size-input-label: 13px;
 
-  /* Tabs */
   --font-size-tab: 14px;
-
-  /* Status */
   --font-size-status: 12px;
-
-  /* Breadcrumb */
   --font-size-breadcrumb: 13px;
-
-  /* Helper / Error */
   --font-size-helper: 12px;
 }
 
 
 /* ==========================================================================
+   DARK THEME
+   ========================================================================== */
+
+[data-theme="dark"] {
+  --color-bg-page: #121212;
+  --color-bg-surface: #1e1e1e;
+  --color-bg-muted: #292929;
+  --color-bg-soft: #242424;
+  --color-bg-hover: #303030;
+  --color-bg-muted-hover: #363636;
+
+  --color-text-primary: #f5f5f5;
+  --color-text-strong: #ffffff;
+  --color-text-secondary: #d1d5db;
+  --color-text-subtle: #b8bcc3;
+  --color-text-muted: #9ca3af;
+  --color-text-light: #6b7280;
+
+  --color-border: #383838;
+  --color-border-medium: #4a4a4a;
+  --color-border-soft: #333333;
+  --color-border-light: #2b2b2b;
+
+  --color-input-bg: #292929;
+
+  /* Brand */
+  --color-brand-dark: #151515;
+  --color-brand-dark-soft: #222222;
+
+  /* Gold */
+  --color-accent: #e8a020;
+  --color-accent-alt: #f0a93a;
+  --color-accent-dark: #f0a93a;
+  --color-accent-hover: #f5b44b;
+  --color-accent-pressed: #d9922a;
+  --color-accent-soft-bg: #3a2d16;
+
+  --color-gold: #f0a93a;
+  --color-gold-light: #f7d488;
+
+  /* Login / landing page */
+  --color-cream: #fdf8ec;
+  --color-dark: #1c1b19;
+
+  /* Danger */
+  --color-danger: #ef6a61;
+  --color-danger-soft-bg: #3a1f1d;
+
+  /* Success */
+  --color-success: #4ade80;
+  --color-success-soft-bg: #173522;
+
+  /* Shadows */
+  --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.35);
+
+  /* Reference variables used by components */
+  --color-ref-fdf8ec: #1e1e1e;
+  --color-ref-1c1b19: #151515;
+  --color-ref-2c2a27: #222222;
+  --color-ref-8a8a8a: #9ca3af;
+  --color-ref-e2e2e2: #383838;
+  --color-ref-3f6fd1: #6b9aff;
+  --color-ref-f0f0f0: #292929;
+
+  --color-ref-fbfbfb: #181818;
+
+  --color-ref-fdecea: #3a1f1d;
+  --color-ref-b3261e: #ff8178;
+  --color-ref-f5c2bd: #6b302c;
+
+  --color-ref-f7d488: #f7d488;
+
+  --color-ref-dcfce7: #173522;
+  --color-ref-16a34a: #4ade80;
+
+  --color-ref-fee2e2: #3a1f1f;
+  --color-ref-dc2626: #f87171;
+
+  --color-ref-fef3c7: #3a3017;
+  --color-ref-b45309: #fbbf24;
+
+  --color-ref-1f2124: #252525;
+}
+
+
+/* ==========================================================================
    TABLET
-   1440px → 1024px
    ========================================================================== */
 
 @media (max-width: 1024px) {
   :root {
     --font-size-page-title: 30px;
     --font-size-section-title: 19px;
-
     --font-size-navigation: 15px;
-
     --font-size-table-header: 13px;
     --font-size-table-text: 14px;
-
     --font-size-button: 14px;
-
     --font-size-supporting: 12px;
     --font-size-caption: 11px;
-
     --font-size-kpi: 28px;
-
     --font-size-card-title: 16px;
-
     --font-size-input: 14px;
     --font-size-input-label: 13px;
-
     --font-size-tab: 14px;
-
     --font-size-status: 12px;
-
     --font-size-breadcrumb: 13px;
-
     --font-size-helper: 12px;
   }
 }
@@ -153,37 +236,25 @@
 
 /* ==========================================================================
    MOBILE
-   640px and below
    ========================================================================== */
 
 @media (max-width: 640px) {
   :root {
     --font-size-page-title: 24px;
     --font-size-section-title: 18px;
-
     --font-size-navigation: 15px;
-
     --font-size-table-header: 13px;
     --font-size-table-text: 13px;
-
     --font-size-button: 14px;
-
     --font-size-supporting: 12px;
     --font-size-caption: 11px;
-
     --font-size-kpi: 23px;
-
     --font-size-card-title: 14px;
-
     --font-size-input: 14px;
     --font-size-input-label: 13px;
-
     --font-size-tab: 13px;
-
     --font-size-status: 12px;
-
     --font-size-breadcrumb: 12px;
-
     --font-size-helper: 12px;
   }
 }
@@ -209,12 +280,17 @@ body {
   font-size: var(--font-size-table-text);
   color: var(--color-text-primary);
   background: var(--color-bg-page);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
-
-/* ==========================================================================
-   GLOBAL TYPOGRAPHY
-   ========================================================================== */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
 
 h1,
 h2,
@@ -226,9 +302,21 @@ p {
   margin-top: 0;
 }
 
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
+
+/* ==========================================================================
+   GOLD HEADLINE
+   ========================================================================== */
+
+.headlineGold {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-light),
+    var(--color-gold)
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }

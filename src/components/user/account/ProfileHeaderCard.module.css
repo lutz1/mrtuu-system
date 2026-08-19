@@ -1,3 +1,7 @@
+/* ==========================================================================
+   PROFILE CARD
+   ========================================================================== */
+
 .card {
   background: var(--color-bg-surface);
   border-radius: 16px;
@@ -5,24 +9,39 @@
   box-shadow: var(--shadow-card);
 }
 
+
+/* ==========================================================================
+   PROFILE HEADER
+   ========================================================================== */
+
 .profileHeader {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
+
+/* ==========================================================================
+   AVATAR
+   ========================================================================== */
+
 .avatar {
   width: 84px;
   height: 84px;
   border-radius: 50%;
+
   background: var(--color-accent);
   color: var(--color-bg-surface);
+
   font-weight: 700;
   font-size: var(--font-size-page-title);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
+
   border: 3px solid var(--color-accent);
 }
 
@@ -30,10 +49,17 @@
   width: 84px;
   height: 84px;
   border-radius: 50%;
+
   object-fit: cover;
   flex-shrink: 0;
+
   border: 3px solid var(--color-accent);
 }
+
+
+/* ==========================================================================
+   PROFILE INFORMATION
+   ========================================================================== */
 
 .profileInfo {
   flex: 1;
@@ -53,22 +79,31 @@
 }
 
 .profileLabel {
-  color: var(--color-accent-dark);
+  color: var(--color-accent-alt-hover);
   font-weight: 600;
   margin-right: 4px;
 }
+
+
+/* ==========================================================================
+   EDIT BUTTON
+   ========================================================================== */
 
 .editBtn {
   display: flex;
   align-items: center;
   gap: 8px;
+
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-muted);
+
   padding: 10px 18px;
   border-radius: 8px;
+
   font-size: var(--font-size-supporting);
   font-weight: 600;
+
   cursor: pointer;
   font-family: inherit;
   flex-shrink: 0;
@@ -81,14 +116,20 @@
 
 .editBtn:hover {
   border-color: var(--color-accent);
-  color: var(--color-accent-dark);
+  color: var(--color-accent-alt-hover);
 }
+
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 640px) {
   .profileHeader {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .editBtn {
     align-self: flex-start;
   }
