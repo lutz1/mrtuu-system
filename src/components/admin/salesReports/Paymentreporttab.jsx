@@ -2,32 +2,68 @@ import { useMemo, useState } from "react";
 import ReportStatCard from "./ReportStatCard";
 import ReportPagination from "./ReportPagination";
 import StatusBadge from "./StatusBadge";
-import { PAYMENT_REPORT_ROWS, PAYMENT_REPORT_STATS, PAGE_SIZE } from "./mockReportsData";
+import { useAdminPayments } from "../../../context/useAdminPayments";
+import { useAdminBookings } from "../../../context/AdminBookingsContext";
 import styles from "./PaymentReportTab.module.css";
+
+const PAGE_SIZE = 5;
 
 function TotalCollectedIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="12" cy="12.5" r="2.6" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M7 6V5.2A1.2 1.2 0 0 1 8.2 4h7.6A1.2 1.2 0 0 1 17 5.2V6" stroke="currentColor" strokeWidth="1.5" />
+      <rect
+        x="3"
+        y="6"
+        width="18"
+        height="13"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <circle
+        cx="12"
+        cy="12.5"
+        r="2.6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M7 6V5.2A1.2 1.2 0 0 1 8.2 4h7.6A1.2 1.2 0 0 1 17 5.2V6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
-function OnlinePaymentIcon() {
+function CardIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3.5 12h17M12 3.5c2.2 2.3 3.4 5.4 3.4 8.5s-1.2 6.2-3.4 8.5c-2.2-2.3-3.4-5.4-3.4-8.5S9.8 5.8 12 3.5Z" stroke="currentColor" strokeWidth="1.4" />
+      <rect
+        x="3.5"
+        y="6"
+        width="17"
+        height="12"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path d="M3.5 10h17" stroke="currentColor" strokeWidth="1.6" />
     </svg>
   );
 }
-function FrontDeskIcon() {
+function WalletIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3.5" y="7.5" width="17" height="11.5" rx="1.6" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3.5 11.5h17" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M8 4.5h8l1.5 3h-11z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <rect
+        x="3.5"
+        y="6.5"
+        width="17"
+        height="12"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <circle cx="16.5" cy="12.5" r="1.4" fill="currentColor" />
     </svg>
   );
 }
@@ -35,14 +71,25 @@ function PendingIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M12 7.5v5l3.2 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12 7.5v5l3.2 2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function EyeIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path
+        d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
       <circle cx="12" cy="12" r="2.6" stroke="currentColor" strokeWidth="1.6" />
     </svg>
   );
@@ -51,42 +98,99 @@ function SearchIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M20 20l-4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M20 20l-4-4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
+function toDate(value) {
+  if (!value) return null;
+  if (typeof value?.toDate === "function") return value.toDate();
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+function formatDate(d) {
+  if (!d) return "—";
+  return d.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+function currency(n) {
+  return `₱${(n || 0).toLocaleString("en-PH", { minimumFractionDigits: 2 })}`;
+}
+function methodLabel(m) {
+  if (m === "card") return "Card";
+  if (m === "gcash") return "GCash";
+  if (m === "maya") return "Maya";
+  return m || "—";
+}
+function statusLabel(s) {
+  if (s === "successful") return "Paid";
+  if (s === "failed") return "Failed";
+  return "Pending";
+}
+
 const STAT_ICONS = {
   totalCollected: <TotalCollectedIcon />,
-  onlinePayments: <OnlinePaymentIcon />,
-  frontDeskPayments: <FrontDeskIcon />,
+  cardPayments: <CardIcon />,
+  walletPayments: <WalletIcon />,
   pendingPayments: <PendingIcon />,
 };
 
-const STATUS_OPTIONS = ["All Status", "Paid", "Pending"];
-const METHOD_OPTIONS = ["All Method", "Online", "Front Desk"];
-
-const currency = (n) => `₱${n.toLocaleString("en-PH", { minimumFractionDigits: 2 })}`;
+const STATUS_OPTIONS = ["All Status", "Paid", "Pending", "Failed"];
+const METHOD_OPTIONS = ["All Method", "Card", "GCash", "Maya"];
 
 export default function PaymentReportTab({ onViewPayment }) {
+  const { payments, loading } = useAdminPayments();
+  const { getBookingById } = useAdminBookings();
+
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All Status");
   const [methodFilter, setMethodFilter] = useState("All Method");
   const [page, setPage] = useState(1);
 
+  const rows = useMemo(() => {
+    return payments.map((p) => {
+      const booking = getBookingById(p.bookingId);
+      return {
+        id: p.id,
+        date: formatDate(toDate(p.createdAt)),
+        bookingId: `#${p.bookingId}`,
+        customer: booking?.customer || "—",
+        description: `Payment for booking ${p.bookingRef || p.bookingId}`,
+        method: methodLabel(p.method),
+        amount: p.amount || 0,
+        status: statusLabel(p.status),
+        reference: p.bookingRef || p.id,
+        sortAt: toDate(p.createdAt)?.getTime() ?? 0,
+      };
+    });
+  }, [payments, getBookingById]);
+
   const filteredRows = useMemo(() => {
     const q = search.trim().toLowerCase();
-    return PAYMENT_REPORT_ROWS.filter((row) => {
-      const matchesSearch =
-        !q ||
-        row.bookingId.toLowerCase().includes(q) ||
-        row.customer.toLowerCase().includes(q) ||
-        row.reference.toLowerCase().includes(q);
-      const matchesStatus = statusFilter === "All Status" || row.status === statusFilter;
-      const matchesMethod = methodFilter === "All Method" || row.method === methodFilter;
-      return matchesSearch && matchesStatus && matchesMethod;
-    });
-  }, [search, statusFilter, methodFilter]);
+    return rows
+      .filter((row) => {
+        const matchesSearch =
+          !q ||
+          row.bookingId.toLowerCase().includes(q) ||
+          (row.customer || "").toLowerCase().includes(q) ||
+          (row.reference || "").toLowerCase().includes(q);
+        const matchesStatus =
+          statusFilter === "All Status" || row.status === statusFilter;
+        const matchesMethod =
+          methodFilter === "All Method" || row.method === methodFilter;
+        return matchesSearch && matchesStatus && matchesMethod;
+      })
+      .sort((a, b) => b.sortAt - a.sortAt);
+  }, [rows, search, statusFilter, methodFilter]);
 
   const pagedRows = useMemo(() => {
     const startIdx = (page - 1) * PAGE_SIZE;
@@ -98,18 +202,49 @@ export default function PaymentReportTab({ onViewPayment }) {
     setPage(1);
   };
 
+  const successful = payments.filter((p) => p.status === "successful");
+  const totalCollected = successful.reduce(
+    (sum, p) => sum + (p.amount || 0),
+    0
+  );
+  const cardTotal = successful
+    .filter((p) => p.method === "card")
+    .reduce((sum, p) => sum + (p.amount || 0), 0);
+  const walletTotal = successful
+    .filter((p) => p.method === "gcash" || p.method === "maya")
+    .reduce((sum, p) => sum + (p.amount || 0), 0);
+  const pendingTotal = payments
+    .filter((p) => p.status === "pending")
+    .reduce((sum, p) => sum + (p.amount || 0), 0);
+
+  const stats = [
+    {
+      key: "totalCollected",
+      label: "Total Payments Collected",
+      value: currency(totalCollected),
+    },
+    { key: "cardPayments", label: "Card Payments", value: currency(cardTotal) },
+    {
+      key: "walletPayments",
+      label: "GCash + Maya Payments",
+      value: currency(walletTotal),
+    },
+    {
+      key: "pendingPayments",
+      label: "Pending Payments",
+      value: currency(pendingTotal),
+    },
+  ];
+
   return (
     <>
       <div className={styles.statsGrid}>
-        {PAYMENT_REPORT_STATS.map((stat) => (
+        {stats.map((stat) => (
           <ReportStatCard
             key={stat.key}
             icon={STAT_ICONS[stat.key]}
             label={stat.label}
             value={stat.value}
-            change={stat.change}
-            direction={stat.direction}
-            comparisonLabel="vs July 13 - July 19, 2026"
           />
         ))}
       </div>
@@ -120,12 +255,11 @@ export default function PaymentReportTab({ onViewPayment }) {
             <SearchIcon />
             <input
               type="text"
-              placeholder="Search by Booking ID, Customer, or Number..."
+              placeholder="Search by Booking ID, Customer, or Reference..."
               value={search}
               onChange={(e) => resetToFirstPage(setSearch)(e.target.value)}
             />
           </div>
-
           <select
             className={styles.select}
             value={statusFilter}
@@ -137,7 +271,6 @@ export default function PaymentReportTab({ onViewPayment }) {
               </option>
             ))}
           </select>
-
           <select
             className={styles.select}
             value={methodFilter}
@@ -149,10 +282,6 @@ export default function PaymentReportTab({ onViewPayment }) {
               </option>
             ))}
           </select>
-
-          <button type="button" className={styles.filterBtn}>
-            Filter
-          </button>
         </div>
 
         <div className={styles.tableWrap}>
@@ -166,12 +295,18 @@ export default function PaymentReportTab({ onViewPayment }) {
                 <th>Method</th>
                 <th>Amount</th>
                 <th>Status</th>
-                <th>Reference/ OR No.</th>
+                <th>Reference</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {pagedRows.length === 0 ? (
+              {loading ? (
+                <tr>
+                  <td colSpan={9} className={styles.emptyRow}>
+                    Loading payments...
+                  </td>
+                </tr>
+              ) : pagedRows.length === 0 ? (
                 <tr>
                   <td colSpan={9} className={styles.emptyRow}>
                     No matching payments found.
@@ -215,7 +350,9 @@ export default function PaymentReportTab({ onViewPayment }) {
         />
       </div>
 
-      <p className={styles.footerNote}>All amounts are in Philippine Peso (PHP)</p>
+      <p className={styles.footerNote}>
+        All amounts are in Philippine Peso (PHP)
+      </p>
     </>
   );
 }

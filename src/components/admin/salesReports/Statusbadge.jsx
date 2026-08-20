@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./StatusBadge.module.css";
 
 // Maps a status string to a badge style. Add new statuses here as needed.
@@ -11,6 +10,8 @@ const VARIANTS = {
   Pending: styles.neutral,
   Cancelled: styles.muted,
   Maintenance: styles.muted,
+  Unavailable: styles.muted,
+  Failed: styles.muted,
 };
 
 export default function StatusBadge({ status }) {
