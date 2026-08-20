@@ -89,10 +89,16 @@ async function addVehicle(vehicleData, images) {
     archived: false,
     archivedAt: null,
     images: [],
+    currentBookingId: null,
+    clearance: {
+      lastInspectedAt: null,
+      lastInspectedBy: null,
+      roadworthy: false,
+      notes: "",
+    },
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
-
   const imageUrls = await resolveImageUrls(docRef.id, images);
   await updateDoc(doc(db, VEHICLES_COLLECTION, docRef.id), {
     images: imageUrls,
@@ -110,6 +116,13 @@ async function saveDraftVehicle(vehicleData, images) {
     archived: false,
     archivedAt: null,
     images: [],
+    currentBookingId: null,
+    clearance: {
+      lastInspectedAt: null,
+      lastInspectedBy: null,
+      roadworthy: false,
+      notes: "",
+    },
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
@@ -167,7 +180,10 @@ export function AdminVehiclesProvider({ children }) {
       if (images) {
         if (requireFullImages) {
           const filledCount = images.filter(Boolean).length;
-          if (images.length !== REQUIRED_IMAGE_COUNT || filledCount < REQUIRED_IMAGE_COUNT) {
+          if (
+            images.length !== REQUIRED_IMAGE_COUNT ||
+            filledCount < REQUIRED_IMAGE_COUNT
+          ) {
             throw new Error(
               `Exactly ${REQUIRED_IMAGE_COUNT} images are required.`
             );
@@ -199,7 +215,9 @@ export function AdminVehiclesProvider({ children }) {
     async (id) => {
       const existing = allVehicles.find((v) => String(v.id) === String(id));
       if (existing?.images?.length) {
-        await Promise.all(existing.images.filter(Boolean).map(tryDeleteImageUrl));
+        await Promise.all(
+          existing.images.filter(Boolean).map(tryDeleteImageUrl)
+        );
       }
       await deleteDoc(doc(db, VEHICLES_COLLECTION, id));
     },

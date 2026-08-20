@@ -247,33 +247,43 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     setStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const buildVehicleData = () => ({
-    plate: form.plate.trim(),
-    name: form.carName.trim(),
-    brand: form.brand,
-    model: form.model.trim(),
-    type: form.type,
-    yearModel: form.yearModel ? Number(form.yearModel) : null,
-    color: form.color,
-    transmission: form.transmission,
-    seats: form.seats ? Number(form.seats) : null,
-    fuelType: form.fuelType,
-    variant: form.variant,
-    engine: form.engine,
-    fuelCapacity: form.fuelCapacity ? Number(form.fuelCapacity) : null,
-    mileage: form.mileage ? Number(form.mileage) : null,
-    doors: form.doors ? Number(form.doors) : null,
-    drivetrain: form.drivetrain,
-    features: form.features,
-    description: form.description,
-    price: form.dailyRate ? Number(form.dailyRate) : null,
-    rate12h: form.rate12h ? Number(form.rate12h) : null,
-    lateFeePerHour: form.lateFeePerHour ? Number(form.lateFeePerHour) : 0,
-    excessMileageFeePerKm: form.excessMileageFeePerKm
-      ? Number(form.excessMileageFeePerKm)
-      : 0,
-    status: isEditMode ? vehicle.status ?? "Available" : "Available",
-  });
+  const buildVehicleData = () => {
+    const rawMileage = form.mileage?.trim();
+    const numericMileage = Number(rawMileage);
+    const mileage = !rawMileage
+      ? null
+      : Number.isNaN(numericMileage)
+      ? rawMileage
+      : numericMileage;
+
+    return {
+      plate: form.plate.trim(),
+      name: form.carName.trim(),
+      brand: form.brand,
+      model: form.model.trim(),
+      type: form.type,
+      yearModel: form.yearModel ? Number(form.yearModel) : null,
+      color: form.color,
+      transmission: form.transmission,
+      seats: form.seats ? Number(form.seats) : null,
+      fuelType: form.fuelType,
+      variant: form.variant,
+      engine: form.engine,
+      fuelCapacity: form.fuelCapacity ? Number(form.fuelCapacity) : null,
+      mileage,
+      doors: form.doors ? Number(form.doors) : null,
+      drivetrain: form.drivetrain,
+      features: form.features,
+      description: form.description,
+      price: form.dailyRate ? Number(form.dailyRate) : null,
+      rate12h: form.rate12h ? Number(form.rate12h) : null,
+      lateFeePerHour: form.lateFeePerHour ? Number(form.lateFeePerHour) : 0,
+      excessMileageFeePerKm: form.excessMileageFeePerKm
+        ? Number(form.excessMileageFeePerKm)
+        : 0,
+      status: isEditMode ? vehicle.status ?? "Available" : "Available",
+    };
+  };
 
   const buildImagesArray = () =>
     photos.map((p) => (p ? (p.isNew ? p.file : p.previewUrl) : null));
@@ -292,7 +302,9 @@ export default function AddVehicleModal({ vehicle, onClose }) {
       const images = buildImagesArray();
       const vehicleData = buildVehicleData();
       await updateVehicle(vehicle.id, vehicleData, images);
-      showToast(`${vehicleData.name} updated successfully.`, { type: "success" });
+      showToast(`${vehicleData.name} updated successfully.`, {
+        type: "success",
+      });
       setLastUpdatedAt(new Date());
       onClose();
     } catch (err) {
@@ -303,38 +315,38 @@ export default function AddVehicleModal({ vehicle, onClose }) {
     }
   };
 
- // Save progress as a draft from any step
-const handleSaveAsDraft = async () => {
-  setError("");
-  setIsSaving(true);
-  try {
-    const images = buildImagesArray();
-    const rawVehicleData = buildVehicleData();
+  // Save progress as a draft from any step
+  const handleSaveAsDraft = async () => {
+    setError("");
+    setIsSaving(true);
+    try {
+      const images = buildImagesArray();
+      const rawVehicleData = buildVehicleData();
 
-    // Fallback to "Untitled Draft" if carName is empty so saving is never blocked
-    const vehicleData = {
-      ...rawVehicleData,
-      name: rawVehicleData.name || "Untitled Draft",
-    };
+      // Fallback to "Untitled Draft" if carName is empty so saving is never blocked
+      const vehicleData = {
+        ...rawVehicleData,
+        name: rawVehicleData.name || "Untitled Draft",
+      };
 
-    if (isEditMode && vehicle?.id) {
-      await updateVehicle(vehicle.id, vehicleData, images, {
-        requireFullImages: false,
-        draft: true,
-      });
-    } else {
-      await saveDraft(vehicleData, images);
+      if (isEditMode && vehicle?.id) {
+        await updateVehicle(vehicle.id, vehicleData, images, {
+          requireFullImages: false,
+          draft: true,
+        });
+      } else {
+        await saveDraft(vehicleData, images);
+      }
+
+      showToast(`${vehicleData.name} saved as draft.`, { type: "success" });
+      onClose();
+    } catch (err) {
+      console.error("Failed to save draft:", err);
+      setError(err.message || "Failed to save draft. Please try again.");
+    } finally {
+      setIsSaving(false);
     }
-
-    showToast(`${vehicleData.name} saved as draft.`, { type: "success" });
-    onClose();
-  } catch (err) {
-    console.error("Failed to save draft:", err);
-    setError(err.message || "Failed to save draft. Please try again.");
-  } finally {
-    setIsSaving(false);
-  }
-};
+  };
 
   // Publish vehicle to live showroom (Step 5)
   const handlePublish = async () => {
@@ -359,7 +371,9 @@ const handleSaveAsDraft = async () => {
         await addVehicle(vehicleData, images);
       }
 
-      showToast(`${vehicleData.name} published to the showroom.`, { type: "success" });
+      showToast(`${vehicleData.name} published to the showroom.`, {
+        type: "success",
+      });
       setLastUpdatedAt(new Date());
       onClose();
     } catch (err) {
@@ -378,7 +392,11 @@ const handleSaveAsDraft = async () => {
         <div className={styles.header}>
           <div>
             <h1 className={styles.title}>
-              {isEditMode ? (isDraftFlow ? "Edit Draft" : "Edit Vehicle") : "Add New Vehicle"}
+              {isEditMode
+                ? isDraftFlow
+                  ? "Edit Draft"
+                  : "Edit Vehicle"
+                : "Add New Vehicle"}
             </h1>
             <p className={styles.subtitle}>
               {isEditMode
@@ -394,8 +412,17 @@ const handleSaveAsDraft = async () => {
             onClick={onClose}
             aria-label="Close"
           >
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
             </svg>
           </button>
         </div>
@@ -415,9 +442,15 @@ const handleSaveAsDraft = async () => {
                 onPhotoRemove={handlePhotoRemove}
               />
             )}
-            {step === 2 && <SpecificationsStep form={form} updateField={updateField} />}
-            {step === 3 && <FeaturesStep form={form} updateField={updateField} />}
-            {step === 4 && <PricingStep form={form} updateField={updateField} />}
+            {step === 2 && (
+              <SpecificationsStep form={form} updateField={updateField} />
+            )}
+            {step === 3 && (
+              <FeaturesStep form={form} updateField={updateField} />
+            )}
+            {step === 4 && (
+              <PricingStep form={form} updateField={updateField} />
+            )}
             {step === 5 && <ReviewStep form={form} photoCount={photoCount} />}
           </div>
         </div>
