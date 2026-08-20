@@ -128,14 +128,18 @@ function pctChange(current, prior) {
   const pct = ((current - prior) / prior) * 100;
   return `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%`;
 }
-
-// real status -> report status
 function toReportStatus(status) {
   if (status === "completed") return "Completed";
   if (status === "cancelled") return "Cancelled";
-  return "Active"; // pending, confirmed, ongoing
+  return "Active";
 }
-
+function inRange(b, start, end) {
+  const d = toDate(b.createdAt);
+  return d && d >= start && (!end || d < end);
+}
+function countBy(list, pred) {
+  return list.filter(pred).length;
+}
 const STAT_ICONS = {
   totalBookings: <TotalBookingsIcon />,
   activeRentals: <ActiveIcon />,
@@ -173,7 +177,9 @@ export default function BookingsReportTab({ onViewBooking }) {
   }, [bookings]);
 
   const vehicleOptions = useMemo(() => {
-    const names = new Set(rows.map((r) => r.vehicleName).filter(Boolean));
+    const names = new Set(
+      rows.flatMap((r) => (r.vehicleName ? [r.vehicleName] : []))
+    );
     return ["All Vehicles", ...Array.from(names)];
   }, [rows]);
 
@@ -208,17 +214,12 @@ export default function BookingsReportTab({ onViewBooking }) {
   const weekStart = daysAgo(6);
   const priorWeekStart = daysAgo(13);
   const priorWeekEnd = daysAgo(7);
-  const inRange = (b, start, end) => {
-    const d = toDate(b.createdAt);
-    return d && d >= start && (!end || d < end);
-  };
 
   const thisWeek = bookings.filter((b) => inRange(b, weekStart));
   const priorWeek = bookings.filter((b) =>
     inRange(b, priorWeekStart, priorWeekEnd)
   );
 
-  const countBy = (list, pred) => list.filter(pred).length;
   const activeCount = countBy(
     bookings,
     (b) => !["completed", "cancelled"].includes(b.status)

@@ -120,6 +120,12 @@ const STAT_ICONS = {
   repeatCustomers: <RepeatCustomerIcon />,
 };
 
+const COLORS = {
+  Completed: "#6C8CF5",
+  Active: "#33C481",
+  Cancelled: "#F2A93B",
+};
+
 const TYPE_OPTIONS = ["All Customer Type", "Regular", "New"];
 
 function BookingStatusDonut({ segments, total }) {
@@ -248,11 +254,7 @@ export default function CustomerReportTab({ onViewCustomer }) {
     return acc;
   }, {});
   const total = bookings.length || 1;
-  const COLORS = {
-    Completed: "#6C8CF5",
-    Active: "#33C481",
-    Cancelled: "#F2A93B",
-  };
+
   const bookingStatus = ["Completed", "Active", "Cancelled"]
     .map((label) => ({
       label,

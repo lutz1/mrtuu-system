@@ -232,8 +232,10 @@ export default function VehicleReportTab({ onViewVehicle }) {
         0
       );
       const lastRentedAt = vehicleBookings
-        .map((b) => toDate(b.createdAt))
-        .filter(Boolean)
+        .flatMap((b) => {
+          const d = toDate(b.createdAt);
+          return d ? [d] : [];
+        })
         .sort((a, b) => b.getTime() - a.getTime())[0];
 
       return {
@@ -300,8 +302,8 @@ export default function VehicleReportTab({ onViewVehicle }) {
     .filter((s) => s.value > 0);
   const statusTotal = statusBreakdown.reduce((sum, s) => sum + s.value, 0) || 1;
 
-  const topVehicles = [...rows]
-    .sort((a, b) => b.revenueValue - a.revenueValue)
+  const topVehicles = rows
+    .toSorted((a, b) => b.revenueValue - a.revenueValue)
     .slice(0, 5);
   const totalRevenue = rows.reduce((sum, r) => sum + r.revenueValue, 0);
 
