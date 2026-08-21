@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import ReportStatCard from "./ReportStatCard";
 import ReportPagination from "./ReportPagination";
-import { SALES_REPORT_ROWS, SALES_REPORT_STATS, PAGE_SIZE } from "./mockReportsData";
 import styles from "./SalesReportTab.module.css";
 
 function RevenueIcon() {
