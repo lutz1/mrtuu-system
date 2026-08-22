@@ -4,6 +4,8 @@ import DispatcherStatCard from "../../../components/dispatcher/dashboard/Dispatc
 import InspectionQueueTable from "../../../components/dispatcher/inspection/InspectionQueueTable";
 import RemindersCard from "../../../components/dispatcher/dashboard/RemindersCard";
 import UpcomingPickupsCard from "../../../components/dispatcher/dashboard/UpcomingPickupsCard";
+import { useAuth } from "../../../context/AuthContext";
+import { useStaff } from "../../../context/StaffContext";
 import {
   useAdminBookings,
   BOOKING_STAGES,
@@ -124,6 +126,11 @@ function isSameDay(a, b) {
 export default function DispatcherDashboardPage() {
   const navigate = useNavigate();
   const { bookings } = useAdminBookings();
+  const { user } = useAuth();
+  const { staffProfile } = useStaff();
+
+  const displayName =
+    user?.displayName || staffProfile?.displayName || "Dispatcher";
 
   // Dispatcher's "For Inspection" queue = cleared bookings still waiting for
   // the pre-rent checklist (dispatchChecklist.preRent not yet submitted).
@@ -176,7 +183,7 @@ export default function DispatcherDashboardPage() {
   return (
     <DispatcherLayout>
       <div className={styles.pageHeading}>
-        <h1 className={styles.title}>Good morning, Selsite!</h1>
+        <h1 className={styles.title}>Good morning, {displayName}!</h1>
         <p className={styles.subtitle}>Here's your overview for today.</p>
       </div>
 
