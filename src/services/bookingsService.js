@@ -239,7 +239,15 @@ export async function submitPreRentChecklist(
 
 export async function submitPostRentChecklist(
   bookingId,
-  { staffUid, photos, fuelLevel, odometerReading, notes = "" }
+  {
+    staffUid,
+    vehicleId,
+    photos,
+    fuelLevel,
+    odometerReading,
+    notes = "",
+    flaggedDamage = false,
+  }
 ) {
   await updateDoc(doc(db, BOOKINGS, bookingId), {
     "dispatchChecklist.postRent": {
@@ -250,7 +258,17 @@ export async function submitPostRentChecklist(
       submittedBy: staffUid,
       submittedAt: serverTimestamp(),
     },
-    "dispatchChecklist.status": "pending_review",
+    "dispatchChecklist.status": "return_reviewed",
+    "dispatchChecklist.reviewedBy": staffUid,
+    "dispatchChecklist.reviewedAt": serverTimestamp(),
+    status: "completed",
+    returnedAt: serverTimestamp(),
+  });
+
+  await updateDoc(doc(db, VEHICLES, vehicleId), {
+    status: flaggedDamage ? "Under Maintenance" : "Available",
+    currentBookingId: null,
+    updatedAt: serverTimestamp(),
   });
 }
 
