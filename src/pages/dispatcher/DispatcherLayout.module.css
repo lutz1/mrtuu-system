@@ -10,44 +10,49 @@
   width: 100%;             /* Ensures page never exceeds viewport */
   max-width: 100vw;        /* Strict cap on viewport width */
   box-sizing: border-box;  /* CRITICAL: includes padding in width calculations */
+  --dispatcher-topbar-height: 76px;
+  --dispatcher-sidebar-width: 260px;
   background: var(--color-bg-muted);
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   overflow-x: hidden;
 }
 
 .body {
   display: flex;
-  gap: 20px;
   align-items: flex-start;
   width: 100%;             /* Ensures body container spans full inner width */
+  min-height: 100vh;
+  padding-top: var(--dispatcher-topbar-height);
 }
 
 .content {
   flex: 1;
   min-width: 0;            /* Key fix for flex item shrinking */
   width: 100%;             /* Guarantees children fill available width */
+  min-height: calc(100vh - var(--dispatcher-topbar-height));
+  margin-left: var(--dispatcher-sidebar-width);
+  padding: 28px 32px 40px;
 }
 
 @media (max-width: 960px) {
   .page {
-    padding: 16px;
-    gap: 14px;
+    --dispatcher-topbar-height: 64px;
   }
   .body {
-    flex-direction: column;
-    gap: 14px;             /* Adds vertical gap when stacked */
+    padding-top: var(--dispatcher-topbar-height);
   }
   .content {
-    padding-bottom: 84px;  /* Clears the fixed bottom navigation bar */
+    margin-left: 0;
+    padding: 24px 20px 84px;  /* Clears the fixed bottom navigation bar */
   }
 }
 
 @media (max-width: 480px) {
   .page {
-    padding: 12px;
+    --dispatcher-topbar-height: 60px;
+  }
+
+  .content {
+    padding: 14px 10px 96px;
   }
 }

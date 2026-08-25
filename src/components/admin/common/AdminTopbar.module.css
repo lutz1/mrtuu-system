@@ -1,14 +1,21 @@
 .topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1800;
+
   width: 100%;
+  height: var(--admin-topbar-height, 76px);
   min-width: 0;
 
   box-sizing: border-box;
 
   background: var(--color-bg-surface);
 
-  border-radius: 20px;
+  border-bottom: 1px solid var(--color-border);
 
-  padding: 14px 28px;
+  padding: 12px 32px;
 
   display: flex;
   align-items: center;
@@ -16,7 +23,7 @@
 
   gap: 16px;
 
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(30, 40, 50, 0.05);
 }
 
 
@@ -217,8 +224,6 @@
     min-width: 0;
 
     padding: 10px 12px;
-
-    border-radius: 14px;
 
     gap: 8px;
   }
