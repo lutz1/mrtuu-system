@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./DispatcherStatCard.module.css";
 
 export default function DispatcherStatCard({ icon, label, value, footnote }) {

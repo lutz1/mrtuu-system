@@ -1,7 +1,6 @@
-import React from "react";
 import { useAuth } from "../../../context/AuthContext";
 import styles from "./TrustedPartner.module.css";
-import familyImage from "../../../assets/family.png";
+import familyImage from "../../../assets/family.webp";
 
 export default function TrustedPartner() {
   const { isLoggedIn } = useAuth();

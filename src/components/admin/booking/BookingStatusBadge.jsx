@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BookingStatusBadge.module.css";
 
 const STATUS_DOT_CLASS = {

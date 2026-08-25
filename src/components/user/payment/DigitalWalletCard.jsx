@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./DigitalWalletCard.module.css";
 
 function PlusIcon() {

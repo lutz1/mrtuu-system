@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavIcon from "../icons/NavIcon";
 import { NAV_ITEMS } from "../../../Data/navItems";

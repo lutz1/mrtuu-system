@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CarCard from "../carcards/CarCard";
 import styles from "./FeaturedCars.module.css";
 

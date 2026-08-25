@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth } from "../../../context/AuthContext";
 import ageRequirementsImage from "../../../assets/age-requirements.png";
 import styles from "./RentalPoliciesGrid.module.css";

@@ -59,7 +59,7 @@
 
 .editBtn:hover {
   border-color: var(--color-accent);
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 }
 
 
@@ -181,7 +181,7 @@
 }
 
 .saveBtn:hover {
-  background: var(--color-accent-alt-hover);
+  background: var(--color-accent-hover);
 }
 
 

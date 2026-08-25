@@ -79,7 +79,7 @@
 }
 
 .profileLabel {
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
   font-weight: 600;
   margin-right: 4px;
 }
@@ -116,7 +116,7 @@
 
 .editBtn:hover {
   border-color: var(--color-accent);
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 }
 
 

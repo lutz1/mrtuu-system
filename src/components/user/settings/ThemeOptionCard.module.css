@@ -44,13 +44,13 @@
    ========================================================================== */
 
 .selected.lightCard {
-  border-color: var(--color-accent-alt-hover);
+  border-color: var(--color-accent-hover);
 }
 
 .selected.darkCard {
-  border-color: var(--color-accent-alt-hover);
+  border-color: var(--color-accent-hover);
 
-  box-shadow: 0 0 0 1px var(--color-accent-alt-hover);
+  box-shadow: 0 0 0 1px var(--color-accent-hover);
 }
 
 
@@ -64,7 +64,7 @@
 }
 
 .lightCard .icon {
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 }
 
 .darkCard .icon {

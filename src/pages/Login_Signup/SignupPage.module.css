@@ -2,17 +2,30 @@
   --cream: var(--color-ref-fdf8ec);
   --dark: var(--color-ref-1c1b19);
   --gold: var(--color-accent-alt);
-  --gold-dark: var(--color-accent-alt-hover);
+  --gold-dark: var(--color-accent-hover);
   --text-dark: var(--color-text-primary);
   --text-muted: var(--color-ref-8a8a8a);
   --border: var(--color-ref-e2e2e2);
   --link-blue: var(--color-ref-3f6fd1);
   --input-bg: var(--color-ref-f0f0f0);
 
+  /* Force a light presentation regardless of the active theme:
+     the signup form (right panel) always renders on a light surface. */
+  --color-bg-surface: #ffffff;
+  --color-bg-hover: #f7f7f7;
+  --color-bg-soft: #f8f9fa;
+  --color-text-primary: #1a1a1a;
+  --color-text-strong: #111827;
+  --color-text-secondary: #374151;
+  --color-text-muted: #4b5563;
+  --color-border: #e5e7eb;
+  --color-border-medium: #d1d5db;
+  --color-input-bg: #ffffff;
+
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
-  height: 100vh;
-  overflow: hidden;
+  height: auto;
+  overflow: auto;
   width: 100%;
   display: grid;
   grid-template-columns: 55% 45%;
@@ -69,7 +82,7 @@
 }
 
 .brandLabel {
-  color: var(--color-bg-surface);
+  color: #ffffff;
   font-weight: 700;
   font-size: var(--font-size-section-title);
   margin: 0 0 8px;
@@ -85,10 +98,7 @@
 }
 
 .headlineGold {
-  background: linear-gradient(90deg, var(--color-ref-f7d488), var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--gold);
 }
 
 .headlineCream {
@@ -96,7 +106,7 @@
 }
 
 .legalText {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.82);
   font-size: var(--font-size-caption);
   line-height: 1.6;
   max-width: 560px;
@@ -122,7 +132,7 @@
 }
 
 .formTitle {
-  font-size: var(--font-size-page-title);
+  font-size: clamp(24px, 3vw, 30px);
   font-weight: 700;
   color: var(--text-dark);
   margin: 0 0 2px;

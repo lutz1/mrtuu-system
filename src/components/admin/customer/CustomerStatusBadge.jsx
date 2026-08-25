@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./CustomerStatusBadge.module.css";
 
 export default function CustomerStatusBadge({ status }) {

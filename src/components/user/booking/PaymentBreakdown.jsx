@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./PaymentBreakdown.module.css";
 
 export default function PaymentBreakdown({ total }) {

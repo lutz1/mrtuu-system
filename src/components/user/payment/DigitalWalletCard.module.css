@@ -70,7 +70,7 @@
   background: none;
   border: none;
 
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 
   font-size: var(--font-size-supporting);
   font-weight: 600;
@@ -94,7 +94,7 @@
   background: none;
   border: none;
 
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 
   font-size: var(--font-size-supporting);
   font-weight: 600;
@@ -135,7 +135,7 @@
 
 .addCard:hover {
   background: var(--color-bg-hover);
-  border-color: var(--color-accent-alt-hover);
+  border-color: var(--color-accent-hover);
 }
 
 

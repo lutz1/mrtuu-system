@@ -31,7 +31,7 @@
 
 .eyebrow {
   display: block;
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
   font-weight: 700;
   font-size: var(--font-size-table-text);
   margin-bottom: 12px;

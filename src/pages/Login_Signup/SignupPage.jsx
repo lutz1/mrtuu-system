@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import logo from "../../assets/logo.png";
-import headerImage from "../../assets/header.png";
+import logo from "../../assets/logo.webp";
+import headerImage from "../../assets/header.webp";
 import styles from "./SignupPage.module.css";
 import { IconUser, IconMail, IconLock, IconEye, IconEyeOff, IconGoogle } from "../../components/user/icons/AuthIcons";
 import "../../components/user/icons/authShared.css";
@@ -36,6 +36,19 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const { signup, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+
+  // Auth pages are theme-independent: always render in light mode. We set the
+  // attribute directly (and re-assert on the next frame) so it wins over any
+  // parent effect — e.g. ThemeGate restoring a saved dark theme for a logged
+  // user — regardless of whether state already happens to be "light".
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", "light");
+    const id = requestAnimationFrame(() =>
+      root.setAttribute("data-theme", "light")
+    );
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,7 +95,9 @@ export default function SignupPage() {
         />
         <div className={styles.leftOverlay} />
 
-        <img src={logo} alt="Lyka's Car Rental" className={styles.logoTop} />
+        <Link to="/" aria-label="Back to home">
+          <img src={logo} alt="Lyka's Car Rental" className={styles.logoTop} />
+        </Link>
 
         <div className={styles.leftBottom}>
           <p className={styles.brandLabel}>Lyka's Car Rental</p>
@@ -222,7 +237,8 @@ export default function SignupPage() {
           <p className={styles.terms}>
             By signing up, you agree to Lyka's Car Rental
             <br />
-            <a href="#terms">TERMS OF SERVICE</a> & <a href="#privacy">PRIVACY POLICY</a>
+            <Link to="/requirements">TERMS OF SERVICE</Link> &{" "}
+            <Link to="/contact">PRIVACY POLICY</Link>
           </p>
 
           <p className={styles.loginPrompt}>

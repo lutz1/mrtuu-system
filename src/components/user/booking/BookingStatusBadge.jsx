@@ -1,4 +1,3 @@
-import React from "react";
 import { BOOKING_STATUS } from "../../../data/bookings";
 import styles from "./BookingStatusBadge.module.css";
 

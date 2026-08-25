@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import fields from "./FormFields.module.css";
 import styles from "./ReviewStep.module.css";
 

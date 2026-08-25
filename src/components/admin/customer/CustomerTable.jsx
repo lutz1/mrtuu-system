@@ -1,4 +1,3 @@
-import React from "react";
 import CustomerStatusBadge from "./CustomerStatusBadge";
 import CustomerRowActions from "./CustomerRowActions";
 import styles from "./CustomerTable.module.css";

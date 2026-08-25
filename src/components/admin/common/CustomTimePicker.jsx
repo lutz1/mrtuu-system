@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./CustomTimePicker.module.css";
 
 // Helper: Convert "HH:mm" (24h) to { hour: "12", minute: "00", period: "AM" }

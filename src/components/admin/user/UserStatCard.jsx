@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./UserStatCard.module.css";
 
 export default function UserStatCard({ icon, label, value }) {

@@ -62,7 +62,7 @@
   height: 36px;
   border-radius: 8px;
   background: var(--color-ref-fef1d9);
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +105,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
   flex-shrink: 0;
 }
 

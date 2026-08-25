@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ContactMap.module.css";
 
 const OFFICE_ADDRESS = "Pioneer Ave., Prk. Santa Cruz, Estrella St., Mankilam, Tagum City, Davao del Norte";

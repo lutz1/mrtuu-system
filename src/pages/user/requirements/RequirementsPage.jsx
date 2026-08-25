@@ -1,8 +1,6 @@
-import React from "react";
 import { useAuth } from "../../../context/AuthContext";
 import Navbar from "../../../components/user/frontpage/Navbar";
 import Footer from "../../../components/user/frontpage/Footer";
-import SearchFilterBar from "../../../components/user/SearchFilterBar";
 import RequirementsHero from "../../../components/user/requirements/RequirementsHero";
 import RentalPoliciesGrid from "../../../components/user/requirements/RentalPoliciesGrid";
 import DocumentationSecurityGrid from "../../../components/user/requirements/DocumentationSecurityGrid";
@@ -16,9 +14,6 @@ export default function RequirementsPage() {
     <div className={`${styles.page} ${isLoggedIn ? styles.pageThemed : ""}`}>
       <div className={styles.stickyHeader}>
         <Navbar />
-        <div className={styles.searchBarWrapper}>
-          <SearchFilterBar />
-        </div>
       </div>
 
       <RequirementsHero />

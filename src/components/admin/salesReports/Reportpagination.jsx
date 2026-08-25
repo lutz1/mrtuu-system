@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ReportPagination.module.css";
 
 export default function ReportPagination({

@@ -1,7 +1,6 @@
 .featuredCars {
   --dark: var(--color-ref-1c1b19);
   --white: var(--color-bg-surface);
-  --text-on-dark-muted: var(--color-ref-b9b6b0);
 
   background: var(--dark);
   padding: 72px 32px;
@@ -10,7 +9,6 @@
 
 .sectionTitleLight {
   color: var(--white);
-  color: var(--color-on-dark-light);
   text-align: center;
   font-size: var(--font-size-page-title);
   font-weight: 700;
@@ -47,9 +45,16 @@
 
 .noResults {
   text-align: center;
-  color: var(--text-on-dark-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-size: var(--font-size-navigation);
   padding: 40px 0;
+}
+
+@media (max-width: 1024px) {
+  .carsGrid {
+    gap: 18px;
+    padding: 0 16px;
+  }
 }
 
 @media (max-width: 960px) {

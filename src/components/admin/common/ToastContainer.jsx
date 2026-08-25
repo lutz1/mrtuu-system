@@ -1,4 +1,3 @@
-import React from "react";
 import { createPortal } from "react-dom";
 import { useToast } from "../../../context/ToastContext";
 import styles from "./ToastContainer.module.css";

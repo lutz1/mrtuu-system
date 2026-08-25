@@ -1,4 +1,3 @@
-import React from "react";
 import ProfilePictureUpload from "./ProfilePictureUpload";
 import styles from "./ProfileHeaderCard.module.css";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./VehicleFilterBar.module.css";
 import { VEHICLE_STATUSES, VEHICLE_TYPES } from "../../../data/admin/mockVehicles";
 

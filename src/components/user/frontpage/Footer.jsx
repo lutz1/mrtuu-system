@@ -1,4 +1,4 @@
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.webp";
 import { FOOTER_COLUMNS } from "../../../data/content";
 import styles from "./Footer.module.css";
 

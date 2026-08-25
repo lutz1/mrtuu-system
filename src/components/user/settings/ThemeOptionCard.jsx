@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ThemeOptionCard.module.css";
 
 function SunIcon() {

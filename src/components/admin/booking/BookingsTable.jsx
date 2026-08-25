@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BookingsTable.module.css";
 
 export default function BookingsTable({ bookings, onView }) {

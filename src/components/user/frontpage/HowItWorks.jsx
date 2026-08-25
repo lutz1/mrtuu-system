@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { HOW_IT_WORKS } from "../../../data/content";
 import styles from "./HowItWorks.module.css";

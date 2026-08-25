@@ -1,4 +1,3 @@
-import React from "react";
 import fields from "./FormFields.module.css";
 
 export default function PricingStep({ form, updateField }) {

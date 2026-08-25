@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ReviewAndPay.module.css";
 
 export default function ReviewAndPay({ total, agreed, onAgreeChange, onPay, disabled }) {

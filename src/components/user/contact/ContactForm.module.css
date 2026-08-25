@@ -76,7 +76,7 @@
 }
 
 .submitBtn {
-  background: var(--color-accent-alt-hover);
+  background: var(--color-accent-hover);
   color: var(--color-bg-surface);
   border: none;
   padding: 15px;

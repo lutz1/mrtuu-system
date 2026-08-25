@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BillingTable.module.css";
 
 const STATUS_LABELS = {

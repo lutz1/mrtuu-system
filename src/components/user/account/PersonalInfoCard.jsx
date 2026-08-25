@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./PersonalInfoCard.module.css";
 
 export default function PersonalInfoCard({

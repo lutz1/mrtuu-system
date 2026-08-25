@@ -1,4 +1,3 @@
-import React from "react";
 import CategoryIcon from "./CategoryIcon";
 import ToggleSwitch from "../notification/ToggleSwitch";
 import styles from "./NotificationCategoryCard.module.css";

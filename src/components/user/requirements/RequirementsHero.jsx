@@ -1,6 +1,5 @@
-import React from "react";
 import PageHero from "../PageHero";
-import heroImage from "../../../assets/Requirements-hero.png";
+import heroImage from "../../../assets/Requirements-hero.webp";
 
 export default function RequirementsHero() {
   return (
