@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useState,
   useCallback,
@@ -11,9 +10,6 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-  onSnapshot,
-  query,
-  orderBy,
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
@@ -24,6 +20,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { db, storage } from "../lib/firebase";
+import { useVehicles } from "./VehiclesContext";
 
 const VEHICLES_COLLECTION = "lykas_vehicles";
 const REQUIRED_IMAGE_COUNT = 5;
@@ -135,29 +132,8 @@ async function saveDraftVehicle(vehicleData, images) {
 /* -------------------------------------------------------------------------- */
 
 export function AdminVehiclesProvider({ children }) {
-  const [allVehicles, setAllVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { vehicles: allVehicles, loading } = useVehicles();
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const q = query(
-      collection(db, VEHICLES_COLLECTION),
-      orderBy("createdAt", "desc")
-    );
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        setAllVehicles(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
-        setLoading(false);
-      },
-      (err) => {
-        console.error("Failed to subscribe to vehicles:", err);
-        setError(err);
-        setLoading(false);
-      }
-    );
-    return unsubscribe;
-  }, []);
 
   // Handles both full-publish updates (requireFullImages: true, the
   // default — unchanged behavior for every existing caller) AND
