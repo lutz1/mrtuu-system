@@ -238,7 +238,6 @@ export default function AdminVehiclesPage() {
           onAddVehicle={() => setIsAddModalOpen(true)}
           onDrafts={handleDrafts}
           onArchive={() => navigate("/admin/vehicles/archived")}
-          onDrafts={handleDrafts}
         />
       </div>
 
