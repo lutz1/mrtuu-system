@@ -174,7 +174,7 @@ export default function AdminVehiclesPage() {
     try {
       await archiveVehicle(vehicle.id);
       showToast(`${vehicle.name} archived.`, { type: "info" });
-    } catch (err) {
+    } catch {
       showToast(`Failed to archive ${vehicle.name}.`, { type: "error" });
     }
   };
@@ -238,7 +238,6 @@ export default function AdminVehiclesPage() {
           onAddVehicle={() => setIsAddModalOpen(true)}
           onDrafts={handleDrafts}
           onArchive={() => navigate("/admin/vehicles/archived")}
-          onDrafts={handleDrafts}
         />
       </div>
 

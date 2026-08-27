@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { useMemo } from "react";
 import { useAdminBookings } from "./AdminBookingsContext";
+import { usePayments } from "./PaymentsContext";
 
 function toDate(value) {
   if (!value) return null;
@@ -89,14 +88,23 @@ function addBuckets(date, n, unit) {
 function bucketLabel(date, unit) {
   switch (unit) {
     case "week":
-      return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
     case "month":
-      return date.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        year: "2-digit",
+      });
     case "year":
       return String(date.getFullYear());
     case "day":
     default:
-      return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
   }
 }
 
@@ -117,7 +125,10 @@ function bucketsWithEnds(granularity) {
   const buckets = buildBuckets(granularity);
   return buckets.map((b, i) => ({
     ...b,
-    end: i + 1 < buckets.length ? buckets[i + 1].start : addBuckets(b.start, 1, b.unit),
+    end:
+      i + 1 < buckets.length
+        ? buckets[i + 1].start
+        : addBuckets(b.start, 1, b.unit),
   }));
 }
 
@@ -126,27 +137,12 @@ function bucketsWithEnds(granularity) {
 // =========================================================
 
 export function useRevenueTrend(granularity = "daily") {
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "lykas_payments"),
-      (snapshot) => {
-        setPayments(snapshot.docs.map((d) => d.data()));
-        setLoading(false);
-      },
-      (err) => {
-        console.error("Failed to load payments for trend:", err);
-        setLoading(false);
-      }
-    );
-    return unsubscribe;
-  }, []);
-
+  const { payments, loading } = usePayments();
   const data = useMemo(() => {
     const buckets = bucketsWithEnds(granularity);
-    const successfulPayments = payments.filter((p) => p.status === "successful");
+    const successfulPayments = payments.filter(
+      (p) => p.status === "successful"
+    );
 
     return buckets.map(({ start, end, unit }) => {
       const revenue = successfulPayments.reduce((sum, p) => {

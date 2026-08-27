@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import CarCard from "../carcards/CarCard";
 import styles from "./FeaturedCars.module.css";
 
@@ -7,10 +8,8 @@ export default function FeaturedCars({ cars }) {
   const [centerIndex, setCenterIndex] = useState(0);
 
   const setLength = cars.length;
-  // Triple the list — a clone before, the real set, a clone after —
-  // so there's always a full screen's worth of cards to scroll into
-  // no matter which direction the user swipes.
-  const loopedCars = setLength > 0 ? [...cars, ...cars, ...cars] : [];
+
+  const loopedCars = useMemo(() => [...cars, ...cars, ...cars], [cars]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -24,7 +23,8 @@ export default function FeaturedCars({ cars }) {
     const firstMiddleCard = el.children[setLength];
     if (firstMiddleCard) {
       el.scrollLeft =
-        firstMiddleCard.offsetLeft - (el.clientWidth - firstMiddleCard.clientWidth) / 2;
+        firstMiddleCard.offsetLeft -
+        (el.clientWidth - firstMiddleCard.clientWidth) / 2;
     }
 
     let ticking = false;

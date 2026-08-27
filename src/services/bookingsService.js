@@ -212,25 +212,26 @@ export async function submitPreRentChecklist(
   bookingId,
   { staffUid, vehicleId, photos, fuelLevel, odometerReading, notes = "" }
 ) {
-  await updateDoc(doc(db, BOOKINGS, bookingId), {
-    "dispatchChecklist.preRent": {
-      photos,
-      fuelLevel,
-      odometerReading: Number(odometerReading),
-      notes,
-      submittedBy: staffUid,
-      submittedAt: serverTimestamp(),
-    },
-    status: "ongoing",
-    dispatchedBy: staffUid,
-    dispatchedAt: serverTimestamp(),
-  });
-
-  await updateDoc(doc(db, VEHICLES, vehicleId), {
-    status: "On Rent",
-    currentBookingId: bookingId,
-    updatedAt: serverTimestamp(),
-  });
+  await Promise.all([
+    updateDoc(doc(db, BOOKINGS, bookingId), {
+      "dispatchChecklist.preRent": {
+        photos,
+        fuelLevel,
+        odometerReading: Number(odometerReading),
+        notes,
+        submittedBy: staffUid,
+        submittedAt: serverTimestamp(),
+      },
+      status: "ongoing",
+      dispatchedBy: staffUid,
+      dispatchedAt: serverTimestamp(),
+    }),
+    updateDoc(doc(db, VEHICLES, vehicleId), {
+      status: "On Rent",
+      currentBookingId: bookingId,
+      updatedAt: serverTimestamp(),
+    }),
+  ]);
 }
 
 /* ------------------------------------------------------------------ */
@@ -249,27 +250,28 @@ export async function submitPostRentChecklist(
     flaggedDamage = false,
   }
 ) {
-  await updateDoc(doc(db, BOOKINGS, bookingId), {
-    "dispatchChecklist.postRent": {
-      photos,
-      fuelLevel,
-      odometerReading: Number(odometerReading),
-      notes,
-      submittedBy: staffUid,
-      submittedAt: serverTimestamp(),
-    },
-    "dispatchChecklist.status": "return_reviewed",
-    "dispatchChecklist.reviewedBy": staffUid,
-    "dispatchChecklist.reviewedAt": serverTimestamp(),
-    status: "completed",
-    returnedAt: serverTimestamp(),
-  });
-
-  await updateDoc(doc(db, VEHICLES, vehicleId), {
-    status: flaggedDamage ? "Under Maintenance" : "Available",
-    currentBookingId: null,
-    updatedAt: serverTimestamp(),
-  });
+  await Promise.all([
+    updateDoc(doc(db, BOOKINGS, bookingId), {
+      "dispatchChecklist.postRent": {
+        photos,
+        fuelLevel,
+        odometerReading: Number(odometerReading),
+        notes,
+        submittedBy: staffUid,
+        submittedAt: serverTimestamp(),
+      },
+      "dispatchChecklist.status": "return_reviewed",
+      "dispatchChecklist.reviewedBy": staffUid,
+      "dispatchChecklist.reviewedAt": serverTimestamp(),
+      status: "completed",
+      returnedAt: serverTimestamp(),
+    }),
+    updateDoc(doc(db, VEHICLES, vehicleId), {
+      status: flaggedDamage ? "Under Maintenance" : "Available",
+      currentBookingId: null,
+      updatedAt: serverTimestamp(),
+    }),
+  ]);
 }
 
 /* ------------------------------------------------------------------ */
@@ -280,21 +282,31 @@ export async function submitReturnReview(
   bookingId,
   { staffUid, vehicleId, approve, flaggedDamage = false, notes = "" }
 ) {
-  await updateDoc(doc(db, BOOKINGS, bookingId), {
-    "dispatchChecklist.status": approve ? "return_reviewed" : "return_rejected",
-    "dispatchChecklist.reviewedBy": staffUid,
-    "dispatchChecklist.reviewedAt": serverTimestamp(),
-    "dispatchChecklist.reviewNotes": notes,
-    ...(approve ? { status: "completed", returnedAt: serverTimestamp() } : {}),
-  });
+  const writes = [
+    updateDoc(doc(db, BOOKINGS, bookingId), {
+      "dispatchChecklist.status": approve
+        ? "return_reviewed"
+        : "return_rejected",
+      "dispatchChecklist.reviewedBy": staffUid,
+      "dispatchChecklist.reviewedAt": serverTimestamp(),
+      "dispatchChecklist.reviewNotes": notes,
+      ...(approve
+        ? { status: "completed", returnedAt: serverTimestamp() }
+        : {}),
+    }),
+  ];
 
   if (approve) {
-    await updateDoc(doc(db, VEHICLES, vehicleId), {
-      status: flaggedDamage ? "Under Maintenance" : "Available",
-      currentBookingId: null,
-      updatedAt: serverTimestamp(),
-    });
+    writes.push(
+      updateDoc(doc(db, VEHICLES, vehicleId), {
+        status: flaggedDamage ? "Under Maintenance" : "Available",
+        currentBookingId: null,
+        updatedAt: serverTimestamp(),
+      })
+    );
   }
+
+  await Promise.all(writes);
 }
 
 export async function cancelBooking(bookingId) {

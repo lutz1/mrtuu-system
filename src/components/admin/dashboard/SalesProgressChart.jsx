@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   LineChart,
   Line,
@@ -7,8 +7,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../../../lib/firebase";
+import { usePayments } from "../../../context/PaymentsContext";
 import styles from "./SalesProgressChart.module.css";
 
 const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -47,31 +46,19 @@ function Dot(props) {
 }
 
 export default function SalesProgressChart() {
-  const [payments, setPayments] = useState([]);
-
-  useEffect(() => {
-    const q = query(
-      collection(db, "lykas_payments"),
-      where("status", "==", "successful")
-    );
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => setPayments(snapshot.docs.map((d) => d.data())),
-      (err) => console.error("Failed to load payments:", err)
-    );
-    return unsubscribe;
-  }, []);
-
+  const { payments } = usePayments();
   const salesData = useMemo(() => {
     const weekStart = startOfWeek();
     const totals = new Array(7).fill(0);
 
-    payments.forEach((p) => {
-      const created = toDate(p.createdAt);
-      if (!created || created < weekStart) return;
-      const dayIndex = created.getDay();
-      totals[dayIndex] += p.amount || 0;
-    });
+    payments
+      .filter((p) => p.status === "successful")
+      .forEach((payment) => {
+        const created = toDate(payment.createdAt);
+        if (!created || created < weekStart) return;
+        const dayIndex = created.getDay();
+        totals[dayIndex] += payment.amount || 0;
+      });
 
     return DAY_LABELS.map((day, i) => ({ day, sales: totals[i] }));
   }, [payments]);

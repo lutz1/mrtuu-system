@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { useMemo } from "react";
 import { useAdminBookings } from "./AdminBookingsContext";
 import { useCustomers } from "./CustomersContext";
+import { usePayments } from "./PaymentsContext";
 
 function toDate(value) {
   if (!value) return null;
@@ -48,23 +47,7 @@ const STATUS_LABELS = {
 export function useSalesReportsData(period = "7d") {
   const { bookings } = useAdminBookings();
   const { customers } = useCustomers();
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "lykas_payments"),
-      (snapshot) => {
-        setPayments(snapshot.docs.map((d) => d.data()));
-        setLoading(false);
-      },
-      (err) => {
-        console.error("Failed to load payments:", err);
-        setLoading(false);
-      }
-    );
-    return unsubscribe;
-  }, []);
+  const { payments, loading } = usePayments();
 
   return useMemo(() => {
     const config = PERIOD_CONFIG[period] || PERIOD_CONFIG["7d"];
