@@ -9,13 +9,13 @@ import {
 import {
   collection,
   doc,
-  addDoc,
   updateDoc,
   deleteDoc,
   onSnapshot,
   query,
   orderBy,
   serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 import {
   ref,
@@ -72,8 +72,6 @@ async function tryDeleteImageUrl(url) {
 /*                            FIRESTORE HELPERS                               */
 /* -------------------------------------------------------------------------- */
 
-// Full publish path — always requires exactly 5 images, always creates a
-// non-draft (draft: false) vehicle.
 async function addVehicle(vehicleData, images) {
   if (
     !images ||
@@ -83,12 +81,15 @@ async function addVehicle(vehicleData, images) {
     throw new Error(`Exactly ${REQUIRED_IMAGE_COUNT} images are required.`);
   }
 
-  const docRef = await addDoc(collection(db, VEHICLES_COLLECTION), {
+  const docRef = doc(collection(db, VEHICLES_COLLECTION));
+  const imageUrls = await resolveImageUrls(docRef.id, images);
+
+  await setDoc(docRef, {
     ...vehicleData,
     draft: false,
     archived: false,
     archivedAt: null,
-    images: [],
+    images: imageUrls,
     currentBookingId: null,
     clearance: {
       lastInspectedAt: null,
@@ -98,10 +99,6 @@ async function addVehicle(vehicleData, images) {
     },
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-  });
-  const imageUrls = await resolveImageUrls(docRef.id, images);
-  await updateDoc(doc(db, VEHICLES_COLLECTION, docRef.id), {
-    images: imageUrls,
   });
 
   return { id: docRef.id, ...vehicleData, images: imageUrls, draft: false };
@@ -110,12 +107,15 @@ async function addVehicle(vehicleData, images) {
 // Draft path — no image-count requirement, images may be partial or
 // entirely absent. Always creates draft: true.
 async function saveDraftVehicle(vehicleData, images) {
-  const docRef = await addDoc(collection(db, VEHICLES_COLLECTION), {
+  const docRef = doc(collection(db, VEHICLES_COLLECTION));
+  const imageUrls = images ? await resolveImageUrls(docRef.id, images) : [];
+
+  await setDoc(docRef, {
     ...vehicleData,
     draft: true,
     archived: false,
     archivedAt: null,
-    images: [],
+    images: imageUrls,
     currentBookingId: null,
     clearance: {
       lastInspectedAt: null,
@@ -125,11 +125,6 @@ async function saveDraftVehicle(vehicleData, images) {
     },
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-  });
-
-  const imageUrls = images ? await resolveImageUrls(docRef.id, images) : [];
-  await updateDoc(doc(db, VEHICLES_COLLECTION, docRef.id), {
-    images: imageUrls,
   });
 
   return { id: docRef.id, ...vehicleData, images: imageUrls, draft: true };
