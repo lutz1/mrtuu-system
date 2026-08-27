@@ -1,15 +1,17 @@
 import { Navigate } from "react-router-dom";
 import { useStaff } from "./StaffContext";
 import Loading from "../components/user/Loading";
+import { useAuth } from "./AuthContext";
 
 // Strict role guard: only active staff with role === "dispatcher" may pass.
 // Owners/staff/checklist_admins are bounced to /admin/dashboard instead of
 // silently being let in, since they DO have a valid staffProfile.
 export default function DispatcherRoute({ children }) {
+  const { authLoading } = useAuth();
   const { staffProfile, staffLoading } = useStaff();
 
-  if (staffLoading) {
-    return <Loading message="Checking dispatcher access..." />;
+  if (authLoading || staffLoading) {
+    return <Loading message="Loading..." />;
   }
   if (!staffProfile) {
     return <Navigate to="/login" replace />;
