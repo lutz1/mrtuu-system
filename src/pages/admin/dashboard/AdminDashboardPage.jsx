@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import AdminLayout from "./AdminLayout";
 import AdminStatCard from "../../../components/admin/dashboard/AdminStatCard";
 import SalesProgressChart from "../../../components/admin/dashboard/SalesProgressChart";
@@ -130,55 +131,72 @@ export default function AdminDashboardPage() {
   const { vehicles } = useAdminVehicles();
   const { customers } = useCustomers();
 
-  const totalBookings = bookings.length;
+  const {
+    totalBookings,
+    totalSales,
+    pendingChecklistCount,
+    availableVehiclesCount,
+    activeCustomersCount,
+    bookingsDelta,
+    salesPct,
+  } = useMemo(() => {
+    const weekStart = daysAgo(6);
+    const priorWeekStart = daysAgo(13);
+    const priorWeekEnd = daysAgo(7);
 
-  const totalSales = bookings.reduce((sum, b) => sum + (b.total || 0), 0);
+    const totalBookings = bookings.length;
+    const totalSales = bookings.reduce((sum, b) => sum + (b.total || 0), 0);
 
-  // Bookings still waiting on clearance review (same rule ChecklistReviewTable uses).
-  const pendingChecklistCount = bookings.filter(
-    (b) =>
-      b.status !== "cancelled" &&
-      b.status !== "completed" &&
-      b.clearance?.status !== "cleared" &&
-      b.clearance?.status !== "rejected"
-  ).length;
+    const pendingChecklistCount = bookings.filter(
+      (b) =>
+        b.status !== "cancelled" &&
+        b.status !== "completed" &&
+        b.clearance?.status !== "cleared" &&
+        b.clearance?.status !== "rejected"
+    ).length;
 
-  const availableVehiclesCount = vehicles.filter(
-    (v) => v.status === "Available"
-  ).length;
+    const availableVehiclesCount = vehicles.filter(
+      (v) => v.status === "Available"
+    ).length;
 
-  const activeCustomersCount = customers.length;
+    const activeCustomersCount = customers.length;
 
-  // Week-over-week comparison, matching the "+X from last week" footnote style.
-  const weekStart = daysAgo(6);
-  const priorWeekStart = daysAgo(13);
-  const priorWeekEnd = daysAgo(7);
+    const bookingsThisWeek = bookings.filter((b) => {
+      const d = toDate(b.createdAt);
+      return d && d >= weekStart;
+    }).length;
+    const bookingsPriorWeek = bookings.filter((b) => {
+      const d = toDate(b.createdAt);
+      return d && d >= priorWeekStart && d < priorWeekEnd;
+    }).length;
+    const bookingsDelta = bookingsThisWeek - bookingsPriorWeek;
 
-  const bookingsThisWeek = bookings.filter((b) => {
-    const d = toDate(b.createdAt);
-    return d && d >= weekStart;
-  }).length;
-  const bookingsPriorWeek = bookings.filter((b) => {
-    const d = toDate(b.createdAt);
-    return d && d >= priorWeekStart && d < priorWeekEnd;
-  }).length;
-  const bookingsDelta = bookingsThisWeek - bookingsPriorWeek;
+    const salesThisWeek = bookings.reduce((sum, b) => {
+      const d = toDate(b.createdAt);
+      return d && d >= weekStart ? sum + (b.total || 0) : sum;
+    }, 0);
+    const salesPriorWeek = bookings.reduce((sum, b) => {
+      const d = toDate(b.createdAt);
+      return d && d >= priorWeekStart && d < priorWeekEnd
+        ? sum + (b.total || 0)
+        : sum;
+    }, 0);
+    const salesPct = salesPriorWeek
+      ? Math.round(((salesThisWeek - salesPriorWeek) / salesPriorWeek) * 100)
+      : salesThisWeek > 0
+      ? 100
+      : 0;
 
-  const salesThisWeek = bookings.reduce((sum, b) => {
-    const d = toDate(b.createdAt);
-    return d && d >= weekStart ? sum + (b.total || 0) : sum;
-  }, 0);
-  const salesPriorWeek = bookings.reduce((sum, b) => {
-    const d = toDate(b.createdAt);
-    return d && d >= priorWeekStart && d < priorWeekEnd
-      ? sum + (b.total || 0)
-      : sum;
-  }, 0);
-  const salesPct = salesPriorWeek
-    ? Math.round(((salesThisWeek - salesPriorWeek) / salesPriorWeek) * 100)
-    : salesThisWeek > 0
-    ? 100
-    : 0;
+    return {
+      totalBookings,
+      totalSales,
+      pendingChecklistCount,
+      availableVehiclesCount,
+      activeCustomersCount,
+      bookingsDelta,
+      salesPct,
+    };
+  }, [bookings, vehicles, customers]);
 
   return (
     <AdminLayout>
