@@ -49,6 +49,299 @@ import DispatcherInspectionWizardPage from "./pages/dispatcher/inspection/Dispat
 import AdminBookingDetailsPage from "./pages/admin/booking/details/AdminBookingDetailsPage";
 import { CustomersProvider } from "./context/CustomersContext";
 import { PaymentsProvider } from "./context/PaymentsContext";
+
+// Staff-only data providers. Mounted only under /admin/* and /dispatcher/*,
+// not the whole app, since these listeners carry staff-gated data.
+function StaffProviders({ children }) {
+  return (
+    <AdminVehiclesProvider>
+      <AdminBookingsProvider>
+        <CustomersProvider>
+          <PaymentsProvider>{children}</PaymentsProvider>
+        </CustomersProvider>
+      </AdminBookingsProvider>
+    </AdminVehiclesProvider>
+  );
+}
+
+function CustomerRoutesElement() {
+  return (
+    <Routes>
+      <Route path="/" element={<RootRedirect />} />
+      <Route path="/home" element={<Navigate to="/" replace />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/requirements" element={<RequirementsPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route
+        path="/showroom"
+        element={
+          <ProtectedRoute>
+            <ShowroomPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vehicle/:id"
+        element={
+          <ProtectedRoute>
+            <VehicleOverviewPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account"
+        element={
+          <ProtectedRoute>
+            <AccountPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account/bookings"
+        element={
+          <ProtectedRoute>
+            <MyBookingsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account/payment"
+        element={
+          <ProtectedRoute>
+            <PaymentMethodsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account/notifications"
+        element={
+          <ProtectedRoute>
+            <NotificationsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/booking/:id"
+        element={
+          <ProtectedRoute>
+            <BookingDetailsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/payment/:id"
+        element={
+          <ProtectedRoute>
+            <PaymentPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/payment-success/:id"
+        element={
+          <ProtectedRoute>
+            <PaymentSuccessPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account/security"
+        element={
+          <ProtectedRoute>
+            <PrivacySecurityPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/account/settings"
+        element={
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/admin/login" element={<Navigate to={"/login"} replace />} />
+      <Route
+        path="/dispatcher/login"
+        element={<Navigate to={"/login"} replace />}
+      />
+    </Routes>
+  );
+}
+
+function AdminRoutesElement() {
+  return (
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          <AdminRoute>
+            <AdminDashboardPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/bookings"
+        element={
+          <AdminRoute>
+            <PermissionRoute permission="view_reports">
+              <AdminBookingsPage />
+            </PermissionRoute>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/vehicles"
+        element={
+          <AdminRoute>
+            <PermissionRoute permission="manage_fleet">
+              <AdminVehiclesPage />
+            </PermissionRoute>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/customers"
+        element={
+          <AdminRoute>
+            <PermissionRoute permission="view_reports">
+              <AdminCustomersPage />
+            </PermissionRoute>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/sales-reports"
+        element={
+          <AdminRoute>
+            <PermissionRoute permission="view_reports">
+              <AdminSalesReportsPage />
+            </PermissionRoute>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <AdminRoute>
+            <PermissionRoute permission="manage_staff">
+              <AdminUsersPage />
+            </PermissionRoute>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/vehicles/new"
+        element={
+          <AdminRoute>
+            <PermissionRoute permission="manage_fleet">
+              <AdminAddVehiclePage />
+            </PermissionRoute>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/vehicles/:id/edit"
+        element={
+          <AdminRoute>
+            <PermissionRoute permission="manage_fleet">
+              <AdminAddVehiclePage />
+            </PermissionRoute>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/vehicles/archived"
+        element={
+          <AdminRoute>
+            <ArchivedVehiclesPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/bookings/new"
+        element={
+          <AdminRoute>
+            <AdminNewBookingPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/bookings/:id"
+        element={
+          <AdminRoute>
+            <AdminBookingDetailsPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/bookings/history/:id"
+        element={
+          <AdminRoute>
+            <AdminBookingHistoryDetailsPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/vehicles/drafts"
+        element={
+          <AdminRoute>
+            <AdminVehicleDraftsPage />
+          </AdminRoute>
+        }
+      />
+    </Routes>
+  );
+}
+
+function DispatcherRoutesElement() {
+  return (
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          <DispatcherRoute>
+            <DispatcherDashboardPage />
+          </DispatcherRoute>
+        }
+      />
+      <Route
+        path="/inspection"
+        element={
+          <DispatcherRoute>
+            <DispatcherInspectionPage />
+          </DispatcherRoute>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <DispatcherRoute>
+            <DispatcherHistoryPage />
+          </DispatcherRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <DispatcherRoute>
+            <DispatcherProfilePage />
+          </DispatcherRoute>
+        }
+      />
+      <Route
+        path="/inspection/:bookingId"
+        element={
+          <DispatcherRoute>
+            <DispatcherInspectionWizardPage />
+          </DispatcherRoute>
+        }
+      />
+    </Routes>
+  );
+}
+
 function App() {
   return (
     <div className="app">
@@ -58,288 +351,27 @@ function App() {
             <AuthProvider>
               <StaffProvider>
                 <VehiclesProvider>
-                  <AdminVehiclesProvider>
-                    <AdminBookingsProvider>
-                      <CustomersProvider>
-                        <CustomerBookingsProvider>
-                          <PaymentsProvider>
-                            <Routes>
-                              <Route path="/" element={<RootRedirect />} />
-                              <Route
-                                path="/home"
-                                element={<Navigate to="/" replace />}
-                              />
-                              <Route path="/login" element={<LoginPage />} />
-                              <Route path="/signup" element={<SignupPage />} />
-                              <Route
-                                path="/requirements"
-                                element={<RequirementsPage />}
-                              />
-                              <Route
-                                path="/contact"
-                                element={<ContactPage />}
-                              />
-                              <Route
-                                path="/showroom"
-                                element={
-                                  <ProtectedRoute>
-                                    <ShowroomPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/vehicle/:id"
-                                element={
-                                  <ProtectedRoute>
-                                    <VehicleOverviewPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/account"
-                                element={
-                                  <ProtectedRoute>
-                                    <AccountPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/account/bookings"
-                                element={
-                                  <ProtectedRoute>
-                                    <MyBookingsPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/account/payment"
-                                element={
-                                  <ProtectedRoute>
-                                    <PaymentMethodsPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/account/notifications"
-                                element={
-                                  <ProtectedRoute>
-                                    <NotificationsPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/booking/:id"
-                                element={
-                                  <ProtectedRoute>
-                                    <BookingDetailsPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/payment/:id"
-                                element={
-                                  <ProtectedRoute>
-                                    <PaymentPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/payment-success/:id"
-                                element={
-                                  <ProtectedRoute>
-                                    <PaymentSuccessPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/account/security"
-                                element={
-                                  <ProtectedRoute>
-                                    <PrivacySecurityPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-                              <Route
-                                path="/account/settings"
-                                element={
-                                  <ProtectedRoute>
-                                    <SettingsPage />
-                                  </ProtectedRoute>
-                                }
-                              />
-
-                              <Route
-                                path="/admin/login"
-                                element={<Navigate to={"/login"} replace />}
-                              />
-                              <Route
-                                path="/admin/dashboard"
-                                element={
-                                  <AdminRoute>
-                                    <AdminDashboardPage />
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/bookings"
-                                element={
-                                  <AdminRoute>
-                                    <PermissionRoute permission="view_reports">
-                                      <AdminBookingsPage />
-                                    </PermissionRoute>
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/vehicles"
-                                element={
-                                  <AdminRoute>
-                                    <PermissionRoute permission="manage_fleet">
-                                      <AdminVehiclesPage />
-                                    </PermissionRoute>
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/customers"
-                                element={
-                                  <AdminRoute>
-                                    <PermissionRoute permission="view_reports">
-                                      <AdminCustomersPage />
-                                    </PermissionRoute>
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/sales-reports"
-                                element={
-                                  <AdminRoute>
-                                    <PermissionRoute permission="view_reports">
-                                      <AdminSalesReportsPage />
-                                    </PermissionRoute>
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/users"
-                                element={
-                                  <AdminRoute>
-                                    <PermissionRoute permission="manage_staff">
-                                      <AdminUsersPage />
-                                    </PermissionRoute>
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/vehicles/new"
-                                element={
-                                  <AdminRoute>
-                                    <PermissionRoute permission="manage_fleet">
-                                      <AdminAddVehiclePage />
-                                    </PermissionRoute>
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/vehicles/:id/edit"
-                                element={
-                                  <AdminRoute>
-                                    <PermissionRoute permission="manage_fleet">
-                                      <AdminAddVehiclePage />
-                                    </PermissionRoute>
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/vehicles/archived"
-                                element={
-                                  <AdminRoute>
-                                    <ArchivedVehiclesPage />
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/bookings/new"
-                                element={
-                                  <AdminRoute>
-                                    <AdminNewBookingPage />
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/dispatcher/login"
-                                element={<Navigate to={"/login"} replace />}
-                              />
-                              <Route
-                                path="/dispatcher/dashboard"
-                                element={
-                                  <DispatcherRoute>
-                                    <DispatcherDashboardPage />
-                                  </DispatcherRoute>
-                                }
-                              />
-                              <Route
-                                path="/dispatcher/inspection"
-                                element={
-                                  <DispatcherRoute>
-                                    <DispatcherInspectionPage />
-                                  </DispatcherRoute>
-                                }
-                              />
-                              <Route
-                                path="/dispatcher/history"
-                                element={
-                                  <DispatcherRoute>
-                                    <DispatcherHistoryPage />
-                                  </DispatcherRoute>
-                                }
-                              />
-                              <Route
-                                path="/dispatcher/profile"
-                                element={
-                                  <DispatcherRoute>
-                                    <DispatcherProfilePage />
-                                  </DispatcherRoute>
-                                }
-                              />
-                              <Route
-                                path="/dispatcher/inspection/:bookingId"
-                                element={
-                                  <DispatcherRoute>
-                                    <DispatcherInspectionWizardPage />
-                                  </DispatcherRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/bookings/:id"
-                                element={
-                                  <AdminRoute>
-                                    <AdminBookingDetailsPage />
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/bookings/history/:id"
-                                element={
-                                  <AdminRoute>
-                                    <AdminBookingHistoryDetailsPage />
-                                  </AdminRoute>
-                                }
-                              />
-                              <Route
-                                path="/admin/vehicles/drafts"
-                                element={
-                                  <AdminRoute>
-                                    <AdminVehicleDraftsPage />
-                                  </AdminRoute>
-                                }
-                              />
-                            </Routes>
-                          </PaymentsProvider>
-                        </CustomerBookingsProvider>
-                      </CustomersProvider>
-                    </AdminBookingsProvider>
-                  </AdminVehiclesProvider>
+                  <CustomerBookingsProvider>
+                    <Routes>
+                      <Route
+                        path="/admin/*"
+                        element={
+                          <StaffProviders>
+                            <AdminRoutesElement />
+                          </StaffProviders>
+                        }
+                      />
+                      <Route
+                        path="/dispatcher/*"
+                        element={
+                          <StaffProviders>
+                            <DispatcherRoutesElement />
+                          </StaffProviders>
+                        }
+                      />
+                      <Route path="/*" element={<CustomerRoutesElement />} />
+                    </Routes>
+                  </CustomerBookingsProvider>
                 </VehiclesProvider>
               </StaffProvider>
             </AuthProvider>
