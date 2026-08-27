@@ -174,7 +174,7 @@ export default function AdminVehiclesPage() {
     try {
       await archiveVehicle(vehicle.id);
       showToast(`${vehicle.name} archived.`, { type: "info" });
-    } catch (err) {
+    } catch {
       showToast(`Failed to archive ${vehicle.name}.`, { type: "error" });
     }
   };
