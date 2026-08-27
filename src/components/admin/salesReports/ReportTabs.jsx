@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ReportTabs.module.css";
 
 const TABS = ["Overview", "Sales Report", "Bookings Report", "Vehicle Report", "Customer Report", "Payment Report"];

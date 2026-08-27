@@ -66,7 +66,7 @@
 }
 
 .secondary .eyebrow {
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 }
 
 
@@ -220,7 +220,7 @@
   background: none;
   border: none;
 
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 
   font-size: var(--font-size-supporting);
   font-weight: 600;

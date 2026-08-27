@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BookingInfoCard.module.css";
 
 export default function BookingInfoCard({ booking }) {

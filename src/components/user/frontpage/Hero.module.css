@@ -1,17 +1,17 @@
 .hero {
   --gold: var(--color-accent-alt);
-  --gold-dark: var(--color-accent-alt-hover);
+  --gold-dark: var(--color-accent-hover);
   --text-dark: var(--color-text-strong);
   --white: var(--color-bg-surface);
 
   position: relative;
-  min-height: 480px;
+  min-height: 108vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-family-base);
   overflow: hidden;
-  padding-top: 160px;
+  padding-top: clamp(120px, 14vh, 180px);
 }
 
 .heroImage {
@@ -37,9 +37,9 @@
 .heroContent {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: 760px;
   text-align: center;
-  padding: 56px 24px;
+  padding: 72px 28px;
   color: var(--white);
 }
 
@@ -50,23 +50,26 @@
 .eyebrow {
   color: var(--gold);
   font-weight: 600;
-  letter-spacing: 0.03em;
-  margin-bottom: 12px;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
 }
 
 .heroTitle {
-  font-size: var(--font-size-page-title);
+  font-size: clamp(34px, 5vw, 52px);
   font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 20px;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0 0 22px;
 }
 
 .heroSubtitle {
-  font-size: var(--font-size-navigation);
+  font-size: clamp(15px, 1.4vw, 18px);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 560px;
-  margin: 0 auto 32px;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 580px;
+  margin: 0 auto 36px;
 }
 
 .heroActions {
@@ -80,10 +83,10 @@
   background: var(--gold);
   color: var(--text-dark);
   border: none;
-  padding: 14px 32px;
+  padding: 15px 34px;
   border-radius: 30px;
   font-weight: 600;
-  font-size: var(--font-size-navigation);
+  font-size: 17px;
   text-decoration: none;
   cursor: pointer;
   display: inline-flex;
@@ -91,18 +94,14 @@
   gap: 8px;
 }
 
-.primaryBtn:hover {
-  background: var(--gold-dark);
-}
-
 .btnArrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--white);
-  color: var(--gold-dark);
-  width: 22px;
-  height: 22px;
+  background: var(--text-dark);
+  color: var(--gold);
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   font-size: var(--font-size-caption);
 }
@@ -111,23 +110,29 @@
   background: var(--white);
   color: var(--text-dark);
   border: none;
-  padding: 14px 32px;
+  padding: 15px 34px;
   border-radius: 30px;
   font-weight: 600;
-  font-size: var(--font-size-navigation);
+  font-size: 17px;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
 }
 
-.secondaryBtn:hover {
-  background: var(--color-bg-hover);
+@media (max-width: 1024px) {
+  .hero {
+    padding-top: clamp(110px, 12vh, 150px);
+  }
+
+  .heroContent {
+    padding: 56px 24px;
+  }
 }
 
 @media (max-width: 640px) {
   .hero {
-    min-height: 420px;
-    padding-top: 110px;
+    min-height: 108vh;
+    padding-top: clamp(104px, 11vh, 130px);
   }
 
   .heroImage {
@@ -136,23 +141,23 @@
   }
 
   .heroContent {
-    padding: 32px 20px;
+    padding: 40px 20px;
   }
 
   .eyebrow {
-    font-size: var(--font-size-supporting);
-    margin-bottom: 8px;
+    font-size: 13px;
+    margin-bottom: 12px;
   }
 
   .heroTitle {
-    font-size: var(--font-size-page-title);
-    margin: 0 0 14px;
+    font-size: clamp(28px, 8vw, 34px);
+    margin: 0 0 16px;
   }
 
   .heroSubtitle {
-    font-size: var(--font-size-supporting);
+    font-size: 14px;
     line-height: 1.6;
-    margin: 0 auto 24px;
+    margin: 0 auto 28px;
   }
 
   .heroActions {
@@ -161,13 +166,13 @@
 
   .primaryBtn,
   .secondaryBtn {
-    padding: 12px 22px;
-    font-size: var(--font-size-supporting);
+    padding: 13px 24px;
+    font-size: 15px;
   }
 
   .btnArrow {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     font-size: var(--font-size-caption);
   }
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import PhotoSlot from "./PhotoSlot";
 import stepCard from "./StepCard.module.css";
 import styles from "./VehiclePhotosStep.module.css";

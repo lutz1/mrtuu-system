@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./VehicleStatCard.module.css";
 
 export default function VehicleStatCard({ icon, label, value }) {

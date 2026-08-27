@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ToggleSwitch.module.css";
 
 export default function ToggleSwitch({ checked, onChange, label }) {

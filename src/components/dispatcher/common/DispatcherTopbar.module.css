@@ -1,11 +1,19 @@
 .topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1800;
+
+  width: 100%;
+  height: var(--dispatcher-topbar-height, 76px);
   background: var(--color-bg-surface);
-  border-radius: 20px;
-  padding: 14px 28px;
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(30, 40, 50, 0.05);
 }
 
 .brand {
@@ -102,6 +110,7 @@
 
 @media (max-width: 640px) {
   .topbar {
+    height: var(--dispatcher-topbar-height, 60px);
     padding: 12px 16px;
   }
   .brandName {

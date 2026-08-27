@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./RadioOptionGroup.module.css";
 
 export default function RadioOptionGroup({ name, options, value, onChange, layout = "vertical" }) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IconCheck } from "./icons";
 import styles from "./Features.module.css";
 

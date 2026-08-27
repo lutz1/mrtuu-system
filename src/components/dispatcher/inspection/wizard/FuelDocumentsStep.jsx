@@ -1,4 +1,3 @@
-import React from "react";
 import RadioOptionGroup from "./RadioOptionGroup";
 import stepCard from "./StepCard.module.css";
 import styles from "./FuelDocumentsStep.module.css";

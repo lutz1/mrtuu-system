@@ -111,7 +111,7 @@
 }
 
 .searchBtn:hover {
-  background: var(--color-accent-alt-hover);
+  background: var(--color-accent-hover);
 }
 
 .searchBtnIcon {
@@ -261,7 +261,7 @@
 }
 
 .applyFiltersBtn:hover {
-  background: var(--color-accent-alt-hover);
+  background: var(--color-accent-hover);
 }
 
 

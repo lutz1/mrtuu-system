@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./AdminStatCard.module.css";
 
 export default function AdminStatCard({ icon, label, value, footnote }) {

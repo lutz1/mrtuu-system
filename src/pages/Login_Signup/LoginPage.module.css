@@ -5,11 +5,25 @@
 .page {
   font-family: var(--font-family-base);
   min-height: 100vh;
-  height: 100vh;
-  overflow: hidden;
+  height: auto;
+  overflow: auto;
   width: 100%;
   display: grid;
   grid-template-columns: 55% 45%;
+
+  /* Force a light presentation regardless of the active theme:
+     the login form (right panel) always renders on a light surface. */
+  --color-bg-soft: #f8f9fa;
+  --color-bg-surface: #ffffff;
+  --color-bg-hover: #f7f7f7;
+  --color-bg-muted: #f0f1f3;
+  --color-text-primary: #1a1a1a;
+  --color-text-strong: #111827;
+  --color-text-secondary: #374151;
+  --color-text-muted: #4b5563;
+  --color-border: #e5e7eb;
+  --color-border-medium: #d1d5db;
+  --color-input-bg: #ffffff;
 }
 
 .page * {
@@ -94,15 +108,7 @@
 }
 
 .headlineGold {
-  background: linear-gradient(
-    90deg,
-    var(--color-gold-light),
-    var(--color-gold)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  color: var(--color-gold);
 }
 
 .headlineCream {
@@ -110,7 +116,7 @@
 }
 
 .legalText {
-  color: var(--color-text-on-dark-muted);
+  color: rgba(255, 255, 255, 0.82);
   font-size: var(--font-size-caption);
   line-height: 1.6;
   max-width: 560px;
@@ -202,7 +208,7 @@
   background: linear-gradient(
     90deg,
     var(--color-accent-alt),
-    var(--color-accent-alt-hover)
+    var(--color-accent-hover)
   );
   color: var(--color-text-primary);
   border: none;

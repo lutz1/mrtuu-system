@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useVehicles } from "../../../context/VehiclesContext";
+import { useTheme } from "../../../context/ThemeContext";
 import Navbar from "../../../components/user/frontpage/Navbar";
 import SearchFilterBar from "../../../components/user/SearchFilterBar";
 import Hero from "../../../components/user/frontpage/Hero";
@@ -23,6 +24,23 @@ export default function LandingPage() {
     carType: "All",
     brand: "All",
   });
+
+  const { theme, setTheme } = useTheme();
+
+  // The landing page is theme-independent: it always renders in the default
+  // light mode, regardless of login state or the saved theme preference.
+  // It self-corrects if anything else flips the theme while mounted, and
+  // restores the user's saved theme when they navigate away.
+  useEffect(() => {
+    if (theme !== "light") setTheme("light");
+  }, [theme, setTheme]);
+
+  useEffect(() => {
+    return () => {
+      const saved = window.localStorage.getItem("lyka-theme");
+      if (saved === "light" || saved === "dark") setTheme(saved);
+    };
+  }, [setTheme]);
 
   const handleFilterChange = (field, value) => {
     setFilters((prev) => ({ ...prev, [field]: value }));

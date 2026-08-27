@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./InspectionQueueTable.module.css";
 
 export default function InspectionQueueTable({ bookings, onStartInspection }) {

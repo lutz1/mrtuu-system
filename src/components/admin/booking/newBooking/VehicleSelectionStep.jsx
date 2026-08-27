@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import VehicleSelectCard from "./VehicleSelectCard";
 import Pagination from "../../common/Pagination";
 import { useAdminVehicles } from "../../../../context/AdminVehiclesContext";

@@ -90,6 +90,22 @@
 
   --color-ref-1f2124: #1f2124;
 
+  /* Missing reference tokens (added in token sweep — values follow the
+     --color-ref-<hex> : #<hex> convention already used above) */
+  --color-ref-6b6b6b: #6b6b6b;
+  --color-ref-c17f1f: #c17f1f;
+  --color-ref-f0d9a8: #f0d9a8;
+  --color-ref-eef0f3: #eef0f3;
+  --color-ref-f5f6f8: #f5f6f8;
+  --color-ref-b0b3b8: #b0b3b8;
+  --color-ref-dcdfe4: #dcdfe4;
+  --color-ref-e8e4d8: #e8e4d8;
+  --color-ref-fef1d9: #fef1d9;
+  --color-ref-f5f0e6: #f5f0e6;
+  --color-ref-2a2a2a: #2a2a2a;
+  --color-ref-3a3a3a: #3a3a3a;
+  --color-ref-4b4b4b: #4b4b4b;
+
 
   /* ------------------------------------------------------------------------
      Typography
@@ -119,6 +135,28 @@
   --font-size-status: 12px;
   --font-size-breadcrumb: 13px;
   --font-size-helper: 12px;
+
+  /* ------------------------------------------------------------------------
+     Missing semantic tokens (added in token sweep)
+     ------------------------------------------------------------------------ */
+  --color-text-on-dark: #ffffff;
+  --color-link: var(--color-accent-hover);
+  --color-accent-light: var(--color-gold-light);
+  --color-accent-tint: var(--color-accent-soft-bg);
+  --color-bg-danger-soft: var(--color-danger-soft-bg);
+  --color-danger-border: #f5c2bd;
+  --color-danger-text: #b3261e;
+  --color-info-bg: #e8f1fd;
+  --color-info-text: #2563eb;
+  --color-toggle-off: var(--color-border-medium);
+  --color-success-bg: var(--color-success-soft-bg);
+  --color-success-tint: #dcfce7;
+  --status-neutral: #9ca3af;
+  --status-ongoing: var(--color-gold);
+  --color-step-blue: var(--color-ref-3f6fd1);
+  --color-step-blue-bg: #e8f0fd;
+  --color-step-purple: #8b5cf6;
+  --color-step-purple-bg: #f3e8ff;
 }
 
 
@@ -205,6 +243,96 @@
   --color-ref-b45309: #fbbf24;
 
   --color-ref-1f2124: #252525;
+
+  /* Missing semantic tokens — dark-theme overrides (token sweep) */
+  --color-text-on-dark: #ffffff;
+  --color-link: var(--color-accent-hover);
+  --color-accent-light: var(--color-gold-light);
+  --color-accent-tint: var(--color-accent-soft-bg);
+  --color-bg-danger-soft: var(--color-danger-soft-bg);
+  --color-danger-border: #6b302c;
+  --color-danger-text: #ff8178;
+  --color-info-bg: #16263b;
+  --color-info-text: #93c5fd;
+  --color-toggle-off: var(--color-border-medium);
+  --color-success-bg: var(--color-success-soft-bg);
+  --color-success-tint: #173522;
+  --status-neutral: #9ca3af;
+  --status-ongoing: var(--color-gold);
+  --color-step-blue: #6b9aff;
+  --color-step-blue-bg: #16263b;
+  --color-step-purple: #c4b5fd;
+  --color-step-purple-bg: #2a2240;
+}
+
+/* ==========================================================================
+   MISSING TOKENS — ADMIN COMPONENTS (token sweep)
+   --color-ref-<hex> : #<hex> convention; semantic ones tied to palette.
+   ========================================================================== */
+
+:root {
+  --color-ref-3b82f6: #3b82f6;
+  --color-ref-16803c: #16803c;
+  --color-ref-333333: #333333;
+  --color-ref-166534: #166534;
+  --color-ref-1d4ed8: #1d4ed8;
+  --color-ref-92400e: #92400e;
+  --color-ref-991b1b: #991b1b;
+  --color-ref-b91c1c: #b91c1c;
+  --color-ref-dbeafe: #dbeafe;
+  --color-ref-f1f2f4: #f1f2f4;
+  --color-ref-fef7ea: #fef7ea;
+  --color-ref-fbdcda: #fbdcda;
+  --color-ref-0f172a: #0f172a;
+  --color-ref-1e293b: #1e293b;
+  --color-ref-2563eb: #2563eb;
+  --color-ref-475569: #475569;
+  --color-ref-64748b: #64748b;
+  --color-ref-cbd5e1: #cbd5e1;
+  --color-ref-e2e8f0: #e2e8f0;
+  --color-ref-f1f5f9: #f1f5f9;
+  --color-ref-f8fafc: #f8fafc;
+  --color-ref-dfe1e5: #dfe1e5;
+  --color-ref-92620a: #92620a;
+  --color-ref-0369a1: #0369a1;
+  --color-ref-6d28d9: #6d28d9;
+  --color-ref-7c3aed: #7c3aed;
+  --color-ref-e0f2fe: #e0f2fe;
+  --color-ref-ede9fe: #ede9fe;
+  --color-ref-c28b00: #c28b00;
+  --color-ref-d99b00: #d99b00;
+  --color-ref-f4f5f7: #f4f5f7;
+  --color-ref-f9fafb: #f9fafb;
+  --color-ref-c7cad0: #c7cad0;
+  --color-ref-fafafa: #fafafa;
+  --color-ref-f5f6f8: #f5f6f8;
+
+  --color-primary: var(--color-accent);
+  --color-primary-soft: var(--color-accent-soft-bg);
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  --color-badge-bg: var(--color-accent-soft-bg);
+  --color-badge-text: var(--color-accent-dark);
+  --color-danger-bg: var(--color-danger-soft-bg);
+  --color-danger-bg-hover: #fbe9e8;
+  --color-bg-active: var(--color-accent-soft-bg);
+
+  /* Missing tokens — dispatcher + admin (final token-sweep batch) */
+  --color-ref-15803d: #15803d;
+  --color-ref-bbf7d0: #bbf7d0;
+  --color-ref-f0fdf4: #f0fdf4;
+  --color-ref-1e40af: #1e40af;
+  --color-ref-bfdbfe: #bfdbfe;
+  --color-ref-eff6ff: #eff6ff;
+  --color-ref-fecaca: #fecaca;
+  --color-ref-fef2f2: #fef2f2;
+  --color-primary-hover: var(--color-accent-hover);
+
+  --font-page-title: var(--font-size-page-title);
+  --font-supporting: var(--font-size-supporting);
+  --font-table-text: var(--font-size-table-text);
+  --font-breadcrumb: var(--font-size-breadcrumb);
+  --font-card-title: var(--font-size-card-title);
 }
 
 
@@ -304,19 +432,5 @@ p {
 
 
 /* ==========================================================================
-   GOLD HEADLINE
+   (gradient-text headline removed — solid gold is used on auth screens)
    ========================================================================== */
-
-.headlineGold {
-  background: linear-gradient(
-    90deg,
-    var(--color-gold-light),
-    var(--color-gold)
-  );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}

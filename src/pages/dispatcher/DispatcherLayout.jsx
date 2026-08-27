@@ -1,4 +1,3 @@
-import React from "react";
 import DispatcherSidebar from "../../components/dispatcher/common/DispatcherSidebar";
 import DispatcherTopbar from "../../components/dispatcher/common/DispatcherTopbar";
 import ToastContainer from "../../components/admin/common/ToastContainer";

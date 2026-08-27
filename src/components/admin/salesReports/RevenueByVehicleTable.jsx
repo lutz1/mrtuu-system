@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./RevenueByVehicleTable.module.css";
 
 export default function RevenueByVehicleTable({ rows }) {

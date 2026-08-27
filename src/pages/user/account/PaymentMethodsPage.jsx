@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../../../components/user/frontpage/Navbar";
 import Breadcrumb from "../../../components/user/Breadcrumb";
 import Footer from "../../../components/user/frontpage/Footer";

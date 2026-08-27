@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./CustomerFilterBar.module.css";
 import { CUSTOMER_STATUSES } from "../../../data/admin/mockCustomers";
 

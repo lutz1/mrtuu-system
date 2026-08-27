@@ -3,27 +3,25 @@
   width: 100%;
   box-sizing: border-box;
 
+  --admin-topbar-height: 76px;
+  --admin-sidebar-width: 260px;
+
   background: var(--color-bg-muted);
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
 
-  padding: 24px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 .body {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
 
   width: 100%;
   min-width: 0;
+  min-height: 100vh;
 
   box-sizing: border-box;
+  padding-top: var(--admin-topbar-height);
 }
 
 .content {
@@ -31,6 +29,9 @@
   min-width: 0;
   width: 100%;
   max-width: 100%;
+  min-height: calc(100vh - var(--admin-topbar-height));
+  margin-left: var(--admin-sidebar-width);
+  padding: 28px 32px 40px;
 
   box-sizing: border-box;
 }
@@ -51,18 +52,17 @@
 
 @media (max-width: 960px) {
   .page {
-    padding: 16px;
-    gap: 16px;
+    --admin-sidebar-width: 220px;
   }
 
   .body {
     width: 100%;
-    gap: 16px;
   }
 
   .content {
     width: 100%;
     max-width: 100%;
+    padding: 24px 20px 32px;
   }
 }
 
@@ -73,22 +73,22 @@
 
 @media (max-width: 768px) {
   .page {
-    padding: 12px;
-    gap: 12px;
-
-    overflow-x: hidden;
+    --admin-topbar-height: 64px;
   }
 
   .body {
     display: block;
     width: 100%;
     min-width: 0;
+    padding-top: var(--admin-topbar-height);
   }
 
   .content {
     width: 100%;
     max-width: 100%;
     min-width: 0;
+    margin-left: 0;
+    padding: 16px 14px 28px;
   }
 
   /* Dark background behind opened sidebar */
@@ -123,7 +123,10 @@
 
 @media (max-width: 480px) {
   .page {
-    padding: 8px;
-    gap: 10px;
+    --admin-topbar-height: 60px;
+  }
+
+  .content {
+    padding: 14px 10px 24px;
   }
 }

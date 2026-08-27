@@ -78,7 +78,7 @@
 }
 
 .requirementLabel {
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
   font-weight: 700;
   font-size: var(--font-size-caption);
   letter-spacing: 0.05em;
@@ -99,7 +99,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
   font-weight: 600;
   font-size: var(--font-size-table-text);
   text-decoration: none;

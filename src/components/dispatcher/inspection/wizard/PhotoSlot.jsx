@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import PhotoSourceSheet from "./PhotoSourceSheet";
 import styles from "./PhotoSlot.module.css";
 

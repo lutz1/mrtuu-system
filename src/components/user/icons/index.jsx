@@ -1,4 +1,3 @@
-import React from "react";
 
 export const IconSearch = ({ className }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

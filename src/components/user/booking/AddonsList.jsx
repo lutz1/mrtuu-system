@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./AddonsList.module.css";
 
 export const ADDONS = [

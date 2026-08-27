@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconSearch } from "./icons";
 import styles from "./SearchFilterBar.module.css";

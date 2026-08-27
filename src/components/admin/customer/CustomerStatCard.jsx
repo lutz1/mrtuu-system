@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./CustomerStatCard.module.css";
 
 export default function CustomerStatCard({ icon, label, value }) {

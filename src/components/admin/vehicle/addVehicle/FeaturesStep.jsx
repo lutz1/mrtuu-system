@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PREDEFINED_FEATURES } from "../../../../data/admin/mockVehicles";
 import fields from "./FormFields.module.css";
 import styles from "./FeaturesStep.module.css";

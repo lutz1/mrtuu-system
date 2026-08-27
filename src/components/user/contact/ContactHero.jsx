@@ -1,4 +1,3 @@
-import React from "react";
 import PageHero from "../PageHero";
 import heroImage from "../../../assets/contact-hero.png";
 

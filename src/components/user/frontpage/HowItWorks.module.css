@@ -11,7 +11,6 @@
 
 .sectionTitleLight {
   color: var(--white);
-  color: var(--color-on-dark-light);
   text-align: center;
   font-size: var(--font-size-page-title);
   font-weight: 700;
@@ -54,7 +53,6 @@
 .stepTitle {
   color: var(--white);
   font-size: var(--font-size-card-title);
-  color: var(--color-on-dark-light);
   font-weight: 700;
   margin: 0 0 6px;
 }
@@ -64,6 +62,16 @@
   font-size: var(--font-size-supporting);
   line-height: 1.6;
   margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .howItWorksWrapper {
+    padding: 0 24px 72px;
+  }
+
+  .howItWorks {
+    padding: 48px 36px;
+  }
 }
 
 @media (max-width: 960px) {

@@ -19,13 +19,6 @@
   margin-bottom: -140px;
 }
 
-.searchBarWrapper {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 32px;
-  width: 100%;
-}
-
 .contentWrapper {
   max-width: 1300px;
   margin: 0 auto;
@@ -43,9 +36,6 @@
 }
 
 @media (max-width: 960px) {
-  .searchBarWrapper {
-    padding: 0 20px;
-  }
   .contentWrapper {
     padding: 40px 20px 60px;
   }
@@ -55,9 +45,6 @@
 }
 
 @media (max-width: 640px) {
-  .searchBarWrapper {
-    padding: 0 12px;
-  }
   .contentWrapper {
     padding: 32px 12px 60px;
   }

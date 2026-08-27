@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BookingFilterTabs.module.css";
 
 export default function BookingFilterTabs({ tabs, active, onChange }) {

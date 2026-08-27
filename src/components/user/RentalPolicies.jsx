@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IconPlus, IconMinus } from "./icons";
 import styles from "./RentalPolicies.module.css";
 

@@ -1,6 +1,6 @@
 import { useAuth } from "../../../context/AuthContext";
 import { useStaff } from "../../../context/StaffContext";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.webp";
 import styles from "./DispatcherTopbar.module.css";
 
 const ROLE_LABELS = {

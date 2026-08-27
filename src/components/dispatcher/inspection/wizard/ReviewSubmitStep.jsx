@@ -1,4 +1,3 @@
-import React from "react";
 import stepCard from "./StepCard.module.css";
 import styles from "./ReviewSubmitStep.module.css";
 

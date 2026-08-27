@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BookingSearchBar.module.css";
 
 export default function BookingSearchBar({ value, onChange }) {

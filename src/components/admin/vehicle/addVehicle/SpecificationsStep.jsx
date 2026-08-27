@@ -1,4 +1,3 @@
-import React from "react";
 import { SEAT_OPTIONS, FUEL_TYPES, DRIVETRAIN_OPTIONS, DOOR_OPTIONS } from "../../../../data/admin/mockVehicles";
 import fields from "./FormFields.module.css";
 import styles from "./SpecificationsStep.module.css";

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./UpcomingPickupsCard.module.css";
 
 export default function UpcomingPickupsCard({ pickups, onViewAll }) {

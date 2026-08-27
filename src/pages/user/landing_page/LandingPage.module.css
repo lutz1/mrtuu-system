@@ -1,7 +1,7 @@
 .page {
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
   color: var(--color-text-primary);
-  background: var(--color-ref-000000)00;   /* match Showroom/VehicleOverview for consistency */
+  background: var(--color-bg-page);   /* valid token; matches Showroom/VehicleOverview */
 }
 
 .page * {
@@ -12,7 +12,8 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: transparent;
+  background: var(--color-bg-surface);   /* solid backdrop so nav text is readable over the hero */
+  box-shadow: 0 1px 0 var(--color-border-soft);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -21,6 +22,7 @@
 
 .pageContent {
   overflow-x: hidden;
+  background: var(--color-cream);
 }
 
 @media (max-width: 960px) {

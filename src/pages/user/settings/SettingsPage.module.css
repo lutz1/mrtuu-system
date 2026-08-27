@@ -86,7 +86,7 @@
 .pickupLabel {
   font-size: var(--font-size-table-text);
   font-weight: 500;
-  color: var(--color-accent-alt-hover);
+  color: var(--color-accent-hover);
 }
 
 .toggleRow {

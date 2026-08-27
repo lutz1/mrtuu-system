@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./InspectionStatusBadge.module.css";
 
 const STATUS_CLASS = {

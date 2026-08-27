@@ -1,8 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import styles from "./Navbar.module.css";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.webp";
 
 export default function Navbar() {
   const { user, isLoggedIn } = useAuth();
@@ -24,7 +23,6 @@ export default function Navbar() {
             alt="Lyka's Car Rental"
             className={styles.logoImage}
           />
-          <span className={styles.logoText}>Lyka's</span>
         </Link>
 
         {/* Right Side */}

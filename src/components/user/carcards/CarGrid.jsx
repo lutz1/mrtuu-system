@@ -1,4 +1,3 @@
-import React from "react";
 import CarCardWithPrice from "./CarCardWithPrice";
 import styles from "./CarGrid.module.css";
 

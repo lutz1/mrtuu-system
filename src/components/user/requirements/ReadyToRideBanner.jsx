@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import ctaImage from "../../../assets/windshield.png";
+import ctaImage from "../../../assets/windshield.webp";
 import styles from "./ReadyToRideBanner.module.css";
 
 export default function ReadyToRideBanner() {

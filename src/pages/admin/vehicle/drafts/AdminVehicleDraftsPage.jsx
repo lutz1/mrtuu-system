@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminLayout from "../../dashboard/AdminLayout";
 import DraftVehiclesTable from "../../../../components/admin/vehicle/drafts/DraftVehiclesTable";

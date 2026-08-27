@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import heroImage from "../../../assets/header.png"; // your actual import
+import heroImage from "../../../assets/header.webp"; // your actual import
 import styles from "./Hero.module.css";
 
 

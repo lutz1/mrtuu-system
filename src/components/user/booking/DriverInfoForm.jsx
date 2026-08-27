@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./DriverInfoForm.module.css";
 
 function UploadField({ id, label, file, onChange }) {
