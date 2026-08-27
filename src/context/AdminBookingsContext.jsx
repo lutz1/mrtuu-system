@@ -25,6 +25,7 @@ import {
 } from "../services/bookingsService";
 import { useAuth } from "./AuthContext";
 import { useStaff } from "./StaffContext";
+import { useVehicles } from "./VehiclesContext";
 
 // 1. Move BOOKING_STAGES to the top before using it in mock data
 export const BOOKING_STAGES = {
@@ -77,10 +78,16 @@ function joinBooking(booking, vehiclesById) {
 export function AdminBookingsProvider({ children }) {
   const { user } = useAuth();
   const { staffProfile, staffLoading } = useStaff();
+  const { vehicles } = useVehicles();
 
   const [rawBookings, setRawBookings] = useState([]);
-  const [vehiclesById, setVehiclesById] = useState(new Map());
   const [loading, setLoading] = useState(true);
+
+  const vehiclesById = useMemo(() => {
+    const map = new Map();
+    vehicles.forEach((v) => map.set(v.id, v));
+    return map;
+  }, [vehicles]);
 
   useEffect(() => {
     // lykas_bookings reads require staff permissions in firestore.rules
@@ -114,20 +121,6 @@ export function AdminBookingsProvider({ children }) {
     );
     return unsubscribe;
   }, [staffProfile, staffLoading]);
-
-  useEffect(() => {
-    // lykas_vehicles is public-read, so this one is safe to run for
-    // everyone — kept unguarded on purpose.
-    const unsubscribe = onSnapshot(
-      collection(db, "lykas_vehicles"),
-      (snapshot) => {
-        const map = new Map();
-        snapshot.docs.forEach((d) => map.set(d.id, { id: d.id, ...d.data() }));
-        setVehiclesById(map);
-      }
-    );
-    return unsubscribe;
-  }, []);
 
   const bookings = useMemo(
     () => rawBookings.map((b) => joinBooking(b, vehiclesById)),
