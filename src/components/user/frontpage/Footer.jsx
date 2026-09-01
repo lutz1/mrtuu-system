@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.webp";
 import { FOOTER_COLUMNS } from "../../../data/content";
 import styles from "./Footer.module.css";
@@ -26,10 +27,10 @@ export default function Footer() {
               <h4 className={styles.footerColumnTitle}>{col.title}</h4>
               <ul>
                 {col.links.map((link, linkIdx) => (
-                  <li key={`${link}-${linkIdx}`}>
-                    <a href="#top">
-                      <span className={styles.footerChevron}>›</span> {link}
-                    </a>
+                  <li key={`${link.label}-${linkIdx}`}>
+                    <Link to={link.to}>
+                      <span className={styles.footerChevron}>›</span> {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

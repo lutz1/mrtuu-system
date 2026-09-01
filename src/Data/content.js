@@ -45,7 +45,26 @@ export const HOW_IT_WORKS = [
 ];
 
 export const FOOTER_COLUMNS = [
-  { title: "Header Text", links: ["Button", "Button", "Button", "Button"] },
-  { title: "Header Text", links: ["Button", "Button", "Button", "Button"] },
-  { title: "Header Text", links: ["Button", "Button", "Button", "Button"] },
+  {
+    title: "Company",
+    links: [
+      { label: "How It Works", to: "/requirements" },
+      { label: "Contact Us", to: "/contact" },
+    ],
+  },
+  {
+    title: "Account",
+    links: [
+      { label: "My Bookings", to: "/account/bookings" },
+      { label: "Account Settings", to: "/account/settings" },
+      { label: "Login", to: "/login" },
+      { label: "Sign Up", to: "/signup" },
+    ],
+  },
+  {
+    title: "Explore",
+    links: [
+      { label: "Showroom", to: "/showroom" },
+    ],
+  },
 ];
