@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useAdminVehicles } from "../../../context/AdminVehiclesContext";
 import { useToast } from "../../../context/ToastContext";
 import styles from "./VehicleViewOverlay.module.css";
@@ -100,17 +101,17 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
   const goNext = () => setActiveIndex((prev) => (prev + 1) % images.length);
 
   const handleArchive = () => {
-      // eslint-disable-next-line no-alert
-      const confirmed = window.confirm(
-        `Archive ${vehicle.name}? It will be removed from the active showroom. This can't be undone from here yet.`
-      );
-      if (!confirmed) return;
-      archiveVehicle(vehicle.id);
-      showToast(`${vehicle.name} archived.`, { type: "info" });
-      onClose();
-    };
+    // eslint-disable-next-line no-alert
+    const confirmed = window.confirm(
+      `Archive ${vehicle.name}? It will be removed from the active showroom. This can't be undone from here yet.`
+    );
+    if (!confirmed) return;
+    archiveVehicle(vehicle.id);
+    showToast(`${vehicle.name} archived.`, { type: "info" });
+    onClose();
+  };
 
-  return (
+  return createPortal(
     <div className={styles.backdrop} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
@@ -397,6 +398,7 @@ export default function VehicleViewOverlay({ vehicle, onClose, onEdit }) {
           </section>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

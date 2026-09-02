@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useAdminVehicles } from "../../../../context/AdminVehiclesContext";
 import StepIndicator from "./StepIndicator";
 import BasicInfoStep from "./BasicInfoStep";
@@ -386,7 +387,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
 
   const photoCount = photos.filter(Boolean).length;
 
-  return (
+  return createPortal(
     <div className={styles.backdrop}>
       <div className={styles.modal}>
         <div className={styles.header}>
@@ -522,6 +523,7 @@ export default function AddVehicleModal({ vehicle, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
