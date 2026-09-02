@@ -30,9 +30,13 @@ export function VehiclesProvider({ children }) {
         // just in AdminVehiclesContext — keeps every customer page
         // (Showroom, Landing, VehicleOverview) safe from that data by
         // construction instead of relying on each page to filter itself.
-        const docs = snapshot.docs
-          .map((d) => ({ id: d.id, ...d.data() }))
-          .filter((v) => !v.draft && !v.archived);
+        // Single pass: map + filter combined via reduce, instead of two
+        // separate array traversals.
+        const docs = snapshot.docs.reduce((acc, d) => {
+          const vehicle = { id: d.id, ...d.data() };
+          if (!vehicle.draft && !vehicle.archived) acc.push(vehicle);
+          return acc;
+        }, []);
 
         setVehicles(docs);
         setLoading(false);
