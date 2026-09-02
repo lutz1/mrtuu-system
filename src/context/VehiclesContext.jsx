@@ -24,7 +24,21 @@ export function VehiclesProvider({ children }) {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        setVehicles(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
+        // Customer-facing context: never expose draft or archived vehicles.
+        // Drafts can have incomplete data (missing price, features, images)
+        // and were never meant to be bookable, so filtering here — not
+        // just in AdminVehiclesContext — keeps every customer page
+        // (Showroom, Landing, VehicleOverview) safe from that data by
+        // construction instead of relying on each page to filter itself.
+        // Single pass: map + filter combined via reduce, instead of two
+        // separate array traversals.
+        const docs = snapshot.docs.reduce((acc, d) => {
+          const vehicle = { id: d.id, ...d.data() };
+          if (!vehicle.draft && !vehicle.archived) acc.push(vehicle);
+          return acc;
+        }, []);
+
+        setVehicles(docs);
         setLoading(false);
       },
       (err) => {

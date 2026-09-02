@@ -8,6 +8,7 @@ import PermissionRoute from "./context/PermissionRoute";
 import { VehiclesProvider } from "./context/VehiclesContext";
 import { ThemeProvider, ThemeGate } from "./context/ThemeContext";
 import { CustomerBookingsProvider } from "./context/CustomerBookingsContext";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 import AdminRoute from "./context/AdminRoute";
 import { AdminVehiclesProvider } from "./context/AdminVehiclesContext";
@@ -409,31 +410,36 @@ function App() {
               <StaffProvider>
                 <VehiclesProvider>
                   <CustomerBookingsProvider>
-                    <Suspense
-                      fallback={
-                        <div className="route-fallback" aria-busy="true" />
-                      }
-                    >
-                      <Routes>
-                        <Route
-                          path="/admin/*"
-                          element={
-                            <StaffProviders>
-                              <AdminRoutesElement />
-                            </StaffProviders>
-                          }
-                        />
-                        <Route
-                          path="/dispatcher/*"
-                          element={
-                            <StaffProviders>
-                              <DispatcherRoutesElement />
-                            </StaffProviders>
-                          }
-                        />
-                        <Route path="/*" element={<CustomerRoutesElement />} />
-                      </Routes>
-                    </Suspense>
+                    <ErrorBoundary>
+                      <Suspense
+                        fallback={
+                          <div className="route-fallback" aria-busy="true" />
+                        }
+                      >
+                        <Routes>
+                          <Route
+                            path="/admin/*"
+                            element={
+                              <StaffProviders>
+                                <AdminRoutesElement />
+                              </StaffProviders>
+                            }
+                          />
+                          <Route
+                            path="/dispatcher/*"
+                            element={
+                              <StaffProviders>
+                                <DispatcherRoutesElement />
+                              </StaffProviders>
+                            }
+                          />
+                          <Route
+                            path="/*"
+                            element={<CustomerRoutesElement />}
+                          />
+                        </Routes>
+                      </Suspense>
+                    </ErrorBoundary>
                   </CustomerBookingsProvider>
                 </VehiclesProvider>
               </StaffProvider>
