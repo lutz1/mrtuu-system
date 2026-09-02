@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { useStaff } from "../../../context/StaffContext";
@@ -167,35 +166,10 @@ function ChevronIcon({ collapsed }) {
   );
 }
 
-export default function AdminSidebar({ isOpen, onClose }) {
+export default function AdminSidebar({ isOpen, onClose, isCollapsed, onToggleCollapse }) {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { hasPermission } = useStaff();
-
-  const [collapsed, setCollapsed] = useState(
-    () => localStorage.getItem("adminSidebarCollapsed") === "true"
-  );
-  const [isDesktop, setIsDesktop] = useState(true);
-
-  // Collapsing only makes sense on the fixed-width desktop sidebar,
-  // not the tablet row layout or the mobile drawer.
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 961px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  const effectiveCollapsed = collapsed && isDesktop;
-
-  const toggleCollapsed = () => {
-    setCollapsed((prev) => {
-      const next = !prev;
-      localStorage.setItem("adminSidebarCollapsed", String(next));
-      return next;
-    });
-  };
 
   const navItems = ALL_NAV_ITEMS.filter(
     (item) => !item.permission || hasPermission(item.permission)
@@ -209,7 +183,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
   return (
     <aside
       className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ""} ${
-        effectiveCollapsed ? styles.sidebarCollapsed : ""
+        isCollapsed ? styles.sidebarCollapsed : ""
       }`}
     >
       {/* Mobile close button */}
@@ -225,16 +199,16 @@ export default function AdminSidebar({ isOpen, onClose }) {
       </button>
 
       <div className={styles.sidebarHeader}>
-        {!effectiveCollapsed && <p className={styles.menuLabel}>Menu</p>}
+        {!isCollapsed && <p className={styles.menuLabel}>Menu</p>}
 
         <button
           type="button"
           className={styles.collapseBtn}
-          onClick={toggleCollapsed}
-          aria-label={effectiveCollapsed ? "Expand menu" : "Collapse menu"}
-          title={effectiveCollapsed ? "Expand menu" : "Collapse menu"}
+          onClick={onToggleCollapse}
+          aria-label={isCollapsed ? "Expand menu" : "Collapse menu"}
+          title={isCollapsed ? "Expand menu" : "Collapse menu"}
         >
-          <ChevronIcon collapsed={effectiveCollapsed} />
+          <ChevronIcon collapsed={isCollapsed} />
         </button>
       </div>
 
@@ -244,7 +218,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
             key={item.to}
             to={item.to}
             onClick={onClose}
-            title={effectiveCollapsed ? item.label : undefined}
+            title={isCollapsed ? item.label : undefined}
             className={({ isActive }) =>
               `${styles.navItem} ${isActive ? styles.navItemActive : ""}`
             }
@@ -253,7 +227,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
               <NavIcon name={item.icon} />
             </span>
 
-            {!effectiveCollapsed && item.label}
+            {!isCollapsed && item.label}
           </NavLink>
         ))}
       </nav>
@@ -262,7 +236,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
         type="button"
         className={styles.logoutBtn}
         onClick={handleLogout}
-        title={effectiveCollapsed ? "Logout" : undefined}
+        title={isCollapsed ? "Logout" : undefined}
       >
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
@@ -275,7 +249,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
           />
         </svg>
 
-        {!effectiveCollapsed && "Logout"}
+        {!isCollapsed && "Logout"}
       </button>
     </aside>
   );

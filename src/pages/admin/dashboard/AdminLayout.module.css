@@ -5,6 +5,7 @@
 
   --admin-topbar-height: 76px;
   --admin-sidebar-width: 260px;
+  --admin-sidebar-width-collapsed: 76px;
 
   background: var(--color-bg-muted);
   font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
@@ -34,6 +35,14 @@
   padding: 28px 32px 40px;
 
   box-sizing: border-box;
+  transition: margin-left 0.22s ease;
+}
+
+/* Sidebar folded: content stretches into the freed space.
+   0.22s matches AdminSidebar.module.css's width transition so both
+   animate in sync. */
+.sidebarCollapsed .content {
+  margin-left: var(--admin-sidebar-width-collapsed);
 }
 
 
@@ -89,6 +98,11 @@
     min-width: 0;
     margin-left: 0;
     padding: 16px 14px 28px;
+  }
+
+  /* Mobile sidebar is an overlay drawer, not a fold — content never shifts */
+  .sidebarCollapsed .content {
+    margin-left: 0;
   }
 
   /* Dark background behind opened sidebar */
