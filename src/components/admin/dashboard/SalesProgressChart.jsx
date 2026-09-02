@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   LineChart,
   Line,
@@ -8,24 +8,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { usePayments } from "../../../context/PaymentsContext";
+import { bucketByRange } from "../../../utils/dashboardTimeRanges";
+import RangeDropdown from "./RangeDropdown";
 import styles from "./SalesProgressChart.module.css";
-
-const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function toDate(value) {
   if (!value) return null;
   if (typeof value?.toDate === "function") return value.toDate();
   const d = new Date(value);
   return Number.isNaN(d.getTime()) ? null : d;
-}
-
-function startOfWeek() {
-  const now = new Date();
-  const day = now.getDay();
-  const start = new Date(now);
-  start.setDate(now.getDate() - day);
-  start.setHours(0, 0, 0, 0);
-  return start;
 }
 
 function Dot(props) {
@@ -47,42 +38,24 @@ function Dot(props) {
 
 export default function SalesProgressChart() {
   const { payments } = usePayments();
+  const [range, setRange] = useState("This Week");
+
   const salesData = useMemo(() => {
-    const weekStart = startOfWeek();
-    const totals = new Array(7).fill(0);
-
-    payments
-      .filter((p) => p.status === "successful")
-      .forEach((payment) => {
-        const created = toDate(payment.createdAt);
-        if (!created || created < weekStart) return;
-        const dayIndex = created.getDay();
-        totals[dayIndex] += payment.amount || 0;
-      });
-
-    return DAY_LABELS.map((day, i) => ({ day, sales: totals[i] }));
-  }, [payments]);
+    const successful = payments.filter((p) => p.status === "successful");
+    const buckets = bucketByRange(
+      successful,
+      range,
+      (p) => toDate(p.createdAt),
+      (p) => p.amount || 0
+    );
+    return buckets.map(({ label, value }) => ({ day: label, sales: value }));
+  }, [payments, range]);
 
   return (
     <section className={styles.card}>
       <div className={styles.headerRow}>
         <h2 className={styles.title}>Car Rent Sales Progress</h2>
-        <button type="button" className={styles.rangeBtn}>
-          This Week
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M6 9l6 6 6-6"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <RangeDropdown value={range} onChange={setRange} />
       </div>
 
       <ResponsiveContainer width="100%" height={260}>
