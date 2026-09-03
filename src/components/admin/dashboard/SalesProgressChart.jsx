@@ -51,6 +51,21 @@ export default function SalesProgressChart() {
     return buckets.map(({ label, value }) => ({ day: label, sales: value }));
   }, [payments, range]);
 
+  function formatCompactNumber(value) {
+  if (value === null || value === undefined || Number.isNaN(value)) return "";
+  const abs = Math.abs(value);
+
+  if (abs >= 1_000_000) {
+    const millions = value / 1_000_000;
+    return `${millions % 1 === 0 ? millions : millions.toFixed(1)}M`;
+  }
+  if (abs >= 1_000) {
+    const thousands = value / 1_000;
+    return `${thousands % 1 === 0 ? thousands : thousands.toFixed(1)}K`;
+  }
+  return `${value}`;
+}
+
   return (
     <section className={styles.card}>
       <div className={styles.headerRow}>
@@ -60,25 +75,23 @@ export default function SalesProgressChart() {
 
       <ResponsiveContainer width="100%" height={260}>
         <LineChart
-          data={salesData}
-          margin={{ top: 16, right: 12, left: -12, bottom: 0 }}
-        >
-          <CartesianGrid
-            stroke="#e5e7eb"
-            strokeDasharray="4 4"
-            vertical={true}
-          />
-          <XAxis
-            dataKey="day"
-            axisLine={false}
-            tickLine={false}
-            tick={{ fontSize: 13, fill: "#374151" }}
-          />
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            tick={{ fontSize: 13, fill: "#374151" }}
-          />
+        data={salesData}
+        margin={{ top: 16, right: 12, left: 0, bottom: 0 }}
+      >
+        <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" vertical={true} />
+        <XAxis
+          dataKey="day"
+          axisLine={false}
+          tickLine={false}
+          tick={{ fontSize: 13, fill: "#374151" }}
+        />
+        <YAxis
+          axisLine={false}
+          tickLine={false}
+          tick={{ fontSize: 13, fill: "#374151" }}
+          tickFormatter={formatCompactNumber}
+          width={48}
+        />
           <Line
             type="monotone"
             dataKey="sales"
