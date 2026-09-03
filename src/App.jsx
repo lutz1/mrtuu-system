@@ -73,6 +73,9 @@ const AdminUsersPage = lazy(() => import("./pages/admin/user/AdminUsersPage"));
 const AdminAddVehiclePage = lazy(() =>
   import("./pages/admin/vehicle/AdminAddVehiclePage")
 );
+const AdminSettingsPage = lazy(() =>
+  import("./pages/admin/settings/Adminsettingspage")
+);
 const ArchivedVehiclesPage = lazy(() =>
   import("./pages/admin/vehicle/ArchivedVehiclesPage")
 );
@@ -347,7 +350,24 @@ function AdminRoutesElement() {
           </AdminRoute>
         }
       />
+      <Route
+        path="/dashboard"
+        element={
+          <AdminRoute>
+            <AdminDashboardPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <AdminRoute>
+            <AdminSettingsPage />
+          </AdminRoute>
+        }
+      />
     </Routes>
+    
   );
 }
 

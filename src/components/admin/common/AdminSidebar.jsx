@@ -36,9 +36,9 @@ const ALL_NAV_ITEMS = [
     permission: "manage_staff",
   },
   {
-    to: "/admin/settings",
-    label: "Settings",
-    icon: "settings",
+    to: "/admin/profile",
+    label: "Profile",
+    icon: "profile",
   },
 ];
 
@@ -123,18 +123,18 @@ function NavIcon({ name }) {
         </svg>
       );
 
-    case "settings":
-      return (
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.7" />
-          <path
-            d="M12 3.5v2M12 18.5v2M20.5 12h-2M5.5 12h-2M17.7 6.3l-1.4 1.4M7.7 16.3l-1.4 1.4M17.7 17.7l-1.4-1.4M7.7 7.7L6.3 6.3"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
+    case "profile":
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="8.5" r="3.5" stroke="currentColor" strokeWidth="1.7" />
+      <path
+        d="M5 19c1.2-3.8 3.8-5.8 7-5.8s5.8 2 7 5.8"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
 
     default:
       return null;
