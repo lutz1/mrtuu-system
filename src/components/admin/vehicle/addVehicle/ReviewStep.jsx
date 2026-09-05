@@ -1,11 +1,7 @@
-import { useState } from "react";
 import fields from "./FormFields.module.css";
 import styles from "./ReviewStep.module.css";
 
 export default function ReviewStep({ form, photoCount }) {
-  // Toggle state to acknowledge details have been checked
-  const [isConfirmed, setIsConfirmed] = useState(false);
-
   const formatCurrency = (amount) => {
     if (!amount && amount !== 0) return "—";
     const num = Number(amount);
@@ -29,16 +25,7 @@ export default function ReviewStep({ form, photoCount }) {
 
   return (
     <div>
-      <div className={styles.headerRow}>
-        <h2 className={fields.stepTitle}>Review</h2>
-        <button
-          type="button"
-          className={`${styles.confirmBtn} ${isConfirmed ? styles.confirmBtnActive : ""}`}
-          onClick={() => setIsConfirmed((prev) => !prev)}
-        >
-          {isConfirmed ? "Details confirmed" : "Confirm details"}
-        </button>
-      </div>
+      <h2 className={fields.stepTitle}>Review</h2>
 
       <div className={styles.table}>
         {rows.map((row) => (
