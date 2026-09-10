@@ -4,8 +4,16 @@ import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.webp";
 import headerImage from "../../assets/header.webp";
 import styles from "./SignupPage.module.css";
-import { IconUser, IconMail, IconLock, IconEye, IconEyeOff, IconGoogle } from "../../components/user/icons/AuthIcons";
+import {
+  IconUser,
+  IconMail,
+  IconLock,
+  IconEye,
+  IconEyeOff,
+  IconGoogle,
+} from "../../components/user/icons/AuthIcons";
 import "../../components/user/icons/authShared.css";
+import { resolvePostAuthDestination } from "../../utils/postAuthRoute";
 
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
@@ -53,16 +61,17 @@ export default function SignupPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-
     setIsSubmitting(true);
     try {
-      await signup(name, email, password);
-      navigate("/");
+      const credential = await signup(name, email, password);
+      const { path, state } = await resolvePostAuthDestination(
+        credential.user.uid
+      );
+      navigate(path, state ? { state } : undefined);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
@@ -74,8 +83,9 @@ export default function SignupPage() {
     setError("");
     setIsGoogleSubmitting(true);
     try {
-      await loginWithGoogle();
-      navigate("/");
+      const result = await loginWithGoogle();
+      const { path, state } = await resolvePostAuthDestination(result.user.uid);
+      navigate(path, state ? { state } : undefined);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
@@ -110,8 +120,8 @@ export default function SignupPage() {
             © 2026 Lyka's Car Rental. All Rights Reserved.
             <br />
             All content, images, logos, and materials on this website are the
-            property of Lyka's Car Rental and may not be copied, reproduced,
-            or distributed without permission.
+            property of Lyka's Car Rental and may not be copied, reproduced, or
+            distributed without permission.
           </p>
         </div>
       </div>
@@ -192,7 +202,9 @@ export default function SignupPage() {
               type="button"
               className={styles.toggleBtn}
               onClick={() => setShowConfirmPassword((prev) => !prev)}
-              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              aria-label={
+                showConfirmPassword ? "Hide password" : "Show password"
+              }
               tabIndex={-1}
             >
               {showConfirmPassword ? (
@@ -203,7 +215,11 @@ export default function SignupPage() {
             </button>
           </label>
 
-          <button type="submit" className={styles.signupBtn} disabled={disabled}>
+          <button
+            type="submit"
+            className={styles.signupBtn}
+            disabled={disabled}
+          >
             {isSubmitting ? (
               <>
                 <span className={styles.spinner} />

@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo.webp";
 import headerImage from "../../assets/header.webp";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../lib/firebase";
 import {
   IconMail,
   IconLock,
@@ -14,6 +12,7 @@ import {
 } from "../../components/user/icons/AuthIcons";
 import "../../components/user/icons/authShared.css";
 import styles from "./LoginPage.module.css";
+import { resolvePostAuthDestination } from "../../utils/postAuthRoute";
 
 function getFirebaseErrorMessage(error) {
   switch (error?.code) {
@@ -65,7 +64,10 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       const credential = await login(email, password);
-      await redirectByRole(credential.user.uid);
+      const { path, state } = await resolvePostAuthDestination(
+        credential.user.uid
+      );
+      navigate(path, state ? { state } : undefined);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
@@ -78,29 +80,14 @@ export default function LoginPage() {
     setIsGoogleSubmitting(true);
     try {
       const result = await loginWithGoogle();
-      await redirectByRole(result.user.uid);
+      const { path, state } = await resolvePostAuthDestination(result.user.uid);
+      navigate(path, state ? { state } : undefined);
     } catch (err) {
       setError(getFirebaseErrorMessage(err));
     } finally {
       setIsGoogleSubmitting(false);
     }
   };
-
-  async function redirectByRole(uid) {
-    try {
-      const staffSnap = await getDoc(doc(db, "lykas_staff", uid));
-      if (staffSnap.exists() && staffSnap.data().active === true) {
-        const { role } = staffSnap.data();
-        navigate(
-          role === "dispatcher" ? "/dispatcher/dashboard" : "/admin/dashboard"
-        );
-        return;
-      }
-    } catch (err) {
-      console.error("Staff role check failed", err);
-    }
-    navigate("/");
-  }
 
   const disabled = isSubmitting || isGoogleSubmitting;
 

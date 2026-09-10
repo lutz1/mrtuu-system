@@ -2,6 +2,8 @@ import { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading";
 import styles from "./BookingPanel.module.css";
+import { useAuth } from "../../../context/AuthContext";
+import { setAuthRedirect } from "../../../utils/authRedirect";
 
 const INSURANCE_FEE = 450;
 const SERVICE_FEE = 200;
@@ -38,6 +40,7 @@ function openPicker(ref) {
 
 export default function BookingPanel({ car }) {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const today = new Date();
   const todayISO = toISODate(today);
@@ -77,28 +80,33 @@ export default function BookingPanel({ car }) {
   };
 
   const handleBookNow = () => {
+    const bookingState = {
+      location,
+      pickupDate,
+      returnDate,
+      days,
+      dailyRate,
+      subtotal,
+      insuranceFee: INSURANCE_FEE,
+      serviceFee: SERVICE_FEE,
+      total,
+    };
+
+    if (!isLoggedIn) {
+      setAuthRedirect(`/booking/${car.id}`, bookingState);
+      navigate("/login");
+      return;
+    }
+
     setIsLoading(true);
-    // Simulated delay — swap for a real API call once the backend exists
     setTimeout(() => {
-      navigate(`/booking/${car.id}`, {
-        state: {
-          location,
-          pickupDate,
-          returnDate,
-          days,
-          dailyRate,
-          subtotal,
-          insuranceFee: INSURANCE_FEE,
-          serviceFee: SERVICE_FEE,
-          total,
-        },
-      });
+      navigate(`/booking/${car.id}`, { state: bookingState });
     }, 900);
   };
 
   return (
     <aside className={styles.bookingPanel}>
-       {isLoading && <Loading message="Preparing your booking..." />}
+      {isLoading && <Loading message="Preparing your booking..." />}
       <h2 className={styles.heading}>Book This Car</h2>
 
       <div className={styles.field}>
@@ -106,14 +114,25 @@ export default function BookingPanel({ car }) {
           Pickup Location
         </label>
         <div className={styles.inputWrapper}>
-          <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className={styles.fieldIcon}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"
               stroke="currentColor"
               strokeWidth="1.6"
               strokeLinejoin="round"
             />
-            <circle cx="12" cy="10" r="2.4" stroke="currentColor" strokeWidth="1.6" />
+            <circle
+              cx="12"
+              cy="10"
+              r="2.4"
+              stroke="currentColor"
+              strokeWidth="1.6"
+            />
           </svg>
           <input
             id="pickupLocation"
@@ -136,10 +155,28 @@ export default function BookingPanel({ car }) {
             role="button"
             tabIndex={0}
           >
-            <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" strokeWidth="1.6" />
+            <svg
+              className={styles.fieldIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="3.5"
+                y="5"
+                width="17"
+                height="15"
+                rx="2"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
               <path d="M3.5 9.5h17" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M8 3v3.5M16 3v3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path
+                d="M8 3v3.5M16 3v3.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
             </svg>
             <span className={styles.dateDisplay}>{formatDate(pickupDate)}</span>
             <input
@@ -165,10 +202,28 @@ export default function BookingPanel({ car }) {
             role="button"
             tabIndex={0}
           >
-            <svg className={styles.fieldIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" strokeWidth="1.6" />
+            <svg
+              className={styles.fieldIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="3.5"
+                y="5"
+                width="17"
+                height="15"
+                rx="2"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
               <path d="M3.5 9.5h17" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M8 3v3.5M16 3v3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path
+                d="M8 3v3.5M16 3v3.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
             </svg>
             <span className={styles.dateDisplay}>{formatDate(returnDate)}</span>
             <input

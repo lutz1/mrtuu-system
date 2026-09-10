@@ -1,6 +1,7 @@
+/* src/components/user/SearchFilterBar.module.css */
 
 .searchBar {
-  background: var(--color-text-on-dark, #1c1b19);
+  background: #1c1b19;
   padding: 16px 20px;
   border-radius: 16px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
@@ -24,11 +25,11 @@
 }
 
 .searchInput {
-  background: var(--color-text-strong);
+  background: #2a2a2a;
   border: none;
   border-radius: 999px;
   padding: 12px 20px;
-  color: var(--color-bg-surface);
+  color: #ffffff;
   font-size: var(--font-size-table-text);
   font-family: inherit;
   outline: none;
@@ -37,9 +38,8 @@
 }
 
 .searchInput::placeholder {
-  color: var(--color-text-light);
+  color: #9ca3af;
 }
-
 
 .filters {
   display: flex;
@@ -59,15 +59,15 @@
 }
 
 .filterLabel {
-  color: var(--color-text-light);
+  color: #d1d5db;
   font-weight: 600;
   font-size: var(--font-size-table-text);
   white-space: nowrap;
 }
 
 .filterSelect {
-  background: var(--color-text-strong);
-  color: var(--color-bg-surface);
+  background: #2a2a2a;
+  color: #ffffff;
   border: none;
   border-radius: 999px;
   padding: 10px 16px;
@@ -86,17 +86,16 @@
 
 .filterSelect:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-accent-alt);
+  box-shadow: 0 0 0 2px #f0a93a;
 }
 
 .filterSelect option {
-  color: var(--color-bg-surface);
-  background: var(--color-text-primary);
+  color: #ffffff;
+  background: #1c1b19;
 }
 
-
 .searchBtn {
-  background: var(--color-accent-alt);
+  background: #f0a93a;
   border: none;
   width: 48px;
   height: 48px;
@@ -111,20 +110,18 @@
 }
 
 .searchBtn:hover {
-  background: var(--color-accent-hover);
+  background: #d18f1c;
 }
 
 .searchBtnIcon {
   width: 18px;
   height: 18px;
-  color: var(--color-text-primary);
+  color: #1a1a1a;
 }
-
-
 
 .filterToggleBtn {
   display: none;
-  background: var(--color-text-strong);
+  background: #2a2a2a;
   border: none;
 
   width: 48px;
@@ -137,7 +134,7 @@
   cursor: pointer;
   flex-shrink: 0;
 
-  color: var(--color-bg-surface);
+  color: #ffffff;
 }
 
 .filterToggleBtn svg {
@@ -146,9 +143,8 @@
 }
 
 .filterToggleBtn:hover {
-  background: var(--color-text-secondary);
+  background: #363636;
 }
-
 
 /* ==========================================================================
    MOBILE FILTER OVERLAY
@@ -166,13 +162,12 @@
   justify-content: center;
 }
 
-
 /* ==========================================================================
    MOBILE FILTER PANEL
    ========================================================================== */
 
 .filterPanel {
-  background: var(--color-text-on-dark, #1c1b19);
+  background: #1c1b19;
 
   width: 100%;
   max-height: 80vh;
@@ -199,7 +194,6 @@
   }
 }
 
-
 /* ==========================================================================
    FILTER PANEL HEADER
    ========================================================================== */
@@ -212,13 +206,13 @@
 }
 
 .filterPanelTitle {
-  color: var(--color-bg-surface);
+  color: #ffffff;
   font-weight: 700;
   font-size: var(--font-size-card-title);
 }
 
 .filterCloseBtn {
-  background: var(--color-text-strong);
+  background: #2a2a2a;
   border: none;
 
   width: 36px;
@@ -230,14 +224,13 @@
   justify-content: center;
 
   cursor: pointer;
-  color: var(--color-bg-surface);
+  color: #ffffff;
 }
 
 .filterCloseBtn svg {
   width: 16px;
   height: 16px;
 }
-
 
 /* ==========================================================================
    APPLY FILTERS BUTTON
@@ -246,8 +239,8 @@
 .applyFiltersBtn {
   width: 100%;
 
-  background: var(--color-accent-alt);
-  color: var(--color-text-primary);
+  background: #f0a93a;
+  color: #1a1a1a;
 
   border: none;
   padding: 14px;
@@ -261,9 +254,8 @@
 }
 
 .applyFiltersBtn:hover {
-  background: var(--color-accent-hover);
+  background: #d18f1c;
 }
-
 
 /* ==========================================================================
    RESPONSIVE — TABLET
@@ -331,7 +323,6 @@
   }
 }
 
-
 /* ==========================================================================
    RESPONSIVE — MOBILE
    ========================================================================== */
@@ -350,7 +341,6 @@
     flex: 1 1 auto;
   }
 
-  /* Hide inline filters on mobile */
   .filtersDesktop {
     display: none;
   }
@@ -359,7 +349,6 @@
     display: flex;
   }
 
-  /* Stack filters inside mobile panel */
   .filterPanel .filters {
     flex-direction: column;
     gap: 14px;

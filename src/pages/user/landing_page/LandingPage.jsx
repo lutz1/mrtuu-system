@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../../../context/AuthContext";
 import { useVehicles } from "../../../context/VehiclesContext";
 import { useTheme } from "../../../context/ThemeContext";
 import Navbar from "../../../components/user/frontpage/Navbar";
@@ -14,7 +13,6 @@ import Footer from "../../../components/user/frontpage/Footer";
 import styles from "./LandingPage.module.css";
 
 export default function LandingPage() {
-  const { isLoggedIn } = useAuth();
   const { vehicles } = useVehicles();
 
   const [filters, setFilters] = useState({
@@ -72,17 +70,15 @@ export default function LandingPage() {
     <div className={styles.page}>
       <div className={styles.stickyHeader}>
         <Navbar />
-        {isLoggedIn && (
-          <SearchFilterBar
-            filters={filters}
-            onFilterChange={handleFilterChange}
-          />
-        )}
+        <SearchFilterBar
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
       </div>
 
       <div className={styles.pageContent}>
         <Hero />
-        <FeaturedCars cars={isLoggedIn ? filteredCars : vehicles} />
+        <FeaturedCars cars={filteredCars} />
         <WhyRentWithUs />
         <HowItWorks />
         <TrustedPartner />
