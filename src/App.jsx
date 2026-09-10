@@ -108,7 +108,7 @@ const DispatcherInspectionWizardPage = lazy(() =>
   import("./pages/dispatcher/inspection/DispatcherInspectionWizardPage")
 );
 import { PaymentsProvider } from "./context/PaymentsContext";
-
+import RequireGuest from "./context/RequireGuest";
 // Staff-only data providers. Mounted only under /admin/* and /dispatcher/*,
 // not the whole app, since these listeners carry staff-gated data.
 function StaffProviders({ children }) {
@@ -128,26 +128,26 @@ function CustomerRoutesElement() {
     <Routes>
       <Route path="/" element={<RootRedirect />} />
       <Route path="/home" element={<Navigate to="/" replace />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+      <Route
+        path="/login"
+        element={
+          <RequireGuest>
+            <LoginPage />
+          </RequireGuest>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <RequireGuest>
+            <SignupPage />
+          </RequireGuest>
+        }
+      />
       <Route path="/requirements" element={<RequirementsPage />} />
       <Route path="/contact" element={<ContactPage />} />
-      <Route
-        path="/showroom"
-        element={
-          <ProtectedRoute>
-            <ShowroomPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/vehicle/:id"
-        element={
-          <ProtectedRoute>
-            <VehicleOverviewPage />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/showroom" element={<ShowroomPage />} />
+      <Route path="/vehicle/:id" element={<VehicleOverviewPage />} />
       <Route
         path="/account"
         element={
@@ -367,7 +367,6 @@ function AdminRoutesElement() {
         }
       />
     </Routes>
-    
   );
 }
 
