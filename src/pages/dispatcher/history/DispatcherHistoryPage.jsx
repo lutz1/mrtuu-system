@@ -4,6 +4,7 @@ import HistoryTable from "../../../components/dispatcher/history/HistoryTable";
 import Pagination from "../../../components/admin/common/Pagination";
 import { useToast } from "../../../context/ToastContext";
 import { useAdminBookings } from "../../../context/AdminBookingsContext";
+import { useNavigate } from "react-router-dom";
 import styles from "./DispatcherHistoryPage.module.css";
 
 const PAGE_SIZE = 7;
@@ -92,6 +93,7 @@ export default function DispatcherHistoryPage() {
   const [activeStatus, setActiveStatus] = useState("All");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
   const allEntries = useMemo(() => buildHistoryEntries(bookings), [bookings]);
 
@@ -139,9 +141,7 @@ export default function DispatcherHistoryPage() {
 
   // TODO: no inspection-details view exists yet
   const handleViewDetails = (entry) => {
-    showToast(`Viewing ${entry.id} isn't built yet — coming soon.`, {
-      type: "info",
-    });
+    navigate(`/dispatcher/history/${encodeURIComponent(entry.id)}`);
   };
 
   return (

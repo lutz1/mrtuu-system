@@ -3,25 +3,27 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import AdminLayout from "../../dashboard/AdminLayout";
 import BookingSummaryCards from "../../../../components/admin/booking/details/BookingSummaryCards";
 import { useAdminBookings } from "../../../../context/AdminBookingsContext";
+import DocumentThumbnails from "../../../../components/common/DocumentThumbnails";
+import { useBookingDocuments } from "../../../../context/useBookingDocuments";
 import { useStaff } from "../../../../context/StaffContext";
 import { useToast } from "../../../../context/ToastContext";
 import styles from "./AdminBookingDetailsPage.module.css";
 
 const CHECKLIST_ITEMS = [
-  { 
-    key: "license", 
-    label: "Driver's License", 
-    docKey: "driversLicenseUrl" 
+  {
+    key: "license",
+    label: "Driver's License",
+    docKey: "driversLicenseUrl",
   },
-  { 
-    key: "validId", 
-    label: "Valid ID", 
-    docKey: "validIdUrl" 
+  {
+    key: "validId",
+    label: "Valid ID",
+    docKey: "validIdUrl",
   },
-  { 
-    key: "proofOfPayment", 
-    label: "Proof of Payment", 
-    docKey: "proofOfPaymentUrl" 
+  {
+    key: "proofOfPayment",
+    label: "Proof of Payment",
+    docKey: "proofOfPaymentUrl",
   },
 ];
 
@@ -33,10 +35,11 @@ export default function AdminBookingDetailsPage() {
   const { showToast } = useToast();
 
   const booking = getBookingById(id);
+  const { documents: customerDocs } = useBookingDocuments(booking);
   const [checked, setChecked] = useState({});
   const [remarks, setRemarks] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // State for document modal preview
   const [activePreview, setActivePreview] = useState(null); // { title: string, url: string } | null
 
@@ -99,6 +102,12 @@ export default function AdminBookingDetailsPage() {
       </div>
 
       <BookingSummaryCards booking={booking} />
+      <section className={styles.card} style={{ marginBottom: 20 }}>
+        <h2 className={styles.cardTitle}>Customer Documents</h2>
+        <div style={{ maxWidth: 520 }}>
+          <DocumentThumbnails booking={booking} />
+        </div>
+      </section>
 
       {isCleared ? (
         <section className={styles.card}>
@@ -125,6 +134,7 @@ export default function AdminBookingDetailsPage() {
             <div className={styles.checklist}>
               {CHECKLIST_ITEMS.map((item) => {
                 const docUrl =
+                  customerDocs[item.docKey] ||
                   booking.documents?.[item.docKey] ||
                   booking.driver?.[item.docKey] ||
                   booking.payment?.[item.docKey];
@@ -181,7 +191,8 @@ export default function AdminBookingDetailsPage() {
           <section className={styles.card}>
             <h2 className={styles.cardTitle}>Booking Actions</h2>
             <p className={styles.cardSubtitle}>
-              Approve this online booking to send it to the dispatcher for vehicle pickup.
+              Approve this online booking to send it to the dispatcher for
+              vehicle pickup.
             </p>
             <button
               type="button"

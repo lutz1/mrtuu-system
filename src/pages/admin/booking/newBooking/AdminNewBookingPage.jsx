@@ -121,6 +121,7 @@ export default function AdminNewBookingPage() {
         dailyRate: selectedVehicle.price,
         total: totalAmount,
         remarks: form.remarks.trim(),
+        files, // { license, validId } -> uploaded + saved by addBooking
       });
 
       showToast(`Booking ${newBooking.id} created successfully.`, {

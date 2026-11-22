@@ -101,6 +101,9 @@ const DispatcherInspectionPage = lazy(() =>
 const DispatcherHistoryPage = lazy(() =>
   import("./pages/dispatcher/history/DispatcherHistoryPage")
 );
+const DispatcherHistoryDetailsPage = lazy(() =>
+  import("./pages/dispatcher/history/DispatcherHistoryDetailsPage")
+);
 const DispatcherProfilePage = lazy(() =>
   import("./pages/dispatcher/profile/DispatcherProfilePage")
 );
@@ -394,6 +397,14 @@ function DispatcherRoutesElement() {
         element={
           <DispatcherRoute>
             <DispatcherHistoryPage />
+          </DispatcherRoute>
+        }
+      />
+      <Route
+        path="/history/:bookingId"
+        element={
+          <DispatcherRoute>
+            <DispatcherHistoryDetailsPage />
           </DispatcherRoute>
         }
       />

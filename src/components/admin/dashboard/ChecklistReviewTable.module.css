@@ -86,3 +86,9 @@
 .reviewBtn:hover {
   background: var(--color-accent-hover);
 }
+
+.subText {
+  display: block;
+  font-size: var(--font-size-caption);
+  color: var(--color-text-light);
+}

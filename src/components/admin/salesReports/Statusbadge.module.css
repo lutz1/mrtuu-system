@@ -23,3 +23,20 @@
   background: var(--color-border-light, #f3f4f6);
   color: var(--color-text-light, #9ca3af);
 }
+
+.available {
+  background: var(--color-ref-dcfce7);
+  color: var(--color-ref-16803c);
+}
+.rented {
+  background: var(--color-ref-dbeafe);
+  color: var(--color-ref-1d4ed8);
+}
+.maintenance {
+  background: var(--color-ref-fef3c7);
+  color: var(--color-ref-92620a);
+}
+.unavailable {
+  background: var(--color-ref-fee2e2);
+  color: var(--color-ref-b91c1c);
+}

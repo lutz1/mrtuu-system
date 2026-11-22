@@ -3,15 +3,16 @@ import styles from "./StatusBadge.module.css";
 // Maps a status string to a badge style. Add new statuses here as needed.
 const VARIANTS = {
   Active: styles.success,
-  Rented: styles.success,
   Paid: styles.success,
-  Available: styles.neutral,
   Completed: styles.neutral,
   Pending: styles.neutral,
   Cancelled: styles.muted,
-  Maintenance: styles.muted,
-  Unavailable: styles.muted,
   Failed: styles.muted,
+  // vehicle statuses
+  Available: styles.available,
+  Rented: styles.rented,
+  Maintenance: styles.maintenance,
+  Unavailable: styles.unavailable,
 };
 
 export default function StatusBadge({ status }) {

@@ -55,6 +55,9 @@ export default function ChecklistReviewTable() {
       .map((b) => ({
         id: b.id,
         customer: b.customer,
+        phone: b.phone,
+        email: b.driver?.email,
+        license: b.driver?.licenseNo,
         vehicle: b.vehicle,
         docStatus: getDocStatus(b),
         date: formatDate(b.createdAt),
@@ -95,7 +98,18 @@ export default function ChecklistReviewTable() {
               {pendingRows.map((row) => (
                 <tr key={row.id}>
                   <td>{row.id}</td>
-                  <td>{row.customer}</td>
+                  <td>
+                    {row.customer}
+                    <span className={styles.subText}>{row.phone}</span>
+                    {row.email && (
+                      <span className={styles.subText}>{row.email}</span>
+                    )}
+                    {row.license && (
+                      <span className={styles.subText}>
+                        License: {row.license}
+                      </span>
+                    )}
+                  </td>
                   <td>{row.vehicle}</td>
                   <td
                     className={

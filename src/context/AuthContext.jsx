@@ -24,6 +24,7 @@ import {
   updatePassword,
   verifyBeforeUpdateEmail,
   deleteUser,
+  getAdditionalUserInfo,
 } from "firebase/auth";
 import { auth, db, googleProvider } from "../lib/firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
@@ -53,8 +54,49 @@ async function upsertSharedUserDoc(user, extra = {}) {
   }
 }
 
-function login(email, password) {
-  return signInWithEmailAndPassword(auth, email, password);
+// Creates lykas_customers/{uid} so the person shows up in the admin Customers
+// list right after signing up, not only after their first booking.
+async function createCustomerRecord(user) {
+  if (!user) return;
+  const [firstName = "", ...rest] = (user.displayName || "").trim().split(" ");
+  try {
+    await setDoc(
+      doc(db, "lykas_customers", user.uid),
+      {
+        uid: user.uid,
+        firstName,
+        lastName: rest.join(" "),
+        email: user.email || "",
+        phone: user.phoneNumber || "",
+        driverLicenseNo: "",
+        licenseVerified: false,
+        createdAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+  } catch (err) {
+    console.warn("Could not create customer record:", err);
+  }
+}
+
+async function login(email, password) {
+  const credential = await signInWithEmailAndPassword(auth, email, password);
+  try {
+    // Only touches login fields so it never overwrites createdBy etc.
+    await setDoc(
+      doc(db, "users", credential.user.uid),
+      {
+        uid: credential.user.uid,
+        email: credential.user.email || null,
+        displayName: credential.user.displayName || null,
+        lastLoginAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+  } catch (err) {
+    console.warn("Could not record last login:", err);
+  }
+  return credential;
 }
 
 async function signup(name, email, password) {
@@ -66,6 +108,7 @@ async function signup(name, email, password) {
   if (name) await updateProfile(credential.user, { displayName: name });
   await sendEmailVerification(credential.user);
   await upsertSharedUserDoc(credential.user, { createdBy: "lykas" });
+  await createCustomerRecord(credential.user);
   return credential;
 }
 
@@ -79,6 +122,10 @@ function resendVerificationEmail() {
 async function loginWithGoogle() {
   const result = await signInWithPopup(auth, googleProvider);
   await upsertSharedUserDoc(result.user, { createdBy: "lykas" });
+  // Only brand-new Google accounts get a customer record.
+  if (getAdditionalUserInfo(result)?.isNewUser) {
+    await createCustomerRecord(result.user);
+  }
   return result;
 }
 
