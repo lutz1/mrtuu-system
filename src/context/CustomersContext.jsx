@@ -9,6 +9,7 @@ import {
 import {
   collection,
   doc,
+  getDoc,
   onSnapshot,
   query,
   orderBy,
@@ -36,17 +37,20 @@ function formatJoined(value) {
   });
 }
 
-function toCustomer(docSnap) {
-  const d = docSnap.data();
+// `d` is a lykas_customers doc ({ id, ...data }); `profile` is the matching
+// users/{uid} doc, used only to fill gaps on older records that were saved
+// before email/phone were stored on lykas_customers.
+function toCustomer(d, profile) {
+  const p = profile || {};
   return {
-    id: docSnap.id,
-    uid: docSnap.id,
+    id: d.id,
+    uid: d.id,
     name:
-      d.firstName && d.lastName
-        ? `${d.firstName} ${d.lastName}`
-        : d.displayName || "—",
-    email: d.email || "—",
-    phone: d.phone || "—",
+      [d.firstName, d.lastName].filter(Boolean).join(" ") ||
+      p.displayName ||
+      "—",
+    email: d.email || p.email || "—",
+    phone: d.phone || p.phoneNumber || p.contactPhone || "—",
     license: d.driverLicenseNo || "—",
     joinedDate: formatJoined(d.createdAt),
     joinedAt: d.createdAt,
@@ -56,19 +60,17 @@ function toCustomer(docSnap) {
 
 export function CustomersProvider({ children }) {
   const { staffProfile, staffLoading } = useStaff();
-  const [customers, setCustomers] = useState([]);
+  const [rawCustomers, setRawCustomers] = useState([]);
+  const [profiles, setProfiles] = useState({}); // uid -> users/{uid} data (or null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // lykas_customers reads are staff-gated in firestore.rules (see
-    // firestore.rules: allow read if own uid OR isStaffWithAny([...])).
-    // This provider is mounted globally in App.jsx, so a plain customer
-    // would otherwise fire this collection-wide query and get
-    // "Missing or insufficient permissions" on every page load. Only
-    // subscribe once we know the signed-in user is active staff.
+    // lykas_customers reads are staff-gated in firestore.rules. This provider
+    // is mounted for /admin/* and /dispatcher/* only, but still wait until we
+    // know the signed-in user is active staff before subscribing.
     if (staffLoading) return;
     if (!staffProfile) {
-      setCustomers([]);
+      setRawCustomers([]);
       setLoading(false);
       return;
     }
@@ -80,7 +82,7 @@ export function CustomersProvider({ children }) {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        setCustomers(snapshot.docs.map(toCustomer));
+        setRawCustomers(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
         setLoading(false);
       },
       (err) => {
@@ -90,6 +92,34 @@ export function CustomersProvider({ children }) {
     );
     return unsubscribe;
   }, [staffProfile, staffLoading]);
+
+  // For customers missing email or phone, look up their users/{uid} profile once.
+  useEffect(() => {
+    const missing = rawCustomers.filter(
+      (c) => (!c.email || !c.phone) && profiles[c.id] === undefined
+    );
+    if (missing.length === 0) return;
+
+    let cancelled = false;
+    Promise.all(
+      missing.map((c) =>
+        getDoc(doc(db, "users", c.id))
+          .then((snap) => [c.id, snap.exists() ? snap.data() : null])
+          .catch(() => [c.id, null])
+      )
+    ).then((entries) => {
+      if (!cancelled)
+        setProfiles((prev) => ({ ...prev, ...Object.fromEntries(entries) }));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [rawCustomers, profiles]);
+
+  const customers = useMemo(
+    () => rawCustomers.map((c) => toCustomer(c, profiles[c.id])),
+    [rawCustomers, profiles]
+  );
 
   const toggleVerification = useCallback(
     async (uid) => {

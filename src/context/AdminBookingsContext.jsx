@@ -22,6 +22,7 @@ import {
   submitReturnReview,
   cancelBooking as cancelBookingService,
   flagBookingReturnRequested,
+  uploadDocFile,
 } from "../services/bookingsService";
 import { useAuth } from "./AuthContext";
 import { useStaff } from "./StaffContext";
@@ -140,6 +141,13 @@ export function AdminBookingsProvider({ children }) {
   const addBooking = useCallback(
     async (bookingData) => {
       const currentAdminUid = staffProfile?.uid || user?.uid || null;
+      const [driversLicenseUrl, validIdUrl] = await Promise.all([
+        uploadDocFile(
+          bookingData.files?.license,
+          "documents/walkin/drivers_license"
+        ),
+        uploadDocFile(bookingData.files?.validId, "documents/walkin/valid_id"),
+      ]);
 
       const docRef = await addDoc(collection(db, "lykas_bookings"), {
         uid: null,
@@ -158,8 +166,11 @@ export function AdminBookingsProvider({ children }) {
           phone: bookingData.phone || "",
           email: bookingData.email || "",
           licenseNo: bookingData.licenseNumber || "",
+          driversLicenseUrl,
+          validIdUrl,
         },
         source: "Walk-in",
+        documents: { driversLicenseUrl, validIdUrl },
         paymentId: null,
         notes: bookingData.remarks || "",
         dispatchedBy: null,

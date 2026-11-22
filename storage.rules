@@ -1,6 +1,14 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+
+    // Cross-service lookup: a signed-in user with a lykas_staff doc.
+    // First deploy via the Firebase CLI will ask you to grant Storage access to Firestore.
+    function isStaff() {
+      return request.auth != null &&
+        firestore.exists(/databases/(default)/documents/lykas_staff/$(request.auth.uid));
+    }
+
     match /vehicle-images/{vehicleId}/{fileName} {
       allow read: if true;
       allow write: if request.auth != null;
@@ -16,6 +24,16 @@ service firebase.storage {
     match /reports/{fileName} {
       allow read: if request.auth != null;
       allow write: if request.auth != null;
+    }
+
+    // Customer license / valid ID uploads.
+    //   documents/{customerUid}/drivers_license/...  (online bookings)
+    //   documents/walkin/valid_id/...                (walk-in bookings, staff only)
+    match /documents/{owner}/{docType}/{fileName} {
+      allow read: if request.auth != null && (request.auth.uid == owner || isStaff());
+      allow write: if request.auth != null
+        && request.resource.size < 10 * 1024 * 1024
+        && (request.auth.uid == owner || (owner == "walkin" && isStaff()));
     }
   }
 }

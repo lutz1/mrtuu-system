@@ -24,9 +24,11 @@ function genBookingRef() {
 }
 
 /**
- * Uploads a raw File object to Firebase Storage and returns its public download URL
+ * Uploads a raw File object to Firebase Storage and returns its download URL.
+ * Returns null if `file` isn't a File. Exported so the walk-in booking flow
+ * (AdminBookingsContext.addBooking) can reuse it.
  */
-async function uploadDocFile(file, path) {
+export async function uploadDocFile(file, path) {
   if (!file || !(file instanceof File)) return null;
   const storageRef = ref(storage, `${path}/${Date.now()}_${file.name}`);
   const snapshot = await uploadBytes(storageRef, file);
@@ -36,22 +38,36 @@ async function uploadDocFile(file, path) {
 /**
  * Creates or updates the customer's lykas_customers/{uid} extension doc from
  * the driver info supplied at booking time. Runs on every booking so the
- * customer record stays fresh, but never overwrites licenseVerified once a
- * staff member has set it (merge: true handles this since we simply never
- * include that field here).
+ * customer record stays fresh, but:
+ *  - never touches licenseVerified (staff own that field)
+ *  - only sets createdAt the first time, so "Joined Date" stays correct
+ *  - keeps the latest license / valid ID image URLs under `documents`
  */
-async function upsertCustomerRecord(uid, driver) {
+async function upsertCustomerRecord(uid, driver, documents = {}) {
   if (!uid) return;
+  const customerRef = doc(db, CUSTOMERS, uid);
+  const existing = await getDoc(customerRef);
+
   const [firstName = "", ...rest] = (driver.fullName || "").trim().split(" ");
+
+  const savedDocuments = {};
+  if (documents.driversLicenseUrl)
+    savedDocuments.driversLicenseUrl = documents.driversLicenseUrl;
+  if (documents.validIdUrl) savedDocuments.validIdUrl = documents.validIdUrl;
+
   await setDoc(
-    doc(db, CUSTOMERS, uid),
+    customerRef,
     {
       uid,
       firstName,
       lastName: rest.join(" "),
+      email: driver.email || "",
       phone: driver.phone || "",
       driverLicenseNo: driver.licenseNo || "",
-      createdAt: serverTimestamp(),
+      ...(Object.keys(savedDocuments).length
+        ? { documents: savedDocuments }
+        : {}),
+      ...(existing.exists() ? {} : { createdAt: serverTimestamp() }),
     },
     { merge: true }
   );
@@ -108,7 +124,7 @@ export async function createBookingWithPayment({
 
   // 2. Keep the customer's lykas_customers/{uid} record in sync
   try {
-    await upsertCustomerRecord(uid, driver);
+    await upsertCustomerRecord(uid, driver, { driversLicenseUrl, validIdUrl });
   } catch (customerErr) {
     console.error("Error upserting customer record:", customerErr);
   }
@@ -210,7 +226,16 @@ export async function submitBookingClearance(
 
 export async function submitPreRentChecklist(
   bookingId,
-  { staffUid, vehicleId, photos, fuelLevel, odometerReading, notes = "" }
+  {
+    staffUid,
+    vehicleId,
+    photos,
+    fuelLevel,
+    odometerReading,
+    documents = null, // vehicle docs: { orcr, insurance, officialReceipt, vehicleRegistration }
+    condition = null, // { exterior, interior, tires, lights }
+    notes = "",
+  }
 ) {
   await Promise.all([
     updateDoc(doc(db, BOOKINGS, bookingId), {
@@ -218,6 +243,8 @@ export async function submitPreRentChecklist(
         photos,
         fuelLevel,
         odometerReading: Number(odometerReading),
+        documents,
+        condition,
         notes,
         submittedBy: staffUid,
         submittedAt: serverTimestamp(),
@@ -246,6 +273,8 @@ export async function submitPostRentChecklist(
     photos,
     fuelLevel,
     odometerReading,
+    condition = null,
+    verifiedPhotos = null,
     notes = "",
     flaggedDamage = false,
   }
@@ -256,6 +285,9 @@ export async function submitPostRentChecklist(
         photos,
         fuelLevel,
         odometerReading: Number(odometerReading),
+        condition,
+        verifiedPhotos,
+        flaggedDamage,
         notes,
         submittedBy: staffUid,
         submittedAt: serverTimestamp(),

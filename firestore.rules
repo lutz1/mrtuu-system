@@ -59,7 +59,7 @@ service cloud.firestore {
     match /lykas_customers/{uid} {
       allow read: if request.auth != null && (
         request.auth.uid == uid ||
-        isStaffWithAny(["manage_fleet", "view_reports", "clearance_review"])
+        isStaffWithAny(["manage_fleet", "view_reports", "clearance_review", "dispatch"])
       );
       allow write: if request.auth != null && request.auth.uid == uid;
     }

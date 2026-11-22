@@ -125,7 +125,11 @@ export default function ViewUserModal({
     .toUpperCase();
 
   const handleDelete = async () => {
-    if (!window.confirm(`Delete ${user.displayName || user.email}? This can't be undone.`)) {
+    if (
+      !window.confirm(
+        `Delete ${user.displayName || user.email}? This can't be undone.`
+      )
+    ) {
       return;
     }
     setDeleting(true);
@@ -185,7 +189,10 @@ export default function ViewUserModal({
             <Detail label="Full Name" value={user.displayName} />
             <Detail label="Email Address" value={user.email} />
             <Detail label="User ID" value={user.uid || user.userId} />
-            <Detail label="Phone Number" value={user.phone || user.phoneNumber} />
+            <Detail
+              label="Phone Number"
+              value={user.phone || user.phoneNumber}
+            />
             <Detail label="Role" value={user.roleLabel || user.role} strong />
           </div>
         </Section>
@@ -195,7 +202,11 @@ export default function ViewUserModal({
         <Section icon={<LockIcon />} title="Login Information">
           <div className={styles.grid}>
             <Detail label="Username" value={user.username} />
-            <Detail label="Last Login" value={formatDate(user.lastLogin)} strong />
+            <Detail
+              label="Last Login"
+              value={formatDate(user.lastLogin)}
+              strong
+            />
           </div>
         </Section>
 
@@ -203,14 +214,30 @@ export default function ViewUserModal({
 
         <Section icon={<ActivityIcon />} title="Activity Information">
           <div className={styles.grid}>
-            <Detail label="Date Created" value={formatDate(user.createdAt)} strong />
-            <Detail label="Created By" value={user.createdBy} strong />
-            <Detail label="Last Updated" value={formatDate(user.updatedAt)} strong />
+            <Detail
+              label="Date Created"
+              value={formatDate(user.createdAt)}
+              strong
+            />
+            <Detail
+              label="Created By"
+              value={user.createdByName || user.createdBy}
+              strong
+            />
+            <Detail
+              label="Last Updated"
+              value={formatDate(user.updatedAt)}
+              strong
+            />
           </div>
         </Section>
 
         <div className={styles.actions}>
-          <button type="button" className={styles.closeAction} onClick={onClose}>
+          <button
+            type="button"
+            className={styles.closeAction}
+            onClick={onClose}
+          >
             Close
           </button>
           {canDelete && (

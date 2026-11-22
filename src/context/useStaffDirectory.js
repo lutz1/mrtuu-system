@@ -51,7 +51,8 @@ async function deleteStaff(uid) {
 
 export function useStaffDirectory() {
   const { staffProfile } = useStaff();
-  const [staffList, setStaffList] = useState([]);
+  const [rawStaff, setRawStaff] = useState([]);
+  const [profiles, setProfiles] = useState({}); // uid -> users/{uid} data (or null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export function useStaffDirectory() {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        setStaffList(snapshot.docs.map((d) => ({ uid: d.id, ...d.data() })));
+        setRawStaff(snapshot.docs.map((d) => ({ uid: d.id, ...d.data() })));
         setLoading(false);
       },
       (err) => {
@@ -72,6 +73,45 @@ export function useStaffDirectory() {
     );
     return unsubscribe;
   }, []);
+
+  // lykas_staff doesn't store login info. Read it once per staff member from
+  // the shared users/{uid} doc (readable by any signed-in user per rules).
+  useEffect(() => {
+    const missing = rawStaff.filter((s) => profiles[s.uid] === undefined);
+    if (missing.length === 0) return;
+
+    let cancelled = false;
+    Promise.all(
+      missing.map((s) =>
+        getDoc(doc(db, "users", s.uid))
+          .then((snap) => [s.uid, snap.exists() ? snap.data() : null])
+          .catch(() => [s.uid, null])
+      )
+    ).then((entries) => {
+      if (!cancelled)
+        setProfiles((prev) => ({ ...prev, ...Object.fromEntries(entries) }));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [rawStaff, profiles]);
+
+  // Adds username (= the name entered at signup), last login, phone, photo
+  // and the creator's name (instead of their raw uid) to each staff record.
+  const staffList = useMemo(() => {
+    const nameByUid = new Map(rawStaff.map((s) => [s.uid, s.displayName]));
+    return rawStaff.map((s) => {
+      const p = profiles[s.uid] || {};
+      return {
+        ...s,
+        username: p.displayName || s.displayName || null,
+        lastLogin: p.lastLoginAt || null,
+        phone: p.contactPhone || p.phoneNumber || null,
+        photoURL: p.photoURL || null,
+        createdByName: nameByUid.get(s.createdBy) || null,
+      };
+    });
+  }, [rawStaff, profiles]);
 
   // Stays in the hook — needs staffProfile.uid for createdBy.
   // `permissions`, if passed, must already be an array of permission

@@ -2,7 +2,9 @@ import styles from "./InspectionQueueTable.module.css";
 
 export default function InspectionQueueTable({ bookings, onStartInspection }) {
   if (bookings.length === 0) {
-    return <div className={styles.empty}>No bookings in this queue right now.</div>;
+    return (
+      <div className={styles.empty}>No bookings in this queue right now.</div>
+    );
   }
 
   return (
@@ -21,10 +23,20 @@ export default function InspectionQueueTable({ bookings, onStartInspection }) {
         <tbody>
           {bookings.map((b) => (
             <tr key={b.id}>
-              <td className={styles.bookingId} data-label="Booking ID">{b.id}</td>
+              <td className={styles.bookingId} data-label="Booking ID">
+                {b.id}
+              </td>
               <td data-label="Customer">
                 <p className={styles.primaryText}>{b.customer}</p>
                 <p className={styles.secondaryText}>{b.phone}</p>
+                {b.driver?.email && (
+                  <p className={styles.secondaryText}>{b.driver.email}</p>
+                )}
+                {b.driver?.licenseNo && (
+                  <p className={styles.secondaryText}>
+                    License: {b.driver.licenseNo}
+                  </p>
+                )}
               </td>
               <td data-label="Vehicle">
                 <p className={styles.primaryText}>{b.vehicle}</p>
@@ -40,7 +52,11 @@ export default function InspectionQueueTable({ bookings, onStartInspection }) {
               </td>
               <td className={styles.actionsCell}>
                 {/* TODO: no inspection checklist screen exists yet */}
-                <button type="button" className={styles.startBtn} onClick={() => onStartInspection(b)}>
+                <button
+                  type="button"
+                  className={styles.startBtn}
+                  onClick={() => onStartInspection(b)}
+                >
                   Start Inspection
                 </button>
               </td>

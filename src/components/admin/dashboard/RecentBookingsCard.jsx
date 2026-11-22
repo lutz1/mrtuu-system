@@ -55,6 +55,9 @@ export default function RecentBookingsCard() {
       .map((b) => ({
         id: b.id,
         name: b.customer,
+        phone: b.phone,
+        email: b.driver?.email,
+        license: b.driver?.licenseNo,
         vehicle: b.vehicle,
         date: formatDate(toDate(b.createdAt)),
         status: deriveDisplayStatus(b),
@@ -78,6 +81,11 @@ export default function RecentBookingsCard() {
               <div className={styles.info}>
                 <p className={styles.bookingId}>{b.id}</p>
                 <p className={styles.name}>{b.name}</p>
+                <p className={styles.vehicle}>{b.phone}</p>
+                {b.email && <p className={styles.vehicle}>{b.email}</p>}
+                {b.license && (
+                  <p className={styles.vehicle}>License: {b.license}</p>
+                )}
                 <p className={styles.vehicle}>{b.vehicle}</p>
                 <p className={styles.date}>{b.date}</p>
               </div>

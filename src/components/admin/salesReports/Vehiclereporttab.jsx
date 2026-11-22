@@ -137,10 +137,10 @@ const STATUS_MAP = {
   Unavailable: "Unavailable",
 };
 const STATUS_COLORS = {
-  Available: "#6C8CF5",
-  Rented: "#33C481",
-  Maintenance: "#F2A93B",
-  Unavailable: "#9CA3AF",
+  Available: "#22a35e",
+  Rented: "#3b82f6",
+  Maintenance: "#e8a020",
+  Unavailable: "#e0483e",
 };
 
 function toDate(value) {
